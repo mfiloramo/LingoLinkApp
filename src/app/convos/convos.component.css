@@ -1,0 +1,21 @@
+.convoItem {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 85%;
+  height: 60px;
+  border: 1px solid black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
+  margin-top: 10px;
+  background: #565656;
+  border-radius: 15px;
+  margin-left: 14px;
+  margin-right: -10px;
+  padding-left: 15px;
+}
+
+.convoItem:hover {
+  background: #6c6c6c;
+  cursor: pointer;
+}

@@ -12,6 +12,6 @@ export class TranslationService {
   ) { }
 
   public post(path: string, body: object) {
-    return this.http.post(`${this.apiUrl}/${path}`, body)
+    return this.http.post(`${this.apiUrl}/${path}`, body);
   }
 }

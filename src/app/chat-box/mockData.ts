@@ -1,0 +1,22 @@
+const mockData: any = [{"user":"eherreros0","text":"Military operations involving chemical weapons and other forms of unconventional warfare, military personnel, sequela","timestamp":"1/15/2023"},
+  {"user":"eclethro1","text":"Blister (nonthermal), left thigh, subsequent encounter","timestamp":"4/4/2022"},
+  {"user":"mhannabus2","text":"Unspecified physeal fracture of lower end of radius, unspecified arm, initial encounter for closed fracture","timestamp":"7/27/2022"},
+  {"user":"imcgreal3","text":"Drowning and submersion due to fall off merchant ship","timestamp":"8/7/2022"},
+  {"user":"eclethro1","text":"Major laceration of greater saphenous vein at hip and thigh level, left leg, subsequent encounter","timestamp":"7/11/2022"},
+  {"user":"lancell5","text":"Toxic effect of unspecified alcohol, accidental (unintentional)","timestamp":"10/5/2022"},
+  {"user":"rmelson6","text":"Adrenogenital disorders","timestamp":"3/5/2023"},
+  {"user":"mgonnard7","text":"Displaced supracondylar fracture without intracondylar extension of lower end of right femur, sequela","timestamp":"1/16/2023"},
+  {"user":"eclethro1","text":"Displacement of cystostomy catheter, subsequent encounter","timestamp":"3/9/2023"},
+  {"user":"rceci9","text":"Toxic effect of phosphorus and its compounds, assault, subsequent encounter","timestamp":"4/24/2022"},
+  {"user":"eclethro1","text":"Anterior cerebral artery syndrome","timestamp":"11/5/2022"},
+  {"user":"eclethro1","text":"Non-follicular (diffuse) lymphoma, unspecified, extranodal and solid organ sites","timestamp":"5/26/2022"},
+  {"user":"akistingc","text":"Other mechanical complication of internal fixation device of right femur, sequela","timestamp":"7/30/2022"},
+  {"user":"kjoburnd","text":"Unspecified complication following infusion, transfusion and therapeutic injection","timestamp":"5/7/2022"},
+  {"user":"ratthowe","text":"Poisoning by coronary vasodilators, assault, subsequent encounter","timestamp":"7/15/2022"},
+  {"user":"eclethro1","text":"Unspecified complication of bone graft","timestamp":"4/11/2022"},
+  {"user":"civonsg","text":"Presbycusis, right ear","timestamp":"12/7/2022"},
+  {"user":"eclethro1","text":"Nondisplaced fracture of olecranon process with intraarticular extension of left ulna, subsequent encounter for open fracture type I or II with delayed healing","timestamp":"9/19/2022"},
+  {"user":"asorleyi","text":"Nondisplaced subtrochanteric fracture of left femur, subsequent encounter for open fracture type I or II with routine healing","timestamp":"3/1/2023"},
+  {"user":"jkrishtopaittisj","text":"Person on outside of heavy transport vehicle injured in noncollision transport accident in traffic accident, sequela","timestamp":"9/17/2022"}]
+
+export default mockData;

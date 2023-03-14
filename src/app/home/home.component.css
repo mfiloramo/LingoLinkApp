@@ -1,0 +1,21 @@
+mat-grid-tile {
+  background: #383838;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
+  min-height: 100%;
+}
+
+.colContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.gridCol {
+  background: #383838;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
+  height: 95vh;
+  overflow-y: auto;
+}
+
