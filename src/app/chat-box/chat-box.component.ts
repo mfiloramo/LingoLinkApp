@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
 import { TranslationService } from "../../services/translation.service";
 import mockData from "./mockData";
 
@@ -8,22 +8,16 @@ import mockData from "./mockData";
   styleUrls: ['./chat-box.component.css']
 })
 export class ChatBoxComponent {
-  @ViewChild('inputElement') inputElement: any;
+  @Output() sendMessage = new EventEmitter<string>();
   public mockConvo = mockData;
-
+  public message: string = '';
 
   constructor(
-    private translate: TranslationService
+    private translate: TranslationService,
   ) {}
 
-
-
-  // DEBUG: CAPTURE INPUT TEXT FROM HTML ELEMENT inputElement
-  public sendToServer() {
-    const inputText: string = this.inputElement.nativeElement.value;
-
-    // SEND API REQUEST WITH INPUT TEXT FROM UI
-    this.translate.post('translate', { inputText })
-      .subscribe(res => console.log(res));
+  public onSend(): void {
+    this.sendMessage.emit(this.message);
+    this.message = '';
   }
 }
