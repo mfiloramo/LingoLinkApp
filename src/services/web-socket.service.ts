@@ -21,7 +21,6 @@ export class WebSocketService {
   }
 
   public onMessage() {
-    // TODO: SET PROPERTIES OF LANGUAGE TO BE TRANSLATED BY POINTING TO CLIENT CONFIGURED VALUES (LocalSt)
     return new Observable(observer => {
       this.webSocket.onmessage = (event: any) => {
         observer.next(event);

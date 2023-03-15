@@ -11,8 +11,8 @@ export class TranslationService {
     private http: HttpClient
   ) { }
 
-  public post(path: string, body: object) {
-    // TODO: SET PROPERTIES OF LANGUAGE TO BE TRANSLATED BY POINTING TO CLIENT CONFIGURED VALUES (LocalSt)
+  public post(path: string, body: any) {
+    console.log('translationService', body);
     return this.http.post(`${this.apiUrl}/${path}`, body);
   }
 }

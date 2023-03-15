@@ -13,7 +13,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('chatContainer') chatContainer: any;
   @ViewChild('messageList') messageList: any;
   public message: string = '';
-  public userId: string = '';
+  public user: string = '';
+  public srcLang: string = 'en';
 
   constructor(
     private renderer: Renderer2,
@@ -26,11 +27,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.userId = Math.random().toString(36).substring(2, 7);
+    this.user = Math.random().toString(36).substring(2, 7);
   }
 
   ngAfterViewInit() {
     this.scrollDown();
+  }
+
+  onLangSelect(lang: any) {
+    this.srcLang = lang.target.value;
+    console.log(this.srcLang)
   }
 
   public scrollDown(): void {
@@ -44,16 +50,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   public async onSendMessage(): Promise<any> {
-    const sendMessage: object = {
-      user: this.userId,
+    const msgObj: object = {
+      user: this.user,
       text: this.inputElement.nativeElement.value,
+      srcLang: this.srcLang,
       timestamp: new Date()
     }
 
-    this.chatBox.mockConvo.push(sendMessage)
+    this.chatBox.mockConvo.push(msgObj)
 
     // SEND MESSAGE TO SERVER USING WebSocketService
-    this.webSocketService.send(sendMessage);
+    this.webSocketService.send(msgObj);
     this.clearInputs();
     this.scrollDown();
   }

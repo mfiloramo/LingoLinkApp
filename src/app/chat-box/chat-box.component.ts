@@ -10,7 +10,8 @@ import mockData from './mockData';
   styleUrls: ['./chat-box.component.css'],
 })
 export class ChatBoxComponent {
-  @Input() userId: any;
+  @Input() user: any;
+  @Input() srcLang: string = 'en';
   @Input() scrollDown: any;
   @ViewChild(HomeComponent) homeComponent!: HomeComponent;
   public mockConvo = mockData;
@@ -28,7 +29,7 @@ export class ChatBoxComponent {
         const reader = new FileReader();
         reader.onload = async () => {
           let message = JSON.parse(reader.result as string);
-          message.text = await this.translateText(message.text);
+          message.text = await this.translateText(message.text, message.srcLang, this.srcLang);
           this.mockConvo.push(message);
         };
         reader.readAsText(event.data);
@@ -41,9 +42,17 @@ export class ChatBoxComponent {
     // }
   }
 
-  public async translateText(text: string): Promise<any> {
-    return await this.translationService
-      .post('translate', { inputText: text }).toPromise();
+  public async translateText(inputText: string, srcLang: string, targLang: string): Promise<any> {
+    if (srcLang !== targLang) {
+      return await this.translationService
+        .post('translate', {
+          user: this.user,
+          srcLang,
+          inputText,
+          targLang
+        }).toPromise();
+    } else {
+      return inputText;
+    }
   }
-
 }
