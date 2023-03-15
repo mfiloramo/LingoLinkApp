@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HomeComponent } from "../app/home/home.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
+  @ViewChild(HomeComponent) homeComponent!: HomeComponent;
+  @Output() updateChatbox = new EventEmitter<void>();
   private webSocket: any;
 
   constructor() { }
@@ -18,9 +21,11 @@ export class WebSocketService {
   }
 
   public onMessage() {
+    // TODO: SET PROPERTIES OF LANGUAGE TO BE TRANSLATED BY POINTING TO CLIENT CONFIGURED VALUES (LocalSt)
     return new Observable(observer => {
       this.webSocket.onmessage = (event: any) => {
         observer.next(event);
+        this.updateChatbox.emit();
       }
     })
   }

@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {TranslationService} from "../../services/translation.service";
-import {WebSocketService} from '../../services/web-socket.service';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { HomeComponent } from "../home/home.component";
+import { TranslationService } from "../../services/translation.service";
+import { WebSocketService } from '../../services/web-socket.service';
 import mockData from './mockData';
 
 @Component({
@@ -9,7 +10,9 @@ import mockData from './mockData';
   styleUrls: ['./chat-box.component.css'],
 })
 export class ChatBoxComponent {
-  @Output() sendMessage = new EventEmitter<string>();
+  @Input() userId: any;
+  @Input() scrollDown: any;
+  @ViewChild(HomeComponent) homeComponent!: HomeComponent;
   public mockConvo = mockData;
   public message: string = '';
 
@@ -25,14 +28,13 @@ export class ChatBoxComponent {
         const reader = new FileReader();
         reader.onload = async () => {
           let message = JSON.parse(reader.result as string);
-          message.text = await this.translateText(message.text)
-          console.log(message);
+          message.text = await this.translateText(message.text);
           this.mockConvo.push(message);
         };
         reader.readAsText(event.data);
       });
 
-    // LOAD THE CONVERSATION FROM LOCAL STORAGE IF IT EXISTS
+    // TODO: LOAD THE CONVERSATION FROM LOCAL STORAGE IF IT EXISTS
     // const savedConversation = localStorage.getItem('conversation');
     // if (savedConversation) {
     //   this.mockConvo = JSON.parse(savedConversation);
@@ -40,7 +42,8 @@ export class ChatBoxComponent {
   }
 
   public async translateText(text: string): Promise<any> {
-    return await this.translationService.post('translate', {inputText: text}).toPromise();
+    return await this.translationService
+      .post('translate', { inputText: text }).toPromise();
   }
 
 }

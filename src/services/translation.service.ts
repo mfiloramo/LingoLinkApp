@@ -12,6 +12,7 @@ export class TranslationService {
   ) { }
 
   public post(path: string, body: object) {
+    // TODO: SET PROPERTIES OF LANGUAGE TO BE TRANSLATED BY POINTING TO CLIENT CONFIGURED VALUES (LocalSt)
     return this.http.post(`${this.apiUrl}/${path}`, body);
   }
 }

@@ -8,13 +8,13 @@
   <div #chatContainer class="gridCol" style="width: 77%; margin-right: -130px">
     <!-- TEXT INPUT -->
     <div style="display: flex; flex-direction: row; justify-content: flex-end; background: #6c6c6c; height: 55px; width: 52%; position: absolute; top: 90vh">
-      <input #inputElement (keyup.enter)="onSendMessage(message)" type="text" [(ngModel)]="message" style="width: 700px;">
-      <button (click)="onSendMessage(message)">Send</button>
+      <input #inputElement (keyup.enter)="onSendMessage()" type="text" [(ngModel)]="message" style="width: 700px;">
+      <button (click)="onSendMessage()">Send</button>
     </div>
     <!-- END TEXT INPUT -->
 
     <!-- CHATBOX COMPONENT -->
-    <app-chat-interface #chatBox></app-chat-interface>
+    <app-chat-interface #chatBoxComponent [scrollDown]="scrollDown" [userId]="userId" #chatBox></app-chat-interface>
     <!-- END CHATBOX COMPONENT -->
   </div>
 </div>
