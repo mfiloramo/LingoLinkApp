@@ -5,7 +5,6 @@
   justify-content: flex-start;
   width: 85%;
   height: 60px;
-  border: 1px solid black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   margin-top: 10px;
   background: #565656;
@@ -18,4 +17,8 @@
 .convoItem:hover {
   background: #6c6c6c;
   cursor: pointer;
+}
+
+.convoItem:active {
+  background: #7e7e7e;
 }

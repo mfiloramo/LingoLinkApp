@@ -1,15 +1,37 @@
-<!--<mat-grid-list cols="3" rowHeight="1:1" gutterSize="30px">-->
-<!--  <mat-grid-tile colspan="1">-->
-<!--  </mat-grid-tile>-->
-<!--  <mat-grid-tile colspan="2"></mat-grid-tile>-->
-<!--</mat-grid-list>-->
 <div class="colContainer">
   <div class="gridCol" style="width: 32%">
     <!-- CONVERSATIONS COMPONENT -->
     <app-convos></app-convos>
   </div>
-  <div class="gridCol" style="width: 71%; margin-right: -65px">
+
+  <!-- DEBUG: LANGUAGE TESTING -->
+  <select (change)="onLangSelect($event)">
+    <option [value]="'en'">English</option>
+    <option [value]="'es'">Spanish</option>
+  </select>
+
+<!-- TODO: SET UP NG ROUTING SYSTEM -->
+  <div #chatContainer class="gridCol" style="width: 77%; margin-right: -130px">
+    <!-- TEXT INPUT -->
+    <div style="display: flex; flex-direction: row; justify-content: flex-end; background: #6c6c6c; height: 55px; width: 52%; position: absolute; top: 90vh">
+      <input
+        #inputElement
+        (keyup.enter)="onSendMessage()"
+        type="text"
+        [(ngModel)]="message"
+        style="width: 700px;"
+      >
+      <button (click)="onSendMessage()">Send</button>
+    </div>
+    <!-- END TEXT INPUT -->
+
     <!-- CHATBOX COMPONENT -->
-    <app-chat-interface></app-chat-interface>
+    <app-chat-interface
+      #chatBox
+      [user]="user"
+      [srcLang]="srcLang"
+      [scrollDown]="scrollDown"
+    ></app-chat-interface>
+    <!-- END CHATBOX COMPONENT -->
   </div>
 </div>

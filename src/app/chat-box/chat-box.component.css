@@ -1,4 +1,6 @@
 .yourMessage {
+  align-items: center;
+  justify-content: right;
   display: flex;
   flex-direction: row;
   justify-items: flex-end;
@@ -6,6 +8,8 @@
   padding-right: 5px;
   margin-left: 5px;
   margin-right: 5px;
+  min-height: 50px;
+  min-width: 200px;
   max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   border-radius: 5px;
@@ -13,13 +17,17 @@
 }
 
 .theirMessage {
+  align-items: center;
+  justify-content: left;
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
   padding-left: 5px;
   padding-right: 5px;
+  min-height: 50px;
   margin-left: 5px;
   margin-right: 5px;
+  min-width: 200px;
   max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   border-radius: 5px;
@@ -33,8 +41,10 @@
   right: 0;
   height: 60px; /* Set the desired height of the input bar */
   background-color: #f2f2f2;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+}
+
+.messageList:last-child {
+  padding-bottom: 80px;
 }
