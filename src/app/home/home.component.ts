@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslationService } from "../../services/translation.service";
+import { WebSocketService } from "../../services/web-socket.service";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements AfterViewInit {
 
   constructor(
     private renderer: Renderer2,
-    private translate: TranslationService
+    private translationService: TranslationService,
+    private webSocketService: WebSocketService
   ) {}
 
   ngAfterViewInit() {
@@ -31,28 +33,17 @@ export class HomeComponent implements AfterViewInit {
   }
 
   public async onSendMessage(message: any): Promise<any> {
-    const inputText: string = this.inputElement.nativeElement.value;
-    // await this.translate.post('translate', { inputText })
-    //   .subscribe(res => {
-        this.chatBox.mockConvo.push({
-          user: 'eclethro1',
-          text: inputText,
-          timestamp: new Date()
-        })
-        this.clearInputs();
-        this.scrollDown();
-      // });
-    setTimeout(() => {
-      this.scrollDown();
-    }, 500);
-  }
-
-  public async simulateMessage(): Promise<any> {
-    this.chatBox.mockConvo.push({
-      user: 'reclethro1',
-      text: 'This message should be intercepted.',
+    const sendMessage: object = {
+      user: 'eclethro1',
+      text: this.inputElement.nativeElement.value,
       timestamp: new Date()
-    });
+    }
+
+    this.chatBox.mockConvo.push(sendMessage)
+
+    // SEND MESSAGE TO SERVER USING WebSocketService
+    this.webSocketService.send(sendMessage);
+    this.clearInputs();
     setTimeout(() => {
       this.scrollDown();
     }, 500);
