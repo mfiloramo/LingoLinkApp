@@ -12,7 +12,6 @@ export class TranslationService {
   ) { }
 
   public post(path: string, body: any) {
-    console.log('translationService', body);
     return this.http.post(`${this.apiUrl}/${path}`, body);
   }
 }
