@@ -14,7 +14,7 @@ export class ChatBoxComponent {
   @Input() srcLang: string = 'en';
   @Input() scrollDown: any;
   @ViewChild(HomeComponent) homeComponent!: HomeComponent;
-  public mockConvo = mockData;
+  public mockConvo: any = [];
   public message: string = '';
 
   constructor(
@@ -26,13 +26,13 @@ export class ChatBoxComponent {
     this.webSocketService.connect();
     this.webSocketService.onMessage()
       .subscribe((event: any) => {
-        const reader = new FileReader();
-        reader.onload = async () => {
-          let message = JSON.parse(reader.result as string);
-          message.text = await this.translateText(message.text, message.srcLang, this.srcLang);
-          this.mockConvo.push(message);
-        };
-        reader.readAsText(event.data);
+          const reader = new FileReader();
+          reader.onload = async () => {
+            let message = JSON.parse(reader.result as string);
+            message.text = await this.translateText(message.text, message.srcLang, this.srcLang);
+            this.mockConvo.push(message);
+          };
+          reader.readAsText(event.data);
       });
 
     // TODO: LOAD THE CONVERSATION FROM LOCAL STORAGE IF IT EXISTS

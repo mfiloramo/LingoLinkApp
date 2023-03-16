@@ -19,3 +19,18 @@ mat-grid-tile {
   overflow-y: auto;
 }
 
+.textContainer {
+  background: #6c6c6c;
+  border-radius: 15px;
+  height: 35px;
+  position: absolute;
+  top: 92vh;
+  width: 53%;
+}
+
+.textInput {
+  border-radius: 10px;
+  height: 80%;
+  width: 70%;
+  float: right;
+}

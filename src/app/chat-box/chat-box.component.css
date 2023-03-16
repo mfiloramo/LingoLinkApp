@@ -45,6 +45,10 @@
   padding: 0 10px;
 }
 
+.messageList:first-child {
+  padding-top: 30px;
+}
+
 .messageList:last-child {
   padding-bottom: 80px;
 }

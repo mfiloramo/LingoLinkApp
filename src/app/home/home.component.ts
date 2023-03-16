@@ -36,12 +36,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   onLangSelect(lang: any) {
     this.srcLang = lang.target.value;
-    console.log(this.srcLang)
+    console.log(this.srcLang);
   }
 
   public scrollDown(): void {
     setTimeout(() => {
-      this.renderer.setProperty(this.chatContainer.nativeElement, 'scrollTop', this.chatContainer.nativeElement.scrollHeight);
+      this.renderer.setProperty(
+        this.chatContainer.nativeElement,
+        'scrollTop',
+        this.chatContainer.nativeElement.scrollHeight
+      );
     }, 500);
   }
 
