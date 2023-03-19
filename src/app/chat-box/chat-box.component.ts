@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { HomeComponent } from "../home/home.component";
 import { TranslationService } from "../../services/translation.service";
 import { WebSocketService } from '../../services/web-socket.service';
-import mockData from './mockData';
+import languageArray from "../../utils/languageMapper";
 
 @Component({
   selector: 'app-chat-interface',
@@ -11,7 +11,7 @@ import mockData from './mockData';
 })
 export class ChatBoxComponent {
   @Input() user: any;
-  @Input() srcLang: string = 'en';
+  @Input() srcLang: any = 'en';
   @Input() scrollDown: any;
   @ViewChild(HomeComponent) homeComponent!: HomeComponent;
   public mockConvo: any = [];
@@ -23,13 +23,15 @@ export class ChatBoxComponent {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.srcLang = languageArray.find((item: any) => item.code === 'en');
     this.webSocketService.connect();
     this.webSocketService.onMessage()
       .subscribe((event: any) => {
           const reader = new FileReader();
           reader.onload = async () => {
             let message = JSON.parse(reader.result as string);
-            message.text = await this.translateText(message.text, message.srcLang, this.srcLang);
+            let srcLang = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
+            message.text = await this.translateText(message.text, message.srcLang, srcLang);
             this.mockConvo.push(message);
           };
           reader.readAsText(event.data);

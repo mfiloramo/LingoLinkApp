@@ -1,3 +1,4 @@
+/* TODO: MERGE BOTH MESSAGE CLASSES */
 .yourMessage {
   align-items: center;
   justify-content: right;
@@ -12,7 +13,7 @@
   min-width: 200px;
   max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
-  border-radius: 5px;
+  border-radius: 10px;
   background: #3f8dff;
 }
 
@@ -30,7 +31,7 @@
   min-width: 200px;
   max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
-  border-radius: 5px;
+  border-radius: 10px;
   background: #a6a4a4;
 }
 
