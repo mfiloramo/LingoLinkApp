@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, Output } from '@angular/core';
 import { TranslationService } from "../../services/translation.service";
 import { WebSocketService } from "../../services/web-socket.service";
+import languageArray from "../../utils/languageMapper";
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('chatBox') chatBox: any;
   @ViewChild('chatContainer') chatContainer: any;
   @ViewChild('messageList') messageList: any;
+  public languageArray: any[] = [];
   public message: string = '';
   public user: string = '';
-  public srcLang: string = 'en';
+  public srcLang: any = 'en';
 
   constructor(
     private renderer: Renderer2,
@@ -28,20 +30,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.user = Math.random().toString(36).substring(2, 7);
+    // POPULATE LANGUAGE DROPDOWN MENU
+    for (let key of languageArray) {
+      this.languageArray.push(key);
+    }
   }
 
   ngAfterViewInit() {
     this.scrollDown();
   }
 
-  onLangSelect(lang: any) {
-    this.srcLang = lang.target.value;
-    console.log(this.srcLang)
+  public onLangSelect(lang: any) {
+    this.srcLang = this.getCodeFromName(lang.target.value);
+  }
+
+  public getCodeFromName(name: string): string | undefined {
+    const language = languageArray.find((lang) => lang.name === name);
+    return language?.code;
   }
 
   public scrollDown(): void {
     setTimeout(() => {
-      this.renderer.setProperty(this.chatContainer.nativeElement, 'scrollTop', this.chatContainer.nativeElement.scrollHeight);
+      this.renderer.setProperty(
+        this.chatContainer.nativeElement,
+        'scrollTop',
+        this.chatContainer.nativeElement.scrollHeight
+      );
     }, 500);
   }
 

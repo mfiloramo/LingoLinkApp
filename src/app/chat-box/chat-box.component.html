@@ -1,14 +1,15 @@
 <!-- LOAD CONVERSATION -->
-<div #messageList class="messageList" *ngFor="let message of mockConvo">
-  <div *ngIf="message.user == user" style="display: flex; flex-direction: row; justify-content: flex-end; padding-right: 10px">
-    <div class="yourMessage">{{ message.text }}</div>
-    <mat-icon>person</mat-icon>
-  </div>
-  <div *ngIf="message.user != user" style="display: flex; flex-direction: row; justify-content: flex-start; padding-left: 10px">
-    <mat-icon>person</mat-icon>
-    <div class="theirMessage">{{ message.text }}</div>
-  </div>
-  <br>
-  <br>
+<div #messageList class="messageList">
+  <ng-container *ngFor="let message of mockConvo">
+    <div *ngIf="message.user == user" style="display: flex; flex-direction: row; justify-content: flex-end; padding-right: 10px">
+      <div class="yourMessage">{{ message.text }}</div>
+      <mat-icon>person</mat-icon>
+    </div>
+    <div *ngIf="message.user != user" style="display: flex; flex-direction: row; justify-content: flex-start; padding-left: 10px">
+      <mat-icon>person</mat-icon>
+      <div class="theirMessage">{{ message.text }}</div>
+    </div>
+    <br>
+    <br>
+  </ng-container>
 </div>
-
