@@ -13,8 +13,8 @@
 
       <!-- LANGUAGE SELECTION -->
       <select (change)="onLangSelect($event)" style="border-radius: 10px; float: left; height: 100%">
-        <option [value]="'en'">English</option>
-        <option [value]="'es'">Spanish</option>
+        <!-- ITERATE THROUGH ITEMS IN LANGMAPPER -->
+        <option *ngFor="let languageObj of languageArray">{{ languageObj.name }}</option>
       </select>
       <!-- END LANGUAGE SELECTION -->
 
