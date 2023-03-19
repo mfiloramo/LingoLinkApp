@@ -16,7 +16,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public languageArray: any[] = [];
   public message: string = '';
   public user: string = '';
-  public srcLang: any = 'en';
+  public srcLang: any = 'English';
+  public audio: any = new Audio();
 
   constructor(
     private renderer: Renderer2,
@@ -29,18 +30,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // DEBUG: SET STUBBED UNIQUE USERID
     this.user = Math.random().toString(36).substring(2, 7);
+
+    // SET CLICK SOUND SOURCE
+    this.audio.src = '../../assets/sounds/clickSound.mp3';
+
     // POPULATE LANGUAGE DROPDOWN MENU
     for (let key of languageArray) {
       this.languageArray.push(key);
     }
+    // SET DEFAULT VALUES FOR LOCAL SOURCE LANGUAGE
+    let setLang: any = languageArray.find((item: any) => item.code === 'en')
+    this.srcLang = setLang.code;
   }
 
   ngAfterViewInit() {
     this.scrollDown();
   }
 
-  public onLangSelect(lang: any) {
+  public onLangSelect(lang: any): void {
     this.srcLang = this.getCodeFromName(lang.target.value);
   }
 
@@ -64,6 +73,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   public async onSendMessage(): Promise<any> {
+    // PLAY CLICK SOUND
+    this.audio.play();
+
+    // BUILD THE MESSAGE OBJECT FOR HTTP REQUEST
     const msgObj: object = {
       user: this.user,
       text: this.inputElement.nativeElement.value,
@@ -71,7 +84,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       timestamp: new Date()
     }
 
+    // ADD MESSAGE TO CHATBOX
     this.chatBox.mockConvo.push(msgObj)
+
+    // TODO: ADD msgObj TO LOCALSTORAGE
 
     // SEND MESSAGE TO SERVER USING WebSocketService
     this.webSocketService.send(msgObj);
