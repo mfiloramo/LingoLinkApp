@@ -1,5 +1,16 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* TODO: MERGE BOTH MESSAGE CLASSES */
 .yourMessage {
+  animation: fadeIn 0.5s;
+  opacity: 1;
   align-items: center;
   justify-content: right;
   display: flex;
@@ -18,6 +29,8 @@
 }
 
 .theirMessage {
+  animation: fadeIn 0.5s;
+  opacity: 1;
   align-items: center;
   justify-content: left;
   display: flex;
