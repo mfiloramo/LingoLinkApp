@@ -37,7 +37,7 @@ export class ChatBoxComponent {
           reader.readAsText(event.data);
       });
 
-    // TODO: LOAD THE CONVERSATION FROM LOCAL STORAGE IF IT EXISTS
+    // TODO: LOAD THE CONVERSATION FROM LOCALSTORAGE IF IT EXISTS
     // const savedConversation = localStorage.getItem('conversation');
     // if (savedConversation) {
     //   this.mockConvo = JSON.parse(savedConversation);

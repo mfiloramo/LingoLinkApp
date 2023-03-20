@@ -37,9 +37,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
 
     // POPULATE LANGUAGE DROPDOWN MENU
-    for (let key of languageArray) {
-      this.languageArray.push(key);
-    }
+    languageArray.forEach((langObj: object) => this.languageArray.push(langObj))
+    this.languageArray.sort((a, b) => a.name.localeCompare(b.name));
+
     // SET DEFAULT VALUES FOR LOCAL SOURCE LANGUAGE
     let setLang: any = languageArray.find((item: any) => item.code === 'en')
     this.srcLang = setLang.code;
@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.chatBox.mockConvo.push(msgObj)
 
     // TODO: ADD msgObj TO LOCALSTORAGE
+    // ...
 
     // SEND MESSAGE TO SERVER USING WebSocketService
     this.webSocketService.send(msgObj);
