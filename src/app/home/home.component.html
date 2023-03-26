@@ -1,4 +1,6 @@
+<!-- HOME CONTAINER -->
 <div class="colContainer">
+
   <!-- CONVERSATIONS COMPONENT -->
   <div class="gridCol" style="width: 32%">
     <app-convos></app-convos>
@@ -6,45 +8,10 @@
   <!-- END CONVERSATIONS COMPONENT -->
 
   <!-- CHATBOX COMPONENT -->
-  <div #chatContainer class="gridCol" style="width: 77%; margin-right: -130px">
-
-    <!-- INPUT CONTAINER -->
-    <div class="textContainer">
-
-      <!-- LANGUAGE SELECTION -->
-      <select (change)="onLangSelect($event)" style="border-radius: 10px; float: left; height: 100%">
-        <option>English</option>
-        <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
-        <option *ngFor="let languageObj of languageArray" [selected]="languageObj.name === srcLang">
-          {{ languageObj.name }}</option>
-      </select>
-      <!-- END LANGUAGE SELECTION -->
-
-      <!-- SEND MESSAGE BUTTON -->
-      <button (click)="onSendMessage()" style="border-radius: 8px; height: 100%; width: 125px; float: right">Send</button>
-      <!-- END SEND MESSAGE BUTTON -->
-
-      <!-- TEXT INPUT -->
-      <input
-        #inputElement
-        class="textInput"
-        (keyup.enter)="onSendMessage()"
-        type="text"
-        [(ngModel)]="message"
-      >
-      <!-- END TEXT INPUT -->
-
-    </div>
-    <!-- END INPUT CONTAINER -->
-
-    <!-- CHATBOX COMPONENT -->
-    <app-chat-interface
-      #chatBox
-      [user]="user"
-      [srcLang]="srcLang"
-      [scrollDown]="scrollDown"
-    ></app-chat-interface>
-    <!-- END CHATBOX COMPONENT -->
-
+  <div class="gridCol" style="width: 77%; margin-right: -130px">
+    <app-chatbox></app-chatbox>
   </div>
+  <!-- END CHATBOX COMPONENT -->
+
 </div>
+<!-- END HOME CONTAINER -->

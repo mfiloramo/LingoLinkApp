@@ -6,7 +6,6 @@ import { HomeComponent } from "../app/home/home.component";
   providedIn: 'root'
 })
 export class WebSocketService {
-  @ViewChild(HomeComponent) homeComponent!: HomeComponent;
   @Output() updateChatbox = new EventEmitter<void>();
   private webSocket: any;
 
@@ -16,15 +15,14 @@ export class WebSocketService {
     this.webSocket = new WebSocket('ws://localhost:8080');
   }
 
-  public send(message: any): void {
-    this.webSocket.send(JSON.stringify(message));
+  public send(msgObj: any): void {
+    this.webSocket.send(JSON.stringify(msgObj));
   }
 
   public onMessage() {
     return new Observable(observer => {
       this.webSocket.onmessage = (event: any) => {
         observer.next(event);
-        this.updateChatbox.emit();
       }
     })
   }

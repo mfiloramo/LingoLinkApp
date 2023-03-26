@@ -1,5 +1,32 @@
+<!-- INPUT CONTAINER -->
+<div #chatContainer class="textContainer">
+  <!-- LANGUAGE SELECTION -->
+  <select (change)="onLangSelect($event)" style="border-radius: 10px; float: left; height: 100%">
+    <option>English</option>
+    <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
+    <option *ngFor="let languageObj of languageArray" [selected]="languageObj.name === srcLang">
+      {{ languageObj.name }}</option>
+  </select>
+
+  <!-- END LANGUAGE SELECTION -->
+  <!-- SEND MESSAGE BUTTON -->
+  <button (click)="onSendMessage()" style="border-radius: 8px; height: 100%; width: 125px; float: right">Send</button>
+
+  <!-- END SEND MESSAGE BUTTON -->
+  <!-- TEXT INPUT -->
+  <input
+    #inputElement
+    class="textInput"
+    (keyup.enter)="onSendMessage()"
+    type="text"
+    [(ngModel)]="message"
+  >
+
+  <!-- END TEXT INPUT -->
+</div>
+<!-- END INPUT CONTAINER -->
 <!-- LOAD CONVERSATION -->
-<div #messageList class="messageList">
+<div class="messageList">
   <ng-container *ngFor="let message of mockConvo">
     <div *ngIf="message.user == user" style="display: flex; flex-direction: row; justify-content: flex-end; padding-right: 10px">
       <div class="yourMessage">{{ message.text }}</div>
