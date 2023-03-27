@@ -93,7 +93,7 @@ export class ChatBoxComponent implements OnChanges {
       if (chatContainer) {
         chatContainer.scrollTop = chatContainer.scrollHeight;
       }
-    }, 500);
+    }, 10);
   }
 
   public async onSendMessage(): Promise<any> {
@@ -134,6 +134,7 @@ export class ChatBoxComponent implements OnChanges {
         await this.messageService.loadMessages(this.conversationId)
           .subscribe((response: any) => {
             this.mockConvo = response;
+            this.scrollDown();
           });
       } catch (error) {
         console.error('Failed to load messages for conversation:', error);

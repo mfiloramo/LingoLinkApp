@@ -1,5 +1,5 @@
 <!-- INPUT CONTAINER -->
-<div #chatContainer class="textContainer">
+<div class="textContainer">
   <!-- LANGUAGE SELECTION -->
   <select (change)="onLangSelect($event)" style="border-radius: 10px; float: left; height: 100%">
     <option>English</option>
@@ -28,7 +28,7 @@
 <!-- END INPUT CONTAINER -->
 
 <!-- CONVERSATION LOADER -->
-<div class="messageList">
+<div class="messageList" #chatContainer >
   <ng-container *ngFor="let message of mockConvo">
     <div *ngIf="message.user_id == this.user.user_id" style="display: flex; flex-direction: row; justify-content: flex-end; padding-right: 10px">
       <div class="yourMessage">{{ message.content }}</div>
