@@ -1,43 +1,27 @@
-import { Component } from '@angular/core';
-import { TranslationService } from "../../services/translation.service";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ConversationService } from "./conversation.service";
 
 @Component({
   selector: 'app-convos',
   templateUrl: './convos.component.html',
   styleUrls: ['./convos.component.css']
 })
-export class ConvosComponent {
-  // CONVERSATION DATA WILL LIKELY BE KEPT IN USER'S LOCALSTORAGE
-  public mockData = [
-    {
-      avatar: 'A',
-      name: 'Test Testerson',
-      text: 'Hey person. This is a test message.'
-    },
-    {
-      avatar: 'B',
-      name: 'Joe Testerson',
-      text: 'Hey dude. This is a test message.'
-    },
-    {
-      avatar: 'C',
-      name: 'Amanda Testerson',
-      text: 'Hey amigo. This is a test message.'
-    },
-    {
-      avatar: 'D',
-      name: 'Sally Testerson',
-      text: 'Hey amore mio. This is a test message.'
-    },
-    {
-      avatar: 'E',
-      name: 'Bobby Testerson',
-      text: 'Hey lijepa. This is a test message.'
-    },
-  ]
+export class ConvosComponent implements OnInit {
+  @Input() user: any;
+  @Output() conversationSelected = new EventEmitter<any>();
 
-  constructor(
-    private translate: TranslationService
-  ) {
+  public conversations: any[] = [];
+
+  constructor(private conversationService: ConversationService) { }
+
+  ngOnInit() {
+    // POPULATE MOCKDATA WITH CONVERSATIONS MATCHING USERID
+    this.conversationService.loadConversationsByUserId(14).subscribe((response: any) => {
+      this.conversations = response;
+    })
+  }
+
+  public onSelectConversation(conversation: any) {
+    this.conversationSelected.emit(conversation);
   }
 }

@@ -1,7 +1,8 @@
-<div *ngFor="let convo of mockData">
-  <div class="convoItem">
+<div *ngFor="let convo of conversations">
+  <div #listConvo class="convoItem" (click)="onSelectConversation(convo)">
     <mat-icon style="padding-right: 20px; margin-left: -5px">person</mat-icon>
-    <div style="padding-right: 10px;">{{ convo.name }}</div>
-    <div>{{ convo.text }}</div>
+    <div style="padding-right: 10px;">{{ convo.conversation_id }}</div>
+    <div>{{ convo.content }}</div>
+    <div>{{ convo.timestamp }}</div>
   </div>
 </div>

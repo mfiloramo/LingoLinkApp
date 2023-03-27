@@ -1,6 +1,8 @@
-import { Component, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { Component, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { TranslationService } from "../../services/translation.service";
 import { WebSocketService } from '../../services/web-socket.service';
+import { ConversationService } from "../convos/conversation.service";
+import { MessageService } from "./message.service";
 import languageArray from "../../utils/languageMapper";
 
 @Component({
@@ -8,20 +10,23 @@ import languageArray from "../../utils/languageMapper";
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css'],
 })
-export class ChatBoxComponent {
+export class ChatBoxComponent implements OnChanges {
+  @Input() user: any;
+  @Input() conversationId: any;
   @ViewChild('chatContainer') chatContainer: any;
   @ViewChild('inputElement') inputElement: any;
-  public user: string = '';
   public srcLang: any = 'English';
   public languageArray: any[] = [];
   public mockConvo: any = [];
   public message: string = '';
   public audio: any = new Audio();
+  public convoId: any;
 
   constructor(
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
-    private renderer: Renderer2
+    private conversationService: ConversationService,
+    private messageService: MessageService,
   ) {
     this.webSocketService.updateChatbox.subscribe(() => {
       this.scrollDown();
@@ -30,7 +35,7 @@ export class ChatBoxComponent {
 
   ngOnInit(): void {
     // DEBUG: SET STUBBED UNIQUE USERID
-    this.user = Math.random().toString(36).substring(2, 7);
+    this.user = 14;
 
     // SET CLICK SOUND SOURCE
     this.audio.src = '../../assets/sounds/clickSound.mp3';
@@ -63,6 +68,11 @@ export class ChatBoxComponent {
       });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('conversationId' in changes) {
+      this.loadConversationByConvoId().then((response: any) => response)
+    }
+  }
 
   ngAfterViewInit() {
     this.scrollDown();
@@ -79,40 +89,61 @@ export class ChatBoxComponent {
 
   public scrollDown(): void {
     setTimeout(() => {
-      this.renderer.setProperty(
-        this.chatContainer.nativeElement,
-        'scrollTop',
-        this.chatContainer.nativeElement.scrollHeight
-      );
+      const chatContainer = this.chatContainer.nativeElement;
+      if (chatContainer) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
     }, 500);
-  }
-
-  public clearInputs(): void {
-    this.inputElement.nativeElement.value = '';
   }
 
   public async onSendMessage(): Promise<any> {
     // PLAY CLICK SOUND
     this.audio.play();
 
-    // BUILD THE MESSAGE OBJECT FOR HTTP REQUEST
+    // BUILD THE MESSAGE OBJECT FOR THE HTTP REQUEST
     const msgObj: object = {
       user: this.user,
       text: this.inputElement.nativeElement.value,
+      convoId: this.convoId,
       srcLang: this.srcLang,
       timestamp: new Date()
-    }
+    };
 
     // ADD MESSAGE TO CHATBOX
     this.mockConvo.push(msgObj);
 
     // SEND MESSAGE TO SERVER USING WebSocketService
     this.webSocketService.send(msgObj);
-    this.clearInputs();
+
+    // SEND MESSAGE TO WC-CORE DATABASE
+    this.messageService.sendMessage({
+      conversationId: this.conversationId,
+      userId: this.user.user_id,
+      content: this.inputElement.nativeElement.value,
+    })
+      .subscribe((response: any) => response);
+
+    // CLEAR INPUTS AND SCROLL CHATBOX DOWN
+    this.message = '';
     this.scrollDown();
   }
 
+  public async loadConversationByConvoId(): Promise<any> {
+    if (this.conversationId) {
+      try {
+        await this.messageService.loadMessages(this.conversationId)
+          .subscribe((response: any) => {
+            this.mockConvo = response;
+          });
+      } catch (error) {
+        console.error('Failed to load messages for conversation:', error);
+      }
+    }
+  }
+
+
   public async translateText(inputText: string, srcLang: string, targLang: string): Promise<any> {
+    // TRANSLATE RECEIVED TEXT IF DIFFERENT LANGUAGE THAN LOCAL
     if (srcLang !== targLang) {
       return await this.translationService
         .post('translate', {

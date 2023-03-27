@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,11 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @Input() user: any;
+  public selectedConversation: any;
 
-  constructor(
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
+  }
 
+  public onConversationSelected(conversation: any) {
+    this.selectedConversation = conversation;
   }
 }
