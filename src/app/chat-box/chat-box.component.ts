@@ -1,8 +1,8 @@
-import { Component, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { TranslationService } from "../../services/translation.service";
-import { WebSocketService } from '../../services/web-socket.service';
-import { ConversationService } from "../convos/conversation.service";
-import { MessageService } from "./message.service";
+import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {TranslationService} from "../../services/translation.service";
+import {WebSocketService} from '../../services/web-socket.service';
+import {ConversationService} from "../convos/conversation.service";
+import {MessageService} from "./message.service";
 import languageArray from "../../utils/languageMapper";
 
 @Component({
@@ -34,8 +34,10 @@ export class ChatBoxComponent implements OnChanges {
   }
 
   ngOnInit(): void {
-    // DEBUG: SET STUBBED UNIQUE USERID
-    this.user = 14;
+    // DEBUG: SET STUBBED UNIQUE USERID...
+    const randomNumbers = [2, 6, 8, 9, 10, 11, 12, 13, 14, 15];
+    this.user = Math.random() < 0.5 ? 14 : randomNumbers[Math.floor(Math.random() * randomNumbers.length)];
+    console.log(`You are user: ${this.user}`);
 
     // SET CLICK SOUND SOURCE
     this.audio.src = '../../assets/sounds/clickSound.mp3';
@@ -61,7 +63,7 @@ export class ChatBoxComponent implements OnChanges {
           // TODO: SIMPLIFY INPUT LOGIC BELOW
           let msgSrc = typeof message.srcLang === 'object' ? message.srcLang.code : message.srcLang;
           let targLng = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
-          message.text = await this.translateText(message.text, msgSrc, targLng)
+          message.content = await this.translateText(message.text, msgSrc, targLng);
           this.mockConvo.push(message);
         };
         reader.readAsText(event.data);
@@ -87,26 +89,18 @@ export class ChatBoxComponent implements OnChanges {
     return language?.code;
   }
 
-  public scrollDown(): void {
-    setTimeout(() => {
-      const chatContainer = this.chatContainer.nativeElement;
-      if (chatContainer) {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }
-    }, 10);
-  }
-
   public async onSendMessage(): Promise<any> {
     // PLAY CLICK SOUND
     this.audio.play();
 
-    // BUILD THE MESSAGE OBJECT FOR THE HTTP REQUEST
+    // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const msgObj: object = {
       user: this.user,
+      user_id: this.user,
       text: this.inputElement.nativeElement.value,
       convoId: this.convoId,
       srcLang: this.srcLang,
-      timestamp: new Date()
+      timestamp: new Date().toISOString()
     };
 
     // ADD MESSAGE TO CHATBOX
@@ -118,7 +112,7 @@ export class ChatBoxComponent implements OnChanges {
     // SEND MESSAGE TO WC-CORE DATABASE
     this.messageService.sendMessage({
       conversationId: this.conversationId,
-      userId: this.user.user_id,
+      userId: this.user,
       content: this.inputElement.nativeElement.value,
     })
       .subscribe((response: any) => response);
@@ -142,7 +136,6 @@ export class ChatBoxComponent implements OnChanges {
     }
   }
 
-
   public async translateText(inputText: string, srcLang: string, targLang: string): Promise<any> {
     // TRANSLATE RECEIVED TEXT IF DIFFERENT LANGUAGE THAN LOCAL
     if (srcLang !== targLang) {
@@ -156,5 +149,15 @@ export class ChatBoxComponent implements OnChanges {
     } else {
       return inputText;
     }
+  }
+
+  public scrollDown(): void {
+    // SCROLL MESSAGE BOX TO THE BOTTOM
+    setTimeout(() => {
+      const chatContainer = this.chatContainer.nativeElement;
+      if (chatContainer) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    }, 10);
   }
 }

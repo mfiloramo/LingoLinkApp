@@ -15,8 +15,8 @@ export class AppComponent {
 
   ngOnInit() {
     // DEBUG: STUB USER DATA ON APP INITIALIZATION
-    this.userService.setUser().subscribe((res: any) => {
-      this.user = res;
-    });
+    // this.userService.setUser().subscribe((res: any) => {
+    //   this.user = res;
+    // });
   }
 }
