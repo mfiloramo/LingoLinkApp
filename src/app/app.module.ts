@@ -17,7 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { MatGridListModule } from "@angular/material/grid-list";
 import { ConvosComponent } from './convos/convos.component';
 import { MatIconModule } from "@angular/material/icon";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 
 @NgModule({

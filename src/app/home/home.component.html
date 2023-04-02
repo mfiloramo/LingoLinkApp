@@ -1,13 +1,15 @@
 <!-- HOME CONTAINER -->
 <div class="colContainer">
+    <app-profile [user]="user" style="padding-left: 15px"></app-profile>
+
   <!-- CONVERSATIONS COMPONENT -->
-  <div class="gridCol" style="width: 32%">
+  <div class="gridCol" style="width: 35vw">
     <app-convos (conversationSelected)="onConversationSelected($event)" [user]="user"></app-convos>
   </div>
   <!-- END CONVERSATIONS COMPONENT -->
 
   <!-- CHATBOX COMPONENT -->
-  <div class="gridCol" style="width: 75%; margin-right: -100px">
+  <div class="gridCol" style="width: 70vw; margin-right: 30px">
     <app-chatbox [conversationId]="selectedConversation?.conversation_id" [user]="user"></app-chatbox>
   </div>
   <!-- END CHATBOX COMPONENT -->

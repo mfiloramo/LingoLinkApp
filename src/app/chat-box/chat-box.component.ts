@@ -17,7 +17,7 @@ export class ChatBoxComponent implements OnChanges {
   @ViewChild('inputElement') inputElement: any;
   public srcLang: any = 'English';
   public languageArray: any[] = [];
-  public mockConvo: any = [];
+  public mainConvoContainer: any = [];
   public message: string = '';
   public audio: any = new Audio();
   public convoId: any;
@@ -64,15 +64,16 @@ export class ChatBoxComponent implements OnChanges {
           let msgSrc = typeof message.srcLang === 'object' ? message.srcLang.code : message.srcLang;
           let targLng = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
           message.content = await this.translateText(message.text, msgSrc, targLng);
-          this.mockConvo.push(message);
+          this.mainConvoContainer.push(message);
         };
         reader.readAsText(event.data);
       });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // POPULATE CHATBOX MODULE WITH MESSAGES FROM SELECTED CONVERSATION
     if ('conversationId' in changes) {
-      this.loadConversationByConvoId().then((response: any) => response)
+      this.loadConversationByConvoId().then((response: any) => response);
     }
   }
 
@@ -81,10 +82,12 @@ export class ChatBoxComponent implements OnChanges {
   }
 
   public onLangSelect(lang: any): void {
+    // SET LOCAL SOURCE LANGUAGE INFO LANGUAGE CODE UTIL
     this.srcLang = this.getCodeFromName(lang.target.value);
   }
 
   public getCodeFromName(name: string): string | undefined {
+    // LOOK UP CODE FOR LOCAL SOURCE LANGUAGE INFO LANGUAGE CODE UTIL
     const language = languageArray.find((lang) => lang.name === name);
     return language?.code;
   }
@@ -104,7 +107,7 @@ export class ChatBoxComponent implements OnChanges {
     };
 
     // ADD MESSAGE TO CHATBOX
-    this.mockConvo.push(msgObj);
+    this.mainConvoContainer.push(msgObj);
 
     // SEND MESSAGE TO SERVER USING WebSocketService
     this.webSocketService.send(msgObj);
@@ -115,10 +118,10 @@ export class ChatBoxComponent implements OnChanges {
       userId: this.user,
       content: this.inputElement.nativeElement.value,
     })
-      .subscribe((response: any) => response);
+      .subscribe((response: any) => response)
 
     // CLEAR INPUTS AND SCROLL CHATBOX DOWN
-    this.message = '';
+    this.inputElement.nativeElement.value = '';
     this.scrollDown();
   }
 
@@ -127,7 +130,7 @@ export class ChatBoxComponent implements OnChanges {
       try {
         await this.messageService.loadMessages(this.conversationId)
           .subscribe((response: any) => {
-            this.mockConvo = response;
+            this.mainConvoContainer = response;
             this.scrollDown();
           });
       } catch (error) {

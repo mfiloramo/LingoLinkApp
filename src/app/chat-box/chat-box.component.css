@@ -7,91 +7,85 @@
   }
 }
 
-/* TODO: MERGE BOTH MESSAGE CLASSES */
-.yourMessage {
+.userMessage,
+.otherMessage {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
   animation: fadeIn 0.5s;
   opacity: 1;
-  align-items: center;
-  justify-content: right;
+}
+
+.userMessage {
+  justify-content: flex-end;
+}
+
+.otherMessage {
+  justify-content: flex-start;
+}
+
+.messageText {
   display: flex;
-  flex-direction: row;
-  justify-items: flex-end;
+  align-items: center;
   padding-left: 5px;
   padding-right: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
   min-height: 50px;
   min-width: 200px;
   max-width: 300px;
+  margin-left: 5px;
+  margin-right: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   border-radius: 10px;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+.userMessage .messageText {
   background: #3f8dff;
+  justify-content: flex-end;
 }
 
-.theirMessage {
-  animation: fadeIn 0.5s;
-  opacity: 1;
-  align-items: center;
-  justify-content: left;
-  display: flex;
-  flex-direction: row;
-  justify-items: flex-start;
-  padding-left: 5px;
-  padding-right: 5px;
-  min-height: 50px;
-  margin-left: 5px;
-  margin-right: 5px;
-  min-width: 200px;
-  max-width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
-  border-radius: 10px;
+.otherMessage .messageText {
   background: #a6a4a4;
+  justify-content: flex-start;
 }
 
-.input-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px; /* Set the desired height of the input bar */
-  background-color: #f2f2f2;
-  align-items: center;
-  padding: 0 10px;
-}
 
 .textContainer {
   background: #6c6c6c;
   border-radius: 15px;
   height: 35px;
   position: absolute;
-  bottom: 0;
-  width: 700px;
-  display: flex;
-  justify-content: space-between;
+  width: 47vw;
+  display: inline-flex;
   align-items: center;
   padding: 0 10px;
+  bottom: 4vh;
+  justify-content: space-between;
+}
 
+.languageSelect,
+.textInput,
+.sendMessageButton {
+  border-radius: 10px;
+  height: 80%;
+}
+
+.languageSelect {
+  width: 7vw;
 }
 
 .textInput {
-  border-radius: 10px;
-  height: 80%;
-  width: 70%;
+  margin-left: 1vw;
+  width: 28vw;
+}
+
+.sendMessageButton {
+  width: 7vw;
 }
 
 .messageList {
   overflow-y: scroll;
-  height: calc(95vh - 35px);
   padding: 10px;
 }
-
-/*.messageList:first-child {*/
-/*  background: black;*/
-/*  padding-top: 30px;*/
-/*}*/
-
-/*.messageList:last-child {*/
-/*  padding-bottom: 80px;*/
-/*}*/
-
-

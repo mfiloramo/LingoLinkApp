@@ -1,9 +1,8 @@
 <!-- INPUT CONTAINER -->
 <div class="textContainer">
   <!-- LANGUAGE SELECTION -->
-  <select (change)="onLangSelect($event)" style="border-radius: 10px; float: left; height: 100%">
+  <select class="languageSelect" (change)="onLangSelect($event)">
     <option>English</option>
-
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
     <option *ngFor="let languageObj of languageArray" [selected]="languageObj.name === srcLang">
       {{ languageObj.name }}</option>
@@ -21,22 +20,18 @@
   <!-- END TEXT INPUT -->
 
   <!-- SEND MESSAGE BUTTON -->
-  <button (click)="onSendMessage()" style="border-radius: 8px; height: 100%; width: 100px; float: right">Send</button>
+  <button class="sendMessageButton" (click)="onSendMessage()">Send</button>
   <!-- END SEND MESSAGE BUTTON -->
-
 </div>
 <!-- END INPUT CONTAINER -->
 
 <!-- CONVERSATION LOADER -->
 <div class="messageList" #chatContainer>
-  <ng-container *ngFor="let message of mockConvo">
-    <div *ngIf="message.user_id == this.user" style="display: flex; flex-direction: row; justify-content: flex-end; padding-right: 10px">
-      <div class="yourMessage">{{ message.content || message.text }}</div>
-      <mat-icon>person</mat-icon>
-    </div>
-    <div *ngIf="message.user_id != this.user" style="display: flex; flex-direction: row; justify-content: flex-start; padding-left: 10px">
-      <mat-icon>person</mat-icon>
-      <div class="theirMessage">{{ message.content || message.text }}</div>
+  <ng-container *ngFor="let message of mainConvoContainer">
+    <div [ngClass]="{'userMessage': message.user_id == this.user, 'otherMessage': message.user_id != this.user}">
+      <mat-icon *ngIf="message.user_id != this.user">person</mat-icon>
+      <div class="messageText">{{ message.content || message.text }}</div>
+      <mat-icon *ngIf="message.user_id == this.user">person</mat-icon>
     </div>
     <br>
     <br>

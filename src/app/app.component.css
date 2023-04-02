@@ -1,12 +1,12 @@
-app-profile {
-  display: inline-block;
-  float: left;
-  width: 200px; /* Set the desired width of the sidenav container */
-  padding-right: 10px; /* Set the desired padding between the containers */
-}
+/*app-profile {*/
+/*  display: inline-block;*/
+/*  float: left;*/
+/*  width: 200px; !* Set the desired width of the sidenav container *!*/
+/*  padding-right: 10px; !* Set the desired padding between the containers *!*/
+/*}*/
 
-app-home {
-  padding-left: 70px;
-  display: inline-block;
-  width: 70%; /* Set the width of the grid container to fill the remaining space */
-}
+/*app-home {*/
+/*  padding-left: 70px;*/
+/*  display: inline-block;*/
+/*  width: 70%; !* Set the width of the grid container to fill the remaining space *!*/
+/*}*/
