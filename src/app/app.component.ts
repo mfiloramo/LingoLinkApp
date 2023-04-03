@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Output} from '@angular/core';
 import { UserService } from "../services/user.service";
 
 @Component({
@@ -7,14 +7,13 @@ import { UserService } from "../services/user.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public user: object = {};
 
   constructor(
     private userService: UserService
   ) {}
 
   ngOnInit() {
-    // DEBUG: STUB USER DATA ON APP INITIALIZATION
+
     // this.userService.setUser().subscribe((res: any) => {
     //   this.user = res;
     // });

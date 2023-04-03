@@ -8,12 +8,13 @@
   <!-- END PROFILE AVATAR -->
 
   <!-- NAV BUTTONS  -->
-  <mat-sidenav-content (click)="test($event)" class="sidenavItem">Profile</mat-sidenav-content>
-  <mat-sidenav-content (click)="test($event)" class="sidenavItem">Chat</mat-sidenav-content>
-  <mat-sidenav-content (click)="test($event)" class="sidenavItem">Friends</mat-sidenav-content>
-  <mat-sidenav-content (click)="test($event)" class="sidenavItem">Messages</mat-sidenav-content>
-  <mat-sidenav-content (click)="test($event)" class="sidenavItem">Settings</mat-sidenav-content>
-<!-- END NAV BUTTONS  -->
+  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenavItem">Profile</mat-sidenav-content>
+  <mat-sidenav-content (click)="showConvosAndChat()" routerLink="/home/chat" class="sidenavItem">Chat</mat-sidenav-content>
+  <mat-sidenav-content class="sidenavItem">Friends</mat-sidenav-content>
+  <mat-sidenav-content class="sidenavItem">Conversations</mat-sidenav-content>
+  <mat-sidenav-content class="sidenavItem">Settings</mat-sidenav-content>
+  <!-- END NAV BUTTONS  -->
+
 
 </mat-sidenav-container>
 <!-- END PROFILE (SIDE NAV CONTAINER) -->

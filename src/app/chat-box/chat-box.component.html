@@ -1,5 +1,26 @@
+
+<!-- CONVERSATION LOADER -->
+<div class="messageList" #chatContainer>
+  <ng-container *ngFor="let message of mainConvoContainer">
+    <div class="messageContainer" [ngClass]="{'userMessage': message.user_id == this.user.user_id, 'otherMessage': message.user_id != this.user.user_id}" [@fadeInMessage]>
+      <mat-icon *ngIf="message.user_id != this.user.user_id">person</mat-icon>
+      <div class="messageText">{{ message.content || message.text }}</div>
+      <mat-icon *ngIf="message.user_id == this.user.user_id">person</mat-icon>
+    </div>
+    <br />
+    <br />
+  </ng-container>
+</div>
+<!-- END CONVERSATION LOADER -->
+
+<!-- ANIMATIONS -->
+<ng-template #fadeIn>
+  <div [@fadeIn]="''"></div>
+</ng-template>
+<!-- END ANIMATIONS -->
+
 <!-- INPUT CONTAINER -->
-<div class="textContainer">
+<div @fadeInInput class="textContainer">
   <!-- LANGUAGE SELECTION -->
   <select class="languageSelect" (change)="onLangSelect($event)">
     <option>English</option>
@@ -24,17 +45,3 @@
   <!-- END SEND MESSAGE BUTTON -->
 </div>
 <!-- END INPUT CONTAINER -->
-
-<!-- CONVERSATION LOADER -->
-<div class="messageList" #chatContainer>
-  <ng-container *ngFor="let message of mainConvoContainer">
-    <div [ngClass]="{'userMessage': message.user_id == this.user, 'otherMessage': message.user_id != this.user}">
-      <mat-icon *ngIf="message.user_id != this.user">person</mat-icon>
-      <div class="messageText">{{ message.content || message.text }}</div>
-      <mat-icon *ngIf="message.user_id == this.user">person</mat-icon>
-    </div>
-    <br>
-    <br>
-  </ng-container>
-</div>
-<!-- END CONVERSATION LOADER -->
