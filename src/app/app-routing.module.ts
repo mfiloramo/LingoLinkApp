@@ -4,16 +4,12 @@ import { HomeComponent } from "./home/home.component";
 import { ChatBoxComponent } from "./chat-box/chat-box.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { ConvosComponent } from "./convos/convos.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
     redirectTo: '/home',
     pathMatch: 'full'
   },
@@ -42,7 +38,11 @@ const routes: Routes = [
         // canActivate: [MsalGuard],
       },
     ]
-  }
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
 ];
 
 @NgModule({
