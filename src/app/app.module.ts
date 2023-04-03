@@ -18,6 +18,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { ConvosComponent } from './convos/convos.component';
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     ChatBoxComponent,
     ProfileComponent,
     HomeComponent,
-    ConvosComponent
+    ConvosComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
