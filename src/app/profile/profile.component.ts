@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -6,8 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  // DEBUG: CONSOLE LOG EACH NAV BUTTON'S INNER TEXT
-  test(event: any) {
-    console.log(event.target.innerText);
+  @Input() user: any;
+  @Output() showConvosAndChatEvent = new EventEmitter<boolean>();
+  @Output() profileClick = new EventEmitter<void>();
+
+
+  public showConvosAndChat(): void {
+    this.showConvosAndChatEvent.emit(true);
   }
 }

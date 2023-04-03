@@ -1,3 +1,16 @@
+.fadeOut {
+  animation: fadeOut 300ms forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 mat-grid-tile {
   background: #383838;
   border-radius: 10px;
@@ -5,10 +18,14 @@ mat-grid-tile {
   min-height: 100%;
 }
 
+mat-icon {
+  margin: 5px;
+}
+
 .colContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .gridCol {
@@ -17,53 +34,5 @@ mat-grid-tile {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   height: 95vh;
   overflow-y: auto;
-}
-
-.textContainer {
-  background: #6c6c6c;
-  border-radius: 15px;
-  height: 35px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-}
-
-.textInput {
-  border-radius: 10px;
-  height: 80%;
-  width: 70%;
-}
-
-.messageList {
-  overflow-y: scroll;
-  height: calc(95vh - 35px);
-  padding: 10px;
-}
-
-.yourMessage {
-  background-color: #dcf8c6;
-  border-radius: 10px;
-  color: #000;
-  margin: 5px;
-  max-width: 60%;
-  padding: 10px;
-  text-align: left;
-}
-
-.theirMessage {
-  background-color: #f2f2f2;
-  border-radius: 10px;
-  color: #000;
-  margin: 5px;
-  max-width: 60%;
-  padding: 10px;
-  text-align: left;
-}
-
-mat-icon {
-  margin: 5px;
+  margin-left: 2vw;
 }

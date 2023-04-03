@@ -23,3 +23,9 @@
 .sidenavItem:active {
   background: #b6b6b6;
 }
+
+.dynamic-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

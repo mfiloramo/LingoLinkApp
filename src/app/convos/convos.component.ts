@@ -1,43 +1,37 @@
-import { Component } from '@angular/core';
-import { TranslationService } from "../../services/translation.service";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ConversationService } from "./conversation.service";
 
 @Component({
   selector: 'app-convos',
   templateUrl: './convos.component.html',
-  styleUrls: ['./convos.component.css']
-})
-export class ConvosComponent {
-  // CONVERSATION DATA WILL LIKELY BE KEPT IN USER'S LOCALSTORAGE
-  public mockData = [
-    {
-      avatar: 'A',
-      name: 'Test Testerson',
-      text: 'Hey person. This is a test message.'
-    },
-    {
-      avatar: 'B',
-      name: 'Joe Testerson',
-      text: 'Hey dude. This is a test message.'
-    },
-    {
-      avatar: 'C',
-      name: 'Amanda Testerson',
-      text: 'Hey amigo. This is a test message.'
-    },
-    {
-      avatar: 'D',
-      name: 'Sally Testerson',
-      text: 'Hey amore mio. This is a test message.'
-    },
-    {
-      avatar: 'E',
-      name: 'Bobby Testerson',
-      text: 'Hey lijepa. This is a test message.'
-    },
+  styleUrls: ['./convos.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', animate('300ms ease-in')),
+    ]),
+    trigger('fadeOut', [
+      state('void', style({ opacity: 0 })),
+      transition(':leave', animate('300ms ease-out')),
+    ]),
   ]
+})
+export class ConvosComponent implements OnInit {
+  @Input() user: any;
+  @Output() conversationSelected = new EventEmitter<any>();
+  public conversations: any[] = [];
 
-  constructor(
-    private translate: TranslationService
-  ) {
+  constructor(private conversationService: ConversationService) { }
+
+  ngOnInit() {
+    // POPULATE MOCKDATA WITH CONVERSATIONS MATCHING USERID
+    this.conversationService.loadConversationsByUserId(14).subscribe((response: any) => {
+      this.conversations = response;
+    })
+  }
+
+  public onSelectConversation(conversation: any) {
+    this.conversationSelected.emit(conversation);
   }
 }

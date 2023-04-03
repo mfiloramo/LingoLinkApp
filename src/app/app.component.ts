@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, Output} from '@angular/core';
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class AppComponent {
 
   constructor(
+    private userService: UserService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    // this.userService.setUser().subscribe((res: any) => {
+    //   this.user = res;
+    // });
+  }
 }
