@@ -13,6 +13,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: '**',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
     path: 'home',
     component: HomeComponent,
     children: [
@@ -37,32 +42,7 @@ const routes: Routes = [
         // canActivate: [MsalGuard],
       },
     ]
-  },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent,
-  // },
-  // {
-  //   path: '',
-  //   component: HomeComponent,
-  //   children: [
-  //     {
-  //       path: 'profile',
-  //       component: ProfileComponent,
-  //       // canActivate: [MsalGuard],
-  //     },
-  //     {
-  //       path: 'conversations',
-  //       component: ConvosComponent,
-  //       // canActivate: [MsalGuard],
-  //     },
-  //     {
-  //       path: 'chat',
-  //       component: ChatBoxComponent,
-  //       // canActivate: [MsalGuard],
-  //     },
-  //   ]
-  // }
+  }
 ];
 
 @NgModule({

@@ -36,13 +36,13 @@ import languageArray from '../../utils/languageMapper';
 export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @Input() user!: any;
   @Input() conversationId!: any;
-  @ViewChild('chatContainer') chatContainer!: ElementRef;
+  @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
-  srcLang: any = 'English';
-  languageArray: any = languageArray;
-  mainConvoContainer: any[] = [];
-  message: any = '';
-  audio: any = new Audio();
+  public srcLang: any = 'English';
+  public languageArray: { name: string, code: string }[] = languageArray;
+  public mainConvoContainer: any[] = [];
+  public message: string = '';
+  public audio: any = new Audio();
 
   constructor(
     private translationService: TranslationService,
@@ -54,19 +54,20 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   ngOnInit(): void {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
-    this.languageArray.sort((a: { name: string; }, b: { name: any; }) => a.name.localeCompare(b.name));
+    this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
     this.srcLang = languageArray.find((item: any) => item.code === 'en');
     this.webSocketService.connect();
-    this.webSocketService.onMessage().subscribe((event: any) => {
-      const reader = new FileReader();
-      reader.onload = async () => {
-        const message = JSON.parse(reader.result as string);
-        const msgSrc = typeof message.srcLang === 'object' ? message.srcLang.code : message.srcLang;
-        const targLng = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
-        message.content = msgSrc === targLng ? message.content : 'translated text';
-        this.mainConvoContainer.push(message);
-      };
-      reader.readAsText(event.data);
+    this.webSocketService.onMessage()
+      .subscribe((event: any) => {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const message = JSON.parse(reader.result as string);
+          const msgSrc = typeof message.srcLang === 'object' ? message.srcLang.code : message.srcLang;
+          const targLng = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
+          message.content = msgSrc === targLng ? message.content : 'translated text';
+          this.mainConvoContainer.push(message);
+        };
+        reader.readAsText(event.data);
     });
   }
 
