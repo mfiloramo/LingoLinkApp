@@ -8,11 +8,11 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {TranslationService} from '../../services/translation.service';
-import {WebSocketService} from '../../services/web-socket.service';
-import {ConversationService} from '../convos/conversation.service';
-import {MessageService} from './message.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { TranslationService } from '../../services/translation.service';
+import { WebSocketService } from '../../services/web-socket.service';
+import { ConversationService } from '../convos/conversation.service';
+import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
 
 @Component({
@@ -38,7 +38,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @Input() conversationId!: any;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
-  public srcLang: any = { code: 'en' };
+  public srcLang: any = {code: 'en'};
   public languageArray: { name: string, code: string }[] = languageArray;
   public mainConvoContainer: any[] = [];
   public textInput: string = '';
@@ -50,44 +50,16 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     private conversationService: ConversationService,
     private messageService: MessageService,
     private renderer: Renderer2
-  ) {}
+  ) {
+  }
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    // SET INITIAL INPUTS
-    this.audio.src = '../../assets/sounds/clickSound.mp3';
-    this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
-
-    // CONNECT TO WEBSOCKET SERVER
-    this.webSocketService.connect();
-
-    // ADD WEBSOCKET MESSAGE EVENT LISTENER
-    this.webSocketService.onMessage()
-      .subscribe((event: any) => {
-        // PARSE INCOMING WEBSOCKET MESSAGE
-        const reader = new FileReader();
-        reader.onload = async () => {
-          // SET VARIABLES FOR TRANSLATION
-          const message = JSON.parse(reader.result as string);
-          const msgSrc = typeof message.srcLang === 'object' ? message.srcLang.code : message.srcLang;
-          const targLng = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
-          // CHECK/HANDLE IF INCOMING MESSAGE NEEDS TRANSLATION
-          // TODO: SET UP LOGIC TO HANDLE WITH IF/ELSE BLOCK RATHER THAN TERNARY OPERATOR
-          message.content = (msgSrc === targLng)
-            ? message.content
-            : 'translated text';
-            // : await this.translateText(message.content, msgSrc, targLng);
-          this.mainConvoContainer.push(message);
-          // TODO: CALL TranslationService TO STORE TEXT IN LOCALSTORAGE WITH ID (if logic)
-          // ...
-        };
-        reader.readAsText(event.data);
-    });
+    this.startChat();
   }
 
   ngAfterViewChecked(): void {
-    const element = this.chatContainer.nativeElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    this.scrollToBottom();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -116,18 +88,10 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   /** CLASS METHODS */
   public async onSendMessage(): Promise<void> {
-    // PLAY CLICK SOUND
-    this.audio.play();
+    this.playClickSound();
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
-    const message: object = {
-      user: this.user.user_id,
-      user_id: this.user.user_id,
-      content: this.textInput,
-      convoId: this.conversationId,
-      srcLang: typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang,
-      timestamp: new Date().toISOString()
-    };
+    const message = this.buildMessage();
 
     // ADD MESSAGE TO CHATBOX
     this.mainConvoContainer.push(message);
@@ -141,47 +105,26 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
         conversationId: this.conversationId,
         userId: this.user.user_id,
         content: this.textInput,
-        srcLang: typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang,
+        srcLang: this.getLanguageCode(this.srcLang),
       })
         .toPromise();
     } catch (error) {
       console.error('Failed to send message:', error);
     }
 
-    // CLEAR USER INPUT
     this.textInput = '';
   }
 
   public async loadConversationByConvoId(): Promise<any> {
     if (this.conversationId) {
       try {
-        console.log('Debug: this.srcLang.code', this.srcLang)
-        // RETRIEVE ALL MESSAGES FROM DB WITH SELECTED ConversationId
         const selectedConvo = await this.messageService.loadMessages(this.conversationId).toPromise();
-        // ITERATE THROUGH ALL MESSAGES IN SELECTED CONVERSATION
         for (let message of selectedConvo) {
-          let debugVal: string = (typeof this.srcLang === 'object')
-            ? this.srcLang.code
-            : this.srcLang;
-          if (message.source_language !== debugVal) {
-            // HANDLE UNTRANSLATED MESSAGE NOT ALREADY CACHED IN LOCALSTORAGE
-            if (!localStorage.getItem(`${message.message_id}_${this.srcLang.code}`)) {
-              // TRANSLATE MESSAGE.CONTENT TO LOCAL LANGUAGE
-              console.log(`Debug: Handling translation for message: ${message.message_id}`);
-              message.content = await this.translateText(message.content, message.source_language, this.srcLang.code)
-                .then((translation: string) => {
-                  // CACHE TRANSLATED MESSAGE IN LOCALSTORAGE WITH UNIQUE ID AND RETURN TRANSLATION
-                  console.log(`Debug: Caching message: ${message.message_id} to localStorage`);
-                  localStorage.setItem(`${message.message_id}_${this.srcLang.code}`, translation);
-                  return translation;
-                })
-            } else {
-              console.log(`Debug: Message: ${message.message_id}_${this.srcLang.code} with text "${localStorage.getItem(`${message.message_id}_${this.srcLang.code}`)}" found in localStorage`);
-              message.content = localStorage.getItem(`${message.message_id}_${this.srcLang.code}`);
-            }
+          const srcLangCode = this.getLanguageCode(this.srcLang);
+          if (message.source_language !== srcLangCode) {
+            message.content = await this.handleTranslation(message, srcLangCode);
           }
         }
-        // POPULATE MESSAGE CONTAINER WITH CONVERSATION AND SCROLL DOWN
         this.mainConvoContainer = selectedConvo;
         this.scrollToBottom();
       } catch (error) {
@@ -191,8 +134,12 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public onLangSelect(lang: any): void {
-    if (typeof this.srcLang === 'object') this.srcLang.code = this.getCodeFromName(lang.target.value);
-    else this.srcLang = { code: this.getCodeFromName(lang.target.value), name: lang.target.value }
+    const selectedLangCode = this.getCodeFromName(lang.target.value);
+    if (typeof this.srcLang === 'object') {
+      this.srcLang.code = selectedLangCode;
+    } else {
+      this.srcLang = { code: selectedLangCode, name: 'test' };
+    }
   }
 
   public scrollToTop(): void {
@@ -201,13 +148,69 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public scrollToBottom(): void {
-    setTimeout(() => {
-      const element = this.chatContainer.nativeElement;
-      element.scroll({
-        top: element.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
+    const element = this.chatContainer.nativeElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  /** PRIVATE METHODS */
+  private startChat(): void {
+    this.initializeInputs();
+    this.connectWebSocket();
+  }
+
+  private initializeInputs(): void {
+    this.audio.src = '../../assets/sounds/clickSound.mp3';
+    this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
+  }
+
+  private connectWebSocket(): void {
+    this.webSocketService.connect();
+    this.webSocketService.onMessage()
+      .subscribe((event: any) => {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const message = JSON.parse(reader.result as string);
+          const msgSrc = this.getLanguageCode(message.srcLang);
+          const targLng = this.getLanguageCode(this.srcLang);
+
+          message.content = (msgSrc === targLng)
+            ? message.content
+            : 'translated text'
+            // : await this.translateText(message.content, msgSrc, targLng)
+
+          this.mainConvoContainer.push(message);
+        };
+        reader.readAsText(event.data);
       });
-    }, 0);
+  }
+
+  private playClickSound(): void {
+    this.audio.play();
+  }
+
+  private buildMessage(): object {
+    return {
+      user: this.user.user_id,
+      user_id: this.user.user_id,
+      content: this.textInput,
+      convoId: this.conversationId,
+      srcLang: this.getLanguageCode(this.srcLang),
+      timestamp: new Date().toISOString()
+    };
+  }
+
+  private getLanguageCode(lang: any): string {
+    return typeof lang === 'object' ? lang.code : lang;
+  }
+
+  private async handleTranslation(message: any, srcLangCode: string): Promise<string> {
+    const translationKey = `${message.message_id}_${srcLangCode}`;
+    if (!localStorage.getItem(translationKey)) {
+      const translation = await this.translateText(message.content, message.source_language, srcLangCode);
+      localStorage.setItem(translationKey, translation);
+      return translation;
+    } else {
+      return localStorage.getItem(translationKey) as string;
+    }
   }
 }
