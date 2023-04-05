@@ -57,7 +57,6 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // SET INITIAL INPUTS
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
-    this.srcLang = languageArray.find((item: any) => item.code === 'en');
 
     // CONNECT TO WEBSOCKET SERVER
     this.webSocketService.connect();
@@ -76,8 +75,8 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           // TODO: SET UP LOGIC TO HANDLE WITH IF/ELSE BLOCK RATHER THAN TERNARY OPERATOR
           message.content = (msgSrc === targLng)
             ? message.content
-            // : 'translated text';
-            : await this.translateText(message.content, msgSrc, targLng);
+            : 'translated text';
+            // : await this.translateText(message.content, msgSrc, targLng);
           this.mainConvoContainer.push(message);
           // TODO: CALL TranslationService TO STORE TEXT IN LOCALSTORAGE WITH ID (if logic)
           // ...
@@ -156,12 +155,15 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   public async loadConversationByConvoId(): Promise<any> {
     if (this.conversationId) {
       try {
-        console.log('Debug: this.srcLang.code', this.srcLang.code)
+        console.log('Debug: this.srcLang.code', this.srcLang)
         // RETRIEVE ALL MESSAGES FROM DB WITH SELECTED ConversationId
         const selectedConvo = await this.messageService.loadMessages(this.conversationId).toPromise();
         // ITERATE THROUGH ALL MESSAGES IN SELECTED CONVERSATION
         for (let message of selectedConvo) {
-          if (message.source_language !== this.srcLang.code) {
+          let debugVal: string = (typeof this.srcLang === 'object')
+            ? this.srcLang.code
+            : this.srcLang;
+          if (message.source_language !== debugVal) {
             // HANDLE UNTRANSLATED MESSAGE NOT ALREADY CACHED IN LOCALSTORAGE
             if (!localStorage.getItem(`${message.message_id}_${this.srcLang.code}`)) {
               // TRANSLATE MESSAGE.CONTENT TO LOCAL LANGUAGE
@@ -189,9 +191,8 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public onLangSelect(lang: any): void {
-    console.log(this.srcLang, this.srcLang.code);
-    this.srcLang.code = this.getCodeFromName(lang.target.value);
-    console.log(this.srcLang.code)
+    if (typeof this.srcLang === 'object') this.srcLang.code = this.getCodeFromName(lang.target.value);
+    else this.srcLang = { code: this.getCodeFromName(lang.target.value), name: lang.target.value }
   }
 
   public scrollToTop(): void {
