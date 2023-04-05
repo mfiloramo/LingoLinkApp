@@ -38,7 +38,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @Input() conversationId!: any;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
-  public srcLang: any = 'en';
+  public srcLang: any = { code: 'en' };
   public languageArray: { name: string, code: string }[] = languageArray;
   public mainConvoContainer: any[] = [];
   public textInput: string = '';
@@ -76,8 +76,8 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           // TODO: SET UP LOGIC TO HANDLE WITH IF/ELSE BLOCK RATHER THAN TERNARY OPERATOR
           message.content = (msgSrc === targLng)
             ? message.content
-            : 'translated text';
-            // : await this.translateText(message.content, msgSrc, targLng);
+            // : 'translated text';
+            : await this.translateText(message.content, msgSrc, targLng);
           this.mainConvoContainer.push(message);
           // TODO: CALL TranslationService TO STORE TEXT IN LOCALSTORAGE WITH ID (if logic)
           // ...
@@ -156,20 +156,26 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   public async loadConversationByConvoId(): Promise<any> {
     if (this.conversationId) {
       try {
+        console.log('Debug: this.srcLang.code', this.srcLang.code)
         // RETRIEVE ALL MESSAGES FROM DB WITH SELECTED ConversationId
         const selectedConvo = await this.messageService.loadMessages(this.conversationId).toPromise();
         // ITERATE THROUGH ALL MESSAGES IN SELECTED CONVERSATION
         for (let message of selectedConvo) {
-          if (message.source_language !== this.srcLang) {
+          if (message.source_language !== this.srcLang.code) {
             // HANDLE UNTRANSLATED MESSAGE NOT ALREADY CACHED IN LOCALSTORAGE
             if (!localStorage.getItem(`${message.message_id}_${this.srcLang.code}`)) {
-              // TRANSLATE MESSAGE CONTENT TO LOCAL LANGUAGE
+              // TRANSLATE MESSAGE.CONTENT TO LOCAL LANGUAGE
+              console.log(`Debug: Handling translation for message: ${message.message_id}`);
               message.content = await this.translateText(message.content, message.source_language, this.srcLang.code)
                 .then((translation: string) => {
                   // CACHE TRANSLATED MESSAGE IN LOCALSTORAGE WITH UNIQUE ID AND RETURN TRANSLATION
+                  console.log(`Debug: Caching message: ${message.message_id} to localStorage`);
                   localStorage.setItem(`${message.message_id}_${this.srcLang.code}`, translation);
                   return translation;
                 })
+            } else {
+              console.log(`Debug: Message: ${message.message_id}_${this.srcLang.code} with text "${localStorage.getItem(`${message.message_id}_${this.srcLang.code}`)}" found in localStorage`);
+              message.content = localStorage.getItem(`${message.message_id}_${this.srcLang.code}`);
             }
           }
         }
@@ -183,7 +189,9 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public onLangSelect(lang: any): void {
-    this.srcLang = this.getCodeFromName(lang.target.value);
+    console.log(this.srcLang, this.srcLang.code);
+    this.srcLang.code = this.getCodeFromName(lang.target.value);
+    console.log(this.srcLang.code)
   }
 
   public scrollToTop(): void {
