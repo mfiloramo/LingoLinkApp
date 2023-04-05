@@ -1,6 +1,5 @@
-import { EventEmitter, Injectable, Output, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HomeComponent } from "../app/home/home.component";
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import {Observable, Observer} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +14,12 @@ export class WebSocketService {
     this.webSocket = new WebSocket('ws://localhost:8080');
   }
 
-  public send(msgObj: any): void {
+  public send(msgObj: object): void {
     this.webSocket.send(JSON.stringify(msgObj));
   }
 
-  public onMessage() {
-    return new Observable(observer => {
+  public onMessage(): Observable<any> {
+    return new Observable((observer: Observer<any>) => {
       this.webSocket.onmessage = (event: any) => {
         observer.next(event);
       }

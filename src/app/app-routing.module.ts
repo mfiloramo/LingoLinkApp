@@ -5,12 +5,13 @@ import { ChatBoxComponent } from "./chat-box/chat-box.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { ConvosComponent } from "./convos/convos.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { LoginComponent } from "./login/login.component";
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
@@ -36,12 +37,16 @@ const routes: Routes = [
         path: 'chat',
         component: ChatBoxComponent,
         // canActivate: [MsalGuard],
-      },
+      }
     ]
   },
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: '**',
-    component: PageNotFoundComponent,
+    component: PageNotFoundComponent
   },
 ];
 
