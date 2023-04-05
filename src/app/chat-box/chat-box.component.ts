@@ -54,21 +54,33 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
+    // SET INITIAL INPUTS
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
     this.srcLang = languageArray.find((item: any) => item.code === 'en');
 
+    // CONNECT TO WEBSOCKET SERVER
     this.webSocketService.connect();
+
+    // ADD WEBSOCKET MESSAGE EVENT LISTENER
     this.webSocketService.onMessage()
       .subscribe((event: any) => {
+        // PARSE INCOMING WEBSOCKET MESSAGE
         const reader = new FileReader();
         reader.onload = async () => {
+          // SET VARIABLES FOR TRANSLATION
           const message = JSON.parse(reader.result as string);
           const msgSrc = typeof message.srcLang === 'object' ? message.srcLang.code : message.srcLang;
           const targLng = typeof this.srcLang === 'object' ? this.srcLang.code : this.srcLang;
-          // THIS SHOULD BE THE GOOGLE TRANSLATE API CALL
-          message.content = await this.translateText(message.content, msgSrc, targLng);
+          // CHECK/HANDLE IF INCOMING MESSAGE NEEDS TRANSLATION
+          // TODO: SET UP LOGIC TO HANDLE WITH IF/ELSE BLOCK RATHER THAN TERNARY OPERATOR
+          message.content = (msgSrc === targLng)
+            ? message.content
+            : 'translated text';
+            // : await this.translateText(message.content, msgSrc, targLng);
           this.mainConvoContainer.push(message);
+          // TODO: CALL TranslationService TO STORE TEXT IN LOCALSTORAGE WITH ID (if logic)
+          // ...
         };
         reader.readAsText(event.data);
     });
@@ -141,10 +153,28 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     this.textInput = '';
   }
 
-  public async loadConversationByConvoId(): Promise<void> {
+  public async loadConversationByConvoId(): Promise<any> {
     if (this.conversationId) {
       try {
-        this.mainConvoContainer = await this.messageService.loadMessages(this.conversationId).toPromise();
+        // RETRIEVE ALL MESSAGES FROM DB WITH SELECTED ConversationId
+        const selectedConvo = await this.messageService.loadMessages(this.conversationId).toPromise();
+        // ITERATE THROUGH ALL MESSAGES IN SELECTED CONVERSATION
+        for (let message of selectedConvo) {
+          if (message.source_language !== this.srcLang) {
+            // HANDLE UNTRANSLATED MESSAGE NOT ALREADY CACHED IN LOCALSTORAGE
+            if (!localStorage.getItem(`${message.message_id}_${this.srcLang.code}`)) {
+              // TRANSLATE MESSAGE CONTENT TO LOCAL LANGUAGE
+              message.content = await this.translateText(message.content, message.source_language, this.srcLang.code)
+                .then((translation: string) => {
+                  // CACHE TRANSLATED MESSAGE IN LOCALSTORAGE WITH UNIQUE ID AND RETURN TRANSLATION
+                  localStorage.setItem(`${message.message_id}_${this.srcLang.code}`, translation);
+                  return translation;
+                })
+            }
+          }
+        }
+        // POPULATE MESSAGE CONTAINER WITH CONVERSATION AND SCROLL DOWN
+        this.mainConvoContainer = selectedConvo;
         this.scrollToBottom();
       } catch (error) {
         console.error('Failed to load messages for conversation:', error);
