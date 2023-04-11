@@ -1,27 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import languageArray from '../utils/languageMapper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TranslationService {
   public apiUrl: string = 'http://localhost:3000/api'
 
-  constructor(
-    private http: HttpClient
-  ) { }
-
-  public storeTranslation(messageText: string): void {
-    // STORE THE TRANSLATION IN LOCAL STORAGE BY msgId_localLangCode
+  constructor(private http: HttpClient) {
   }
 
-  public getStoredTranslation(messageId: number): string {
-    // FETCH THE MESSAGE TEXT FROM LOCAL STORAGE BASED ON msgId_localLangCode
-    return '';
+  public getLiveTranslation(endpoint: string, payload: any): Observable<any> {
+    return this.http
+      .post(`${this.apiUrl}/${endpoint}`, payload)
+      .pipe(map((response: object) => response))
   }
 
-  public getLiveTranslation(path: string, body: any): any {
-    // ALSO INVOKE STORETRANSLATION TO STORE
-    return this.http.post(`${this.apiUrl}/${path}`, body);
+  public getCodeFromName(name: string): string {
+    return languageArray.find((language: any) => language.name === name)?.code || 'en';
+  }
+
+  public getLanguageCode(language: any): string {
+    return typeof language === 'object' ? language.code : language;
+  }
+
+  public getStoredTranslation(translationKey: string): string | null {
+    return localStorage.getItem(translationKey);
+  }
+
+  public storeTranslation(translationKey: string, translatedText: string): void {
+    localStorage.setItem(translationKey, translatedText);
   }
 }
