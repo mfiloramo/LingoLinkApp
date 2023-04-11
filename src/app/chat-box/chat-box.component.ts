@@ -13,6 +13,7 @@ import { TranslationService } from '../../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
+import { encode, decode } from 'he';
 import languageArray from '../../utils/languageMapper';
 
 @Component({
@@ -69,17 +70,11 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     }
   }
 
-  /** UTILITY FUNCTIONS */
-  private async translateText(content: string, srcLang: string, targLang: string): Promise<string> {
-    // TRANSLATE RECEIVED TEXT IF DIFFERENT LANGUAGE THAN LOCAL
-    return await this.translationService.getLiveTranslation('translate', {
-      user: this.user.user_id, content, srcLang, targLang
-    })
-      .toPromise();
-  }
-
-  /** CLASS METHODS */
+  /** PUBLIC METHODS */
   public async onSendMessage(): Promise<void> {
+    // PREVENT SENDING EMPTY MESSAGE
+    if (!this.textInput.trim()) return;
+
     // PLAY CLICK SOUND ON OUTGOING MESSAGE
     this.playClickSound();
 
@@ -199,23 +194,17 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // CHECK IF TRANSLATED MESSAGE IS IN LOCALSTORAGE
     const storedTranslation = this.translationService.getStoredTranslation(translateKey);
     if (!storedTranslation) {
-      console.log('there is no stored translation');
       // TRANSLATE MESSAGE
-      const translateText = await this.translateText(message.content, message.source_language, localLangCode);
-      console.log({
-        'message.content': message.content,
-        'message.source_language': message.source_language,
-        'localLangCode': localLangCode,
-        'translateText': translateText
-      });
+      const translatedText = await this.translateText(message.content, message.source_language, localLangCode);
+      const decodedText = this.translationService.decodeHtmlEntities(translatedText);
 
       // STORE TRANSLATED MESSAGE IN LOCALSTORAGE
-      this.translationService.storeTranslation(translateKey, translateText);
+      this.translationService.storeTranslation(translateKey, decodedText);
 
-      // UPDATE MESSAGE CONTENT WITH TRANSLATED TEXT
-      message.content = translateText;
+      // UPDATE MESSAGE CONTENT WITH TRANSLATED AND DECODED TEXT
+      message.content = decodedText;
     } else {
-      // UPDATE MESSAGE CONTENT WITH TRANSLATED TEXT FROM LOCALSTORAGE
+      // UPDATE MESSAGE CONTENT WITH TRANSLATED AND DECODED TEXT FROM LOCALSTORAGE
       message.content = storedTranslation;
     }
 
@@ -225,5 +214,23 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   private playClickSound(): void {
     this.audio.load();
     this.audio.play();
+  }
+
+  /** UTILITY FUNCTIONS */
+  private async translateText(content: string, srcLang: string, targLang: string): Promise<string> {
+    // TRANSLATE RECEIVED TEXT IF DIFFERENT LANGUAGE THAN LOCAL
+    const translatedContent = await this.translationService.getLiveTranslation('translate', {
+      user: this.user.user_id, content, srcLang, targLang
+    })
+      .toPromise();
+
+    // DECODE HTML ENTITIES
+    return this.decodeHtmlEntities(translatedContent);
+  }
+
+  private decodeHtmlEntities(encodedText: string): string {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = encodedText;
+    return textarea.value;
   }
 }
