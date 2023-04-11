@@ -15,8 +15,8 @@ export class MessageService {
   public loadMessages(id: any): any {
     return this.http.get(`${this.apiUrl}/messages/${id}`);
   }
-
-  public sendMessage(body: object): any {
-    return this.http.post(`${this.apiUrl}/messages`, body);
+// TODO: ADD INTERFACES FOR TYPECHECKING
+  public sendMessage(message: object): any {
+    return this.http.post(`${this.apiUrl}/messages`, message);
   }
 }
