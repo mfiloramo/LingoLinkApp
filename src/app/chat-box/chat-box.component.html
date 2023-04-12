@@ -4,7 +4,7 @@
   <select class="languageSelect" (change)="onLangSelect($event)">
     <option>English</option>
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
-    <option *ngFor="let languageObj of languageArray" [selected]="languageObj.name === srcLang">
+    <option *ngFor="let languageObj of languageArray" [selected]="languageObj.name === source_language">
       {{ languageObj.name }}</option>
   </select>
   <!-- END LANGUAGE SELECTION -->
