@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ConversationService } from "./conversation.service";
+import { Conversation } from "../../interfaces/conversationInterface";
 
 @Component({
   selector: 'app-convos',
@@ -25,13 +26,14 @@ export class ConvosComponent implements OnInit {
   constructor(private conversationService: ConversationService) { }
 
   ngOnInit() {
-    // POPULATE MOCKDATA WITH CONVERSATIONS MATCHING USERID
-    this.conversationService.loadConversationsByUserId(14).subscribe((response: any) => {
-      this.conversations = response;
+    // POPULATE MOCK DATA WITH CONVERSATIONS MATCHING USERID
+    this.conversationService.loadConversationsByUserId(this.user.user_id)
+      .subscribe((response: any) => {
+        this.conversations = response;
     })
   }
 
-  public onSelectConversation(conversation: any) {
+  public onSelectConversation(conversation: Conversation) {
     this.conversationSelected.emit(conversation);
   }
 }
