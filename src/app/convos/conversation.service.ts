@@ -24,6 +24,7 @@ export class ConversationService {
     return this.http.get(`${this.apiUrl}/conversations/${conversationId}`);
   }
 
+  // DELETES LOCALLY CACHED MESSAGES ONLY
   public deleteConversationByConvoId(conversationId: number): Observable<object> {
     return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`);
   }
