@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,19 @@ export class ConversationService {
     private http: HttpClient
   ) { }
 
-  // DEBUG: CREATE CONVERSATION WHEN APP INITIALIZES
-  public createConversation(body: object): any {
+  public createConversation(body: object): Observable<object> {
     return this.http.post(`${this.apiUrl}/conversations`, body);
   }
 
-  public loadConversationsByUserId(userId: number) {
+  public loadConversationsByUserId(userId: number): Observable<object> {
     return this.http.get(`${this.apiUrl}/conversations/${userId}`);
   }
 
-  public loadConversationsByConvoId(convoId: number) {
-    return this.http.get(`${this.apiUrl}/conversations/${convoId}`);
+  public loadConversationsByConvoId(conversationId: number): Observable<object> {
+    return this.http.get(`${this.apiUrl}/conversations/${conversationId}`);
+  }
+
+  public deleteConversationByConvoId(conversationId: number): Observable<object> {
+    return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`);
   }
 }

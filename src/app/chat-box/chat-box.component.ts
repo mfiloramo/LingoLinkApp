@@ -13,7 +13,7 @@ import { TranslationService } from '../../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
-import { encode, decode } from 'he';
+import { Observable } from "rxjs";
 import languageArray from '../../utils/languageMapper';
 
 @Component({
@@ -36,7 +36,7 @@ import languageArray from '../../utils/languageMapper';
 })
 export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @Input() user!: any;
-  @Input() conversationId!: any;
+  @Input() conversationId!: number;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
   public srcLang: any = {code: 'en'};
@@ -44,6 +44,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   public mainConvoContainer: any[] = [];
   public textInput: string = '';
   public audio: any = new Audio();
+  public isLoading: boolean = false;
 
   constructor(
     private translationService: TranslationService,
@@ -87,17 +88,38 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // SEND MESSAGE TO SERVER USING WebSocketService
     this.webSocketService.send(message);
 
-    // SEND MESSAGE TO WC-CORE DATABASE
-    try {
-      await this.messageService.sendMessage({
-        conversationId: this.conversationId,
-        userId: this.user.user_id,
-        content: this.textInput,
-        srcLang: this.translationService.getLanguageCode(this.srcLang),
-      })
-        .toPromise();
-    } catch (error) {
-      console.error('Failed to send message:', error);
+    // CREATE NEW CONVERSATION IF ONE IS NOT ALREADY SELECTED
+    if (!this.conversationId) {
+      // CREATE RANDOM CONVERSATION NAME
+      const convoName: string = `conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
+
+      try {
+        const response: any = await this.conversationService.createConversation({ 'name': convoName }).toPromise();
+        // ASSIGN CONVERSATION ID (TABLE IDENTITY) RESPONSE
+        this.conversationId = response.Conversation_id;
+
+        // SEND MESSAGE TO DATABASE USING THE NEWLY CREATED CONVERSATION ID
+        await this.messageService.sendMessage({
+          conversationId: this.conversationId,
+          userId: this.user.user_id,
+          content: this.textInput,
+          srcLang: this.translationService.getLanguageCode(this.srcLang),
+        }).toPromise();
+      } catch (error: any) {
+        console.log(error);
+      }
+    } else {
+      // SEND MESSAGE TO DATABASE USING THE EXISTING CONVERSATION ID
+      try {
+        await this.messageService.sendMessage({
+          conversationId: this.conversationId,
+          userId: this.user.user_id,
+          content: this.textInput,
+          srcLang: this.translationService.getLanguageCode(this.srcLang),
+        }).toPromise();
+      } catch (error) {
+        console.error('Failed to send message:', error);
+      }
     }
 
     // RESET TEXT INPUT
@@ -105,21 +127,35 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public async loadConversationByConvoId(): Promise<any> {
+    // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
-      try {
-        const selectedConvo = await this.messageService.loadMessages(this.conversationId).toPromise();
-        const localLangCode = this.translationService.getLanguageCode(this.srcLang);
+      // SET LOADING FLAG TO TRUE
+      this.isLoading = true;
 
+      try {
+        // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
+        const selectedConvo: any = await this.messageService.loadMessages(this.conversationId).toPromise();
+        // GET LOCAL LANGUAGE CODE
+        const localLangCode: string = this.translationService.getLanguageCode(this.srcLang);
+
+        // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
         for (let message of selectedConvo) {
           if (message.source_language !== localLangCode && message.content) {
+            // TRANSLATE MESSAGE CONTENT
             message.content = await this.handleTranslation(message, localLangCode);
           }
         }
 
+        // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
         this.mainConvoContainer = selectedConvo;
+
+        // SCROLL TO BOTTOM OF CONVERSATION
         this.scrollToBottom();
       } catch (error) {
         console.error('Failed to load messages for conversation:', error);
+      } finally {
+        // SET LOADING FLAG TO FALSE
+        this.isLoading = false;
       }
     }
   }

@@ -50,6 +50,7 @@
   padding: 0 10px;
   bottom: 4vh;
   justify-content: space-between;
+  z-index: 3;
 }
 
 .languageSelect,
@@ -76,7 +77,28 @@
   overflow-y: scroll;
   padding: 10px;
   position: relative;
+  z-index: 1;
 }
+
+.conversation-container {
+  position: relative;
+  height: 100%;
+  width: 100%
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
 
 @keyframes fadeIn {
   from {
