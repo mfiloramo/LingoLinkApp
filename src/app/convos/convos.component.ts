@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ConversationService } from "./conversation.service";
 import { Conversation } from "../../interfaces/conversationInterface";
+import { ConversationService } from "./conversation.service";
+import dayjs from "dayjs";
 
 @Component({
   selector: 'app-convos',
@@ -25,15 +26,38 @@ export class ConvosComponent implements OnInit {
 
   constructor(private conversationService: ConversationService) { }
 
-  ngOnInit() {
-    // POPULATE MOCK DATA WITH CONVERSATIONS MATCHING USERID
+  /** LIFECYCLE HOOKS */
+  async ngOnInit(): Promise<any> {
+    // DEBUG
+    console.log(this.user.user_id)
+
     this.conversationService.loadConversationsByUserId(this.user.user_id)
       .subscribe((response: any) => {
         this.conversations = response;
-    })
+      });
   }
 
-  public onSelectConversation(conversation: Conversation) {
+  /** PUBLIC METHODS */
+  public onSelectConversation(conversation: Conversation): void {
     this.conversationSelected.emit(conversation);
+  }
+
+  public checkConvoVisibility(conversation: Conversation): boolean {
+    const conversationKey: string = this.convertToConvoKey(conversation.name);
+    return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
+  }
+
+  public removeConvo(conversation: Conversation): void {
+    const conversationKey: string = this.convertToConvoKey(conversation.name);
+    localStorage.setItem(conversationKey, 'disabled');
+  }
+
+  /** UTILITY FUNCTIONS */
+  public convertIsoString(isoString: string): string {
+    return dayjs(isoString).format('MM/DD/YYYY');
+  }
+
+  private convertToConvoKey(conversationName: string): string {
+    return `${conversationName}_vis`;
   }
 }

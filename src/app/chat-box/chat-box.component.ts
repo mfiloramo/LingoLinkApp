@@ -1,20 +1,21 @@
 import {
-  AfterViewChecked,
   Component,
   ElementRef,
   Input,
-  OnChanges,
   Renderer2,
+  OnChanges,
+  AfterViewChecked,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChatMessage } from "../../interfaces/messageInterfaces";
 import { TranslationService } from '../../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
-import { ChatMessage } from "../../interfaces/messageInterfaces";
+
 
 @Component({
   selector: 'app-chatbox',
@@ -242,7 +243,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
         // UPDATE MESSAGE CONTENT WITH TRANSLATED AND DECODED TEXT FROM LOCALSTORAGE
         message.content = storedTranslation;
       }
-      return message.content;
+      return message.content as string;
     } catch (error: any) {
       console.log(error);
     }
@@ -258,17 +259,17 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   private async translateText(content: string, source_language: string, targLang: string): Promise<string> {
     // TRANSLATE RECEIVED TEXT IF DIFFERENT LANGUAGE THAN LOCAL
     const translatedContent = await this.translationService.getLiveTranslation('translate', {
-      user: this.user.user_id, content, source_language: source_language, targLang
+      user: this.user.user_id, content, source_language, targLang
     })
       .toPromise();
 
     // DECODE HTML ENTITIES
-    return this.decodeHtmlEntities(translatedContent);
+    return this.decodeHtmlEntities(translatedContent) as string;
   }
 
   private decodeHtmlEntities(encodedText: string): string {
     const textarea = document.createElement('textarea');
     textarea.innerHTML = encodedText;
-    return textarea.value;
+    return textarea.value as string;
   }
 }
