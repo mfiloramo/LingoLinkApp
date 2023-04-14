@@ -4,6 +4,6 @@
     <div style="padding-right: 10px;">{{ convo.conversation_id }}</div>
     <div>{{ convo.name }}</div>
     <div>{{ convertIsoString(convo.latest_timestamp) }}</div>
-    <button (click)="$event.stopPropagation(); removeConvo(convo)">x</button>
+    <button (click)="$event.stopPropagation(); removeConvo(convo)" style="margin-right: 7px">x</button>
   </div>
 </div>

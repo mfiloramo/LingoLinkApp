@@ -24,8 +24,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegistrationComponent } from './registration/registration.component';
-import {MatRadioModule} from "@angular/material/radio";
-import {_MatCheckboxRequiredValidatorModule} from "@angular/material/checkbox";
+import { MatRadioModule } from "@angular/material/radio";
+import { _MatCheckboxRequiredValidatorModule } from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -59,7 +59,7 @@ import {_MatCheckboxRequiredValidatorModule} from "@angular/material/checkbox";
     MatInputModule,
     MatSnackBarModule,
     MatRadioModule,
-    _MatCheckboxRequiredValidatorModule
+    _MatCheckboxRequiredValidatorModule,
   ],
   providers: [],
   bootstrap: [

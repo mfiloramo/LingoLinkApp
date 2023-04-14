@@ -33,9 +33,9 @@
         <mat-error *ngIf="registrationForm.get('email')!.hasError('email')">Invalid email format</mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" class="return-login-button" [disabled]="registrationForm.invalid">Register</button>
+      <button mat-raised-button color="primary" type="submit" class="registration-button" [disabled]="registrationForm.invalid">Register</button>
 
-      <button mat-raised-button color="warn" routerLink="/login" class="return-login-button">Return to Login</button>
+      <button mat-raised-button color="warn" routerLink="/login" id="return-button" class="registration-button">Return to Login</button>
 
     </form>
   </div>

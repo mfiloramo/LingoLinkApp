@@ -30,17 +30,17 @@
 }
 
 .userMessage .messageText {
-  background: #3f8dff;
+  background: #63a0ff;
   justify-content: flex-end;
 }
 
 .otherMessage .messageText {
-  background: #a6a4a4;
+  background: #c9c9c9;
   justify-content: flex-start;
 }
 
 .textContainer {
-  background: #6c6c6c;
+  background: #a9a9a9;
   border-radius: 15px;
   height: 35px;
   position: absolute;

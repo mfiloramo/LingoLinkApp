@@ -2,12 +2,12 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 85%;
   height: 60px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   margin-top: 10px;
-  background: #565656;
+  background: #b7b7b7;
   border-radius: 15px;
   margin-left: 14px;
   margin-right: -10px;
@@ -15,10 +15,10 @@
 }
 
 .convoItem:hover {
-  background: #6c6c6c;
+  background: #c2c2c2;
   cursor: pointer;
 }
 
 .convoItem:active {
-  background: #7e7e7e;
+  background: #c9c9c9;
 }

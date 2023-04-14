@@ -1,3 +1,7 @@
+#return-button:hover {
+  background-color: #ff5757;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -59,22 +63,22 @@
   border-color: #6c63ff;
 }
 
-.return-login-button {
+.registration-button {
   margin-top: 20px;
   padding: 10px;
   border-radius: 5px;
   font-size: 18px;
-  font-weight: 450;
+  font-weight: 400;
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.return-login-button:hover {
-  background-color: #ff5757;
+.registration-button:hover {
+  background-color: #574fea;
 }
 
-.return-login-button:disabled {
+.registration-button:disabled {
   color: rgba(255, 255, 255, 0.7);
   background-color: rgba(89, 89, 89, 0.5);
   cursor: not-allowed;
