@@ -15,8 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  hidePassword = true;
+  public loginForm!: FormGroup;
+  public hidePassword: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
+  /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.buildForm();
   }
 
-  onLoginFormSubmit(): void {
+  /** PUBLIC METHODS */
+  public onLoginFormSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
@@ -70,6 +72,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /** PRIVATE METHODS */
   private buildForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

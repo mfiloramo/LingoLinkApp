@@ -59,23 +59,22 @@
   border-color: #6c63ff;
 }
 
-.registration-button {
+.return-login-button {
   margin-top: 20px;
   padding: 10px;
   border-radius: 5px;
   font-size: 18px;
   font-weight: 450;
   color: #ffffff;
-  background-color: #6c63ff;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.registration-button:hover {
-  background-color: #574fea;
+.return-login-button:hover {
+  background-color: #ff5757;
 }
 
-.registration-button:disabled {
+.return-login-button:disabled {
   color: rgba(255, 255, 255, 0.7);
   background-color: rgba(89, 89, 89, 0.5);
   cursor: not-allowed;
@@ -92,10 +91,5 @@
 
   .registration-input {
     font-size: 14px;
-  }
-
-  .registration-button {
-    font-size: 16px;
-    padding: 8px;
   }
 }

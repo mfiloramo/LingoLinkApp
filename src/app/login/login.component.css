@@ -1,14 +1,22 @@
+#register-btn {
+  background-color: #a1a1a1;
+}
+
+#register-btn:hover {
+  background-color: #b2b2b2;
+}
+
 .login-card {
   max-width: 400px;
   margin: 0 auto;
-  background-color: #222;
-  color: #fff;
+  background-color: #ececec;
+  color: #333333;
   border-radius: 7px;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 mat-card-title {
-  color: #fff;
+  color: #333333;
 }
 
 mat-form-field {
@@ -23,4 +31,41 @@ mat-error {
 button {
   margin-top: 16px;
   width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 450;
+  color: #ffffff;
+  background-color: #6c63ff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #574fea;
+}
+
+button:disabled {
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(89, 89, 89, 0.5);
+  cursor: not-allowed;
+}
+
+@media only screen and (max-width: 768px) {
+  .login-card {
+    padding: 20px;
+  }
+
+  mat-card-title {
+    font-size: 28px;
+  }
+
+  mat-form-field {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 8px;
+  }
 }

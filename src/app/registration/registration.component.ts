@@ -10,7 +10,7 @@ import { AuthService } from "../login/auth.service";
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  registrationForm!: FormGroup;
+  public registrationForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,6 +19,7 @@ export class RegistrationComponent implements OnInit {
     private snackBar: MatSnackBar
   ) { }
 
+  /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     // BUILD REGISTRATION FORM
     this.registrationForm = this.formBuilder.group({
@@ -30,7 +31,8 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  onRegistrationFormSubmit(): void {
+  /** PUBLIC METHODS */
+  public onRegistrationFormSubmit(): void {
     // IF FORM IS INVALID, RETURN
     if (this.registrationForm.invalid) {
       return;
@@ -42,7 +44,7 @@ export class RegistrationComponent implements OnInit {
         localStorage.setItem('token', response.token);
         this.router.navigate(['/home']);
       },
-      (error) => {
+      (error: any) => {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       }
     );
