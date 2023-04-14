@@ -1,6 +1,6 @@
 # LingoLink
 
-LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the app's integration of Microsoft Azure Cognitive Services Translator API, users can send and receive messages in their own language while the app automatically translates the messages in real-time for the other party.
+LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the app's integration of Google Translate API, users can send and receive messages in their own language while the app automatically translates the messages in real-time for the other party.
 
 ## Features
 
@@ -24,7 +24,7 @@ To get started with the app, follow these steps:
 
 ## Technologies Used
 
-- Microsoft Azure Services
+- Google Translate API
 - Angular 15 / TypeScript
 - Angular Material
 - Bootstrap
