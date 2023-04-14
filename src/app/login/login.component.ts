@@ -1,66 +1,79 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+// ADD MSAL AND MSAL CONFIG
+// import * as msal from "@azure/msal-browser";
+// const msalConfig: msal.Configuration = {...};
+// const msalInstance: msal.PublicClientApplication = new msal.PublicClientApplication(msalConfig);
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
-  testUser = { email: 'test@user.com', password: 'password' };
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
   }
 
-  private buildForm(): void {
-    this.loginForm = this.fb.group({
-      email: [this.testUser.email, [Validators.required, Validators.email]],
-      password: [this.testUser.password, [Validators.required]]
-    });
-  }
-
-  // public onLoginFormSubmit(): void {
-  //   if (this.loginForm.valid) {
-  //     const { email, password } = this.loginForm.value;
-  //     if (email === this.testUser.email && password === this.testUser.password) {
-  //       this.authService.login(email, password)
-  //         .subscribe(
-  //           () => this.router.navigate(['/']),
-  //           () => this.snackBar.open('Incorrect email or password.', 'Close', { duration: 3000 })
-  //         );
-  //     } else {
-  //       this.snackBar.open('Incorrect email or password.', 'Close', { duration: 3000 });
-  //     }
-  //   } else {
-  //     this.snackBar.open('Please fill out all required fields.', 'Close', { duration: 3000 });
-  //   }
-  // }
-
-  public onLoginFormSubmit(): void {
+  onLoginFormSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
-      if (email === this.testUser.email && password === this.testUser.password) {
+      // USE MSAL TO ACQUIRE TOKEN AND LOG IN USER
+      // msalInstance.loginPopup().then(() => {
+      //   const account = msalInstance.getAllAccounts()[0];
+      //   msalInstance.acquireTokenSilent({ scopes: ["User.Read"] }).then((accessTokenResponse) => {
+      //     this.authService.loginWithToken(accessTokenResponse.accessToken).subscribe(
+      //       () => this.router.navigate(['/home']),
+      //       (error) => console.error(error)
+      //     );
+      //   }).catch((error) => {
+      //     msalInstance.acquireTokenPopup({ scopes: ["User.Read"] }).then((accessTokenResponse) => {
+      //       this.authService.loginWithToken(accessTokenResponse.accessToken).subscribe(
+      //         () => this.router.navigate(['/home']),
+      //         (error) => console.error(error)
+      //       );
+      //     }).catch((error) => console.error(error));
+      //   });
+      // });
+
+      // TEMPORARY LOGIN WITH TEST USER ACCOUNT
+      if (email === 'test@user.com' && password === 'password') {
+        localStorage.setItem('token', 'testToken');
         this.router.navigate(['/home']);
       } else {
-        this.snackBar.open('Incorrect email or password.', 'Close', { duration: 3000 });
+        this.snackBar.open(
+          'Incorrect email or password.',
+          'Close',
+          { duration: 3000 }
+        );
       }
+
     } else {
-      this.snackBar.open('Please fill out all required fields.', 'Close', { duration: 3000 });
+      this.snackBar.open('Please fill out all required fields.', 'Close', {
+        duration: 3000,
+      });
     }
   }
 
+  private buildForm(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
 }

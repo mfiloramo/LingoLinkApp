@@ -23,6 +23,9 @@ import { LoginComponent } from './login/login.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegistrationComponent } from './registration/registration.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {_MatCheckboxRequiredValidatorModule} from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -33,7 +36,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     ConvosComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule,
+    _MatCheckboxRequiredValidatorModule
   ],
   providers: [],
   bootstrap: [

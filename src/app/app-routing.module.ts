@@ -6,6 +6,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { ConvosComponent } from "./convos/convos.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { LoginComponent } from "./login/login.component";
+import { RegistrationComponent } from "./registration/registration.component";
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent
   },
   {
     path: 'home',

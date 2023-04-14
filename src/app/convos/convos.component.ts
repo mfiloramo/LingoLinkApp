@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Conversation } from "../../interfaces/conversationInterface";
+import { Conversation } from "../../interfaces/conversationInterfaces";
 import { ConversationService } from "./conversation.service";
 import dayjs from "dayjs";
 

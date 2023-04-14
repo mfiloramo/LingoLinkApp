@@ -3,6 +3,8 @@
   margin: 0 auto;
   background-color: #222;
   color: #fff;
+  border-radius: 7px;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 mat-card-title {
