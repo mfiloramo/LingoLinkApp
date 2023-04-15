@@ -13,7 +13,6 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private apiClientId = environment.azureClientID;
 
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
@@ -25,34 +24,23 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) { }
 
-  public login(username: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('/', { username, password })
-      .pipe(
-        tap(res => {
-          if (res.success) {
-            localStorage.setItem('token', res.token);
-            this.loggedIn.next(true);
-            this.router.navigate(['/home']);
-          } else {
-            this.snackBar.open(res.message, 'Dismiss', { duration: 5000 });
-          }
-        })
-      );
-  }
+  public async login(): Promise<void> {
+    try {
+      const response = await msalInstance.loginPopup({ scopes: ['openid', 'profile', 'email'] });
+      if (response) {
+        // STORE THE ACCESS TOKEN IN LOCALSTORAGE
+        localStorage.setItem('token', response.accessToken);
 
-  public loginWithToken(token: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('/api/auth/token-login', { token })
-      .pipe(
-        tap(res => {
-          if (res.success) {
-            localStorage.setItem('token', res.token);
-            this.loggedIn.next(true);
-            this.router.navigate(['/home']);
-          } else {
-            this.snackBar.open(res.message, 'Dismiss', { duration: 5000 });
-          }
-        })
-      );
+        // SET THE loggedIn BehaviorSubject TO TRUE
+        this.loggedIn.next(true);
+
+        // NAVIGATE TO THE HOME PAGE
+        await this.router.navigate(['/home']);
+      }
+    } catch (error: any) {
+      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+      throw error;
+    }
   }
 
   public register(user: any): Observable<any> {
@@ -90,6 +78,7 @@ export class AuthService {
 
   public logout(): void {
     localStorage.removeItem('token');
+    msalInstance.logout();
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }

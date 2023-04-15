@@ -5,7 +5,7 @@ export const msalBrowserConfig: Configuration = {
   auth: {
     clientId: environment.azureClientID,
     authority: environment.azureTenantID,
-    redirectUri: environment.apiBaseUrl,
+    redirectUri: environment.redirectURI,
   },
   cache: {
     cacheLocation: 'localStorage',

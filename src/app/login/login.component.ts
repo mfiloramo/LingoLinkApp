@@ -3,10 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PublicClientApplication } from "@azure/msal-browser";
-import { msalBrowserConfig } from "../../config/msalBrowserConfig";
-
-const msalInstance: PublicClientApplication = new PublicClientApplication(msalBrowserConfig);
 
 @Component({
   selector: 'app-login',
@@ -31,17 +27,15 @@ export class LoginComponent implements OnInit {
 
   /** PUBLIC METHODS */
   public onLoginFormSubmit(): void {
-    msalInstance.loginPopup({ scopes: ["openid", "profile", "email"] })
-      .then((response) => {
-        this.authService.loginWithToken(response.accessToken).subscribe(
-          () => this.router.navigate(['/home']),
-          (error: any) => this.snackBar.open(error.message, 'Dismiss', { duration: 5000 })
-        );
+    this.authService.login()
+      .then(() => {
+        this.router.navigate(['/home']);
       })
       .catch((error: any) => {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
   }
+
 
   /** PRIVATE METHODS */
   private buildForm(): void {
