@@ -44,16 +44,17 @@ export class AuthService {
   }
 
   public register(user: any): Observable<any> {
-    return from(msalInstance.acquireTokenSilent({ scopes: ["api://<your-api-client-id>/access_as_user"] })).pipe(
-      switchMap((response: any) => {
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${response.accessToken}`
-          })
-        };
-        return this.http.post<any>('/register', user, httpOptions)
-          .pipe(
+    return from(msalInstance.acquireTokenSilent({ scopes: ["api://<your-api-client-id>/access_as_user"] }))
+      .pipe(
+        switchMap((response: any) => {
+          const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${response.accessToken}`
+            })
+          };
+          return this.http.post<any>('/register', user, httpOptions)
+        .pipe(
             tap(res => {
               if (res.success) {
                 localStorage.setItem('token', res.token);

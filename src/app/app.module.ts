@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatRadioModule } from "@angular/material/radio";
 import { _MatCheckboxRequiredValidatorModule } from "@angular/material/checkbox";
+import { AppConfigService } from '../services/app-config.service';
 
 
 @NgModule({
@@ -61,7 +62,15 @@ import { _MatCheckboxRequiredValidatorModule } from "@angular/material/checkbox"
     MatRadioModule,
     _MatCheckboxRequiredValidatorModule,
   ],
-  providers: [],
+  providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (appConfigService: AppConfigService) => () => appConfigService.loadAppConfig(),
+      deps: [AppConfigService],
+      multi: true,
+    },
+  ],
   bootstrap: [
     AppComponent
   ]
