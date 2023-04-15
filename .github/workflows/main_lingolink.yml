@@ -31,29 +31,11 @@ jobs:
           sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
 
-#      - name: Setup Xvfb
-#        run: |
-#          sudo apt-get install -y xvfb
-#          export DISPLAY=:99
-#          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-#
-#      - name: Set up Chrome
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y libxss1
-#          export CHROME_BIN=google-chrome
-#          echo "CHROME_BIN=$CHROME_BIN" >> $GITHUB_ENV
-#
-#      - name: Setup Chrome Headless
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y libxss1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3-0
-
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build:ci
-#          npm run test:ci
+          npm run build
+#          npm run test
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2

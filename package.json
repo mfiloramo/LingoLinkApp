@@ -8,9 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build:ci": "ng build || true",
-    "test:ci": "DISPLAY=:99 ng test || true"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
