@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from "../login/auth.service";
 import { PublicClientApplication } from "@azure/msal-browser";
-import { msalBrowserConfig } from "../../config/msalBrowserConfig";
+import { msalConfig } from '../../config/msalBrowserConfig';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-const msalInstance: PublicClientApplication = new PublicClientApplication(msalBrowserConfig);
+const msalInstance: PublicClientApplication = new PublicClientApplication(msalConfig);
 
 @Component({
   selector: 'app-registration',

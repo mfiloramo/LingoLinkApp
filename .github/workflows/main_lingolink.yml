@@ -31,10 +31,17 @@ jobs:
           sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
 
-      - name: npm install, build, and test
+      - name: Install packages/dependencies
         run: |
           npm install
+
+      - name: Build application
+        run: |
           npm run build
+          npm audit fix
+
+#      - name: Run tests
+#        run: |
 #          npm run test
 
       - name: Upload artifact for deployment job
@@ -55,6 +62,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+
+      - name: 'Azure Login'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp

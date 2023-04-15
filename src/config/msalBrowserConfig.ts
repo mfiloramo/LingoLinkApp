@@ -1,7 +1,7 @@
-import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { Configuration, PublicClientApplication } from '@azure/msal-browser';
 import { environment } from '../environments/environment';
 
-export const msalBrowserConfig: Configuration = {
+export const msalConfig: Configuration = {
   auth: {
     clientId: environment.azureClientID,
     authority: environment.azureTenantID,
@@ -9,8 +9,8 @@ export const msalBrowserConfig: Configuration = {
   },
   cache: {
     cacheLocation: 'localStorage',
-    storeAuthStateInCookie: false
-  }
+    storeAuthStateInCookie: false,
+  },
 };
 
-export const msalInstance = new PublicClientApplication(msalBrowserConfig);
+export const msalInstance = new PublicClientApplication(msalConfig);
