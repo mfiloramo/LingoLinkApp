@@ -38,6 +38,11 @@ jobs:
           export CHROME_BIN=google-chrome
           echo "CHROME_BIN=$CHROME_BIN" >> $GITHUB_ENV
 
+      - name: Setup Chrome Headless
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxss1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3-0
+
       - name: npm install, build, and test
         run: |
           npm install
