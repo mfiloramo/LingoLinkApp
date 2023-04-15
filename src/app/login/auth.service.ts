@@ -5,6 +5,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { msalInstance } from "../../config/msalBrowserConfig";
+import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -52,27 +54,27 @@ export class AuthService {
             })
           };
           return this.http.post<any>('/register', user, httpOptions)
-        .pipe(
-            tap(res => {
-              if (res.success) {
-                localStorage.setItem('token', res.token);
-                this.loggedIn.next(true);
-                this.router.navigate(['/home']);
-              } else {
-                this.snackBar.open(res.message, 'Dismiss', { duration: 5000 });
-              }
-            }),
-            catchError((error: any) => {
-              this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-              return (error);
-            })
-          );
-      }),
-      catchError((error: any) => {
-        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-        return (error);
-      })
-    );
+            .pipe(
+              tap(res => {
+                if (res.success) {
+                  localStorage.setItem('token', res.token);
+                  this.loggedIn.next(true);
+                  this.router.navigate(['/home']);
+                } else {
+                  this.snackBar.open(res.message, 'Dismiss', { duration: 5000 });
+                }
+              }),
+              catchError((error: any) => {
+                this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+                return (error);
+              })
+            );
+        }),
+        catchError((error: any) => {
+          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+          return (error);
+        })
+      );
   }
 
   public logout(): void {
