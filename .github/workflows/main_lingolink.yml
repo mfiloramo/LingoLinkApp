@@ -21,12 +21,25 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Replace environment variables
+      - name: Create environment file for production
+        if: github.ref == 'refs/heads/main'
         run: |
+          cp src/environments/environment.ts src/environments/environment.prod.ts
+          sed -i "s|#{production}#|true|g" src/environments/environment.prod.ts
           sed -i "s|#{apiBaseUrl}#|${{ secrets.apiBaseUrl }}|g" src/environments/environment.prod.ts
           sed -i "s|#{azureTenantID}#|${{ secrets.azureTenantID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
+
+      - name: Create environment file for development
+        if: github.ref != 'refs/heads/main'
+        run: |
+          cp src/environments/environment.ts src/environments/environment.local.ts
+          sed -i "s|#{production}#|false|g" src/environments/environment.local.ts
+          sed -i "s|#{apiBaseUrl}#|${{ secrets.apiBaseUrl }}|g" src/environments/environment.local.ts
+          sed -i "s|#{azureTenantID}#|${{ secrets.azureTenantID }}|g" src/environments/environment.local.ts
+          sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.local.ts
+          sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.local.ts
 
       - name: npm install, build, and test
         run: |
