@@ -7,15 +7,12 @@ import { UserService } from "./login/user.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  public title: string = 'worldChatApp';
 
   constructor(
     private userService: UserService
   ) {}
 
   ngOnInit() {
-
-    // this.userService.setUser().subscribe((res: any) => {
-    //   this.user = res;
-    // });
   }
 }
