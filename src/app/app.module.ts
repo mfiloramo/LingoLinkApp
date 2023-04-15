@@ -6,7 +6,7 @@ import { CommonModule } from "@angular/common";
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { ChatBoxComponent } from "./chat-box/chat-box.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgChatModule } from 'ng-chat';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from "@angular/material/card";
@@ -20,7 +20,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginComponent } from './login/login.component';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegistrationComponent } from './registration/registration.component';
+import { MatRadioModule } from "@angular/material/radio";
+import { _MatCheckboxRequiredValidatorModule } from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -31,7 +36,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     HomeComponent,
     ConvosComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,12 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatGridListModule,
     MatIconModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatRadioModule,
+    _MatCheckboxRequiredValidatorModule,
   ],
   providers: [],
   bootstrap: [

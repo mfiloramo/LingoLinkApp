@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Conversation } from "../../interfaces/conversationInterface";
+import { Conversation } from "../../interfaces/conversationInterfaces";
 import { ConversationService } from "./conversation.service";
 import dayjs from "dayjs";
 
@@ -28,9 +28,10 @@ export class ConvosComponent implements OnInit {
 
   /** LIFECYCLE HOOKS */
   async ngOnInit(): Promise<any> {
-    // DEBUG
+    // DEBUG: IDENTIFY USER
     console.log(this.user.user_id)
 
+    // LOAD CONVERSATIONS BY USERID
     this.conversationService.loadConversationsByUserId(this.user.user_id)
       .subscribe((response: any) => {
         this.conversations = response;
@@ -39,16 +40,23 @@ export class ConvosComponent implements OnInit {
 
   /** PUBLIC METHODS */
   public onSelectConversation(conversation: Conversation): void {
+    // EMIT SELECTED CONVERSATION
     this.conversationSelected.emit(conversation);
   }
 
   public checkConvoVisibility(conversation: Conversation): boolean {
+    // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
+
+    // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
     return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
   }
 
   public removeConvo(conversation: Conversation): void {
+    // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
+
+    // SET SELECTED CONVERSATION TO "DISABLED" IN LOCALSTORAGE CACHE
     localStorage.setItem(conversationKey, 'disabled');
   }
 

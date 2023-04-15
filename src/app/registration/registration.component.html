@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="registration-card mat-elevation-z4">
+    <h2 class="registration-header">Registration Module</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationFormSubmit()" class="registration-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error *ngIf="registrationForm.get('username')!.hasError('required')">Username is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" required>
+        <mat-error *ngIf="registrationForm.get('password')!.hasError('required')">Password is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" required>
+        <mat-error *ngIf="registrationForm.get('firstName')!.hasError('required')">First Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" required>
+        <mat-error *ngIf="registrationForm.get('lastName')!.hasError('required')">Last Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+        <mat-error *ngIf="registrationForm.get('email')!.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="registrationForm.get('email')!.hasError('email')">Invalid email format</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" class="registration-button" [disabled]="registrationForm.invalid">Register</button>
+
+      <button mat-raised-button color="warn" routerLink="/login" id="return-button" class="registration-button">Return to Login</button>
+
+    </form>
+  </div>
+</div>
