@@ -1,14 +1,20 @@
-import 'zone.js/dist/zone-testing';
-import { getTestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-declare const require: any;
+import { UserService } from './user.service';
 
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
-);
+describe('UserService', () => {
+  let service: UserService;
 
-const context = require.context('./', true, /\.spec\.ts$/);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
+      providers: [ UserService ]
+    });
+    service = TestBed.inject(UserService);
+  });
 
-context.keys().map(context);
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
