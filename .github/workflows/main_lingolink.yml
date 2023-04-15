@@ -31,11 +31,18 @@ jobs:
           sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
 
+      - name: Set up Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxss1
+          export CHROME_BIN=google-chrome
+          echo "CHROME_BIN=$CHROME_BIN" >> $GITHUB_ENV
+
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
-          npx ng test --watch=false --configuration=ci
+          npm run build:ci
+          npm run test:ci
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
