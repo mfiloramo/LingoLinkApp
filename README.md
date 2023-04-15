@@ -20,6 +20,7 @@ To get started with the app, follow these steps:
 4. Create a `.env` file in the root directory of the project and add the following environment variables:
 - `API_KEY`: your Microsoft Azure Cognitive Services Translator API key
 - `API_REGION`: the region your API key is associated with
+  
 5. Run `npm start` to start the app
 
 ## Technologies Used
