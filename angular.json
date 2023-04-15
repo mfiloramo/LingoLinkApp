@@ -102,6 +102,11 @@
               "@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": []
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeHeadlessCI"
+            }
           }
         }
       }
