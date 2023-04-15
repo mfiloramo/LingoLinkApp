@@ -21,6 +21,13 @@ jobs:
         with:
           node-version: '16.x'
 
+      - name: Replace environment variables
+        run: |
+          sed -i "s|#{apiBaseUrl}#|${{ secrets.API_BASE_URL }}|g" src/environments/environment.prod.ts
+          sed -i "s|#{azureTenantID}#|${{ secrets.AZURE_TENANT_ID }}|g" src/environments/environment.prod.ts
+          sed -i "s|#{azureClientID}#|${{ secrets.AZURE_CLIENT_ID }}|g" src/environments/environment.prod.ts
+          sed -i "s|#{appConfigEndpoint}#|${{ secrets.APP_CONFIG_ENDPOINT }}|g" src/environments/environment.prod.ts
+
       - name: npm install, build, and test
         run: |
           npm install
@@ -52,5 +59,5 @@ jobs:
         with:
           app-name: 'LingoLink'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1A64610E8EAE455196A66AB6F61E8985 }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
