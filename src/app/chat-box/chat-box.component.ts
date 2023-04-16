@@ -15,7 +15,7 @@ import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
-import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -69,7 +69,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('conversationId' in changes) {
-      this.loadConversationByConvoId().then((response: any) => response);
+      this.loadConversationByConvoId();
     }
   }
 
@@ -128,38 +128,40 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     this.textInput = '';
   }
 
-  public async loadConversationByConvoId(): Promise<any> {
+  public loadConversationByConvoId(): any {
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
       this.isLoading = true;
 
-      try {
-        // GET LOCAL LANGUAGE CODE
-        const localLangCode: string = this.translationService.getLanguageCode(this.source_language);
+      // GET LOCAL LANGUAGE CODE
+      const localLangCode: string = this.translationService.getLanguageCode(this.source_language);
 
-        // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
-        let selectedConvo: any;
-        await this.messageService.loadMessages(this.conversationId).subscribe(async (response: any) => {
-
+      // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
+      this.messageService.loadMessages(this.conversationId)
+        .subscribe(async (response: any) => {
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
-          for (let message of response) {
+          const translationPromises = response.map(async (message: any) => {
             if (message.source_language !== localLangCode && message.content) {
               // TRANSLATE/STRINGIFY MESSAGE CONTENT
-              message.content = JSON.stringify(await this.handleTranslation(message, localLangCode));
+              message.content = await this.handleTranslation(message, localLangCode);
             }
-          }
+          });
 
-        // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
-        this.mainConvoContainer = response;
+          // Wait for all translation promises to resolve
+          await Promise.all(translationPromises);
+
+          // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
+          this.mainConvoContainer = response;
+
+          // SCROLL TO BOTTOM OF CONVERSATION
+          this.scrollToBottom();
+
+          // Set isLoading to false after translations are done
+          this.isLoading = false;
+        }, (error) => {
+          console.error('Failed to load messages for conversation:', error);
+          this.isLoading = false;
         });
-
-        // SCROLL TO BOTTOM OF CONVERSATION
-        this.scrollToBottom();
-      } catch (error) {
-        console.error('Failed to load messages for conversation:', error);
-      } finally {
-        this.isLoading = false;
-      }
     }
   }
 
@@ -263,9 +265,4 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     });
   }
 
-  private decodeHtmlEntities(encodedText: string): string {
-    const textarea = document.createElement('textarea');
-    textarea.innerHTML = encodedText;
-    return textarea.value as string;
-  }
 }
