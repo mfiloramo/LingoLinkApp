@@ -13,17 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node.js version
+      - name: Set Up Node.js Version 16
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
 
-      - name: Create environment files
+      - name: Create Environment Files
         run: |
           cp src/environments/environment.ts src/environments/environment.prod.ts
           cp src/environments/environment.ts src/environments/environment.local.ts
 
-      - name: Replace environment variables
+      - name: Replace Environment Variables
         run: |
           sed -i "s|#{production}#|true|g" src/environments/environment.prod.ts
           sed -i "s|#{apiBaseUrl}#|${{ secrets.apiBaseUrl }}|g" src/environments/environment.prod.ts
@@ -32,20 +32,23 @@ jobs:
           sed -i "s|#{azureAPIClientID}#|${{ secrets.azureAPIClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
 
-      - name: Install packages/dependencies
+      - name: Install Packages/Dependencies
         run: |
           npm install
 
-      - name: Build application
+      - name: Package Audit Fix
+        run: |
+          npm audit fix
+
+      - name: Build Application
         run: |
           npm run build
-          npm audit fix
 
 #      - name: Run tests
 #        run: |
 #          npm run test
 
-      - name: Upload artifact for deployment job
+      - name: Upload Artifact For Deployment Job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
