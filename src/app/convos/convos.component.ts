@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Conversation } from "../../interfaces/conversationInterfaces";
-import { ConversationService } from "./conversation.service";
-import dayjs from "dayjs";
+import { Conversation } from '../../interfaces/conversationInterfaces';
+import { ConversationService } from './conversation.service';
+import dayjs from 'dayjs';
+import { BrowserAuthError } from '@azure/msal-browser';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-convos',
@@ -24,19 +26,28 @@ export class ConvosComponent implements OnInit {
   @Output() conversationSelected = new EventEmitter<any>();
   public conversations: any[] = [];
 
-  constructor(private conversationService: ConversationService) { }
+  constructor(
+    private conversationService: ConversationService,
+    private authService: AuthService
+  ) { }
 
   /** LIFECYCLE HOOKS */
   async ngOnInit(): Promise<any> {
     // DEBUG: IDENTIFY USER
-    console.log(this.user.user_id)
+    // console.log(`Debug: user ${this.user.user_id}`);
 
     // LOAD CONVERSATIONS BY USERID
-    this.conversationService.loadConversationsByUserId(this.user.user_id)
-      .subscribe((response: any) => {
-        this.conversations = response;
-      });
+    try {
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id);
+    } catch (error) {
+      console.error('Error loading conversations:', error);
+      // handle the specific error message
+      if (error instanceof BrowserAuthError && error.errorCode === 'no_account_error') {
+        // perform some action or show a message to the user to indicate that they need to log in again
+      }
+    }
   }
+
 
   /** PUBLIC METHODS */
   public onSelectConversation(conversation: Conversation): void {

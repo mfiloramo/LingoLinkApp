@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from "../login/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from '../../config/msalBrowserConfig';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -34,7 +34,7 @@ export class RegistrationComponent implements OnInit {
     const user = this.registrationForm.value;
     msalInstance.loginPopup({ scopes: ["openid", "profile", "email"], prompt: "select_account" })
       .then((response: any) => {
-        this.authService.register(user).subscribe(
+        this.authService.register(user).then(
           () => this.router.navigate(['/home']),
           (error: any) => {
             this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });

@@ -15,6 +15,7 @@ import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -95,7 +96,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
       const convoName: string = `conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
 
       try {
-        const response: any = await this.conversationService.createConversation({ 'name': convoName }).toPromise();
+        const response: any = await this.conversationService.createConversation({ 'name': convoName });
         // ASSIGN CONVERSATION ID (TABLE IDENTITY) RESPONSE
         this.conversationId = response.Conversation_id;
 
@@ -105,7 +106,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           user_id: this.user.user_id,
           content: this.textInput,
           source_language: this.translationService.getLanguageCode(this.source_language),
-        }).toPromise();
+        });
       } catch (error: any) {
         console.log(error);
       }
@@ -117,7 +118,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           user_id: this.user.user_id,
           content: this.textInput,
           source_language: this.translationService.getLanguageCode(this.source_language),
-        }).toPromise();
+        });
       } catch (error) {
         console.error('Failed to send message:', error);
       }
@@ -130,31 +131,33 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   public async loadConversationByConvoId(): Promise<any> {
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
-      // SET LOADING FLAG TO TRUE
       this.isLoading = true;
 
       try {
-        // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
-        const selectedConvo: any = await this.messageService.loadMessages(this.conversationId).toPromise();
         // GET LOCAL LANGUAGE CODE
         const localLangCode: string = this.translationService.getLanguageCode(this.source_language);
 
-        // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
-        for (let message of selectedConvo) {
-          if (message.source_language !== localLangCode && message.content) {
-            // TRANSLATE MESSAGE CONTENT
-            message.content = await this.handleTranslation(message, localLangCode);
+        // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
+        let selectedConvo: any;
+        await this.messageService.loadMessages(this.conversationId).subscribe(async (response: any) => {
+
+          // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
+          for (let message of response) {
+            if (message.source_language !== localLangCode && message.content) {
+              // TRANSLATE/STRINGIFY MESSAGE CONTENT
+              message.content = JSON.stringify(await this.handleTranslation(message, localLangCode));
+            }
           }
-        }
+
         // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
-        this.mainConvoContainer = selectedConvo;
+        this.mainConvoContainer = response;
+        });
 
         // SCROLL TO BOTTOM OF CONVERSATION
         this.scrollToBottom();
       } catch (error) {
         console.error('Failed to load messages for conversation:', error);
       } finally {
-        // SET LOADING FLAG TO FALSE
         this.isLoading = false;
       }
     }
@@ -200,12 +203,13 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           const targLng = this.translationService.getLanguageCode(this.source_language);
 
           // TRANSLATE MESSAGE IF ITS SOURCE LANGUAGE IS DIFFERENT FROM LOCAL
-          message.content = (msgSrc === targLng)
-            ? message.content
-            : await this.translateText(message.content, msgSrc, targLng);
+            message.content = (msgSrc === targLng)
+              ? message.content
+              : await this.translateText(message.content, msgSrc, targLng)
+                .then((response: any) => response);
 
-          // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM
-          this.mainConvoContainer.push(message);
+            // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM
+            this.mainConvoContainer.push(message);
         };
         // READ THE EVENT DATA AS TEXT AND TRIGGER 'LOAD' EVENT FOR READER
         reader.readAsText(event.data);
@@ -222,32 +226,25 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     };
   }
 
-  private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
+  private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<string> {
     try {
-      // DEFINE TRANSLATION KEY BASED ON MESSAGE ID + SOURCE LANGUAGE
       const translateKey = `${message.message_id}_${localLangCode}`;
-
-      // CHECK IF TRANSLATED MESSAGE IS IN LOCALSTORAGE
       const storedTranslation = this.translationService.getStoredTranslation(translateKey);
+
       if (!storedTranslation) {
-        // TRANSLATE MESSAGE
         const translatedText = await this.translateText(message.content, message.source_language, localLangCode);
         const decodedText = this.translationService.decodeHtmlEntities(translatedText);
-
-        // STORE TRANSLATED MESSAGE IN LOCALSTORAGE
         this.translationService.storeTranslation(translateKey, decodedText);
-
-        // UPDATE MESSAGE CONTENT WITH TRANSLATED AND DECODED TEXT
         message.content = decodedText;
       } else {
-        // UPDATE MESSAGE CONTENT WITH TRANSLATED AND DECODED TEXT FROM LOCALSTORAGE
         message.content = storedTranslation;
       }
-      return message.content as string;
+
+      return message.content;
     } catch (error: any) {
       console.log(error);
+      return '';
     }
-
   }
 
   private playClickSound(): void {
@@ -257,14 +254,13 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   /** UTILITY FUNCTIONS */
   private async translateText(content: string, source_language: string, targLang: string): Promise<string> {
-    // TRANSLATE RECEIVED TEXT IF DIFFERENT LANGUAGE THAN LOCAL
-    const translatedContent = await this.translationService.getLiveTranslation('translate', {
-      user: this.user.user_id, content, source_language, targLang
-    })
-      .toPromise();
-
-    // DECODE HTML ENTITIES
-    return this.decodeHtmlEntities(translatedContent) as string;
+    return new Promise<string>((resolve) => {
+      this.translationService.getLiveTranslation('translate', {
+        user: this.user.user_id, content, source_language, targLang
+      }).subscribe((response: any) => {
+        resolve(this.translationService.decodeHtmlEntities(response));
+      });
+    });
   }
 
   private decodeHtmlEntities(encodedText: string): string {
