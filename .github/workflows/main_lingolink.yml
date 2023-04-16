@@ -27,7 +27,7 @@ jobs:
         run: |
           sed -i "s|#{production}#|true|g" src/environments/environment.prod.ts
           sed -i "s|#{apiBaseUrl}#|${{ secrets.apiBaseUrl }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureTenantID}#|${{ secrets.azureTenantID }}|g" src/environments/environment.prod.ts
+          sed -i "s|#{azureTenantID}#|${{ secrets.AZURE_TENANT_URL }}|g" src/environments/environment.prod.ts
           sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{azureAPIClientID}#|${{ secrets.azureAPIClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
