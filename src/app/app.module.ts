@@ -32,8 +32,9 @@ import { environment } from '../environments/environment.local';
 import { InteractionType } from '@azure/msal-browser';
 
 const protectedResourceMap: [string, string[]][] = [
-  ['http://localhost:3000/api', [`api://${environment.azureAPIClientID}/API.Access`]]
+  [environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/LingoLinkCore`]],
 ];
+
 
 @NgModule({
   declarations: [
@@ -70,20 +71,23 @@ const protectedResourceMap: [string, string[]][] = [
     MsalModule.forRoot(
       msalInstance,
       {
-        interactionType: InteractionType.Redirect, // MSAL Guard Configuration
+        interactionType: InteractionType.Popup,
         authRequest: {
-          scopes: [`api://${environment.azureClientID}/User.Read`],
+          scopes: [
+            'openid',
+            'profile',
+            'email',
+            'user.read',
+            `api://${environment.azureAPIClientID}/LingoLinkCore`,
+          ],
+          prompt: 'consent'
         },
       },
       {
-        interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
-        protectedResourceMap: new Map([
-          ['https://graph.microsoft.com/v1.0/me', ['user.read']],
-          [`${environment.apiBaseUrl}api`, [`api://${environment.azureAPIClientID}/User.Read`]],
-        ]),
-      }
+        interactionType: InteractionType.Popup,
+        protectedResourceMap: new Map(protectedResourceMap),
+      },
     ),
-
 
   ],
   providers: [
@@ -92,6 +96,7 @@ const protectedResourceMap: [string, string[]][] = [
       useClass: MsalInterceptor,
       multi: true,
     },
+    MsalInterceptor,
     MsalGuard
   ],
   bootstrap: [

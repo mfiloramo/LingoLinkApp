@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { environment } from '../../environments/environment.local';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConversationService {
-  public apiUrl: string = 'http://localhost:3000/api';
+  public apiUrl: string = environment.apiBaseUrl;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  public createConversation(body: object): Observable<object> {
-    return this.http.post(`${this.apiUrl}/conversations`, body);
+  public async createConversation(body: object): Promise<any> {
+    return this.http.post(`${this.apiUrl}/conversations`, body).toPromise();
   }
 
-  public loadConversationsByUserId(userId: number): Observable<object> {
-    return this.http.get(`${this.apiUrl}/conversations/${userId}`);
+  public async loadConversationsByUserId(userId: number): Promise<any> {
+    return this.http.get(`${this.apiUrl}/conversations/${userId}`).toPromise();
   }
 
-  public loadConversationsByConvoId(conversationId: number): Observable<object> {
-    return this.http.get(`${this.apiUrl}/conversations/${conversationId}`);
+  public async loadConversationsByConvoId(conversationId: number): Promise<any> {
+    return this.http.get(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
   }
 
-  // DELETES LOCALLY CACHED MESSAGES ONLY
-  public deleteConversationByConvoId(conversationId: number): Observable<object> {
-    return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`);
+  public async deleteConversationByConvoId(conversationId: number): Promise<any> {
+    return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
   }
+
 }
