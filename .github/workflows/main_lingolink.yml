@@ -36,10 +36,6 @@ jobs:
         run: |
           npm install
 
-      - name: Package Audit Fix
-        run: |
-          npm audit fix
-
       - name: Build Application
         run: |
           npm run build
