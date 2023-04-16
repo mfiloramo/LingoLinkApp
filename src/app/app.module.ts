@@ -31,7 +31,7 @@ import { msalInstance } from '../config/msalBrowserConfig';
 import { environment } from '../environments/environment.local';
 import { InteractionType } from '@azure/msal-browser';
 
-const protectedResourceMap: [string, string[]][] = [
+const protectedResourceMap: any = [
   [environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/LingoLinkCore`]],
 ];
 
