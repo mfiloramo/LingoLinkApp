@@ -147,7 +147,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
             }
           });
 
-          // Wait for all translation promises to resolve
+          // WAIT FOR ALL TRANSLATION PROMISES TO RESOLVE
           await Promise.all(translationPromises);
 
           // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
@@ -156,7 +156,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           // SCROLL TO BOTTOM OF CONVERSATION
           this.scrollToBottom();
 
-          // Set isLoading to false after translations are done
+          // SET isLoading TO FALSE AFTER TRANSLATIONS ARE DONE
           this.isLoading = false;
         }, (error) => {
           console.error('Failed to load messages for conversation:', error);
