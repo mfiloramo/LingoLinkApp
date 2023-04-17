@@ -9,8 +9,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChatMessage } from "../../interfaces/messageInterfaces";
-import { TranslationService } from '../../services/translation.service';
+import { ChatMessage } from "../../interfaces/message.interfaces";
+import { TranslationService } from '../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';

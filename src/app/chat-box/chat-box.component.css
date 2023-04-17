@@ -39,17 +39,15 @@
   justify-content: flex-start;
 }
 
-.textContainer {
+.inputContainer {
   background: #a9a9a9;
-  border-radius: 15px;
-  height: 35px;
+  height: 50px;
   position: absolute;
-  width: 45vw;
-  display: inline-flex;
+  width: 100%;
+  display: flex;
   align-items: center;
   padding: 0 10px;
-  bottom: 4vh;
-  justify-content: space-between;
+  bottom: 0;
   z-index: 3;
 }
 
@@ -65,11 +63,14 @@
 }
 
 .textInput {
+  height: 35px;
   margin-left: 1vw;
-  width: 28vw;
+  width: 30vw;
+  padding-right: 50px;
 }
 
 .sendMessageButton {
+  margin-left: 10px;
   width: 7vw;
 }
 
@@ -82,8 +83,9 @@
 
 .conversation-container {
   position: relative;
-  height: 100%;
-  width: 100%
+  height: calc(100% - 35px);
+  width: 100%;
+  overflow-y: auto;
 }
 
 .loading-container {
@@ -94,11 +96,10 @@
   width: 50px;
   position: absolute;
   top: 50%;
-  left: 70%;
+  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
 }
-
 
 @keyframes fadeIn {
   from {
