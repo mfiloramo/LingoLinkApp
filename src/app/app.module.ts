@@ -7,7 +7,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgChatModule } from 'ng-chat';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,7 +53,6 @@ const protectedResourceMap: any = [
     HttpClientModule,
     MatExpansionModule,
     FormsModule,
-    NgChatModule,
     MatButtonModule,
     MatCardModule,
     BrowserAnimationsModule,
