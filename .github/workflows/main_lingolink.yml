@@ -18,18 +18,15 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Install Azure CLI
-        run: |
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+#      - name: Azure Login
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Print Credentials JSON (TEMPORARY)
+      - name: Azure Login (TEMPORARY)
         run: |
-          echo ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          echo "AZURE_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> $GITHUB_ENV
+          az login --service-principal -u ${{ secrets.azureClientID }} -p $AZURE_CLIENT_SECRET --tenant ${{ secrets.azureTenantID }}
 
       - name: Create Environment Files
         run: |
@@ -52,7 +49,6 @@ jobs:
       - name: Build Application
         run: |
           npm run build
-
 
 #      - name: Run tests
 #        run: |
