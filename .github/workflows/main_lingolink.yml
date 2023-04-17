@@ -32,13 +32,14 @@ jobs:
           sed -i "s|#{azureAPIClientID}#|${{ secrets.azureAPIClientID }}|g" src/environments/environment.prod.ts
           sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
 
-      - name: 'Install Packages/Dependencies'
+      - name: 'Install Packages/Dependencies & Angular CLI'
         run: |
           npm install
+          npm install -g @angular/cli
 
       - name: 'Build Application'
         run: |
-          npm run build
+          ng build
 
 #      - name: Run tests
 #        run: |
@@ -63,7 +64,7 @@ jobs:
         with:
           name: node-app
 
-      - name: Azure Login
+      - name: 'Azure Login'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}

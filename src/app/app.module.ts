@@ -88,7 +88,6 @@ const protectedResourceMap: any = [
         protectedResourceMap: new Map(protectedResourceMap),
       },
     ),
-
   ],
   providers: [
     {
