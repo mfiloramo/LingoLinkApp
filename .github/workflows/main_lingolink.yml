@@ -22,6 +22,15 @@ jobs:
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
+      - name: Print Credentials JSON (TEMPORARY)
+        run: |
+          echo ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Create Environment Files
         run: |
           cp src/environments/environment.ts src/environments/environment.prod.ts
@@ -44,10 +53,6 @@ jobs:
         run: |
           npm run build
 
-      - name: 'Azure Login'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 #      - name: Run tests
 #        run: |
