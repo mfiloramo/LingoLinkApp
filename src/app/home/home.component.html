@@ -15,7 +15,9 @@
   <!-- MAIN COLUMN -->
   <div class="gridCol" style="width: 70vw; margin-right: 30px">
     <div [ngClass]="{'fadeOut': fadeOutConvosAndChat}" class="chatboxContainer">
-      <app-chatbox [conversationId]="selectedConversation?.conversation_id" [user]="user" *ngIf="showConvosAndChat"></app-chatbox>
+      <div class="chatboxWrapper">
+        <app-chatbox [conversationId]="selectedConversation?.conversation_id" [user]="user" *ngIf="showConvosAndChat"></app-chatbox>
+      </div>
     </div>
   </div>
 

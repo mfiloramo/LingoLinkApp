@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { msalInstance } from "../config/msalBrowserConfig";
-import { environment } from '../environments/environment.local';
+import { msalInstance } from "../../config/msalBrowserConfig";
+import { environment } from '../../environments/environment.local';
 
 @Injectable({
   providedIn: 'root'
