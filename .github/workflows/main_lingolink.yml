@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: '16.x'
 
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
       - name: Create Environment Files
         run: |
           cp src/environments/environment.ts src/environments/environment.prod.ts
