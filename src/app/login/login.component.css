@@ -11,12 +11,25 @@
   margin: 0 auto;
   background-color: #ececec;
   color: #333333;
-  border-radius: 7px;
+  border: 10px solid #000000;
+  border-radius: 15px;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+mat-card {
+  background: linear-gradient(to top left, #b1b9c7, #d4ddea);
 }
 
 mat-card-title {
   color: #333333;
+  font-size: 28px;
+}
+
+mat-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-bottom: 35px;
 }
 
 mat-form-field {
@@ -51,13 +64,21 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 25px;
+}
+
+.logo {
+  width: 500px;
+  height: auto;
+}
+
 @media only screen and (max-width: 768px) {
   .login-card {
     padding: 20px;
-  }
-
-  mat-card-title {
-    font-size: 28px;
   }
 
   mat-form-field {
