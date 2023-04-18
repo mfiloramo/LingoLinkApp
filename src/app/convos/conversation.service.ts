@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from '../../environments/environment.local';
 import { LoremIpsum } from 'lorem-ipsum';
+import { TranslationService } from '../services/translation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class ConversationService {
   public apiUrl: string = environment.apiBaseUrl;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslationService
   ) { }
 
   public async createConversation(body: object): Promise<any> {
@@ -36,6 +38,7 @@ export class ConversationService {
     return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
   }
 
+  /** GENERATE RANDOMIZED STUB USER/CONVERSATION DATA */
   private async fetchRandomUserData(convo: any) {
     try {
       const response: any = await this.http.get('https://randomuser.me/api/').toPromise();
@@ -53,8 +56,15 @@ export class ConversationService {
           min: 4
         },
       });
-
       convo.randomSentence = lorem.generateSentences(1);
+      await this.translate.getLiveTranslation('translate', {
+          content: convo.randomSentence,
+          targLang: 'en',
+          source_language: 'la'
+      }) // TRYING TO TRANSLATE TEXT OF CONVOS
+        .subscribe((response: any) => {
+          convo.randomSentence = response
+        });
     } catch (error) {
       console.error('Error fetching random user data:', error);
     }

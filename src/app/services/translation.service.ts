@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import languageArray from '../../utils/languageMapper';
 
+// TODO: IMPLEMENT PAYLOAD TYPECHECKING
+
 @Injectable({
   providedIn: 'root',
 })
