@@ -27,6 +27,7 @@ mat-icon {
 
 .userMessage .messageText,
 .otherMessage .messageText {
+  color: white;
   display: flex;
   align-items: center;
   padding: 0 5px;
@@ -41,12 +42,12 @@ mat-icon {
 }
 
 .userMessage .messageText {
-  background: #63a0ff;
+  background: #284a86;
   justify-content: flex-end;
 }
 
 .otherMessage .messageText {
-  background: #c9c9c9;
+  background: #5e6179;
   justify-content: flex-start;
 }
 

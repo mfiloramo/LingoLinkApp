@@ -11,10 +11,10 @@
 }
 
 .convoItem:hover {
-  background: #111633;
+  background: #061a46;
   cursor: pointer;
 }
 
 .convoItem:active {
-  background: #0f183d;
+  background: #082157;
 }
