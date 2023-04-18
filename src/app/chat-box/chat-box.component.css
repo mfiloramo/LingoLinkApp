@@ -1,3 +1,7 @@
+mat-icon {
+  color: #d4dbff;
+}
+
 .userMessage,
 .otherMessage {
   display: flex;
@@ -12,6 +16,13 @@
 
 .otherMessage {
   justify-content: flex-start;
+}
+
+.languageSelect:focus,
+.textInput:focus {
+  outline: none;
+  border-color: #63a0ff;
+  box-shadow: 0 0 3px rgba(99, 160, 255, 0.5);
 }
 
 .userMessage .messageText,
@@ -40,7 +51,7 @@
 }
 
 .inputContainer {
-  background: #a9a9a9;
+  background-color: #1f293f;
   height: 50px;
   position: absolute;
   width: 100%;
@@ -51,7 +62,6 @@
   z-index: 3;
 }
 
-.languageSelect,
 .textInput,
 .sendMessageButton {
   border-radius: 10px;
@@ -59,14 +69,21 @@
 }
 
 .languageSelect {
-  width: 7vw;
+  background-color: #989aad;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+  width: 8vw;
+  height: 35px
 }
 
 .textInput {
+  background-color: #989aad;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
   height: 35px;
   margin-left: 1vw;
   width: 100%;
   padding-right: 50px;
+  padding-left: 10px;
 }
 
 .sendMessageButton {

@@ -28,7 +28,6 @@ export class ConvosComponent implements OnInit {
 
   constructor(
     private conversationService: ConversationService,
-    private authService: AuthService
   ) { }
 
   /** LIFECYCLE HOOKS */
@@ -46,7 +45,7 @@ export class ConvosComponent implements OnInit {
         // perform some action or show a message to the user to indicate that they need to log in again
       }
     }
-    // TODO: AFTER THE CONVERSATIONS LOAD, BUT BEFORE THEY'RE ADDED TO THE DOM, ITERATE THROUGH AND CALL THE SP ON EACH CONVERSATION USING THE APPROPRIATE SERVICE THAT CALLS IT (CONVERSATION SERVICE?).
+    // TODO: AFTER THE CONVERSATIONS LOAD, BUT BEFORE THEY'RE ADDED TO THE DOM, ITERATE THROUGH AND CALL THE SP ON EACH CONVERSATION USING THE APPROPRIATE SERVICE THAT CALLS IT (CONVERSATION SERVICE?). AND RENDERING EACH TRAIT.
   }
 
 

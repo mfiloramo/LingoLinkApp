@@ -2,17 +2,27 @@
 <mat-sidenav-container class="sidenav">
 
   <!-- PROFILE AVATAR -->
-  <mat-sidenav-content class="sidenavItem" style="padding-bottom: 150px; background: #bdbdbd">
-    {{ user }}
+  <mat-sidenav-content class="sidenavItem" style="background: #001b4f">
+    <mat-icon id="profile-icon">perm_identity</mat-icon>
   </mat-sidenav-content>
   <!-- END PROFILE AVATAR -->
 
   <!-- NAV BUTTONS  -->
-  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenavItem">Profile</mat-sidenav-content>
-  <mat-sidenav-content (click)="showConvosAndChat()" routerLink="/home/chat" class="sidenavItem">Chat</mat-sidenav-content>
-  <mat-sidenav-content class="sidenavItem">Friends</mat-sidenav-content>
-  <mat-sidenav-content class="sidenavItem">Conversations</mat-sidenav-content>
-  <mat-sidenav-content (click)="logout()" class="sidenavItem">Settings</mat-sidenav-content>
+  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenavItem">
+    <mat-icon>person</mat-icon>
+  </mat-sidenav-content>
+  <mat-sidenav-content (click)="showConvosAndChat()" routerLink="/home/chat" class="sidenavItem">
+    <mat-icon>chat</mat-icon>
+  </mat-sidenav-content>
+  <mat-sidenav-content class="sidenavItem">
+    <mat-icon>mail</mat-icon>
+  </mat-sidenav-content>
+  <mat-sidenav-content class="sidenavItem">
+    <mat-icon>contacts</mat-icon>
+  </mat-sidenav-content>
+  <mat-sidenav-content (click)="logout()" class="sidenavItem">
+    <mat-icon>settings</mat-icon>
+  </mat-sidenav-content>
   <!-- END NAV BUTTONS  -->
 
 
