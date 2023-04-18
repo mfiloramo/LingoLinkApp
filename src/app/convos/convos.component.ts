@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Conversation } from '../../interfaces/conversation.interfaces';
 import { ConversationService } from './conversation.service';
 import dayjs from 'dayjs';
@@ -16,6 +17,7 @@ export class ConvosComponent implements OnInit {
 
   constructor(
     private conversationService: ConversationService,
+    private http: HttpClient
   ) { }
 
   /** LIFECYCLE HOOKS */
@@ -33,9 +35,9 @@ export class ConvosComponent implements OnInit {
         // perform some action or show a message to the user to indicate that they need to log in again
       }
     }
+
     // TODO: AFTER THE CONVERSATIONS LOAD, BUT BEFORE THEY'RE ADDED TO THE DOM, ITERATE THROUGH AND CALL THE SP ON EACH CONVERSATION USING THE APPROPRIATE SERVICE THAT CALLS IT (CONVERSATION SERVICE?). AND RENDERING EACH TRAIT.
   }
-
 
   /** PUBLIC METHODS */
   public onSelectConversation(conversation: Conversation): void {
@@ -57,6 +59,10 @@ export class ConvosComponent implements OnInit {
 
     // SET SELECTED CONVERSATION TO "DISABLED" IN LOCALSTORAGE CACHE
     localStorage.setItem(conversationKey, 'disabled');
+  }
+
+  public truncateSentence(sentence: string, maxLength: number): string {
+    return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
   }
 
   /** UTILITY FUNCTIONS */

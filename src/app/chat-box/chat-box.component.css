@@ -30,15 +30,16 @@ mat-icon {
   color: white;
   display: flex;
   align-items: center;
-  padding: 0 5px;
-  min-height: 50px;
-  min-width: 200px;
-  max-width: 300px;
+  padding: 15px 15px;
+  min-height: 65px;
+  min-width: 275px;
+  max-width: 370px;
   margin: 0 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
-  border-radius: 10px;
+  border-radius: 20px;
   word-wrap: break-word;
   text-align: justify;
+  font-size: 18px;
 }
 
 .userMessage .messageText {

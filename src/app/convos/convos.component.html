@@ -1,9 +1,14 @@
 <div *ngFor="let convo of conversations">
-  <div class="convoItem" *ngIf="checkConvoVisibility(convo)"  (click)="onSelectConversation(convo)">
-    <mat-icon style="padding-right: 20px; margin-left: -5px">person</mat-icon>
-    <div style="padding-right: 10px;">{{ convo.conversation_id }}</div>
-    <div>{{ convo.name }}</div>
-    <div>{{ convertIsoString(convo.latest_timestamp) }}</div>
-    <button (click)="$event.stopPropagation(); removeConvo(convo)" style="margin-right: 7px">x</button>
+  <div class="convoItem" *ngIf="checkConvoVisibility(convo)" (click)="onSelectConversation(convo)">
+    <div class="circle" [style.background-image]="'url(' + convo.profileImageSrc + ')'"></div>
+    <div class="nameAndMessage">
+      <div class="name">{{ convo.firstName }} {{ convo.lastName }}</div>
+      <div class="message" [innerHTML]="truncateSentence(convo.randomSentence, 100)"></div>
+    </div>
+    <div class="notificationAndTimestamp">
+      <mat-icon class="notificationIcon">notifications</mat-icon>
+      <div class="timestamp">{{ convertIsoString(convo.latest_timestamp) }}</div>
+    </div>
+    <!--    <button (click)="$event.stopPropagation(); removeConvo(convo)" class="removeButton">x</button>-->
   </div>
 </div>
