@@ -61,6 +61,7 @@ mat-icon {
   padding: 0 10px;
   bottom: 0;
   z-index: 3;
+  animation: fadeIn 0.5s;
 }
 
 .textInput,
@@ -85,6 +86,10 @@ mat-icon {
   width: 100%;
   padding-right: 50px;
   padding-left: 10px;
+}
+
+.textInput::placeholder {
+  color: #565869;
 }
 
 .sendMessageButton {

@@ -22,19 +22,6 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-chatbox',
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css'],
-  animations: [
-    trigger('fadeInInput', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', animate('600ms ease-in')),
-    ]),
-    trigger('fadeInMessage', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
-      ]),
-    ]),
-  ],
 })
 export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @Input() user!: any;

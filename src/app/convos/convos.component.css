@@ -8,6 +8,7 @@
   justify-content: left;
   width: 100%;
   height: 60px;
+  animation: fadeIn 0.5s;
 }
 
 .convoItem:hover {
@@ -17,4 +18,13 @@
 
 .convoItem:active {
   background: #082157;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -1,25 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Conversation } from '../../interfaces/conversation.interfaces';
 import { ConversationService } from './conversation.service';
 import dayjs from 'dayjs';
 import { BrowserAuthError } from '@azure/msal-browser';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-convos',
   templateUrl: './convos.component.html',
   styleUrls: ['./convos.component.css'],
-  animations: [
-    trigger('fadeIn', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', animate('300ms ease-in')),
-    ]),
-    trigger('fadeOut', [
-      state('void', style({ opacity: 0 })),
-      transition(':leave', animate('300ms ease-out')),
-    ]),
-  ]
 })
 export class ConvosComponent implements OnInit {
   @Input() user: any;
