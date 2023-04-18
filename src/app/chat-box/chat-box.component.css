@@ -39,7 +39,8 @@ mat-icon {
   border-radius: 20px;
   word-wrap: break-word;
   text-align: justify;
-  font-size: 18px;
+  font-size: 14px;
+  font-family: 'Varela Round', sans-serif;
 }
 
 .userMessage .messageText {
