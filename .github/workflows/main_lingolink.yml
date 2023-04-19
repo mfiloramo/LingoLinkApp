@@ -39,7 +39,7 @@ jobs:
 
       - name: 'Build Application'
         run: |
-          ng build
+          ng build --prod
 
       - name: 'Upload Artifact For Deployment Job'
         uses: actions/upload-artifact@v2
