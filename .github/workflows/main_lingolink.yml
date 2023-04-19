@@ -41,10 +41,6 @@ jobs:
         run: |
           ng build
 
-#      - name: Run tests
-#        run: |
-#          npm run test
-
       - name: 'Upload Artifact For Deployment Job'
         uses: actions/upload-artifact@v2
         with:
