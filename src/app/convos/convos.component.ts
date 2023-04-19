@@ -14,10 +14,10 @@ export class ConvosComponent implements OnInit {
   @Input() user: any;
   @Output() conversationSelected = new EventEmitter<any>();
   public conversations: any[] = [];
+  public isLoading: boolean = false;
 
   constructor(
     private conversationService: ConversationService,
-    private http: HttpClient
   ) { }
 
   /** LIFECYCLE HOOKS */
@@ -27,7 +27,11 @@ export class ConvosComponent implements OnInit {
 
     // LOAD CONVERSATIONS BY USERID
     try {
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id);
+      this.isLoading = true;
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id).then((response: any) => {
+        this.isLoading = false;
+        return response
+      });
     } catch (error) {
       console.error('Error loading conversations:', error);
       // handle the specific error message

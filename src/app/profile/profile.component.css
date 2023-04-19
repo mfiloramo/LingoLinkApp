@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.sidenavItem {
+.sidenav-item {
   color: #c1c9da;
   cursor: pointer;
   height: 80px;
@@ -17,15 +17,15 @@
   justify-content: center;
 }
 
-.sidenavItem:hover {
+.sidenav-item:hover {
   background: #001236;
 }
 
-.sidenavItem:active {
+.sidenav-item:active {
   background: #001442;
 }
 
-.sidenavItem:focus {
+.sidenav-item:focus {
   outline: none;
 }
 

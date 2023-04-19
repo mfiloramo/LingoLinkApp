@@ -1,3 +1,9 @@
+<!-- LOADING ANIMATION -->
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<!-- END LOADING ANIMATION -->
+
 <div *ngFor="let convo of conversations">
   <div class="convoItem" *ngIf="checkConvoVisibility(convo)" (click)="onSelectConversation(convo)">
     <div class="circle" [style.background-image]="'url(' + convo.profileImageSrc + ')'"></div>

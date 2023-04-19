@@ -9,14 +9,10 @@
 .login-card {
   max-width: 400px;
   margin: 0 auto;
-  background-color: #ececec;
   color: #333333;
+  background: #cfd3e3;
   border-radius: 15px;
   box-shadow: 3px 7px 7px rgba(0, 0, 0, 0.3);
-}
-
-mat-card {
-  background: linear-gradient(to top left, #bcc1c9, #dce2e8);
 }
 
 mat-card-title {

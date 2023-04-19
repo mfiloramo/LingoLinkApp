@@ -217,12 +217,12 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<string> {
     try {
-      const translateKey = `${message.message_id}_${localLangCode}`;
+      const translateKey: string = `${message.message_id}_${localLangCode}`;
       const storedTranslation = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        const translatedText = await this.translateText(message.content, message.source_language, localLangCode);
-        const decodedText = this.translationService.decodeHtmlEntities(translatedText);
+        const translatedText: string = await this.translateText(message.content, message.source_language, localLangCode);
+        const decodedText: string = this.translationService.decodeHtmlEntities(translatedText);
         this.translationService.storeTranslation(translateKey, decodedText);
         message.content = decodedText;
       } else {
