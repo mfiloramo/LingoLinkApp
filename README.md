@@ -28,11 +28,12 @@ To get started with the app, follow these steps:
 - Google Translate API
 - Angular 15 / TypeScript
 - Angular Material
-- Bootstrap
+- Ionic
+- TailwindCSS
 - Node/Express
 - Microsoft SQL Server
 - Sequelize ORM
-- Passport.js for OAuth 2.0 authentication
+- Microsoft Authentication Library
 
 ## Contributions
 
