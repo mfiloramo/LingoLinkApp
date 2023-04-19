@@ -22,19 +22,6 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-chatbox',
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css'],
-  animations: [
-    trigger('fadeInInput', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', animate('600ms ease-in')),
-    ]),
-    trigger('fadeInMessage', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
-      ]),
-    ]),
-  ],
 })
 export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @Input() user!: any;
@@ -230,12 +217,12 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<string> {
     try {
-      const translateKey = `${message.message_id}_${localLangCode}`;
+      const translateKey: string = `${message.message_id}_${localLangCode}`;
       const storedTranslation = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        const translatedText = await this.translateText(message.content, message.source_language, localLangCode);
-        const decodedText = this.translationService.decodeHtmlEntities(translatedText);
+        const translatedText: string = await this.translateText(message.content, message.source_language, localLangCode);
+        const decodedText: string = this.translationService.decodeHtmlEntities(translatedText);
         this.translationService.storeTranslation(translateKey, decodedText);
         message.content = decodedText;
       } else {

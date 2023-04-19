@@ -1,5 +1,5 @@
 <!-- INPUT CONTAINER -->
-<div @fadeInInput class="inputContainer">
+<div class="inputContainer transition-opacity duration-300 ease-in-out">
   <!-- LANGUAGE SELECTION -->
   <select class="languageSelect" (change)="onLangSelect($event)">
     <option>English</option>
@@ -16,11 +16,12 @@
     (keyup.enter)="onSendMessage()"
     type="text"
     [(ngModel)]="textInput"
+    placeholder="Type something to send..."
   >
   <!-- END TEXT INPUT -->
 
   <!-- SEND MESSAGE BUTTON -->
-  <button class="sendMessageButton" (click)="onSendMessage()" style="float: right; margin-right: 20px">Send</button>
+  <button class="sendMessageButton hover:animate-pulse" (click)="onSendMessage()" style="color: #e8e9ff; float: right">Send</button>
   <!-- END SEND MESSAGE BUTTON -->
 </div>
 <!-- END INPUT CONTAINER -->
@@ -30,7 +31,7 @@
   <!-- CONVERSATION LOADER -->
   <div class="messageList" #chatContainer>
     <ng-container *ngFor="let message of mainConvoContainer">
-      <div class="messageContainer" [ngClass]="{'userMessage': message.user_id == this.user.user_id, 'otherMessage': message.user_id != this.user.user_id}" [@fadeInMessage]>
+      <div class="messageContainer animate-fadeIn" [ngClass]="{'userMessage transition-opacity duration-300 ease-in-out': message.user_id == this.user.user_id, 'otherMessage transition-opacity duration-300 ease-in-out': message.user_id != this.user.user_id}">
         <mat-icon *ngIf="message.user_id != this.user.user_id">person</mat-icon>
         <div class="messageText">{{ message.content || message.text }}</div>
         <mat-icon *ngIf="message.user_id == this.user.user_id">person</mat-icon>
@@ -50,7 +51,4 @@
 <!-- END LOADING ANIMATION -->
 
 <!-- ANIMATIONS -->
-<ng-template>
-  <div [@fadeIn]="''"></div>
-</ng-template>
 <!-- END ANIMATIONS -->

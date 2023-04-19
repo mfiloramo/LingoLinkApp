@@ -1,34 +1,23 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { Conversation } from '../../interfaces/conversation.interfaces';
 import { ConversationService } from './conversation.service';
 import dayjs from 'dayjs';
 import { BrowserAuthError } from '@azure/msal-browser';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-convos',
   templateUrl: './convos.component.html',
   styleUrls: ['./convos.component.css'],
-  animations: [
-    trigger('fadeIn', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', animate('300ms ease-in')),
-    ]),
-    trigger('fadeOut', [
-      state('void', style({ opacity: 0 })),
-      transition(':leave', animate('300ms ease-out')),
-    ]),
-  ]
 })
 export class ConvosComponent implements OnInit {
   @Input() user: any;
   @Output() conversationSelected = new EventEmitter<any>();
   public conversations: any[] = [];
+  public isLoading: boolean = false;
 
   constructor(
     private conversationService: ConversationService,
-    private authService: AuthService
   ) { }
 
   /** LIFECYCLE HOOKS */
@@ -38,7 +27,11 @@ export class ConvosComponent implements OnInit {
 
     // LOAD CONVERSATIONS BY USERID
     try {
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id);
+      this.isLoading = true;
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id).then((response: any) => {
+        this.isLoading = false;
+        return response
+      });
     } catch (error) {
       console.error('Error loading conversations:', error);
       // handle the specific error message
@@ -46,8 +39,9 @@ export class ConvosComponent implements OnInit {
         // perform some action or show a message to the user to indicate that they need to log in again
       }
     }
-  }
 
+    // TODO: AFTER THE CONVERSATIONS LOAD, BUT BEFORE THEY'RE ADDED TO THE DOM, ITERATE THROUGH AND CALL THE SP ON EACH CONVERSATION USING THE APPROPRIATE SERVICE THAT CALLS IT (CONVERSATION SERVICE?). AND RENDERING EACH TRAIT.
+  }
 
   /** PUBLIC METHODS */
   public onSelectConversation(conversation: Conversation): void {
@@ -69,6 +63,10 @@ export class ConvosComponent implements OnInit {
 
     // SET SELECTED CONVERSATION TO "DISABLED" IN LOCALSTORAGE CACHE
     localStorage.setItem(conversationKey, 'disabled');
+  }
+
+  public truncateSentence(sentence: string, maxLength: number): string {
+    return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
   }
 
   /** UTILITY FUNCTIONS */
