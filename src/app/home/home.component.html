@@ -1,22 +1,22 @@
 <!-- HOME CONTAINER -->
 <div class="colContainer">
   <!-- USER PROFILE SIDE-NAVBAR COMPONENT -->
-  <app-profile id="profile" [user]="user" style="padding-left: 15px" (profileClick)="onProfileClick()" (showConvosAndChatEvent)="onShowConvosAndChat()"></app-profile>
+  <app-profile id="profile" [user]="user" style="padding-left: 15px" (profileClick)="onProfileClick()" (showConversations)="onShowConvosAndChat()"></app-profile>
   <!-- END USER PROFILE SIDE-NAVBAR COMPONENT -->
 
   <!-- MINI MID COLUMN -->
   <div class="gridCol miniMidColumn">
-    <div [ngClass]="{'fadeOut': fadeOutConvosAndChat}">
-      <app-convos (conversationSelected)="onConversationSelected($event)" [user]="user" *ngIf="showConvosAndChat"></app-convos>
+    <div [ngClass]="{'fadeOut': fadeOutConvos}">
+      <app-convos (conversationSelected)="onConversationSelected($event)" [user]="user" *ngIf="showConvos"></app-convos>
     </div>
   </div>
   <!-- END MINI MID COLUMN -->
 
   <!-- MAIN COLUMN -->
   <div class="gridCol mainColumn">
-    <div [ngClass]="{'fadeOut': fadeOutConvosAndChat}" class="chatboxContainer">
+    <div [ngClass]="{'fadeOut': fadeOutConvos}" class="chatboxContainer">
       <div class="chatboxWrapper">
-        <app-chatbox [conversationId]="selectedConversation?.conversation_id" [user]="user" *ngIf="showConvosAndChat"></app-chatbox>
+        <app-chatbox [conversationId]="selectedConversation?.conversation_id" [user]="user" *ngIf="showChat"></app-chatbox>
       </div>
     </div>
   </div>

@@ -8,15 +8,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class ProfileComponent {
   @Input() user: any;
-  @Output() showConvosAndChatEvent = new EventEmitter<boolean>();
+  @Output() showConversations = new EventEmitter<boolean>();
   @Output() profileClick = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService,
   ) {}
 
-  public showConvosAndChat(): void {
-    this.showConvosAndChatEvent.emit(true);
+  public showConvos(): void {
+    this.showConversations.emit(true);
   }
 
   public logout(): void {
