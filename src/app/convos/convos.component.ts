@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Conversation } from '../../interfaces/conversation.interfaces';
 import { ConversationService } from './conversation.service';
 import dayjs from 'dayjs';
@@ -28,10 +27,11 @@ export class ConvosComponent implements OnInit {
     // LOAD CONVERSATIONS BY USERID
     try {
       this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id).then((response: any) => {
-        this.isLoading = false;
-        return response
-      });
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
+        .then((response: any) => {
+          this.isLoading = false;
+          return response;
+        });
     } catch (error) {
       console.error('Error loading conversations:', error);
       // handle the specific error message
@@ -65,10 +65,6 @@ export class ConvosComponent implements OnInit {
     localStorage.setItem(conversationKey, 'disabled');
   }
 
-  public truncateSentence(sentence: string, maxLength: number): string {
-    return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
-  }
-
   /** UTILITY FUNCTIONS */
   public convertIsoString(isoString: string): string {
     return dayjs(isoString).format('MM/DD/YYYY');
@@ -77,4 +73,9 @@ export class ConvosComponent implements OnInit {
   private convertToConvoKey(conversationName: string): string {
     return `${conversationName}_vis`;
   }
+
+  public truncateSentence(sentence: string, maxLength: number): string {
+    return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
+  }
+
 }

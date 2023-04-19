@@ -8,9 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   @Input() user: any;
   public selectedConversation: any;
-  public showConvosAndChat: boolean = false;
-  public fadeOutConvosAndChat: boolean = false;
-
+  public showConvos: boolean = false;
+  public showChat: boolean = false;
+  public fadeOutConvos: boolean = false;
 
   constructor() { }
 
@@ -27,18 +27,19 @@ export class HomeComponent implements OnInit {
   }
 
   onProfileClick() {
-    this.fadeOutConvosAndChat = true;
+    this.fadeOutConvos = true;
     setTimeout(() => {
-      this.showConvosAndChat = false;
-      this.fadeOutConvosAndChat = false;
+      this.showConvos = false;
+      this.fadeOutConvos = false;
     }, 300);
   }
 
   public onConversationSelected(conversation: any) {
     this.selectedConversation = conversation;
+    this.showChat = true;
   }
 
   public onShowConvosAndChat(): void {
-    this.showConvosAndChat = true;
+    this.showConvos = true;
   }
 }

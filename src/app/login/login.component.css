@@ -16,8 +16,9 @@
 }
 
 mat-card-title {
+  font-family: 'Varela Round', serif;
   color: #333333;
-  font-size: 28px;
+  font-size: 30px;
 }
 
 mat-card-header {
