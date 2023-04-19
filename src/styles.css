@@ -24,3 +24,9 @@ body {
   background-color: #393f54;
   border-radius: 6px;
 }
+
+.bg-login {
+  background-image: url('/assets/images/loginBackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
