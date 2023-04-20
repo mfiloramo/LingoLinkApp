@@ -40,12 +40,12 @@ jobs:
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          sed "s|#{PRODUCTION}|${PRODUCTION}|g;
-               s|#{API_BASE_URL}|${API_BASE_URL}|g;
-               s|#{AZURE_TENANT_URL}|${AZURE_TENANT_URL}|g;
-               s|#{AZURE_CLIENT_ID}|${AZURE_CLIENT_ID}|g;
-               s|#{AZURE_API_CLIENT_ID}|${AZURE_API_CLIENT_ID}|g;
-               s|#{APP_CONFIG_ENDPOINT}|${APP_CONFIG_ENDPOINT}|g" src/environments/environment.ts > src/environments/environment.prod.ts
+          sed "s|${PRODUCTION}|${PRODUCTION}|g;
+               s|${API_BASE_URL}|${API_BASE_URL}|g;
+               s|${AZURE_TENANT_URL}|${AZURE_TENANT_URL}|g;
+               s|${AZURE_CLIENT_ID}|${AZURE_CLIENT_ID}|g;
+               s|${AZURE_API_CLIENT_ID}|${AZURE_API_CLIENT_ID}|g;
+               s|${APP_CONFIG_ENDPOINT}|${APP_CONFIG_ENDPOINT}|g" src/environments/environment.ts > src/environments/environment.prod.ts
 
       - name: Install Dependencies
         run: |
