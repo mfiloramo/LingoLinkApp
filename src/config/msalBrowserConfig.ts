@@ -12,7 +12,7 @@ function isIEOrEdge() {
 export const msalConfig: any = {
   auth: {
     clientId: environment.azureClientID,
-    redirectUri: environment.redirectURI,
+    redirectUri: '',
     authority: `https://login.microsoft.com/${environment.azureTenantID}`,
     navigateToLoginRequestUrl: false,
     // Add user.read scope
