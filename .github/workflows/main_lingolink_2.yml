@@ -46,10 +46,6 @@ jobs:
                s|#{AZURE_CLIENT_ID}|${AZURE_CLIENT_ID}|g;
                s|#{AZURE_API_CLIENT_ID}|${AZURE_API_CLIENT_ID}|g;
                s|#{APP_CONFIG_ENDPOINT}|${APP_CONFIG_ENDPOINT}|g" src/environments/environment.ts > src/environments/environment.prod.ts
-          echo ${PRODUCTION}
-
-      - name: Print environment.prod.ts contents
-        run: cat src/environments/environment.prod.ts
 
       - name: Install Dependencies
         run: |
