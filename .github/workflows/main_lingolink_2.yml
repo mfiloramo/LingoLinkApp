@@ -38,13 +38,12 @@ jobs:
         run: |
           export PRODUCTION=$PRODUCTION
           export API_BASE_URL=$API_BASE_URL
-          export AZURE_TENANT_URL=$AZURE_TENANT_URL
+          export AZURE_TENANT_ID=$AZURE_TENANT_ID
           export AZURE_CLIENT_ID=$AZURE_CLIENT_ID
           export AZURE_API_CLIENT_ID=$AZURE_API_CLIENT_ID
           export APP_CONFIG_ENDPOINT=$APP_CONFIG_ENDPOINT
-          export APP_TENANT_ID=AZURE_TENANT_ID
-          envsubst < src/environments/environment.prod.ts > src/environments/environment.prod.temp.ts
-          mv src/environments/environment.prod.temp.ts src/environments/environment.prod.ts
+          envsubst < src/environments/environment.ts > src/environments/environment.temp.ts
+          mv src/environments/environment.temp.ts src/environments/environment.ts
 
       - name: Install Dependencies
         working-directory: .
