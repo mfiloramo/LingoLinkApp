@@ -39,7 +39,7 @@ jobs:
         run: |
           export PRODUCTION=$PRODUCTION
           export API_BASE_URL=$API_BASE_URL
-          export APP_REDIRECT_URI=APP_REDIRECT_URI
+          export APP_REDIRECT_URI=$APP_REDIRECT_URI
           export AZURE_TENANT_ID=$AZURE_TENANT_ID
           export AZURE_CLIENT_ID=$AZURE_CLIENT_ID
           export AZURE_API_CLIENT_ID=$AZURE_API_CLIENT_ID
