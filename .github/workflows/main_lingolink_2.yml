@@ -40,17 +40,11 @@ jobs:
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          for i in $(env); do
-            key=$(echo $i | cut -d= -f1)
-            value=$(echo $i | cut -d= -f2-)
-            sed -i "s|/\*#${key}#\*/.*|/*#${key}#*/ '${value}'|g" src/environments/environment.prod.ts
-          done
-
-      - name: Debug Environment Variables
-        run: |
-          echo "API_BASE_URL=${{ secrets.APIBASEURL }}"
-          echo "AZURE_TENANT_URL=${{ secrets.AZURETENANTID }}"
-          # add more variables as needed
+          sh -c 'for i in `env`; do \
+            key=`echo $i | cut -d= -f1`; \
+            value=`echo $i | cut -d= -f2-`; \
+            sed -i "s|/\*#{\$key}\*/[^,]*|/\*#{\$key}\*/ \$value|g" src/environments/environment.prod.ts; \
+          done'
 
       - name: Install Dependencies
         run: npm install
