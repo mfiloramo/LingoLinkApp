@@ -27,7 +27,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
 import { msalInstance } from '../config/msalBrowserConfig';
-import { environment } from '../environments/environment.local';
+import { environment } from '../environments/environment.ts';
 import { InteractionType } from '@azure/msal-browser';
 
 const protectedResourceMap: any = [
