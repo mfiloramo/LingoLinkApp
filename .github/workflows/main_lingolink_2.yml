@@ -28,14 +28,19 @@ jobs:
           cp src/environments/environment.ts src/environments/environment.prod.ts
           cp src/environments/environment.ts src/environments/environment.local.ts
 
+      - name: Install envsubst
+        run: sudo apt-get install -y gettext-base
+
       - name: 'Replace Environment Variables'
+        env:
+          PRODUCTION: "true"
+          API_BASE_URL: ${{ secrets.APIBASEURL }}
+          AZURE_TENANT_URL: https://login.microsoftonline.com/${{ secrets.AZURETENANTID }}/v2.0
+          AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}
+          AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
+          APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          sed -i "s|#{production}#|true|g" src/environments/environment.prod.ts
-          sed -i "s|#{apiBaseUrl}#|${{ secrets.APIBASEURL }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureTenantUrl}#|https://login.microsoftonline.com/${{ secrets.AZURETENANTID }}/v2.0|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureClientID}#|${{ secrets.AZURECLIENTID }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureAPIClientID}#|${{ secrets.AZUREAPICLIENTID }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{appConfigEndpoint}#|${{ secrets.APPCONFIGENDPOINT }}|g" src/environments/environment.prod.ts
+          envsubst < src/environments/environment.ts > src/environments/environment.prod.ts
 
       - name: Install Dependencies
         run: npm install
