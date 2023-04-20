@@ -26,6 +26,7 @@ jobs:
       - name: Create Environment Files
         run: |
           cp src/environments/environment.ts src/environments/environment.prod.ts
+          cp src/environments/environment.ts src/environments/environment.local.ts
 
       - name: Install envsubst
         run: sudo apt-get install -y gettext-base
