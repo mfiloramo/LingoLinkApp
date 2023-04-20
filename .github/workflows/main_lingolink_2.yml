@@ -40,14 +40,7 @@ jobs:
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          sh -c 'for i in `env`; do \
-            key=`echo $i | cut -d= -f1`; \
-            value=`echo $i | cut -d= -f2-`; \
-            sed -i "s|/\*#{\$key}\*/[^,]*|/\*#{\$key}\*/ \$value|g" src/environments/environment.prod.ts; \
-          done'
-
-      - name: Install Dependencies
-        run: npm install
+          envsubst < src/environments/environment.ts > src/environments/environment.prod.ts
 
       - name: Build Application
         run: npm run build
