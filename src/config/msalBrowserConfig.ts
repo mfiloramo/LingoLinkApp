@@ -1,4 +1,4 @@
-import { Configuration, LogLevel, PublicClientApplication } from '@azure/msal-browser';
+import { PublicClientApplication } from '@azure/msal-browser';
 import { environment } from '../environments/environment';
 
 function isIEOrEdge() {
@@ -21,29 +21,6 @@ export const msalConfig: any = {
   cache: {
     cacheLocation: 'localStorage',
     storeAuthStateInCookie: isIEOrEdge(),
-  },
-  system: {
-    loggerOptions: {
-      loggerCallback: (level: any, message: any, containsPii: any) => {
-        if (containsPii) {
-          return;
-        }
-        switch (level) {
-          case LogLevel.Error:
-            console.error(message);
-            return;
-          case LogLevel.Info:
-            console.info(message);
-            return;
-          case LogLevel.Verbose:
-            console.debug(message);
-            return;
-          case LogLevel.Warning:
-            console.warn(message);
-            return;
-        }
-      },
-    },
   },
 };
 
