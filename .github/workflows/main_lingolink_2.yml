@@ -27,6 +27,7 @@ jobs:
         run: sudo apt-get install -y gettext-base
 
       - name: Replace Environment Variables
+        working-directory: .
         env:
           PRODUCTION: 'true'
           API_BASE_URL: ${{ secrets.APIBASEURL }}
@@ -45,11 +46,13 @@ jobs:
           mv src/environments/environment.prod.temp.ts src/environments/environment.prod.ts
 
       - name: Install Dependencies
+        working-directory: .
         run: |
           npm install
           npm install -g @angular/cli
 
       - name: Build Application
+        working-directory: .
         run: npm run build
 
       - name: Archive Production Artifact
