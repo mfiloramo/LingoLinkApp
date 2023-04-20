@@ -35,12 +35,17 @@ jobs:
         env:
           PRODUCTION: "true"
           API_BASE_URL: ${{ secrets.APIBASEURL }}
-          AZURE_TENANT_ID: ${{ secrets.AZURETENANTID }}
+          AZURE_TENANT_URL: https://login.microsoftonline.com/${{ secrets.AZURETENANTID }}/v2.0
           AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          envsubst < src/environments/environment.ts > src/environments/environment.prod.ts
+          sed "s|#{PRODUCTION}|${PRODUCTION}|g;
+               s|#{API_BASE_URL}|${API_BASE_URL}|g;
+               s|#{AZURE_TENANT_URL}|${AZURE_TENANT_URL}|g;
+               s|#{AZURE_CLIENT_ID}|${AZURE_CLIENT_ID}|g;
+               s|#{AZURE_API_CLIENT_ID}|${AZURE_API_CLIENT_ID}|g;
+               s|#{APP_CONFIG_ENDPOINT}|${APP_CONFIG_ENDPOINT}|g" src/environments/environment.ts > src/environments/environment.prod.ts
 
       - name: Install Dependencies
         run: |
