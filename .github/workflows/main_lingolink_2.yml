@@ -43,7 +43,7 @@ jobs:
           export AZURE_API_CLIENT_ID=$AZURE_API_CLIENT_ID
           export APP_CONFIG_ENDPOINT=$APP_CONFIG_ENDPOINT
           envsubst < src/environments/environment.prod.ts > src/environments/environment.prod.temp.ts
-          mv src/environments/environment.prod.temp.ts src/environments/environment.prod.ts
+          mv src/environments/environment.prod.temp.ts src/environments/environment.ts
 
       - name: Install Dependencies
         working-directory: .

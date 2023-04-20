@@ -1,4 +1,4 @@
-export const environment = {
+export const environment: any = {
   production: '${PRODUCTION}',
   redirectURI: location.origin,
   apiBaseUrl: '${API_BASE_URL}',
