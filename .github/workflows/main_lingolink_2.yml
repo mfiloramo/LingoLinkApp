@@ -30,6 +30,7 @@ jobs:
         working-directory: .
         env:
           PRODUCTION: 'true'
+          APP_REDIRECT_URI: ${{ secrets.APP_REDIRECT_URI }}
           API_BASE_URL: ${{ secrets.APIBASEURL }}
           AZURE_TENANT_ID: ${{ secrets.AZURETENANTID }}
           AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}

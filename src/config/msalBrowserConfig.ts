@@ -12,10 +12,9 @@ function isIEOrEdge() {
 export const msalConfig: any = {
   auth: {
     clientId: environment.azureClientID,
-    redirectUri: '',
+    redirectUri: 'https://orange-tree-0d3c88e0f.3.azurestaticapps.net/',
     authority: `https://login.microsoft.com/${environment.azureTenantID}`,
     navigateToLoginRequestUrl: false,
-    // Add user.read scope
     scopes: ['openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`],
   },
   cache: {
