@@ -1,5 +1,6 @@
 export const environment = {
   production: '${PRODUCTION}',
+  redirectURI: location.origin,
   apiBaseUrl: '${API_BASE_URL}',
   azureTenantURL: 'DEBUG ENVIRONMENT.PROD.TS',
   azureClientID: '${AZURE_CLIENT_ID}',

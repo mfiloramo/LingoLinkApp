@@ -31,7 +31,7 @@ jobs:
         env:
           PRODUCTION: 'true'
           API_BASE_URL: ${{ secrets.APIBASEURL }}
-          AZURE_TENANT_URL: 'env.AZURE_TENANT_URL/debug'
+          AZURE_TENANT_ID: ${{ secrets.AZURETENANTID }}
           AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
@@ -42,6 +42,7 @@ jobs:
           export AZURE_CLIENT_ID=$AZURE_CLIENT_ID
           export AZURE_API_CLIENT_ID=$AZURE_API_CLIENT_ID
           export APP_CONFIG_ENDPOINT=$APP_CONFIG_ENDPOINT
+          export APP_TENANT_ID=AZURE_TENANT_ID
           envsubst < src/environments/environment.prod.ts > src/environments/environment.prod.temp.ts
           mv src/environments/environment.prod.temp.ts src/environments/environment.prod.ts
 
