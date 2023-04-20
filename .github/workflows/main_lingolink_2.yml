@@ -10,10 +10,10 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build_application:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    name: Build & Deploy
+    name: Build Application
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -40,13 +40,35 @@ jobs:
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          envsubst < src/environments/environment.ts > src/environments/environment.prod.ts
+          sh -c 'for i in `env`; do \
+            key=`echo $i | cut -d= -f1`; \
+            value=`echo $i | cut -d= -f2-`; \
+            sed -i "s|/\*#{\$key}\*/[^,]*|/\*#{\$key}\*/ \$value|g" src/environments/environment.prod.ts; \
+          done'
 
       - name: Install Dependencies
         run: npm install
 
       - name: Build Application
         run: npm run build
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/world-chat-app/
+
+  deploy_application:
+    runs-on: ubuntu-latest
+    needs: build_application
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: Deploy Application
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/world-chat-app/
 
       - name: Deploy To Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
@@ -66,4 +88,3 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_TREE_0D3C88E0F }}
-          action: "close"

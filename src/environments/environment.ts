@@ -1,9 +1,9 @@
 export const environment: any = {
-  production: '#{production}#',
+  production: /*#{PRODUCTION}*/ false,
   redirectURI: location.origin,
-  apiBaseUrl: '#{apiBaseUrl}#',
-  azureTenantID: '#{azureTenantUrl}#',
-  azureClientID: '#{azureClientID}#',
-  azureAPIClientID: '#{azureAPIClientID}#',
-  appConfigEndpoint: '#{appConfigEndpoint}#',
+  apiBaseUrl: /*#{API_BASE_URL}*/ '',
+  azureTenantID: /*#{AZURE_TENANT_URL}*/ '',
+  azureClientID: /*#{AZURE_CLIENT_ID}*/ '',
+  azureAPIClientID: /*#{AZURE_API_CLIENT_ID}*/ '',
+  appConfigEndpoint: /*#{APP_CONFIG_ENDPOINT}*/ '',
 };
