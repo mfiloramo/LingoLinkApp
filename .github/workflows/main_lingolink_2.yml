@@ -46,6 +46,9 @@ jobs:
             sed -i "s|/\*#{\$key}\*/[^,]*|/\*#{\$key}\*/ \$value|g" src/environments/environment.prod.ts; \
           done'
 
+      - name: Verify Environment Variables Replaced
+        run: cat src/environments/environment.prod.ts
+
       - name: Install Dependencies
         run: npm install
 
