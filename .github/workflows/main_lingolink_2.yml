@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: 'Create Environment Files'
+      - name: Create Environment Files
         run: |
           cp src/environments/environment.ts src/environments/environment.prod.ts
           cp src/environments/environment.ts src/environments/environment.local.ts
@@ -31,7 +31,7 @@ jobs:
       - name: Install envsubst
         run: sudo apt-get install -y gettext-base
 
-      - name: 'Replace Environment Variables'
+      - name: Replace Environment Variables
         env:
           PRODUCTION: "true"
           API_BASE_URL: ${{ secrets.APIBASEURL }}
@@ -46,8 +46,11 @@ jobs:
             sed -i "s|/\*#{\$key}\*/[^,]*|/\*#{\$key}\*/ \$value|g" src/environments/environment.prod.ts; \
           done'
 
-      - name: Verify Environment Variables Replaced
-        run: cat src/environments/environment.prod.ts
+      - name: Debug Environment Variables
+        run: |
+          echo "API_BASE_URL=${{ secrets.APIBASEURL }}"
+          echo "AZURE_TENANT_URL=${{ secrets.AZURETENANTID }}"
+          # add more variables as needed
 
       - name: Install Dependencies
         run: npm install
