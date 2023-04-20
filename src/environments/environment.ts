@@ -5,6 +5,6 @@ export const environment: any = {
   azureTenantURL: 'DEBUG ENVIRONMENT.TS',
   azureClientID: '${AZURE_CLIENT_ID}',
   azureAPIClientID: '${AZURE_API_CLIENT_ID}',
-  azureTenantID: '${AZURE_TENANT_ID}',
+  azureTenantID: 'TESTING',
   appConfigEndpoint: '${APP_CONFIG_ENDPOINT}',
 };
