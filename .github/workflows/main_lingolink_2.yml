@@ -31,7 +31,7 @@ jobs:
         env:
           PRODUCTION: 'true'
           API_BASE_URL: ${{ secrets.APIBASEURL }}
-          AZURE_TENANT_URL: ${{ secrets.AZURE_TENANT_URL }}/v2.0
+          AZURE_TENANT_URL: wow
           AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
