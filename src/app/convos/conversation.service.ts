@@ -41,11 +41,13 @@ export class ConversationService {
   /** GENERATE RANDOMIZED STUB USER/CONVERSATION DATA */
   private async fetchRandomUserData(convo: any) {
     try {
+      // GENERATE RANDOM USER DATA
       const response: any = await this.http.get('https://randomuser.me/api/').toPromise();
       convo.profileImageSrc = response['results'][0]['picture']['large'];
       convo.firstName = response['results'][0]['name']['first'];
       convo.lastName = response['results'][0]['name']['last'];
 
+      // GENERATE RANDOM SENTENCE
       const lorem: any = new LoremIpsum({
         sentencesPerParagraph: {
           max: 1,
@@ -57,14 +59,6 @@ export class ConversationService {
         },
       });
       convo.randomSentence = lorem.generateSentences(1);
-      await this.translate.getLiveTranslation('translate', {
-          content: convo.randomSentence,
-          targLang: 'en',
-          source_language: 'la'
-      }) // TRYING TO TRANSLATE TEXT OF CONVOS
-        .subscribe((response: any) => {
-          convo.randomSentence = response
-        });
     } catch (error) {
       console.error('Error fetching random user data:', error);
     }
