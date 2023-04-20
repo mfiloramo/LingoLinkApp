@@ -40,11 +40,11 @@ jobs:
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
           APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          sh -c 'for i in `env`; do \
-            key=`echo $i | cut -d= -f1`; \
-            value=`echo $i | cut -d= -f2-`; \
-            sed -i "s|/\*#{\$key}\*/[^,]*|/\*#{\$key}\*/ \$value|g" src/environments/environment.prod.ts; \
-          done'
+          for i in $(env); do
+            key=$(echo $i | cut -d= -f1)
+            value=$(echo $i | cut -d= -f2-)
+            sed -i "s|/\*#${key}#\*/.*|/*#${key}#*/ '${value}'|g" src/environments/environment.prod.ts
+          done
 
       - name: Debug Environment Variables
         run: |
