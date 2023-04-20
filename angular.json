@@ -52,7 +52,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all",
+              "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,
@@ -60,7 +60,7 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "development"
