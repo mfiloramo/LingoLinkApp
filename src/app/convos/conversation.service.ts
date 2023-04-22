@@ -30,7 +30,7 @@ export class ConversationService {
 
       return response;
     } catch (error: any) {
-      console.log(`Error with loadConversationsByUserId: ${error}`);
+      console.log(`Error with loadConversationsByUserId: ${JSON.stringify(error)}`);
     }
   }
 
