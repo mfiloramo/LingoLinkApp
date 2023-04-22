@@ -20,7 +20,7 @@ export class ConversationService {
   }
 
   public async loadConversationsByUserId(userId: number): Promise<any> {
-    const response: any = await this.http.get(`${this.apiUrl}/LingoLinkCore/conversations/${userId}`).toPromise();
+    const response: any = await this.http.get(`${this.apiUrl}/conversations/${userId}`).toPromise();
 
     // Fetch random images for conversations
     for (const convo of response) {
