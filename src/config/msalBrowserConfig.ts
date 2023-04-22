@@ -15,7 +15,7 @@ export const msalConfig: any = {
     redirectUri: environment.redirectURI,
     authority: `https://login.microsoft.com/${environment.azureTenantID}`,
     navigateToLoginRequestUrl: false,
-    scopes: ['openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`],
+    scopes: ['openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`, `api://${environment.azureAPIClientID}`],
   },
   cache: {
     cacheLocation: 'localStorage',
