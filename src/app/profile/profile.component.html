@@ -2,13 +2,13 @@
 <mat-sidenav-container class="sidenav">
 
   <!-- PROFILE AVATAR -->
-  <mat-sidenav-content class="sidenav-item" id="profile-avatar" style="background: #001b4f">
+  <mat-sidenav-content class="sidenav-item" style="background: #001b4f">
     <mat-icon>perm_identity</mat-icon>
   </mat-sidenav-content>
   <!-- END PROFILE AVATAR -->
 
   <!-- NAV BUTTONS  -->
-  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-44">
+  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-36">
     <mat-icon>person</mat-icon>
   </mat-sidenav-content>
   <mat-sidenav-content (click)="showConvos()" routerLink="/home/chat" class="sidenav-item">
