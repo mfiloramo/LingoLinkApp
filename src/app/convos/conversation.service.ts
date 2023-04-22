@@ -20,14 +20,18 @@ export class ConversationService {
   }
 
   public async loadConversationsByUserId(userId: number): Promise<any> {
-    const response: any = await this.http.get(`${this.apiUrl}/conversations/${userId}`).toPromise();
+    try {
+      const response: any = await this.http.get(`${this.apiUrl}/conversations/${userId}`).toPromise();
 
-    // Fetch random images for conversations
-    for (const convo of response) {
-      await this.fetchRandomUserData(convo);
+      // Fetch random images for conversations
+      for (const convo of response) {
+        await this.fetchRandomUserData(convo);
+      }
+
+      return response;
+    } catch (error: any) {
+      console.log(`Error with loadConversationsByUserId: ${error}`);
     }
-
-    return response;
   }
 
   public async loadConversationsByConvoId(conversationId: number): Promise<any> {
