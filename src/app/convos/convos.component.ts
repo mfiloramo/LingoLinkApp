@@ -34,14 +34,10 @@ export class ConvosComponent implements OnInit {
         });
     } catch (error) {
       console.error('Error loading conversations:', error);
-      // handle the specific error message
-      if (error instanceof BrowserAuthError && error.errorCode === 'no_account_error') {
-        // perform some action or show a message to the user to indicate that they need to log in again
       }
     }
 
     // TODO: AFTER THE CONVERSATIONS LOAD, BUT BEFORE THEY'RE ADDED TO THE DOM, ITERATE THROUGH AND CALL THE SP ON EACH CONVERSATION USING THE APPROPRIATE SERVICE THAT CALLS IT (CONVERSATION SERVICE?). AND RENDERING EACH TRAIT.
-  }
 
   /** PUBLIC METHODS */
   public onSelectConversation(conversation: Conversation): void {
