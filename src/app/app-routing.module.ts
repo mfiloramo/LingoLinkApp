@@ -9,7 +9,6 @@ import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { MsalGuard } from '@azure/msal-angular';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -18,11 +17,13 @@ const routes: Routes = [
   },
   {
     path: 'registration',
-    component: RegistrationComponent
+    component: RegistrationComponent,
+    data: { animation: 'registration' }
   },
   {
     path: 'home',
     component: HomeComponent,
+    data: { animation: 'home' },
     // canActivate: [MsalGuard],
     children: [
       {
@@ -33,27 +34,32 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        data: { animation: 'profile' },
         // canActivate: [MsalGuard],
       },
       {
         path: 'conversations',
         component: ConvosComponent,
+        data: { animation: 'conversations' },
         // canActivate: [MsalGuard],
       },
       {
         path: 'chat',
         component: ChatBoxComponent,
+        data: { animation: 'chat' },
         // canActivate: [MsalGuard],
       }
     ]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: { animation: 'login' }
   },
   {
     path: '**',
-    component: PageNotFoundComponent
+    component: PageNotFoundComponent,
+    data: { animation: 'pageNotFound' }
   },
 ];
 
