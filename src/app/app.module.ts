@@ -27,12 +27,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
 import { msalInstance } from '../config/msalBrowserConfig';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.local';
 import { InteractionType } from '@azure/msal-browser';
 
-const protectedResourceMap: any = [
-  [environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/LingoLinkCore`]],
-];
+// const protectedResourceMap: any = [
+//   [environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/LingoLinkCore`]],
+// ];
 
 
 @NgModule({
@@ -66,35 +66,35 @@ const protectedResourceMap: any = [
     MatSnackBarModule,
     MatRadioModule,
     _MatCheckboxRequiredValidatorModule,
-    MsalModule.forRoot(
-      msalInstance,
-      {
-        interactionType: InteractionType.Popup,
-        authRequest: {
-          scopes: [
-            'openid',
-            'profile',
-            'email',
-            'user.read',
-            `api://${environment.azureAPIClientID}/LingoLinkCore`,
-          ],
-          prompt: 'consent'
-        },
-      },
-      {
-        interactionType: InteractionType.Popup,
-        protectedResourceMap: new Map(protectedResourceMap),
-      },
-    ),
+    // MsalModule.forRoot(
+    //   msalInstance,
+    //   {
+    //     interactionType: InteractionType.Popup,
+    //     authRequest: {
+    //       scopes: [
+    //         'openid',
+    //         'profile',
+    //         'email',
+    //         'user.read',
+    //         `api://${environment.azureAPIClientID}/LingoLinkCore`,
+    //       ],
+    //       prompt: 'consent'
+    //     },
+    //   },
+    //   {
+    //     interactionType: InteractionType.Popup,
+    //     protectedResourceMap: new Map(protectedResourceMap),
+    //   },
+    // ),
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true,
-    },
-    MsalInterceptor,
-    MsalGuard
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: MsalInterceptor,
+    //   multi: true,
+    // },
+    // MsalInterceptor,
+    // MsalGuard
   ],
   bootstrap: [
     AppComponent

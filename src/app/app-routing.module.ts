@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [MsalGuard],
+    // canActivate: [MsalGuard],
     children: [
       {
         path: '',
@@ -33,17 +33,17 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
-        canActivate: [MsalGuard],
+        // canActivate: [MsalGuard],
       },
       {
         path: 'conversations',
         component: ConvosComponent,
-        canActivate: [MsalGuard],
+        // canActivate: [MsalGuard],
       },
       {
         path: 'chat',
         component: ChatBoxComponent,
-        canActivate: [MsalGuard],
+        // canActivate: [MsalGuard],
       }
     ]
   },

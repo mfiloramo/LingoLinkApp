@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.local';
 import { LoremIpsum } from 'lorem-ipsum';
 import { TranslationService } from '../services/translation.service';
 
@@ -20,7 +20,8 @@ export class ConversationService {
   }
 
   public async loadConversationsByUserId(userId: number): Promise<any> {
-    const response: any = await this.http.get(`${this.apiUrl}/conversations/${userId}`).toPromise();
+    // const response: any = await this.http.get(`${this.apiUrl}/conversations/${userId}`).toPromise();
+    const response: any = await this.http.get(`${environment.apiBaseUrl}/conversations/${userId}`).toPromise();
 
     // Fetch random images for conversations
     for (const convo of response) {
@@ -31,7 +32,8 @@ export class ConversationService {
   }
 
   public async loadConversationsByConvoId(conversationId: number): Promise<any> {
-    return this.http.get(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
+    return this.http.get(`${environment.apiBaseUrl}/conversations/${conversationId}`).toPromise();
+    // return this.http.get(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
   }
 
   public async deleteConversationByConvoId(conversationId: number): Promise<any> {

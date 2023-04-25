@@ -1,5 +1,5 @@
 import { PublicClientApplication } from '@azure/msal-browser';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.local';
 
 function isIEOrEdge() {
   const ua = window.navigator.userAgent;

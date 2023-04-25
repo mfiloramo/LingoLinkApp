@@ -5,7 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { msalInstance } from "../../config/msalBrowserConfig";
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.local';
 
 @Injectable({
   providedIn: 'root'
@@ -26,17 +26,18 @@ export class AuthService {
 
   public async login(): Promise<void> {
     try {
-      this.activeAccount = await msalInstance.loginPopup({
-        scopes: ['openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`,
-        ]
-      });
-      if (this.activeAccount) {
+      // this.activeAccount = await msalInstance.loginPopup({
+      //   scopes: [
+      //     'openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`
+      //   ]
+      // });
+      // if (this.activeAccount) {
         // SET THE loggedIn BehaviorSubject TO TRUE
         this.loggedIn.next(true);
 
         // NAVIGATE TO THE HOME PAGE
         await this.router.navigate(['/home']);
-      }
+      // }
     } catch (error: any) {
       this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       throw error;
