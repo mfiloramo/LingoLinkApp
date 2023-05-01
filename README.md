@@ -38,7 +38,7 @@ To get started with the app, follow these steps:
 - Google Translate API
 - Angular 15 / TypeScript
 - Angular Material
-- Ionic
+- Ionic -- <i>coming soon!</i>
 - TailwindCSS
 - Node/Express
 - Microsoft SQL Server
