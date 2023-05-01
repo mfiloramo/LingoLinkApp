@@ -8,14 +8,12 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChatMessage } from "../../interfaces/message.interfaces";
 import { TranslationService } from '../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
-import { finalize } from 'rxjs/operators';
 
 
 @Component({
