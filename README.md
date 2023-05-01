@@ -4,6 +4,7 @@ LingoLink is a messaging application that allows users to communicate with other
 
 ## Early Screenshots (Desktop Version Only)
 Below are some preview screenshots of LingoLink's interface -- all UI subject to change before first release. 
+
 ![mainApp](https://user-images.githubusercontent.com/72812809/235406312-57cbe937-ad9b-4160-8d53-e8c3ab1d44cf.png)
 <br><br>
 ![loginScreen](https://user-images.githubusercontent.com/72812809/235406317-8ba3a0f8-797e-427c-8432-5a99971ba972.png)
