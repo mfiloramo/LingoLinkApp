@@ -36,7 +36,7 @@ To get started with the app, follow these steps:
 ## Technologies Used
 
 - Google Translate API
-- Angular 15 / TypeScript
+- Angular 15 / TypeScript 4.9.x
 - Angular Material
 - Ionic -- <i>coming soon!</i>
 - TailwindCSS
