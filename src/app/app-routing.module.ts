@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { ChatBoxComponent } from "./chat-box/chat-box.component";
-import { ProfileComponent } from "./profile/profile.component";
+import { NavbarComponent } from "./navbar/navbar.component";
 import { ConvosComponent } from "./convos/convos.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { LoginComponent } from "./login/login.component";
@@ -33,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        component: NavbarComponent,
         data: { animation: 'profile' },
         // canActivate: [MsalGuard],
       },

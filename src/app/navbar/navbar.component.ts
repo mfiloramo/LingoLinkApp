@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
-export class ProfileComponent {
+export class NavbarComponent {
   @Input() user: any;
   @Output() showConversations = new EventEmitter<boolean>();
   @Output() profileClick = new EventEmitter<void>();
