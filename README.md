@@ -22,7 +22,7 @@ Below are some preview screenshots of an early iteration of LingoLink's interfac
 
 ## Getting Started
 
-To get started with the app, follow these steps:
+The application is currently a work in progress and is not yet available for download. Once the app is completed, it will be available online in desktop/mobile formats. To get started with a local working build of the app, follow these steps:
 
 1. Clone the repo
 2. Run `npm install` to install dependencies
