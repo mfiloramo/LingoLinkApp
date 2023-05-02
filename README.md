@@ -47,8 +47,8 @@ The application is currently a work in progress and is not yet available for dow
   <a href="https://expressjs.com" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235751208-f8e1739e-67a8-4a4c-8b8b-e08b057a3580.png" alt="express" width="40" height="40"/> </a>
    <a href="https://www.microsoft.com/en-us/sql-server" target="_blank"> <img src="https://www.freeiconspng.com/thumbs/sql-server-icon-png/sql-server-icon-png-1.png" alt="ms-sql-server" width="37" height="40"/> </a>
    <a href="https://sequelize.org/" target="_blank"> <img src="https://cdn.freebiesupply.com/logos/large/2x/sequelize-logo-png-transparent.png" alt="sequelize" width="37" height="40"/> </a>  
-   <a href="https://google.com/translate" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Google_Translate_logo.svg/2048px-Google_Translate_logo.svg.png" alt="nodejs" width="40" height="40"/> </a>
    <a href="https://azure.microsoft.com/en-us/free/search/?ef_id=_k_Cj0KCQjw6cKiBhD5ARIsAKXUdyYrXDXSt64l7wV9b_mbNz7NQoLd8C6rGJ5kdJlHqgHAA6RmhCyD4gEaAoHWEALw_wcB_k_&OCID=AIDcmm5edswduu_SEM__k_Cj0KCQjw6cKiBhD5ARIsAKXUdyYrXDXSt64l7wV9b_mbNz7NQoLd8C6rGJ5kdJlHqgHAA6RmhCyD4gEaAoHWEALw_wcB_k_&gad=1&gclid=Cj0KCQjw6cKiBhD5ARIsAKXUdyYrXDXSt64l7wV9b_mbNz7NQoLd8C6rGJ5kdJlHqgHAA6RmhCyD4gEaAoHWEALw_wcB" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235690910-cfa4a49f-1caf-44e4-836c-34fcfc71e280.png" alt="sequelize" width="45" height="40"/> </a>  
+  <a href="https://google.com/translate" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Google_Translate_logo.svg/2048px-Google_Translate_logo.svg.png" alt="nodejs" width="40" height="40"/> </a>
 </p>
 
 ## Contributions
