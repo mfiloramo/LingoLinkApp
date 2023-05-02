@@ -9,6 +9,8 @@ Below are some preview screenshots of an early iteration of LingoLink's interfac
 
 ![mainApp](https://user-images.githubusercontent.com/72812809/235406312-57cbe937-ad9b-4160-8d53-e8c3ab1d44cf.png)
 
+![dynamic](https://user-images.githubusercontent.com/72812809/235567426-d72b0223-f2ce-4759-82a9-b57257643469.png)
+
 ![loginScreen](https://user-images.githubusercontent.com/72812809/235406317-8ba3a0f8-797e-427c-8432-5a99971ba972.png)
 
 
