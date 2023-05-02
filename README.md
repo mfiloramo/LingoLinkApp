@@ -37,15 +37,19 @@ The application is currently a work in progress and is not yet available for dow
 
 ## Technologies Used
 
-- Google Translate API
-- Angular 15 / TypeScript 4.9.x
-- Angular Material
-- Ionic -- <i>coming soon!</i>
-- TailwindCSS
-- Node/Express
-- Microsoft SQL Server
-- Sequelize ORM
-- Microsoft Authentication Library
+<p align="left">
+  <a href="https://www.typescriptlang.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a>
+  <a href="https://angular.io/" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235690049-7261a5d5-9daa-4fa2-8d64-32901e0eabc5.png" alt="angular" width="40" height="42"/> </a>
+  <a href="https://material.angular.io/" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235689161-97bab0c0-7aaf-4af5-99fb-3060213ee09f.png" alt="material" width="40" height="42"/> </a>  
+  <a href="https://ionicframework.com//" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235688363-cbb55b67-d12b-4476-80a8-79041de0d92f.png" alt="ionic" width="40" height="40"/> </a>
+  <a href="https://tailwindcss.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a>
+  <a href="https://google.com/translate" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Google_Translate_logo.svg/2048px-Google_Translate_logo.svg.png" alt="nodejs" width="40" height="40"/> </a>
+  <a href="https://nodejs.org" target="_blank"> <img src="https://i.ibb.co/YyZ3N7z/js.png" alt="nodejs" width="36" height="40"/> </a>
+  <a href="https://expressjs.com" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a>
+   <a href="https://www.microsoft.com/en-us/sql-server" target="_blank"> <img src="https://www.freeiconspng.com/thumbs/sql-server-icon-png/sql-server-icon-png-1.png" alt="ms-sql-server" width="40" height="40"/> </a>
+   <a href="https://sequelize.org/" target="_blank"> <img src="https://cdn.freebiesupply.com/logos/large/2x/sequelize-logo-png-transparent.png" alt="sequelize" width="37" height="40"/> </a>  
+   <a href="https://azure.microsoft.com/en-us/free/search/?ef_id=_k_Cj0KCQjw6cKiBhD5ARIsAKXUdyYrXDXSt64l7wV9b_mbNz7NQoLd8C6rGJ5kdJlHqgHAA6RmhCyD4gEaAoHWEALw_wcB_k_&OCID=AIDcmm5edswduu_SEM__k_Cj0KCQjw6cKiBhD5ARIsAKXUdyYrXDXSt64l7wV9b_mbNz7NQoLd8C6rGJ5kdJlHqgHAA6RmhCyD4gEaAoHWEALw_wcB_k_&gad=1&gclid=Cj0KCQjw6cKiBhD5ARIsAKXUdyYrXDXSt64l7wV9b_mbNz7NQoLd8C6rGJ5kdJlHqgHAA6RmhCyD4gEaAoHWEALw_wcB" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235690910-cfa4a49f-1caf-44e4-836c-34fcfc71e280.png" alt="sequelize" width="45" height="40"/> </a>  
+</p>
 
 ## Contributions
 
