@@ -57,7 +57,7 @@ mat-icon {
 
 .mainColumn::before {
   content: "";
-  background-image: url("../../assets/images/readmeLogo.png");
+  background-image: url("../../assets/images/chatboxBgLogo.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50%;

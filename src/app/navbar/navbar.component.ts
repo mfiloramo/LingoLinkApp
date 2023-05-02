@@ -9,14 +9,16 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent {
   @Input() user: any;
   @Output() showConversations = new EventEmitter<boolean>();
+  @Output() showChat = new EventEmitter<boolean>();
   @Output() profileClick = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService,
   ) {}
 
-  public showConvos(): void {
-    this.showConversations.emit(true);
+  /** PUBLIC METHODS */
+  public showChatBox(): void {
+    this.showChat.emit(true);
   }
 
   public logout(): void {

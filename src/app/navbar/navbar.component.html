@@ -8,13 +8,13 @@
   <!-- END PROFILE AVATAR -->
 
   <!-- NAV BUTTONS  -->
-  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-28">
+  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-40">
     <mat-icon>person</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item">
+  <mat-sidenav-content class="sidenav-item" (click)="showChatBox()" routerLink="/home/chat">
     <mat-icon>textsms</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item" (click)="showConvos()" routerLink="/home/chat">
+  <mat-sidenav-content class="sidenav-item" (click)="showConversations.emit()" routerLink="/home/chat">
     <mat-icon>forum</mat-icon>
   </mat-sidenav-content>
   <mat-sidenav-content class="sidenav-item">

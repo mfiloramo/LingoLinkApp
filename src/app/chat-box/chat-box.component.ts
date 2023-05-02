@@ -234,11 +234,6 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     }
   }
 
-  private playClickSound(): void {
-    this.audio.load();
-    this.audio.play();
-  }
-
   /** UTILITY FUNCTIONS */
   private async translateText(content: string, source_language: string, targLang: string): Promise<string> {
     return new Promise<string>((resolve) => {
@@ -250,4 +245,8 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     });
   }
 
+  private playClickSound(): void {
+    this.audio.load();
+    this.audio.play();
+  }
 }

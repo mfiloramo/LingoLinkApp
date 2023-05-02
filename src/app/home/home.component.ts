@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
+  /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     // DEBUG: STUB USER DATA ON APP INITIALIZATION
     const randomNumbers = [2, 6, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onProfileClick() {
+  /** PUBLIC METHODS */
+  public onProfileClick() {
     this.fadeOutConvos = true;
     setTimeout(() => {
       this.showConvos = false;
@@ -39,7 +41,11 @@ export class HomeComponent implements OnInit {
     this.showChat = true;
   }
 
-  public onShowConvosAndChat(): void {
-    this.showConvos = true;
+  public onShowConversations(): void {
+    this.showConvos = !this.showConvos;
+  }
+
+  public onShowChatBox(): void {
+    this.showChat = !this.showChat;
   }
 }
