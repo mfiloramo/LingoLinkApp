@@ -1,4 +1,4 @@
-<!-- PROFILE (SIDE NAV CONTAINER) -->
+<!-- NAVBAR CONTAINER -->
 <mat-sidenav-container class="sidenav">
 
   <!-- PROFILE AVATAR -->
@@ -7,7 +7,7 @@
   </mat-sidenav-content>
   <!-- END PROFILE AVATAR -->
 
-  <!-- NAV BUTTONS  -->
+  <!-- NAVBAR BUTTONS  -->
   <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-24">
     <mat-icon>person</mat-icon>
   </mat-sidenav-content>
@@ -26,8 +26,7 @@
   <mat-sidenav-content (click)="logout()" class="sidenav-item mb-24">
     <mat-icon>eject</mat-icon>
   </mat-sidenav-content>
-  <!-- END NAV BUTTONS  -->
-
+  <!-- END NAVBAR BUTTONS  -->
 
 </mat-sidenav-container>
-<!-- END PROFILE (SIDE NAV CONTAINER) -->
+<!-- END NAVBAR CONTAINER -->
