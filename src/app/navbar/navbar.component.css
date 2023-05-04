@@ -29,6 +29,10 @@
   outline: none;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .dynamic-content {
   display: flex;
   justify-content: space-between;
