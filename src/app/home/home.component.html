@@ -1,7 +1,14 @@
 <!-- HOME CONTAINER -->
 <div class="colContainer">
   <!-- USER PROFILE SIDE-NAVBAR COMPONENT -->
-  <app-profile id="profile" [user]="user" style="padding-left: 15px" (profileClick)="onProfileClick()" (showConversations)="onShowConvosAndChat()"></app-profile>
+  <app-navbar
+    id="profile"
+    [user]="user"
+    style="padding-left: 15px"
+    (profileClick)="onProfileClick()"
+    (showConversations)="onShowConversations()"
+    (showChat)="onShowChatBox()"
+  ></app-navbar>
   <!-- END USER PROFILE SIDE-NAVBAR COMPONENT -->
 
   <!-- MINI MID COLUMN -->
@@ -16,11 +23,14 @@
   <div class="gridCol mainColumn">
     <div [ngClass]="{'fadeOut': fadeOutConvos}" class="chatboxContainer">
       <div class="chatboxWrapper">
-        <app-chatbox [conversationId]="selectedConversation?.conversation_id" [user]="user" *ngIf="showChat"></app-chatbox>
+        <app-chatbox
+          [conversationId]="selectedConversation?.conversation_id"
+          [user]="user"
+          *ngIf="showChat"
+        ></app-chatbox>
       </div>
     </div>
   </div>
-
   <!-- END MAIN COLUMN -->
 </div>
 <!-- END HOME CONTAINER -->

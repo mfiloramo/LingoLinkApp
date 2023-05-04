@@ -8,20 +8,23 @@
   <!-- END PROFILE AVATAR -->
 
   <!-- NAV BUTTONS  -->
-  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-28">
+  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-24">
     <mat-icon>person</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content (click)="showConvos()" routerLink="/home/chat" class="sidenav-item">
-    <mat-icon>chat</mat-icon>
+  <mat-sidenav-content class="sidenav-item" (click)="showChatBox()" routerLink="/home/chat">
+    <mat-icon>textsms</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item">
-    <mat-icon>mail</mat-icon>
+  <mat-sidenav-content class="sidenav-item" (click)="showConversations.emit()" routerLink="/home/chat">
+    <mat-icon>forum</mat-icon>
   </mat-sidenav-content>
   <mat-sidenav-content class="sidenav-item">
     <mat-icon>contacts</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content (click)="logout()" class="sidenav-item">
+  <mat-sidenav-content class="sidenav-item">
     <mat-icon>settings</mat-icon>
+  </mat-sidenav-content>
+  <mat-sidenav-content (click)="logout()" class="sidenav-item mb-24">
+    <mat-icon>eject</mat-icon>
   </mat-sidenav-content>
   <!-- END NAV BUTTONS  -->
 

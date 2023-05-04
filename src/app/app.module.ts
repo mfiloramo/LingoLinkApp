@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProfileComponent } from './profile/profile.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HomeComponent } from './home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -39,7 +39,7 @@ import { InteractionType } from '@azure/msal-browser';
   declarations: [
     AppComponent,
     ChatBoxComponent,
-    ProfileComponent,
+    NavbarComponent,
     HomeComponent,
     ConvosComponent,
     PageNotFoundComponent,
@@ -73,7 +73,7 @@ import { InteractionType } from '@azure/msal-browser';
     //     authRequest: {
     //       scopes: [
     //         'openid',
-    //         'profile',
+    //         'navbar',
     //         'email',
     //         'user.read',
     //         `api://${environment.azureAPIClientID}/LingoLinkCore`,
