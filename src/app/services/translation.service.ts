@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import languageArray from '../../utils/languageMapper';
+import { TranslationPayload } from '../../interfaces/message.interfaces';
+import { Language } from '../../interfaces/language.interfaces';
 
 // TODO: IMPLEMENT PAYLOAD TYPECHECKING
 @Injectable({
@@ -15,7 +17,7 @@ export class TranslationService {
   }
 
   /** PUBLIC METHODS */
-  public getLiveTranslation(endpoint: string, payload: any): Observable<any> {
+  public getLiveTranslation(endpoint: string, payload: TranslationPayload): Observable<any> {
     return this.http
       .post(`${this.apiUrl}/${endpoint}`, payload)
       .pipe(map((response: object) => response))
@@ -25,7 +27,7 @@ export class TranslationService {
     return languageArray.find((language: any) => language.name === name)?.code || 'en';
   }
 
-  public getLanguageCode(language: any): string {
+  public getLanguageCode(language: Language): string {
     return typeof language === 'object' ? language.code : language;
   }
 
@@ -38,7 +40,7 @@ export class TranslationService {
   }
 
   public decodeHtmlEntities(encodedText: string): string {
-    const textarea = document.createElement('textarea');
+    const textarea: any = document.createElement('textarea');
     textarea.innerHTML = encodedText;
     return textarea.value;
   }
