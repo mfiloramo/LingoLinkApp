@@ -159,7 +159,6 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     }
   }
 
-
   public scrollToTop(): void {
     const element = this.chatContainer.nativeElement;
     this.renderer.setProperty(element, 'scrollTop', 0);
@@ -172,7 +171,6 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   /** PRIVATE METHODS */
   private connectWebSocket(): void {
-    // TODO: ADD AUTO-CACHING FOR INBOUND MESSAGES6
     // CONNECT TO WEBSOCKET VIA NG SERVICE
     this.webSocketService.connect();
 
@@ -186,7 +184,6 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           const msgSrc = this.translationService.getLanguageCode(message.source_language);
           const targLng = this.translationService.getLanguageCode(this.source_language);
 
-          // TODO: CHECK IF TRANSLATION IS STILL HAPPENING (POSSIBLE BREAK WITH INTERFACE IMPLEMENTATION)
           // TRANSLATE MESSAGE IF ITS SOURCE LANGUAGE IS DIFFERENT FROM LOCAL
             message.content = (msgSrc === targLng)
               ? message.content
