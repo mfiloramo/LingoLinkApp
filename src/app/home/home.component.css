@@ -57,14 +57,16 @@ mat-icon {
 
 .mainColumn::before {
   content: "";
-  background-image: url("../../assets/images/logoMain.png");
+  background-image: url("../../assets/images/chatboxBgLogo.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50%;
+  background-size: 30%;
   opacity: 0.15;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  transform-origin: center;
+  transform: scale(0.75);
 }

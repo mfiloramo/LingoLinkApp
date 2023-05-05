@@ -6,3 +6,10 @@ export interface ChatMessage {
   readonly timestamp?: string;
   content: string; // NOT READONLY BECAUSE CONTENTS MAY NEED TRANSLATION
 }
+
+export interface TranslationPayload {
+  readonly user: number;
+  readonly source_language: string;
+  readonly targLang: string;
+  content: string;
+}

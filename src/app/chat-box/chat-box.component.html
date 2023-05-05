@@ -4,8 +4,10 @@
   <select class="languageSelect" (change)="onLangSelect($event)">
     <option>English</option>
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
-    <option *ngFor="let languageObj of languageArray" [selected]="languageObj.name === source_language">
-      {{ languageObj.name }}</option>
+    <option *ngFor="let languageObj of languageArray" [selected]="languageObj.code === source_language.code">
+      {{ languageObj.nativeName }}
+    </option>
+
   </select>
   <!-- END LANGUAGE SELECTION -->
 
@@ -21,7 +23,9 @@
   <!-- END TEXT INPUT -->
 
   <!-- SEND MESSAGE BUTTON -->
-  <button class="sendMessageButton hover:animate-pulse" (click)="onSendMessage()" style="color: #e8e9ff; float: right">Send</button>
+  <button class="sendMessageButton" (click)="onSendMessage()" style="color: #e8e9ff; float: right">
+    <mat-icon>send</mat-icon>
+  </button>
   <!-- END SEND MESSAGE BUTTON -->
 </div>
 <!-- END INPUT CONTAINER -->

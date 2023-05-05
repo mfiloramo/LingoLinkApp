@@ -28,7 +28,7 @@ export class AuthService {
     try {
       // this.activeAccount = await msalInstance.loginPopup({
       //   scopes: [
-      //     'openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`
+      //     'openid', 'navbar', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`
       //   ]
       // });
       // if (this.activeAccount) {

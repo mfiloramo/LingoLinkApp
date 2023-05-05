@@ -1,5 +1,5 @@
-import { Component, Output } from '@angular/core';
-import { UserService } from "./login/user.service";
+import { Component } from '@angular/core';
+import { UserService } from "./services/user.service";
 import { trigger, transition, style, animate, query, animateChild, group } from '@angular/animations';
 
 @Component({
@@ -17,11 +17,11 @@ import { trigger, transition, style, animate, query, animateChild, group } from 
             left: 0,
             width: '100%',
           }),
-        ]),
-        query(':enter', [style({ opacity: 0 }), animateChild()]),
+        ], { optional: true }),
+        query(':enter', [style({ opacity: 0 }), animateChild()], { optional: true }),
         group([
-          query(':leave', [animate('0.3s ease-in-out', style({ opacity: 0 }))]),
-          query(':enter', [animate('0.3s ease-in-out', style({ opacity: 1 }))]),
+          query(':leave', [animate('0.3s ease-in-out', style({ opacity: 0 }))], { optional: true }),
+          query(':enter', [animate('0.3s ease-in-out', style({ opacity: 1 }))], { optional: true }),
         ]),
       ]),
     ]),
