@@ -14,6 +14,7 @@ import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
+import { Language } from '../../interfaces/language.interfaces';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
   public source_language: any = { code: 'en' };
-  public languageArray: { name: string, code: string }[] = languageArray;
+  public languageArray: Language[] = languageArray;
   public mainConvoContainer: any[] = [];
   public textInput: string = '';
   public audio: any = new Audio();
@@ -40,11 +41,12 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     private messageService: MessageService,
     private renderer: Renderer2
   ) {
+    this.audio.src = '../../assets/sounds/clickSound.mp3';
+    this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
   }
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    this.initializeInputs();
     this.connectWebSocket()
   }
 
@@ -151,13 +153,12 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public onLangSelect(lang: any): void {
-    const selectedLangCode = this.translationService.getCodeFromName(lang.target.value);
-    if (typeof this.source_language === 'object') {
-      this.source_language.code = selectedLangCode;
-    } else {
-      this.source_language = { code: selectedLangCode, name: 'test' };
+    const selectedLanguage = this.languageArray.find(language => language.nativeName === lang.target.value);
+    if (selectedLanguage) {
+      this.source_language = { code: selectedLanguage.code };
     }
   }
+
 
   public scrollToTop(): void {
     const element = this.chatContainer.nativeElement;
@@ -170,12 +171,8 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   /** PRIVATE METHODS */
-  private initializeInputs(): void {
-    this.audio.src = '../../assets/sounds/clickSound.mp3';
-    this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
-  }
-
   private connectWebSocket(): void {
+    // TODO: ADD AUTO-CACHING FOR INBOUND MESSAGES6
     // CONNECT TO WEBSOCKET VIA NG SERVICE
     this.webSocketService.connect();
 
@@ -189,6 +186,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           const msgSrc = this.translationService.getLanguageCode(message.source_language);
           const targLng = this.translationService.getLanguageCode(this.source_language);
 
+          // TODO: CHECK IF TRANSLATION IS STILL HAPPENING (POSSIBLE BREAK WITH INTERFACE IMPLEMENTATION)
           // TRANSLATE MESSAGE IF ITS SOURCE LANGUAGE IS DIFFERENT FROM LOCAL
             message.content = (msgSrc === targLng)
               ? message.content
@@ -236,13 +234,13 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
   /** UTILITY FUNCTIONS */
   private async translateText(content: string, source_language: string, targLang: string): Promise<string> {
-    return new Promise<string>((resolve) => {
-      this.translationService.getLiveTranslation('translate', {
-        user: this.user.user_id, content, source_language, targLang
-      }).subscribe((response: any) => {
-        resolve(this.translationService.decodeHtmlEntities(response));
-      });
-    });
+    const response = await this.translationService.getLiveTranslation('translate', {
+      user: this.user.user_id,
+      content,
+      source_language,
+      targLang
+    }).toPromise();
+    return this.translationService.decodeHtmlEntities(response);
   }
 
   private playClickSound(): void {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from "./login/user.service";
+import { UserService } from "./services/user.service";
 import { trigger, transition, style, animate, query, animateChild, group } from '@angular/animations';
 
 @Component({

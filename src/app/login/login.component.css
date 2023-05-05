@@ -70,6 +70,7 @@ button:disabled {
   padding-top: 25px;
 }
 
+/* TODO: DECIDE ON DROP-SHADOW DEFAULT (PHOTOSHOP OR CSS); LOGO HAS IT AND TEXT DOES NOT */
 .logo-container img {
   filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.5));
 }

@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-
   /** PRIVATE METHODS */
   private buildForm(): void {
     this.loginForm = this.fb.group({
