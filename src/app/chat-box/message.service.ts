@@ -18,6 +18,7 @@ export class MessageService {
   public loadMessages(id: number): Observable<object> {
     return this.http.get(`${this.apiUrl}/messages/${id}`);
   }
+
   public async sendMessage(message: ChatMessage): Promise<any> {
     return this.http.post(`${this.apiUrl}/messages`, message).toPromise();
   }

@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { animation: 'home' },
-    // canActivate: [MsalGuard],
+    canActivate: [MsalGuard],
     children: [
       {
         path: '',
@@ -35,19 +35,19 @@ const routes: Routes = [
         path: 'profile',
         component: NavbarComponent,
         data: { animation: 'profile' },
-        // canActivate: [MsalGuard],
+        canActivate: [MsalGuard],
       },
       {
         path: 'conversations',
         component: ConvosComponent,
         data: { animation: 'conversations' },
-        // canActivate: [MsalGuard],
+        canActivate: [MsalGuard],
       },
       {
         path: 'chat',
         component: ChatBoxComponent,
         data: { animation: 'chat' },
-        // canActivate: [MsalGuard],
+        canActivate: [MsalGuard],
       }
     ]
   },

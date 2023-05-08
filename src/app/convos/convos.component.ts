@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Conversation } from '../../interfaces/conversation.interfaces';
 import { ConversationService } from './conversation.service';
 import dayjs from 'dayjs';
-import { BrowserAuthError } from '@azure/msal-browser';
 
 @Component({
   selector: 'app-convos',
@@ -21,9 +20,6 @@ export class ConvosComponent implements OnInit {
 
   /** LIFECYCLE HOOKS */
   async ngOnInit(): Promise<any> {
-    // DEBUG: IDENTIFY USER
-    // console.log(`Debug: user ${this.user.user_id}`);
-
     // LOAD CONVERSATIONS BY USERID
     try {
       this.isLoading = true;
