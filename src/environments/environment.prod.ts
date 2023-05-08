@@ -1,6 +1,6 @@
 export const environment: any = {
   production: true,
-  redirectURI: '${APP_REDIRECT_URI}',
+  redirectURI: 'https://orange-tree-0d3c88e0f.3.azurestaticapps.net/home',
   apiBaseUrl: 'https://lingolinkapi.azurewebsites.net/api',
   azureTenantID: '${AZURE_TENANT_ID}',
   azureClientID: '${AZURE_CLIENT_ID}',
