@@ -1,9 +1,9 @@
 export const environment: any = {
-  production: '${PRODUCTION}',
-  redirectURI: '${APP_REDIRECT_URI}',
-  apiBaseUrl: '${API_BASE_URL}',
+  production: true,
+  redirectURI: 'https://orange-tree-0d3c88e0f.3.azurestaticapps.net/home',
+  apiBaseUrl: 'https://lingolinkapi.azurewebsites.net/api',
   azureTenantID: '${AZURE_TENANT_ID}',
   azureClientID: '${AZURE_CLIENT_ID}',
   azureAPIClientID: '${AZURE_API_CLIENT_ID}',
-  appConfigEndpoint: '${APP_CONFIG_ENDPOINT}',
+  appConfigEndpoint: 'https://lingolink-config.azconfig.io',
 };
