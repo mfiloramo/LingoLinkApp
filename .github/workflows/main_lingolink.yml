@@ -3,17 +3,17 @@ name: Build/Deploy Azure Static Web App (Angular Application)
 on:
   push:
     branches:
-      - main
+      - dev
   pull_request:
-    types: [closed]
+    types: [opened, synchronize, reopened, closed]
     branches:
-      - main
+      - dev
 
 jobs:
-  build_and_deploy:
+  build_application:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    name: Build and Deploy
+    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: Build Application
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -52,6 +52,18 @@ jobs:
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/world-chat-app/
+
+  deploy_application:
+    runs-on: ubuntu-latest
+    needs: build_application
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Deploy Application
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist/world-chat-app/
