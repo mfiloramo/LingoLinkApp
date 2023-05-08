@@ -5,7 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { msalInstance } from "../../config/msalBrowserConfig";
-import { environment } from '../../environments/environment.local';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,18 +26,16 @@ export class AuthService {
 
   public async login(): Promise<void> {
     try {
-      // this.activeAccount = await msalInstance.loginPopup({
-      //   scopes: [
-      //     'openid', 'navbar', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`
-      //   ]
-      // });
-      // if (this.activeAccount) {
+      this.activeAccount = await msalInstance.loginPopup({
+        scopes: ['openid', 'email', 'user.read']
+      });
+      if (this.activeAccount) {
         // SET THE loggedIn BehaviorSubject TO TRUE
         this.loggedIn.next(true);
 
         // NAVIGATE TO THE HOME PAGE
         await this.router.navigate(['/home']);
-      // }
+      }
     } catch (error: any) {
       this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       throw error;
@@ -75,9 +73,9 @@ export class AuthService {
   }
 
   public logout(): void {
-    msalInstance.logoutRedirect();
+    msalInstance.logoutRedirect().then((response: any) => response);
     this.loggedIn.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then((response: any) => response);
   }
 
   public async getAccessToken(): Promise<string> {
@@ -90,7 +88,7 @@ export class AuthService {
 
       try {
         response = await msalInstance.acquireTokenSilent({
-          scopes: [`api://${environment.azureAPIClientID}/LingoLinkCore`],
+          scopes: [`api://${environment.azureAPIClientID}/lingolink.access.api`],
           account: this.activeAccount,
         })
       } catch (error: any) {

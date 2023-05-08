@@ -27,12 +27,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
 import { msalInstance } from '../config/msalBrowserConfig';
-import { environment } from '../environments/environment.local';
+import { environment } from '../environments/environment';
 import { InteractionType } from '@azure/msal-browser';
 
-// const protectedResourceMap: any = [
-//   [environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/LingoLinkCore`]],
-// ];
+const protectedResourceMap: any = environment.production
+  ? [[environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/lingolink.access.api`]]]
+  : [[environment.apiBaseUrl, [`${environment.apiBaseUrl}/.default`]]];
 
 
 @NgModule({
@@ -66,35 +66,34 @@ import { InteractionType } from '@azure/msal-browser';
     MatSnackBarModule,
     MatRadioModule,
     _MatCheckboxRequiredValidatorModule,
-    // MsalModule.forRoot(
-    //   msalInstance,
-    //   {
-    //     interactionType: InteractionType.Popup,
-    //     authRequest: {
-    //       scopes: [
-    //         'openid',
-    //         'navbar',
-    //         'email',
-    //         'user.read',
-    //         `api://${environment.azureAPIClientID}/LingoLinkCore`,
-    //       ],
-    //       prompt: 'consent'
-    //     },
-    //   },
-    //   {
-    //     interactionType: InteractionType.Popup,
-    //     protectedResourceMap: new Map(protectedResourceMap),
-    //   },
-    // ),
+    MsalModule.forRoot(
+      msalInstance,
+      {
+        interactionType: InteractionType.Popup,
+        authRequest: {
+          scopes: [
+            'openid',
+            'email',
+            'user.read',
+            `${environment.apiBaseUrl}/access_as_user`,
+          ],
+          prompt: 'consent'
+        },
+      },
+      {
+        interactionType: InteractionType.Popup,
+        protectedResourceMap: new Map(protectedResourceMap),
+      },
+    ),
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: MsalInterceptor,
-    //   multi: true,
-    // },
-    // MsalInterceptor,
-    // MsalGuard
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true,
+    },
+    MsalInterceptor,
+    MsalGuard
   ],
   bootstrap: [
     AppComponent

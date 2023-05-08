@@ -1,5 +1,5 @@
 import { PublicClientApplication } from '@azure/msal-browser';
-import { environment } from '../environments/environment.local';
+import { environment } from '../environments/environment';
 
 function isIEOrEdge() {
   const ua = window.navigator.userAgent;
@@ -15,7 +15,14 @@ export const msalConfig: any = {
     redirectUri: environment.redirectURI,
     authority: `https://login.microsoft.com/${environment.azureTenantID}`,
     navigateToLoginRequestUrl: false,
-    scopes: ['openid', 'profile', 'email', 'user.read', `api://${environment.azureAPIClientID}/LingoLinkCore`, `api://${environment.azureAPIClientID}`],
+    scopes: [
+      'openid',
+      'profile',
+      'email',
+      'user.read',
+      `api://${environment.azureAPIClientID}`,
+      `api://${environment.azureAPIClientID}/lingolink.access.api`
+    ],
   },
   cache: {
     cacheLocation: 'localStorage',

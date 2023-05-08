@@ -1,75 +1,95 @@
-name: Build and deploy Node.js app to Azure Web App - LingoLink
+name: Build/Deploy Azure Static Web App (Angular Application)
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
 
 jobs:
-  build:
+  build_application:
     runs-on: ubuntu-latest
-
+    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: Build Application
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-      - name: 'Set Up Node.js Version 16'
+      - name: Install Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: 16.x
 
-      - name: 'Create Environment Files'
+      - name: Install envsubst
+        run: sudo apt-get install -y gettext-base
+
+      - name: Replace Environment Variables
+        working-directory: .
+        env:
+          PRODUCTION: 'true'
+          API_BASE_URL: ${{ secrets.APIBASEURL }}
+          APP_REDIRECT_URI: ${{ secrets.APP_REDIRECT_URI }}
+          AZURE_TENANT_ID: ${{ secrets.AZURETENANTID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}
+          AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
+          APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          cp src/environments/environment.ts src/environments/environment.prod.ts
-          cp src/environments/environment.ts src/environments/environment.local.ts
+          export PRODUCTION=$PRODUCTION
+          export API_BASE_URL=$API_BASE_URL
+          export APP_REDIRECT_URI=$APP_REDIRECT_URI
+          export AZURE_TENANT_ID=$AZURE_TENANT_ID
+          export AZURE_CLIENT_ID=$AZURE_CLIENT_ID
+          export AZURE_API_CLIENT_ID=$AZURE_API_CLIENT_ID
+          export APP_CONFIG_ENDPOINT=$APP_CONFIG_ENDPOINT
+          envsubst < src/environments/environment.prod.ts > src/environments/environment.prod.temp.ts
+          mv src/environments/environment.prod.temp.ts src/environments/environment.ts
 
-      - name: 'Replace Environment Variables'
-        run: |
-          sed -i "s|#{production}#|true|g" src/environments/environment.prod.ts
-          sed -i "s|#{apiBaseUrl}#|${{ secrets.apiBaseUrl }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureTenantID}#|https://login.microsoftonline.com/${{ secrets.AZURE_TENANT_ID }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureClientID}#|${{ secrets.azureClientID }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{azureAPIClientID}#|${{ secrets.azureAPIClientID }}|g" src/environments/environment.prod.ts
-          sed -i "s|#{appConfigEndpoint}#|${{ secrets.appConfigEndpoint }}|g" src/environments/environment.prod.ts
-
-      - name: 'Install Packages/Dependencies & Angular CLI'
+      - name: Install Dependencies
+        working-directory: .
         run: |
           npm install
           npm install -g @angular/cli
 
-      - name: 'Build Application'
-        run: |
-          ng build
+      - name: Build Application
+        working-directory: .
+        run: npm run build
 
-      - name: 'Upload Artifact For Deployment Job'
+      - name: Archive Production Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: node-app
-          path: ./dist/world-chat-app
+          name: dist
+          path: dist/world-chat-app/
 
-  deploy:
+  deploy_application:
     runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
+    needs: build_application
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: Deploy Application
     steps:
-      - name: 'Download Artifact From Build Job'
+      - name: Download Build Artifact
         uses: actions/download-artifact@v2
         with:
-          name: node-app
+          name: dist
+          path: dist/world-chat-app/
 
-      - name: 'Azure Login'
-        uses: azure/login@v1
+      - name: Deploy To Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_TREE_0D3C88E0F }}
+          action: "upload"
+          app_location: "dist/world-chat-app"
+          api_location: ""
+          output_location: "dist/world-chat-app"
 
-      - name: 'Deploy To Azure Web App'
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+  close_pull_request:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    name: Close Pull Request
+    steps:
+      - name: Deploy To Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
         with:
-          app-name: 'LingoLink'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_TREE_0D3C88E0F }}
