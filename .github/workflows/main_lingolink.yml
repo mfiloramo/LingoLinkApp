@@ -30,20 +30,13 @@ jobs:
         working-directory: .
         env:
           PRODUCTION: 'true'
-          API_BASE_URL: ${{ secrets.APIBASEURL }}
-          APP_REDIRECT_URI: ${{ secrets.APP_REDIRECT_URI }}
           AZURE_TENANT_ID: ${{ secrets.AZURETENANTID }}
           AZURE_CLIENT_ID: ${{ secrets.AZURECLIENTID }}
           AZURE_API_CLIENT_ID: ${{ secrets.AZUREAPICLIENTID }}
-          APP_CONFIG_ENDPOINT: ${{ secrets.APPCONFIGENDPOINT }}
         run: |
-          export PRODUCTION=$PRODUCTION
-          export API_BASE_URL=$API_BASE_URL
-          export APP_REDIRECT_URI=$APP_REDIRECT_URI
           export AZURE_TENANT_ID=$AZURE_TENANT_ID
           export AZURE_CLIENT_ID=$AZURE_CLIENT_ID
           export AZURE_API_CLIENT_ID=$AZURE_API_CLIENT_ID
-          export APP_CONFIG_ENDPOINT=$APP_CONFIG_ENDPOINT
           envsubst < src/environments/environment.prod.ts > src/environments/environment.prod.temp.ts
           mv src/environments/environment.prod.temp.ts src/environments/environment.ts
 
