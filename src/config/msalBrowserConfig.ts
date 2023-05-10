@@ -20,8 +20,7 @@ export const msalConfig: any = {
       'profile',
       'email',
       'user.read',
-      `api://${environment.azureAPIClientID}`,
-      `api://${environment.azureAPIClientID}/lingolink.access.api`
+      'api://lingolink-api/general',
     ],
   },
   cache: {
