@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
 import { InteractionType } from '@azure/msal-browser';
 
 const protectedResourceMap: any = environment.production
-  ? [[environment.apiBaseUrl, [`api://${environment.azureAPIClientID}/lingolink.access.api`]]]
+  ? [[environment.apiBaseUrl, [`api://lingolink-api/general`]]]
   : [[environment.apiBaseUrl, [`${environment.apiBaseUrl}/.default`]]];
 
 

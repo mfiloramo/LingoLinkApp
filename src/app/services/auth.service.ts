@@ -44,7 +44,7 @@ export class AuthService {
 
   public async register(user: any): Promise<any> {
     try {
-      const response = await msalInstance.acquireTokenSilent({ scopes: [`api://${environment.azureAPIClientID}/access_as_user`] });
+      const response = await msalInstance.acquireTokenSilent({ scopes: [`api://lingolink-api/general`] });
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export class AuthService {
 
       try {
         response = await msalInstance.acquireTokenSilent({
-          scopes: [`api://${environment.azureAPIClientID}/lingolink.access.api`],
+          scopes: [`api://lingolink-api/general`],
           account: this.activeAccount,
         })
       } catch (error: any) {
