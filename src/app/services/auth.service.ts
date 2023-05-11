@@ -5,7 +5,6 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { msalInstance } from "../../config/msalBrowserConfig";
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +41,7 @@ export class AuthService {
     }
   }
 
-  public async register(user: any): Promise<any> {
+  public async register(user: any): Promise<void> {
     try {
       const response = await msalInstance.acquireTokenSilent({ scopes: [`api://lingolink-api/general`] });
       const httpOptions = {

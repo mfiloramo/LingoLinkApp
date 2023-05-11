@@ -92,7 +92,6 @@ const protectedResourceMap: any = environment.production
       useClass: MsalInterceptor,
       multi: true,
     },
-    MsalInterceptor,
     MsalGuard
   ],
   bootstrap: [
