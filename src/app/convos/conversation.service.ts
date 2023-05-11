@@ -15,10 +15,12 @@ export class ConversationService {
     private translate: TranslationService
   ) { }
 
+  /** PUBLIC METHODS */
   public async createConversation(body: object): Promise<any> {
     return this.http.post(`${this.apiUrl}/conversations`, body).toPromise();
   }
 
+  // CALLED WHEN USER LOADS CONVERSATION MODULE
   public async loadConversationsByUserId(userId: number): Promise<any> {
     const response: any = await this.http.get(`${environment.apiBaseUrl}/conversations/${userId}`).toPromise();
 
@@ -30,6 +32,7 @@ export class ConversationService {
     return response;
   }
 
+  // CALLED WHEN USER CLICKS CONVERSATION IN MODULE
   public async loadConversationsByConvoId(conversationId: number): Promise<any> {
     return this.http.get(`${environment.apiBaseUrl}/conversations/${conversationId}`).toPromise();
   }
@@ -38,7 +41,8 @@ export class ConversationService {
     return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
   }
 
-  /** GENERATE RANDOMIZED STUB USER/CONVERSATION DATA */
+  /** PRIVATE METHODS */
+  // TEMPORARY: GENERATE RANDOMIZED STUB USER/CONVERSATION DATA
   private async fetchRandomUserData(convo: any) {
     try {
       // GENERATE RANDOM USER DATA
