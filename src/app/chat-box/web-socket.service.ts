@@ -11,7 +11,7 @@ export class WebSocketService {
   constructor() { }
 
   public connect(): void {
-    this.webSocket = new WebSocket('ws://localhost:8080');
+    this.webSocket = new WebSocket('ws://localhost:8085');
   }
 
   public send(msgObj: object): void {
