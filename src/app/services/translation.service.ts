@@ -5,13 +5,14 @@ import { map } from 'rxjs/operators';
 import languageArray from '../../utils/languageMapper';
 import { TranslationPayload } from '../../interfaces/message.interfaces';
 import { Language } from '../../interfaces/language.interfaces';
+import { environment } from '../../environments/environment.prod';
 
 // TODO: IMPLEMENT PAYLOAD TYPECHECKING
 @Injectable({
   providedIn: 'root',
 })
 export class TranslationService {
-  public apiUrl: string = 'http://localhost:3000/api'
+  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {
   }
