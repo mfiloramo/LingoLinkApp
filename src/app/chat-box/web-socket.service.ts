@@ -9,14 +9,29 @@ export class WebSocketService {
   @Output() updateChatbox = new EventEmitter<void>();
   private webSocket: any;
 
-  constructor() { }
+  constructor() {
+    this.connect();
+  }
 
   public connect(): void {
     this.webSocket = new WebSocket(environment.websocketHost);
+
+    this.webSocket.onopen = (event: any): void => {
+      console.log('WebSocket is open now.');
+    };
+
+    this.webSocket.onerror = (error: any): void => {
+      console.log(`WebSocket error observed: `, error);
+    };
   }
 
   public send(msgObj: object): void {
-    this.webSocket.send(JSON.stringify(msgObj));
+    // CHECK IF WEBSOCKET CONNECTION IS OPEN
+    if (this.webSocket.readyState === WebSocket.OPEN) {
+      this.webSocket.send(JSON.stringify(msgObj));
+    } else {
+      console.error("Can't send message, the WebSocket connection isn't open");
+    }
   }
 
   public onMessage(): Observable<any> {
