@@ -9,12 +9,12 @@ import {
   ViewChild
 } from '@angular/core';
 import { ChatMessage } from "../../interfaces/message.interfaces";
+import { Language } from '../../interfaces/language.interfaces';
 import { TranslationService } from '../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
 import languageArray from '../../utils/languageMapper';
-import { Language } from '../../interfaces/language.interfaces';
 
 
 @Component({
@@ -80,7 +80,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // CREATE NEW CONVERSATION IF ONE IS NOT ALREADY SELECTED
     if (!this.conversationId) {
       // CREATE RANDOM CONVERSATION NAME
-      const convoName: string = `conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
+      const convoName: string = `Conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
 
       try {
         const response: any = await this.conversationService.createConversation({ 'name': convoName });
@@ -114,8 +114,9 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // RESET TEXT INPUT
     this.textInput = '';
   }
-
   public loadConversationByConvoId(): any {
+    /** THIS NEEDS COMPLETE REFACTORING */
+
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
       this.isLoading = true;
@@ -190,8 +191,10 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
               : await this.translateText(message.content, msgSrc, targLng)
                 .then((response: any) => response);
 
-            // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM
-            this.mainConvoContainer.push(message);
+            // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM IF USER HAS SELECTED CONVERSATION
+            if (message.conversation_id === this.conversationId) {
+              this.mainConvoContainer.push(message);
+            }
         };
         // READ THE EVENT DATA AS TEXT AND TRIGGER 'LOAD' EVENT FOR READER
         reader.readAsText(event.data);

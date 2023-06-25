@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import languageArray from '../../utils/languageMapper';
 import { TranslationPayload } from '../../interfaces/message.interfaces';
 import { Language } from '../../interfaces/language.interfaces';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 // TODO: IMPLEMENT PAYLOAD TYPECHECKING
 @Injectable({
