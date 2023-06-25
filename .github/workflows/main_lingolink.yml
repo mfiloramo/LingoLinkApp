@@ -48,7 +48,7 @@ jobs:
 
       - name: Build Application
         working-directory: .
-        run: npm run build
+        run: npm run build:prod
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@v2
