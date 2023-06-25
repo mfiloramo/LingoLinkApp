@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { LoremIpsum } from 'lorem-ipsum';
 import { TranslationService } from '../services/translation.service';
 
@@ -12,7 +12,6 @@ export class ConversationService {
 
   constructor(
     private http: HttpClient,
-    private translate: TranslationService
   ) { }
 
   /** PUBLIC METHODS */
@@ -21,8 +20,8 @@ export class ConversationService {
   }
 
   // CALLED WHEN USER LOADS CONVERSATION MODULE
-  public async loadConversationsByUserId(userId: number): Promise<any> {
-    const response: any = await this.http.get(`${environment.apiBaseUrl}/conversations/${userId}`).toPromise();
+  public async loadConversationsByUserId(userId?: number): Promise<any> {
+    const response: any = await this.http.get(`${environment.apiBaseUrl}/conversations`).toPromise();
 
     // FETCH RANDOM USER IMAGES FOR STUB CONVERSATIONS
     for (const convo of response) {

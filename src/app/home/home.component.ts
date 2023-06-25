@@ -17,8 +17,7 @@ export class HomeComponent implements OnInit {
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     // DEBUG: STUB USER DATA ON MODULE INITIALIZATION
-    const randomNumbers = [2, 6, 8, 9, 10, 11, 12, 13, 14, 15];
-    const user_Id = Math.random() < 0.5 ? 14 : randomNumbers[Math.floor(Math.random() * randomNumbers.length)];
+    const user_Id = Math.floor(Math.random() * 3) + 1;
     this.user = {
       user_id: user_Id,
       username: `testUser`,
@@ -26,6 +25,7 @@ export class HomeComponent implements OnInit {
       password: 'testPassword'
     }
     // DEBUG: DOES THE SERVER ACTUALLY CHECK FOR THE ABOVE CREDS?
+    console.log(`Your User ID is: ${user_Id}`);
   }
 
   /** PUBLIC METHODS */

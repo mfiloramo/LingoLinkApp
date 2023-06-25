@@ -87,12 +87,12 @@ const protectedResourceMap: any = environment.production
     ),
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true,
-    },
-    MsalGuard
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: MsalInterceptor,
+    //   multi: true,
+    // },
+    // MsalGuard
   ],
   bootstrap: [
     AppComponent
