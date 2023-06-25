@@ -13,6 +13,7 @@ export class WebSocketService {
     this.connect();
   }
 
+  /** PUBLIC METHODS */
   public connect(): void {
     this.webSocket = new WebSocket(environment.websocketHost);
 
