@@ -5,24 +5,24 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './views/home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ConvosComponent } from './convos/convos.component';
+import { ConvosComponent } from './components/convos/convos.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
+import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
+import { LoginComponent } from './views/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent } from './views/registration/registration.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
@@ -36,66 +36,69 @@ const protectedResourceMap: any = environment.production
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ChatBoxComponent,
-    NavbarComponent,
-    HomeComponent,
-    ConvosComponent,
-    PageNotFoundComponent,
-    LoginComponent,
-    RegistrationComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CommonModule,
-    HttpClientModule,
-    MatExpansionModule,
-    FormsModule,
-    MatButtonModule,
-    MatCardModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatGridListModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatRadioModule,
-    _MatCheckboxRequiredValidatorModule,
-    MsalModule.forRoot(
-      msalInstance,
-      {
-        interactionType: InteractionType.Popup,
-        authRequest: {
-          scopes: [
-            'openid',
-            'email',
-            'user.read',
-            `${environment.apiBaseUrl}/access_as_user`,
-          ],
-          prompt: 'consent'
-        },
-      },
-      {
-        interactionType: InteractionType.Popup,
-        protectedResourceMap: new Map(protectedResourceMap),
-      },
-    ),
-  ],
-  providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: MsalInterceptor,
-    //   multi: true,
-    // },
-    // MsalGuard
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+    declarations: [
+        AppComponent,
+        ChatBoxComponent,
+        NavbarComponent,
+        HomeComponent,
+        ConvosComponent,
+        PageNotFoundComponent,
+        LoginComponent,
+        RegistrationComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        CommonModule,
+        HttpClientModule,
+        MatExpansionModule,
+        FormsModule,
+        MatButtonModule,
+        MatCardModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatGridListModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatRadioModule,
+        _MatCheckboxRequiredValidatorModule,
+        MsalModule.forRoot(
+            msalInstance,
+            {
+                interactionType: InteractionType.Popup,
+                authRequest: {
+                    scopes: [
+                        'openid',
+                        'email',
+                        'user.read',
+                        `${ environment.apiBaseUrl }/access_as_user`,
+                    ],
+                    prompt: 'consent'
+                },
+            },
+            {
+                interactionType: InteractionType.Popup,
+                protectedResourceMap: new Map(protectedResourceMap),
+            },
+        ),
+    ],
+    providers: [
+        // {
+        //   provide: HTTP_INTERCEPTORS,
+        //   useClass: MsalInterceptor,
+        //   multi: true,
+        // },
+        // MsalGuard
+    ],
+    exports: [
+        NavbarComponent
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

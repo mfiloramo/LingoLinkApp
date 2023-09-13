@@ -23,22 +23,23 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) { }
 
-  public async login(): Promise<void> {
-    try {
-      this.activeAccount = await msalInstance.loginPopup({
-        scopes: ['openid', 'email', 'user.read']
-      });
-      if (this.activeAccount) {
-        // SET THE loggedIn BehaviorSubject TO TRUE
+  public async login(): Promise<any> {
+    // try {
+    //   this.activeAccount = await msalInstance.loginPopup({
+    //     scopes: ['openid', 'email', 'user.read']
+    //   });
+    //   if (this.activeAccount) {
+    //     // SET THE loggedIn BehaviorSubject TO TRUE
         this.loggedIn.next(true);
-
-        // NAVIGATE TO THE HOME PAGE
+    //
+    //     // NAVIGATE TO THE HOME PAGE
         await this.router.navigate(['/home']);
-      }
-    } catch (error: any) {
-      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-      throw error;
-    }
+    //   }
+    // } catch (error: any) {
+    //   this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+    //   throw error;
+    // }
+    // return true;
   }
 
   public async register(user: any): Promise<void> {

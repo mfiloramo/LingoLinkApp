@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from "./home/home.component";
-import { ChatBoxComponent } from "./chat-box/chat-box.component";
-import { NavbarComponent } from "./navbar/navbar.component";
-import { ConvosComponent } from "./convos/convos.component";
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
-import { LoginComponent } from "./login/login.component";
-import { RegistrationComponent } from "./registration/registration.component";
-import { MsalGuard } from '@azure/msal-angular';
+import { HomeComponent } from "./views/home/home.component";
+import { ChatBoxComponent } from "./components/chat-box/chat-box.component";
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { ConvosComponent } from "./components/convos/convos.component";
+import { PageNotFoundComponent } from "./views/page-not-found/page-not-found.component";
+import { LoginComponent } from "./views/login/login.component";
+import { RegistrationComponent } from "./views/registration/registration.component";
 
 const routes: Routes = [
   {
@@ -24,7 +23,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { animation: 'home' },
-    canActivate: [MsalGuard],
+    canActivate: [],
     children: [
       {
         path: '',
@@ -35,19 +34,19 @@ const routes: Routes = [
         path: 'profile',
         component: NavbarComponent,
         data: { animation: 'profile' },
-        canActivate: [MsalGuard],
+        canActivate: [],
       },
       {
         path: 'conversations',
         component: ConvosComponent,
         data: { animation: 'conversations' },
-        canActivate: [MsalGuard],
+        canActivate: [],
       },
       {
         path: 'chat',
         component: ChatBoxComponent,
         data: { animation: 'chat' },
-        canActivate: [MsalGuard],
+        canActivate: [],
       }
     ]
   },

@@ -8,13 +8,13 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { ChatMessage } from "../../interfaces/message.interfaces";
-import { Language } from '../../interfaces/language.interfaces';
-import { TranslationService } from '../services/translation.service';
+import { ChatMessage } from "../../../interfaces/message.interfaces";
+import { Language } from '../../../interfaces/language.interfaces';
+import { TranslationService } from '../../services/translation.service';
 import { WebSocketService } from './web-socket.service';
 import { ConversationService } from '../convos/conversation.service';
 import { MessageService } from './message.service';
-import languageArray from '../../utils/languageMapper';
+import languageArray from '../../../utils/languageMapper';
 
 
 @Component({

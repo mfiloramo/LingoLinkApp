@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { PublicClientApplication } from "@azure/msal-browser";
-import { msalConfig } from '../../config/msalBrowserConfig';
+import { msalConfig } from '../../../config/msalBrowserConfig';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 const msalInstance: PublicClientApplication = new PublicClientApplication(msalConfig);

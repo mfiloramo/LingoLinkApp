@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/72812809/235482535-571dd542-8214-4dcc-ad81-d5001eac5d22.png" alt="readmeLogo" width="40%" height="40%" />
 </p>
 
-LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the app's integration of Google Translate API, users can send and receive messages in their own language while the app automatically translates the messages in real-time for all other parties.
+LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the server's integration of Google Translate API, users can send and receive messages in their own language while the server automatically translates the messages in real-time for all other parties.
 
 ## Early Screenshots (Desktop Version Only)
 Below are some preview screenshots of an early iteration of LingoLink's interface. The screenshots are for UI demonstration purposes only.
@@ -24,7 +24,7 @@ Below are some preview screenshots of an early iteration of LingoLink's interfac
 
 ## Getting Started
 
-The application is currently a work in progress and is not yet available for download. Once the app is completed, it will be available online in desktop/mobile formats. To get started with a local working build of the app, follow these steps:
+The application is currently a work in progress and is not yet available for download. Once the server is completed, it will be available online in desktop/mobile formats. To get started with a local working build of the server, follow these steps:
 
 1. Clone the repo
 2. Run `npm install` to install dependencies
@@ -33,7 +33,7 @@ The application is currently a work in progress and is not yet available for dow
 - `API_KEY`: your Microsoft Azure Cognitive Services Translator API key
 - `API_REGION`: the region your API key is associated with
   
-5. Run `npm start` to start the app
+5. Run `npm start` to start the server
 
 ## Technologies Used
 

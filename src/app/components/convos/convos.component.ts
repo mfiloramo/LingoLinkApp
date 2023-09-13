@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Conversation } from '../../interfaces/conversation.interfaces';
+import { Conversation } from '../../../interfaces/conversation.interfaces';
 import { ConversationService } from './conversation.service';
 import dayjs from 'dayjs';
 
@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 })
 export class ConvosComponent implements OnInit {
   @Input() user: any;
-  @Output() conversationSelected = new EventEmitter<any>();
+  @Output() conversationSelected: EventEmitter<any> = new EventEmitter<any>();
   public conversations: any[] = [];
   public isLoading: boolean = false;
 
@@ -33,9 +33,21 @@ export class ConvosComponent implements OnInit {
       }
     }
 
-    // TODO: AFTER THE CONVERSATIONS LOAD, BUT BEFORE THEY'RE ADDED TO THE DOM, ITERATE THROUGH AND CALL THE SP ON EACH CONVERSATION USING THE APPROPRIATE SERVICE THAT CALLS IT (CONVERSATION SERVICE?). AND RENDERING EACH TRAIT.
-
   /** PUBLIC METHODS */
+  public async loadConversations(): Promise<void> {
+    // LOAD CONVERSATIONS BY USERID
+    try {
+      this.isLoading = true;
+      this.conversations = await this.conversationService.loadConversationsByUserId() // INPUT: this.user.user_id
+        .then((response: any) => {
+          this.isLoading = false;
+          return response;
+        });
+    } catch (error) {
+      console.error('Error loading conversations:', error);
+    }
+  }
+
   public onSelectConversation(conversation: Conversation): void {
     // EMIT SELECTED CONVERSATION
     this.conversationSelected.emit(conversation);
@@ -63,11 +75,10 @@ export class ConvosComponent implements OnInit {
   }
 
   private convertToConvoKey(conversationName: string): string {
-    return `${conversationName}_vis`;
+    return `${ conversationName }_vis`;
   }
 
   public truncateSentence(sentence: string, maxLength: number): string {
     return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
   }
-
 }
