@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class WebSocketService {
   public connect(): void {
     this.webSocket = new WebSocket(environment.websocketHost);
 
-    this.webSocket.onopen = (event: any): void => {
+    this.webSocket.onopen = (): void => {
       console.log('WebSocket is open now.');
     };
 

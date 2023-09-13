@@ -1,11 +1,11 @@
 <!-- LOADING ANIMATION -->
 <div *ngIf="isLoading" class="loading-container">
-  <img src="assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
-<!--  <mat-spinner diameter="50"></mat-spinner>-->
+  <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
 </div>
 <!-- END LOADING ANIMATION -->
 
 <div *ngFor="let convo of conversations">
+
   <div class="convoItem" *ngIf="checkConvoVisibility(convo)" (click)="onSelectConversation(convo)">
     <div class="circle" [style.background-image]="'url(' + convo.profileImageSrc + ')'"></div>
     <div class="nameAndMessage">
@@ -16,6 +16,7 @@
       <mat-icon class="notificationIcon">notifications</mat-icon>
       <div class="timestamp">{{ convertIsoString(convo.latest_timestamp) }}</div>
     </div>
+
     <!--    <button (click)="$event.stopPropagation(); removeConvo(convo)" class="removeButton">x</button>-->
   </div>
 </div>

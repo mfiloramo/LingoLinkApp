@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { LoremIpsum } from 'lorem-ipsum';
-import { TranslationService } from '../services/translation.service';
+import { TranslationService } from '../../services/translation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +23,9 @@ export class ConversationService {
   public async loadConversationsByUserId(userId?: number): Promise<any> {
     const response: any = await this.http.get(`${environment.apiBaseUrl}/conversations`).toPromise();
 
-    // FETCH RANDOM USER IMAGES FOR STUB CONVERSATIONS
-    for (const convo of response) {
-      await this.fetchRandomUserData(convo);
+    // TEMPORARY STUB: FETCH RANDOM USER IMAGES FOR STUB CONVERSATIONS
+    for (const conversation of response) {
+      await this.fetchRandomUserData(conversation);
     }
 
     return response;
@@ -42,13 +42,13 @@ export class ConversationService {
 
   /** PRIVATE METHODS */
   // TEMPORARY: GENERATE RANDOMIZED STUB USER/CONVERSATION DATA
-  private async fetchRandomUserData(convo: any) {
+  private async fetchRandomUserData(conversation: any): Promise<void> {
     try {
       // GENERATE RANDOM USER DATA
       const response: any = await this.http.get('https://randomuser.me/api/').toPromise();
-      convo.profileImageSrc = response['results'][0]['picture']['large'];
-      convo.firstName = response['results'][0]['name']['first'];
-      convo.lastName = response['results'][0]['name']['last'];
+      conversation.profileImageSrc = response['results'][0]['picture']['large'];
+      conversation.firstName = response['results'][0]['name']['first'];
+      conversation.lastName = response['results'][0]['name']['last'];
 
       // GENERATE RANDOM SENTENCE
       const lorem: any = new LoremIpsum({
@@ -61,7 +61,7 @@ export class ConversationService {
           min: 4
         },
       });
-      convo.randomSentence = lorem.generateSentences(1);
+      conversation.randomSentence = lorem.generateSentences(1);
     } catch (error) {
       console.error('Error fetching random user data:', error);
     }

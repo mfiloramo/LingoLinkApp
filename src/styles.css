@@ -9,26 +9,5 @@ html, body {
 }
 
 body {
-  @apply font-varela-round; /* TODO: FIX FONT IMPORT */
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #1e212c;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #393f54;
-  border-radius: 6px;
-}
-
-.bg-login {
-  background-image: url('/assets/images/loginBackground.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  min-height: 100%;
+  @apply font-varela-round;
 }
