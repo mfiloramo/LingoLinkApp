@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit {
   }
 
   /** PUBLIC METHODS */
-  public onLoginFormSubmit(): void {
-    this.authService.login()
+  public onLoginFormSubmit(email: string, password: string): void {
+    console.log()
+    this.authService.login(email, password)
       .then(() => {
         this.router.navigate(['/home']);
       })
-      .catch((error: any) => {
+      .catch((error: any): void => {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
   }

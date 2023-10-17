@@ -4,14 +4,16 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { msalInstance } from "../../config/msalBrowserConfig";
+import { msalInstance } from "../../../config/msalBrowserConfig";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
   public activeAccount: any;
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
@@ -23,24 +25,31 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) { }
 
-  public async login(): Promise<any> {
-    // try {
-    //   this.activeAccount = await msalInstance.loginPopup({
-    //     scopes: ['openid', 'email', 'user.read']
-    //   });
-    //   if (this.activeAccount) {
-    //     // SET THE loggedIn BehaviorSubject TO TRUE
+  /** PUBLIC METHODS */
+  public async login(email: string, password: string): Promise<any> {
+    try {
+      const response = await this.http.get<any>(`${ this.apiUrl }/users`, {
+        params: {
+          email: email,
+          password: password
+        }
+      }).toPromise();
+
+
+      if (response.IsValid) {
+        // Navigate to home page
         this.loggedIn.next(true);
-    //
-    //     // NAVIGATE TO THE HOME PAGE
         await this.router.navigate(['/home']);
-    //   }
-    // } catch (error: any) {
-    //   this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-    //   throw error;
-    // }
-    // return true;
+      } else {
+        throw new Error('Login failed. Please check your credentials.');
+      }
+
+    } catch (error: any) {
+      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+      throw error;
+    }
   }
+
 
   public async register(user: any): Promise<void> {
     try {
