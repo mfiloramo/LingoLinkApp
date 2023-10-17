@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Conversation } from '../../../interfaces/conversation.interfaces';
-import { ConversationService } from './conversation.service';
+import { ConversationService } from '../../services/conversation/conversation.service';
 import dayjs from 'dayjs';
 
 @Component({

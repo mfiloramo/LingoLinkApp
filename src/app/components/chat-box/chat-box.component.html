@@ -5,7 +5,7 @@
     <option>English</option>
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
     <option *ngFor="let languageObj of languageArray" [selected]="languageObj.code === source_language.code">
-      {{ languageObj.nativeName }}
+      {{ languageObj.name }}
     </option>
 
   </select>

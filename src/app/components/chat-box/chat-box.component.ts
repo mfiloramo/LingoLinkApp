@@ -10,10 +10,10 @@ import {
 } from '@angular/core';
 import { ChatMessage } from "../../../interfaces/message.interfaces";
 import { Language } from '../../../interfaces/language.interfaces';
-import { TranslationService } from '../../services/translation.service';
-import { WebSocketService } from './web-socket.service';
-import { ConversationService } from '../convos/conversation.service';
-import { MessageService } from './message.service';
+import { TranslationService } from '../../services/translation/translation.service';
+import { WebSocketService } from '../../services/web-socket/web-socket.service';
+import { ConversationService } from '../../services/conversation/conversation.service';
+import { MessageService } from '../../services/message/message.service';
 import languageArray from '../../../utils/languageMapper';
 
 
@@ -177,13 +177,13 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
 
     // LISTEN FOR INCOMING MESSAGES OVER WEBSOCKET CONNECTION
     this.webSocketService.onMessage()
-      .subscribe((event: any) => {
+      .subscribe((event: any): void => {
         // PARSE INCOMING MESSAGE
-        const reader = new FileReader();
-        reader.onload = async () => {
+        const reader: FileReader = new FileReader();
+        reader.onload = async (): Promise<void> => {
           const message = JSON.parse(reader.result as string);
-          const msgSrc = this.translationService.getLanguageCode(message.source_language);
-          const targLng = this.translationService.getLanguageCode(this.source_language);
+          const msgSrc: string = this.translationService.getLanguageCode(message.source_language);
+          const targLng: string = this.translationService.getLanguageCode(this.source_language);
 
           // TRANSLATE MESSAGE IF ITS SOURCE LANGUAGE IS DIFFERENT FROM LOCAL
             message.content = (msgSrc === targLng)

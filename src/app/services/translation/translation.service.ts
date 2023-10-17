@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import languageArray from '../../utils/languageMapper';
-import { TranslationPayload } from '../../interfaces/message.interfaces';
-import { Language } from '../../interfaces/language.interfaces';
-import { environment } from '../../environments/environment';
+import languageArray from '../../../utils/languageMapper';
+import { TranslationPayload } from '../../../interfaces/message.interfaces';
+import { Language } from '../../../interfaces/language.interfaces';
+import { environment } from '../../../environments/environment';
 
 // TODO: IMPLEMENT PAYLOAD TYPECHECKING
 @Injectable({
