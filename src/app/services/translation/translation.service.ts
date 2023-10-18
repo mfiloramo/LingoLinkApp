@@ -14,8 +14,7 @@ import { environment } from '../../../environments/environment';
 export class TranslationService {
   public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000/api';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   /** PUBLIC METHODS */
   public getLiveTranslation(endpoint: string, payload: TranslationPayload): Observable<any> {
@@ -25,7 +24,7 @@ export class TranslationService {
   }
 
   public getCodeFromName(name: string): string {
-    return languageArray.find((language: any) => language.name === name)?.code || 'en';
+    return languageArray.find((language: any): boolean => language.name === name)?.code || 'en';
   }
 
   public getLanguageCode(language: Language): string {
