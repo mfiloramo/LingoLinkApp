@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   /** PUBLIC METHODS */
   public onLoginFormSubmit(email: string, password: string): void {
-    console.log()
     this.authService.login(email, password)
       .then(() => {
         this.router.navigate(['/home']);

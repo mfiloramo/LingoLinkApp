@@ -154,7 +154,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public onLangSelect(lang: any): void {
-    const selectedLanguage = this.languageArray.find(language => language.nativeName === lang.target.value);
+    const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === lang.target.value);
     if (selectedLanguage) {
       this.source_language = { code: selectedLanguage.code };
     }
@@ -166,7 +166,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
   }
 
   public scrollToBottom(): void {
-    const element = this.chatContainer.nativeElement;
+    const element: HTMLInputElement = this.chatContainer.nativeElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
 
@@ -211,10 +211,10 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     };
   }
 
-  private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<string> {
+  private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
     try {
-      const translateKey: string = `${message.message_id}_${localLangCode}`;
-      const storedTranslation = this.translationService.getStoredTranslation(translateKey);
+      const translateKey: string = `${ message.message_id }_${ localLangCode }`;
+      const storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
         const translatedText: string = await this.translateText(message.content, message.source_language, localLangCode);
@@ -224,11 +224,9 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
       } else {
         message.content = storedTranslation;
       }
-
       return message.content;
     } catch (error: any) {
       console.log(error);
-      return '';
     }
   }
 
@@ -240,6 +238,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
       source_language,
       targLang
     }).toPromise();
+    console.log(response);
     return this.translationService.decodeHtmlEntities(response);
   }
 
