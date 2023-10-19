@@ -28,21 +28,21 @@ export class AuthService {
   /** PUBLIC METHODS */
   public async login(email: string, password: string): Promise<any> {
     try {
-      const response = await this.http.get<any>(`${ this.apiUrl }/users`, {
-        params: {
-          email: email,
-          password: password
-        }
-      }).toPromise();
+      // const response = await this.http.get<any>(`${ this.apiUrl }/users`, {
+      //   params: {
+      //     email: email,
+      //     password: password
+      //   }
+      // }).toPromise();
 
 
-      if (response.IsValid) {
-        // Navigate to home page
+      // if (response.IsValid) {
+        // NAVIGATE TO HOME PAGE
         this.loggedIn.next(true);
         await this.router.navigate(['/home']);
-      } else {
-        throw new Error('Login failed. Please check your credentials.');
-      }
+      // } else {
+      //   throw new Error('Login failed. Please check your credentials.');
+      // }
 
     } catch (error: any) {
       this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });

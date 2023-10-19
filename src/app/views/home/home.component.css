@@ -60,7 +60,7 @@ mat-icon {
   background-image: url("../../../assets/images/chatboxBgLogo.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30%;
+  background-size: 40%;
   opacity: 0.15;
   position: absolute;
   top: 0;
@@ -69,4 +69,20 @@ mat-icon {
   height: 100%;
   transform-origin: center;
   transform: scale(0.75);
+}
+
+/* MOBILE SCREEN MEDIA QUERY RULES */
+@media screen and (max-width: 600px) {
+  .colContainer {
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  .miniMidColumn {
+    width: 100vw;
+  }
+
+  .mainColumn {
+    width: 100vw;
+  }
 }

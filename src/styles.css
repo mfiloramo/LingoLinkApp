@@ -12,3 +12,7 @@ body {
   background-image: linear-gradient(black, #00002d);
   @apply font-varela-round;
 }
+
+body::-webkit-scrollbar {
+  width: 0 !important;
+}
