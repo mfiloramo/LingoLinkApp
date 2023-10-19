@@ -127,17 +127,17 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
       // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
       this.messageService.loadMessages(this.conversationId)
-        .subscribe(async (response: any) => {
+        .subscribe(async (response: any): Promise<void> => {
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
-          const translationPromises = response.map(async (message: any) => {
-            if (message.source_language !== localLangCode && message.content) {
-              // TRANSLATE/STRINGIFY MESSAGE CONTENT
-              message.content = await this.handleTranslation(message, localLangCode);
-            }
-          });
+          // const translationPromises = response.map(async (message: any) => {
+          //   if (message.source_language !== localLangCode && message.content) {
+          //     TRANSLATE/STRINGIFY MESSAGE CONTENT
+              // message.content = await this.handleTranslation(message, localLangCode);
+            // }
+          // });
 
           // WAIT FOR ALL TRANSLATION PROMISES TO RESOLVE
-          await Promise.all(translationPromises);
+          // await Promise.all(translationPromises);
 
           // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
           this.mainConvoContainer = response;
