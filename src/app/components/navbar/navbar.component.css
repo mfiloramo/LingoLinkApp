@@ -38,3 +38,16 @@
   justify-content: space-between;
   width: 100%;
 }
+
+/* MOBILE SCREEN MEDIA QUERY RULES */
+@media screen and (max-width: 600px) {
+  .sidenav {
+    height: 80px;
+    flex-direction: row;
+    width: 100vw;
+  }
+
+  .sidenav-item {
+    width: 50px;
+  }
+}

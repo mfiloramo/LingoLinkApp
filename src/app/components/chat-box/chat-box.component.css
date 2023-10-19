@@ -2,6 +2,10 @@ mat-icon {
   color: #d4dbff;
 }
 
+body::-webkit-scrollbar {
+  width: 0 !important;
+}
+
 .userMessage,
 .otherMessage {
   display: flex;
@@ -121,6 +125,14 @@ mat-icon {
   overflow-y: auto;
 }
 
+.conversation-container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.conversation-container {
+  scrollbar-width: none;
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
@@ -134,11 +146,8 @@ mat-icon {
   z-index: 5;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.75s;
 
-}
-
+/* ANIMATIONS */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -200,6 +209,23 @@ mat-icon {
   }
 }
 
+.animate-fadeIn {
+  animation: fadeIn 0.75s;
+}
+
 .ping-slower {
   animation: custom-ping 0.8s infinite;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 600px) {
+  .languageSelect {
+    width: 100px;
+  }
+
+  .userMessage .messageText,
+  .otherMessage .messageText {
+    min-width: 180px;
+    max-width: 220px;
+  }
 }

@@ -36,8 +36,8 @@ export class WebSocketService {
   }
 
   public onMessage(): Observable<any> {
-    return new Observable((observer: Observer<any>) => {
-      this.webSocket.onmessage = (event: any) => {
+    return new Observable((observer: Observer<any>): void => {
+      this.webSocket.onmessage = (event: any): void => {
         observer.next(event);
       }
     })

@@ -6,7 +6,7 @@ import {
   OnChanges,
   AfterViewChecked,
   SimpleChanges,
-  ViewChild
+  ViewChild, OnInit
 } from '@angular/core';
 import { ChatMessage } from "../../../interfaces/message.interfaces";
 import { Language } from '../../../interfaces/language.interfaces';
@@ -22,7 +22,7 @@ import languageArray from '../../../utils/languageMapper';
   templateUrl: './chat-box.component.html',
   styleUrls: ['./chat-box.component.css'],
 })
-export class ChatBoxComponent implements OnChanges, AfterViewChecked {
+export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() user!: any;
   @Input() conversationId!: number;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
@@ -69,7 +69,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     this.playClickSound();
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
-    const message = this.buildMessage();
+    const message: ChatMessage = this.buildMessage();
 
     // ADD MESSAGE TO CHATBOX
     this.mainConvoContainer.push(message);
@@ -80,7 +80,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // CREATE NEW CONVERSATION IF ONE IS NOT ALREADY SELECTED
     if (!this.conversationId) {
       // CREATE RANDOM CONVERSATION NAME
-      const convoName: string = `Conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
+      const convoName: string = `Conversation ${ String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10) }`;
 
       try {
         const response: any = await this.conversationService.createConversation({ 'name': convoName });
@@ -114,6 +114,7 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
     // RESET TEXT INPUT
     this.textInput = '';
   }
+
   public loadConversationByConvoId(): any {
     /** THIS NEEDS COMPLETE REFACTORING */
 
@@ -186,10 +187,10 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
           const targLng: string = this.translationService.getLanguageCode(this.source_language);
 
           // TRANSLATE MESSAGE IF ITS SOURCE LANGUAGE IS DIFFERENT FROM LOCAL
-            message.content = (msgSrc === targLng)
-              ? message.content
-              : await this.translateText(message.content, msgSrc, targLng)
-                .then((response: any) => response);
+          //   message.content = (msgSrc === targLng)
+          //     ? message.content
+          //     : await this.translateText(message.content, msgSrc, targLng)
+          //       .then((response: any) => response);
 
             // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM IF USER HAS SELECTED CONVERSATION
             if (message.conversation_id === this.conversationId) {
@@ -238,7 +239,6 @@ export class ChatBoxComponent implements OnChanges, AfterViewChecked {
       source_language,
       targLang
     }).toPromise();
-    console.log(response);
     return this.translationService.decodeHtmlEntities(response);
   }
 
