@@ -243,7 +243,8 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   private playClickSound(): void {
-    this.audio.load();
-    this.audio.play();
+    // this.audio.load();
+    // this.audio.play();
+    return;
   }
 }
