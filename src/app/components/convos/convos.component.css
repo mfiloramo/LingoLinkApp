@@ -78,6 +78,21 @@
   animation: fadeIn 0.5s;
 }
 
+.back-arrow {
+  vertical-align: middle;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #dae3ff;
+}
+
+.selected-conversation-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: auto;
+}
+
+/* PSEUDO SELECTORS */
 .convoItem:hover {
   background: #061a46;
   cursor: pointer;

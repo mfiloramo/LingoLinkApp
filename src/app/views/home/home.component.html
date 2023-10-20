@@ -14,20 +14,24 @@
   <!-- MINI MID COLUMN -->
   <div class="gridCol miniMidColumn">
     <div [ngClass]="{'fadeOut': fadeOutConvos}">
-      <app-convos (conversationSelected)="onConversationSelected($event)" [user]="user" *ngIf="showConvos"></app-convos>
+      <app-convos
+        (conversationSelected)="onConversationSelected($event)"
+        [user]="user"
+        *ngIf="showConvos">
+      </app-convos>
     </div>
   </div>
   <!-- END MINI MID COLUMN -->
 
   <!-- MAIN COLUMN -->
   <div class="gridCol mainColumn">
-    <div [ngClass]="{'fadeOut': fadeOutConvos}" class="chatboxContainer">
+    <div [ngClass]="{ 'fadeOut': fadeOutConvos }" class="chatboxContainer">
       <div class="chatboxWrapper">
         <app-chatbox
           [conversationId]="selectedConversation?.conversation_id"
           [user]="user"
-          *ngIf="showChat"
-        ></app-chatbox>
+          *ngIf="showChat">
+        </app-chatbox>
       </div>
     </div>
   </div>

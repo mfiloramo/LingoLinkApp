@@ -16,12 +16,12 @@ export class ConversationService {
 
   /** PUBLIC METHODS */
   public async createConversation(body: object): Promise<any> {
-    return this.http.post(`${this.apiUrl}/conversations`, body).toPromise();
+    return this.http.post(`${ this.apiUrl }/conversations`, body).toPromise();
   }
 
   // CALLED WHEN USER LOADS CONVERSATION MODULE
   public async loadConversationsByUserId(userId?: number): Promise<any> {
-    const response: any = await this.http.get(`${environment.apiBaseUrl}/conversations`).toPromise();
+    const response: any = await this.http.get(`${ environment.apiBaseUrl  }/conversations`).toPromise();
 
     // TEMPORARY STUB: FETCH RANDOM USER IMAGES FOR STUB CONVERSATIONS
     for (const conversation of response) {
@@ -33,11 +33,11 @@ export class ConversationService {
 
   // CALLED WHEN USER CLICKS CONVERSATION IN MODULE
   public async loadConversationsByConvoId(conversationId: number): Promise<any> {
-    return this.http.get(`${environment.apiBaseUrl}/conversations/${conversationId}`).toPromise();
+    return this.http.get(`${ environment.apiBaseUrl }/conversations/${ conversationId }`).toPromise();
   }
 
   public async deleteConversationByConvoId(conversationId: number): Promise<any> {
-    return this.http.delete(`${this.apiUrl}/conversations/${conversationId}`).toPromise();
+    return this.http.delete(`${ this.apiUrl }/conversations/${ conversationId }`).toPromise();
   }
 
   /** PRIVATE METHODS */

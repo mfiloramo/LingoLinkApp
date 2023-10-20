@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     // DEBUG: STUB USER DATA ON MODULE INITIALIZATION
-    const user_Id = Math.floor(Math.random() * 3) + 1;
+    const user_Id: number = Math.floor(Math.random() * 3) + 1;
     this.user = {
       user_id: user_Id,
       username: `testUser`,
@@ -25,21 +25,21 @@ export class HomeComponent implements OnInit {
       password: 'testPassword'
     }
     // DEBUG: DOES THE SERVER ACTUALLY CHECK FOR THE ABOVE CREDS?
-    console.log(`Your User ID is: ${user_Id}`);
+    console.log(`Your User ID is: ${ user_Id }`);
   }
 
   /** PUBLIC METHODS */
-  public onProfileClick() {
+  public onProfileClick(): void {
     this.fadeOutConvos = true;
-    setTimeout(() => {
+    setTimeout((): void => {
       this.showConvos = false;
       this.fadeOutConvos = false;
     }, 300);
   }
 
-  public onConversationSelected(conversation: any) {
+  public onConversationSelected(conversation: any): void {
     this.selectedConversation = conversation;
-    this.showChat = true;
+    this.showChat = !this.showChat;
   }
 
   public onShowConversations(): void {
