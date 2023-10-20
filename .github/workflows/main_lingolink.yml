@@ -1,7 +1,8 @@
 name: Build/Deploy Azure Static Web App (Angular Application)
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
 
