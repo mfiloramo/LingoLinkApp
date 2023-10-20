@@ -13,6 +13,7 @@ export class ConvosComponent implements OnInit {
   @Output() conversationSelected: EventEmitter<any> = new EventEmitter<any>();
   public conversations: any[] = [];
   public isLoading: boolean = false;
+  public selectedConversation: any;
 
   constructor(
     private conversationService: ConversationService,
@@ -51,6 +52,12 @@ export class ConvosComponent implements OnInit {
   public onSelectConversation(conversation: Conversation): void {
     // EMIT SELECTED CONVERSATION
     this.conversationSelected.emit(conversation);
+    this.selectedConversation = true;
+  }
+
+  public deselectConversation(): void {
+    this.conversationSelected.emit(null);
+    this.selectedConversation = false;
   }
 
   public checkConvoVisibility(conversation: Conversation): boolean {

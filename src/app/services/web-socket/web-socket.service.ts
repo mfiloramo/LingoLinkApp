@@ -6,9 +6,9 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class WebSocketService {
-  @Output() updateChatbox = new EventEmitter<void>();
-  private webSocket: any;
+  @Output() updateChatbox: EventEmitter<void> = new EventEmitter<void>();
   private readonly RECONNECT_INTERVAL: number = 5000;
+  private webSocket: any;
 
   constructor() {
     this.connect();

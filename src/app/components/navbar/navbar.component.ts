@@ -8,9 +8,9 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class NavbarComponent {
   @Input() user: any;
-  @Output() showConversations = new EventEmitter<boolean>();
-  @Output() showChat = new EventEmitter<boolean>();
-  @Output() profileClick = new EventEmitter<void>();
+  @Output() showConversations: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() showChat: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() profileClick: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService,

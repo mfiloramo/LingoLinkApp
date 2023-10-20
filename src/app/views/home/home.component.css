@@ -71,6 +71,7 @@ mat-icon {
   transform: scale(0.75);
 }
 
+
 /* MOBILE SCREEN MEDIA QUERY RULES */
 @media screen and (max-width: 600px) {
   .colContainer {
@@ -79,10 +80,12 @@ mat-icon {
   }
 
   .miniMidColumn {
+    height: auto;
     width: 100vw;
   }
 
   .mainColumn {
+    height: 87vh;
     width: 100vw;
   }
 }

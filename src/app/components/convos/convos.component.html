@@ -4,19 +4,30 @@
 </div>
 <!-- END LOADING ANIMATION -->
 
-<div *ngFor="let convo of conversations">
+<!-- Back Arrow Button and Selected Conversation Details -->
+<div *ngIf="selectedConversation">
+  <div (click)="deselectConversation()">
+    <mat-icon class="back-arrow">arrow_back</mat-icon>
+    <span style="color: white;">Back to Conversations</span>
+  </div>
+</div>
 
-  <div class="convoItem" *ngIf="checkConvoVisibility(convo)" (click)="onSelectConversation(convo)">
-    <div class="circle" [style.background-image]="'url(' + convo.profileImageSrc + ')'"></div>
-    <div class="nameAndMessage">
-      <div class="name">{{ convo.firstName }} {{ convo.lastName }}</div>
-      <div class="message" [innerHTML]="truncateSentence(convo.randomSentence, 100)"></div>
-    </div>
-    <div class="notificationAndTimestamp">
-      <mat-icon class="notificationIcon">notifications</mat-icon>
-      <div class="timestamp">{{ convertIsoString(convo.latest_timestamp) }}</div>
-    </div>
+<!-- CONVERSATIONS LIST -->
+<div *ngIf="!selectedConversation">
+  <div *ngFor="let convo of conversations">
 
-    <!--    <button (click)="$event.stopPropagation(); removeConvo(convo)" class="removeButton">x</button>-->
+    <div class="convoItem" *ngIf="checkConvoVisibility(convo)" (click)="onSelectConversation(convo)">
+      <div class="circle" [style.background-image]="'url(' + convo.profileImageSrc + ')'"></div>
+      <div class="nameAndMessage">
+        <div class="name">{{ convo.firstName }} {{ convo.lastName }}</div>
+        <div class="message" [innerHTML]="truncateSentence(convo.randomSentence, 100)"></div>
+      </div>
+      <div class="notificationAndTimestamp">
+        <mat-icon class="notificationIcon">notifications</mat-icon>
+        <div class="timestamp">{{ convertIsoString(convo.latest_timestamp) }}</div>
+      </div>
+    </div>
+<!-- END CONVERSATIONS LIST -->
+
   </div>
 </div>

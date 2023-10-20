@@ -34,10 +34,7 @@ export class AppComponent {
     private userService: UserService
   ) {}
 
-  ngOnInit() {
-  }
-
-  prepareRoute(outlet: any) {
+  prepareRoute(outlet: any): void {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 }
