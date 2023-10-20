@@ -1,20 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { environment } from "../../../environments/environment";
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private webSocket!: WebSocket;
+  @Output() updateChatbox = new EventEmitter<void>();
+  private webSocket: any;
   private readonly RECONNECT_INTERVAL: number = 5000;
-  private readonly HEARTBEAT_INTERVAL: number = 30000;
-
-  public messages: Subject<string> = new Subject<string>();
 
   constructor() {
     this.connect();
-    this.heartbeat();
   }
 
   /** PUBLIC METHODS */
@@ -29,30 +26,27 @@ export class WebSocketService {
       console.log(`WebSocket error observed: `, error);
     };
 
-    this.webSocket.onmessage = (event: MessageEvent): void => {
-      this.messages.next(event.data);
-    };
-
     this.webSocket.onclose = (event: CloseEvent): void => {
       console.log('WebSocket connection closed:', event);
       setTimeout(() => this.connect(), this.RECONNECT_INTERVAL);
     };
   }
 
-  public sendMessage(message: string): void {
+
+  public send(msgObj: object): void {
+    // CHECK IF WEBSOCKET CONNECTION IS OPEN
     if (this.webSocket.readyState === WebSocket.OPEN) {
-      this.webSocket.send(message);
+      this.webSocket.send(JSON.stringify(msgObj));
     } else {
-      console.error('Cannot send message, WebSocket connection is not open.');
+      console.error("Can't send message, the WebSocket connection isn't open");
     }
   }
 
-  /** PRIVATE METHODS */
-  private heartbeat(): void {
-    setInterval(() => {
-      if (this.webSocket && this.webSocket.readyState === WebSocket.OPEN) {
-        this.webSocket.send('ping');
+  public onMessage(): Observable<any> {
+    return new Observable((observer: Observer<any>): void => {
+      this.webSocket.onmessage = (event: any): void => {
+        observer.next(event);
       }
-    }, this.HEARTBEAT_INTERVAL);
+    })
   }
 }
