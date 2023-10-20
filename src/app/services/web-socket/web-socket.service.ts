@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { environment } from '../environments/environment';
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private webSocket: WebSocket;
+  private webSocket!: WebSocket;
   private readonly RECONNECT_INTERVAL: number = 5000;
   private readonly HEARTBEAT_INTERVAL: number = 30000;
 
