@@ -28,9 +28,6 @@ export class LoginComponent implements OnInit {
   /** PUBLIC METHODS */
   public onLoginFormSubmit(email: string, password: string): void {
     this.authService.login(email, password)
-      .then(() => {
-        this.router.navigate(['/home']);
-      })
       .catch((error: any): void => {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       });
