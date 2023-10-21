@@ -24,7 +24,7 @@
   <!-- END MINI MID COLUMN -->
 
   <!-- MAIN COLUMN -->
-  <div class="gridCol mainColumn">
+  <div class="gridCol mainColumn" *ngIf="showChat">
     <div [ngClass]="{ 'fadeOut': fadeOutConvos }" class="chatboxContainer">
       <div class="chatboxWrapper">
         <app-chatbox
