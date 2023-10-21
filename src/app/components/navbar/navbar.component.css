@@ -44,10 +44,15 @@
   .sidenav {
     height: 80px;
     flex-direction: row;
+    justify-content: space-between;
     width: 100vw;
   }
 
   .sidenav-item {
-    width: 50px;
+    min-width: 50px;
+  }
+
+  .sidenav-item:last-child {
+    margin-right: 70px;
   }
 }

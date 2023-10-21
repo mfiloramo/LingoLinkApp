@@ -41,7 +41,7 @@ export class AuthService {
             this.loggedIn.next(true);
             this.router.navigate(['/home']);
           } else {
-            //
+            // DENY USER ACCESS IF USER CREDENTIALS ARE INVALID
             this.snackBar.open('Invalid user credentials. Please try again.', 'Dismiss', { duration: 5000 });
           }
         });
