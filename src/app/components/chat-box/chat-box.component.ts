@@ -161,11 +161,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
     }
   }
 
-  public scrollToTop(): void {
-    const element = this.chatContainer.nativeElement;
-    this.renderer.setProperty(element, 'scrollTop', 0);
-  }
-
   public scrollToBottom(): void {
     const element: HTMLInputElement = this.chatContainer.nativeElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'end' });
