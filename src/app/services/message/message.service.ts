@@ -22,4 +22,14 @@ export class MessageService {
   public async sendMessage(message: ChatMessage): Promise<any> {
     return this.http.post(`${ this.apiUrl }/messages`, message).toPromise();
   }
+
+  public buildMessage(message: ChatMessage): ChatMessage {
+    return {
+      user_id: message.user_id,
+      textInput: message.textInput,
+      conversationId: message.conversationId,
+      source_language: message.source_language.code,
+      timestamp: new Date().toISOString()
+    };
+  }
 }

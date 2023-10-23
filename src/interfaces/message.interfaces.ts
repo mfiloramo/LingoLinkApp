@@ -1,10 +1,10 @@
 export interface ChatMessage {
   readonly message_id?: number;
   readonly user_id: number;
-  readonly conversation_id: number;
-  readonly source_language: string;
+  conversationId: number;
+  readonly source_language: any;
   readonly timestamp?: string;
-  content: string; // NOT READONLY BECAUSE CONTENTS MAY NEED TRANSLATION
+  textInput: string; // NOT READONLY BECAUSE CONTENTS MAY NEED TRANSLATION
 }
 
 export interface TranslationPayload {
