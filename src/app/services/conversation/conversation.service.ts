@@ -21,7 +21,7 @@ export class ConversationService {
 
   // CALLED WHEN USER LOADS CONVERSATION MODULE
   public async loadConversationsByUserId(userId?: number): Promise<any> {
-    const response: any = await this.http.get(`${ environment.apiBaseUrl  }/conversations`).toPromise();
+    const response: any = await this.http.get(`${ environment.apiBaseUrl }/conversations`).toPromise();
 
     // TEMPORARY STUB: FETCH RANDOM USER IMAGES FOR STUB CONVERSATIONS
     for (const conversation of response) {

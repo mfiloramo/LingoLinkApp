@@ -17,14 +17,15 @@ export class TranslationService {
   constructor(private http: HttpClient) { }
 
   /** PUBLIC METHODS */
-  public getLiveTranslation(endpoint: string, payload: TranslationPayload): Observable<any> {
+  public getLiveTranslation(endpoint: string, payload: {
+    textInput: string;
+    source_language: string;
+    targLang: string;
+    user: any
+  }): Observable<any> {
     return this.http
-      .post(`${this.apiUrl}/${endpoint}`, payload)
+      .post(`${this.apiUrl}/${ endpoint }`, payload)
       .pipe(map((response: object) => response))
-  }
-
-  public getCodeFromName(name: string): string {
-    return languageArray.find((language: any): boolean => language.name === name)?.code || 'en';
   }
 
   public getLanguageCode(language: Language): string {
@@ -39,6 +40,7 @@ export class TranslationService {
     localStorage.setItem(translationKey, translatedText);
   }
 
+  // TODO: REMOVE DOM MANIPULATION FROM TRANSLATION SERVICE
   public decodeHtmlEntities(encodedText: string): string {
     const textarea: any = document.createElement('textarea');
     textarea.innerHTML = encodedText;

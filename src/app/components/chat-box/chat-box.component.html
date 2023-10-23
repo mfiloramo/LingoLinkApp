@@ -37,7 +37,7 @@
     <ng-container *ngFor="let message of mainConvoContainer">
       <div class="messageContainer animate-fadeIn" [ngClass]="{'userMessage transition-opacity duration-300 ease-in-out': message.user_id == this.user.user_id, 'otherMessage transition-opacity duration-300 ease-in-out': message.user_id != this.user.user_id}">
         <mat-icon *ngIf="message.user_id != this.user.user_id">person</mat-icon>
-        <div class="messageText">{{ message.content }}</div>
+        <div class="messageText">{{ message.textInput }}</div>
         <mat-icon *ngIf="message.user_id == this.user.user_id">person</mat-icon>
       </div>
       <br />
