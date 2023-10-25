@@ -157,10 +157,10 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
           const msgSrc: string = this.translationService.getLanguageCode(message.source_language);
           const targLng: string = this.translationService.getLanguageCode(this.source_language);
 
-            // TRANSLATE MESSAGE IF NEEDED
+          // TRANSLATE MESSAGE IF NEEDED
           if (msgSrc !== targLng) {
-            await this.translationService.getLiveTranslation(message)
-              .subscribe((response: any) => response);
+            await this.translateText(message.textInput, msgSrc, targLng)
+              .then((response: any): void => message.textInput = response);
           }
 
             // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM IF USER HAS SELECTED CONVERSATION
