@@ -31,7 +31,6 @@ export class ConversationService {
     return response;
   }
 
-  // CALLED WHEN USER CLICKS CONVERSATION IN MODULE
   public async loadConversationsByConvoId(conversationId: number): Promise<any> {
     return this.http.get(`${ environment.apiBaseUrl }/conversations/${ conversationId }`).toPromise();
   }
@@ -41,7 +40,7 @@ export class ConversationService {
   }
 
   /** PRIVATE METHODS */
-  // TEMPORARY: GENERATE RANDOMIZED STUB USER/CONVERSATION DATA
+  // STUB: GENERATE RANDOMIZED USER/CONVERSATION DATA
   private async fetchRandomUserData(conversation: any): Promise<void> {
     try {
       // GENERATE RANDOM USER DATA

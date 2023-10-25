@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 })
 export class WebSocketService {
   @Output() updateChatbox: EventEmitter<void> = new EventEmitter<void>();
+  public webSocketUrl = environment.websocketHost || 'ws://localhost:3000'
   private readonly RECONNECT_INTERVAL: number = 5000;
   private webSocket: any;
 
@@ -16,7 +17,7 @@ export class WebSocketService {
 
   /** PUBLIC METHODS */
   public connect(): void {
-    this.webSocket = new WebSocket(environment.websocketHost);
+    this.webSocket = new WebSocket(this.webSocketUrl);
 
     this.webSocket.onopen = (): void => {
       console.log('WebSocket is open now.');
@@ -34,7 +35,6 @@ export class WebSocketService {
 
 
   public send(msgObj: object): void {
-    // CHECK IF WEBSOCKET CONNECTION IS OPEN
     if (this.webSocket.readyState === WebSocket.OPEN) {
       this.webSocket.send(JSON.stringify(msgObj));
     } else {
