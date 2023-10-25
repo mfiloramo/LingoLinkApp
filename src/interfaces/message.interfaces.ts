@@ -11,5 +11,5 @@ export interface TranslationPayload {
   readonly user: number;
   readonly source_language: string;
   readonly targLang: string;
-  content: string;
+  textInput: string;
 }

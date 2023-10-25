@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  AfterViewChecked,
-  SimpleChanges,
-  ViewChild, OnInit
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, OnChanges, AfterViewChecked, OnInit, SimpleChanges } from '@angular/core';
 import { ChatMessage } from "../../../interfaces/message.interfaces";
 import { Language } from '../../../interfaces/language.interfaces';
 import { TranslationService } from '../../services/translation/translation.service';
@@ -37,7 +29,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   // TODO: PARTICIPANTS CRUD (T-SQL AND COMPONENT LOGIC/ORM CALLS)
   // TODO: WEBSOCKET/TRANSLATION SERVICES MODULARIZATION FROM CHAT-BOX
 
-
   constructor(
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
@@ -59,16 +50,15 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('conversationId' in changes) {
+      // TODO: THIS WILL BE YOUR CALL TO ConversationService
       this.loadConversationByConvoId();
     }
   }
 
   /** PUBLIC METHODS */
   public async onSendMessage(): Promise<void> {
-    // PREVENT SENDING EMPTY MESSAGE
+    // DEFAULT MESSAGE SEND BEHAVIOR
     if (!this.textInput.trim()) return;
-
-    // PLAY CLICK SOUND ON OUTGOING MESSAGE
     this.playClickSound();
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
@@ -79,20 +69,11 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       source_language: this.source_language,
     });
 
-    // ADD MESSAGE TO CHATBOX
-    this.mainConvoContainer.push(message);
-
-    // SEND MESSAGE TO SERVER USING WebSocketService
-    this.webSocketService.send(message);
-
-    // CREATE NEW CONVERSATION IF ONE IS NOT ALREADY SELECTED
-    if (!this.conversationId) {
-      await this.createConversationWithId(message);
-    }
-    // SEND MESSAGE TO DATABASE
+    // HANDLE/SEND MESSAGE WITHIN APPLICATION
     await this.messageService.sendMessage(message);
-
-    // RESET TEXT INPUT
+    this.webSocketService.send(message);
+    if (!this.conversationId) await this.createConversationWithId(message);
+    this.mainConvoContainer.push(message);
     this.textInput = '';
   }
 
@@ -111,10 +92,8 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
     return message;
   }
 
-
+  // TODO: REFACTOR THIS METHOD TO BE IN ConversationService
   public loadConversationByConvoId(): any {
-    /** THIS NEEDS COMPLETE REFACTORING */
-
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
       this.isLoading = true;
@@ -178,22 +157,16 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
           const msgSrc: string = this.translationService.getLanguageCode(message.source_language);
           const targLng: string = this.translationService.getLanguageCode(this.source_language);
 
-          // TRANSLATE MESSAGE IF ITS SOURCE LANGUAGE IS DIFFERENT FROM LOCAL
-            message.textInput = (msgSrc === targLng)
-              ? message.textInput
-              : await this.translateText(message.textInput, msgSrc, targLng)
-                .then((response: any) => {
-                  console.log('translateText response', response);
-                  return response;
-                });
+            // TRANSLATE MESSAGE IF NEEDED
+          if (msgSrc !== targLng) {
+            await this.translationService.getLiveTranslation(message)
+              .subscribe((response: any) => response);
+          }
 
             // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM IF USER HAS SELECTED CONVERSATION
-            if (message.conversationId === this.conversationId) {
-              this.mainConvoContainer.push(message);
-              console.log(message);
-            }
+            if (message.conversationId === this.conversationId) this.mainConvoContainer.push(message);
         };
-        // READ THE EVENT DATA AS TEXT AND TRIGGER 'LOAD' EVENT FOR READER
+
         reader.readAsText(event.data);
       });
   }
@@ -204,8 +177,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       const storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        const translatedText: string = await this.translateText(message.textInput, message.source_language, localLangCode);
-        const decodedText: string = translatedText;
+        const decodedText: string = await this.translateText(message.textInput, message.source_language, localLangCode);
         this.translationService.storeTranslation(translateKey, decodedText);
         message.textInput = decodedText;
       } else {
@@ -219,18 +191,17 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   /** UTILITY FUNCTIONS */
   private async translateText(textInput: string, source_language: string, targLang: string): Promise<string> {
-    const response = await this.translationService.getLiveTranslation('translate', {
+    return await this.translationService.getLiveTranslation({
       user: this.user.user_id,
       textInput,
       source_language,
       targLang
     }).toPromise();
-    return response;
   }
 
   private playClickSound(): void {
-    // this.audio.load();
-    // this.audio.play();
+    this.audio.load();
+    this.audio.play();
     return;
   }
 }
