@@ -25,9 +25,8 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   public audio: any = new Audio();
   public isLoading: boolean = false;
 
-  // TODO: CONTINUE MOBILE UI OPTIMIZATION
   // TODO: PARTICIPANTS CRUD (T-SQL AND COMPONENT LOGIC/ORM CALLS)
-  // TODO: WEBSOCKET/TRANSLATION SERVICES MODULARIZATION FROM CHAT-BOX
+  // TODO: CONTINUE MOBILE UI OPTIMIZATION
 
   constructor(
     private translationService: TranslationService,
@@ -50,7 +49,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('conversationId' in changes) {
-      // TODO: THIS WILL BE YOUR CALL TO ConversationService
       this.loadConversationByConvoId();
     }
   }
@@ -92,7 +90,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
     return message;
   }
 
-  // TODO: REFACTOR THIS METHOD TO BE IN ConversationService
   public loadConversationByConvoId(): any {
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
@@ -108,24 +105,19 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
           const translationPromises = response.map(async (message: any) => {
             if (message.source_language !== localLangCode && message.textInput) {
           //     TRANSLATE/STRINGIFY MESSAGE CONTENT
-              message.textInput = await this.handleTranslation(message, localLangCode);
+              message.textInput = await this.cacheCheckTranslation(message, localLangCode);
             }
           });
 
-          // WAIT FOR ALL TRANSLATION PROMISES TO RESOLVE
+          // HANDLE TRANSLATED MESSAGES
           await Promise.all(translationPromises);
-
-          // ASSIGN FETCHED MESSAGES TO MAIN CONVO CONTAINER
           this.mainConvoContainer = response;
-
-          // SCROLL TO BOTTOM OF CONVERSATION
           this.scrollToBottom();
+          this.isLoading = false;
 
-          // SET isLoading TO FALSE AFTER TRANSLATIONS ARE DONE
+        }, (error: any): void => {
           this.isLoading = false;
-        }, (error) => {
           console.error('Failed to load messages for conversation:', error);
-          this.isLoading = false;
         });
     }
   }
@@ -171,7 +163,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       });
   }
 
-  private async handleTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
+  private async cacheCheckTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
     try {
       const translateKey: string = `${ message.message_id }_${ localLangCode }`;
       const storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
@@ -192,11 +184,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   /** UTILITY FUNCTIONS */
   private async translateText(textInput: string, source_language: string, targLang: string): Promise<string> {
     return await this.translationService.getLiveTranslation({
-      user: this.user.user_id,
-      textInput,
-      source_language,
-      targLang
-    }).toPromise();
+      user: this.user.user_id, textInput, source_language, targLang }).toPromise();
   }
 
   private playClickSound(): void {
