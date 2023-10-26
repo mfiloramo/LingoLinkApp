@@ -28,8 +28,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   public audio: any = new Audio();
   public isLoading: boolean = false;
 
-  // TODO: PARTICIPANTS CRUD (T-SQL AND COMPONENT LOGIC/ORM CALLS)
-  // TODO: CONTINUE MOBILE UI OPTIMIZATION
 
   constructor(
     private translationService: TranslationService,
