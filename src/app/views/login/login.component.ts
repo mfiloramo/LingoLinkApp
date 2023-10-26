@@ -27,10 +27,12 @@ export class LoginComponent implements OnInit {
 
   /** PUBLIC METHODS */
   public onLoginFormSubmit(email: string, password: string): void {
-    this.authService.login(email, password)
-      .catch((error: any): void => {
-        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-      });
+    try {
+      this.authService.login(email, password)
+        .subscribe((response: any) => response);
+    } catch (error: any) {
+      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+    }
   }
 
   /** PRIVATE METHODS */

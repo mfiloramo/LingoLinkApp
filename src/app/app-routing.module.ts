@@ -7,6 +7,7 @@ import { ConvosComponent } from "./components/convos/convos.component";
 import { PageNotFoundComponent } from "./views/page-not-found/page-not-found.component";
 import { LoginComponent } from "./views/login/login.component";
 import { RegistrationComponent } from "./views/registration/registration.component";
+import { AuthGuard } from "./guards/auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -23,7 +24,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { animation: 'home' },
-    canActivate: [],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
