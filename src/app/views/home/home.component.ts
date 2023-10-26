@@ -1,31 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from "rxjs";
+import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   @Input() user: any;
   public selectedConversation: any;
   public showConvos: boolean = false;
   public showChat: boolean = false;
   public fadeOutConvos: boolean = false;
+  private subscriptions: Subscription = new Subscription();
 
-  constructor() { }
+  constructor(private authService: AuthService) {}
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    // DEBUG: STUB USER DATA ON MODULE INITIALIZATION
-    const user_Id: number = Math.floor(Math.random() * 3) + 1;
-    this.user = {
-      user_id: user_Id,
-      username: `testUser`,
-      email: 'test@email.com',
-      password: 'testPassword'
-    }
-    // DEBUG: DOES THE SERVER ACTUALLY CHECK FOR THE ABOVE CREDS?
-    console.log(`Your User ID is: ${ user_Id }`);
+    this.subscriptions.add(
+      this.authService.currentUser$.subscribe((user): void => {
+        this.user = user;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   /** PUBLIC METHODS */

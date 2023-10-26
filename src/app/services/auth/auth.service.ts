@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { msalInstance } from "../../../config/msalBrowserConfig";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -12,8 +11,10 @@ import { environment } from "../../../environments/environment";
 })
 export class AuthService {
   public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
-  public activeAccount: any;
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
+  public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
+
 
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
@@ -29,19 +30,21 @@ export class AuthService {
   public async login(email: string, password: string): Promise<any> {
     try {
       // CONSTRUCT QUERY PARAMETERS
-      let params: HttpParams = new HttpParams();
-      params = params.append('email', email);
-      params = params.append('password', password);
+      let params: HttpParams = new HttpParams()
+        .set('email', email)
+        .set('password', password)
 
       // SEND GET REQUEST WITH QUERY PARAMETERS
       this.http.get<any>(`${ this.apiUrl }/users`, { params })
         .subscribe((response: any): void => {
-          if (response.IsValid === 1) {
-            // NAVIGATE TO HOME PAGE IF USER CREDENTIALS ARE VALID
+          // EMIT USERID TO GLOBAL STATE
+          if (response.IsValid && response.UserID) {
             this.loggedIn.next(true);
+            const user: { userID: number } = { userID: response.UserID };
+            this.currentUserSubject.next(user);
+            localStorage.setItem('currentUser', JSON.stringify(user));
             this.router.navigate(['/home']);
           } else {
-            // DENY USER ACCESS IF USER CREDENTIALS ARE INVALID
             this.snackBar.open('Invalid user credentials. Please try again.', 'Dismiss', { duration: 5000 });
           }
         });
@@ -76,6 +79,8 @@ export class AuthService {
 
   public logout(): void {
     this.loggedIn.next(false);
+    this.currentUserSubject.next(null);
+    localStorage.removeItem('currentUser');
     this.router.navigate(['/login'])
       .then((response: any) => response);
   }
