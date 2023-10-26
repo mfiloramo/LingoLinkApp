@@ -24,7 +24,7 @@ export class ConvosComponent implements OnInit {
     // LOAD CONVERSATIONS BY USERID
     try {
       this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId() // INPUT: this.user.user_id
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
         .then((response: any) => {
           this.isLoading = false;
           return response;
@@ -39,7 +39,7 @@ export class ConvosComponent implements OnInit {
     // LOAD CONVERSATIONS BY USERID
     try {
       this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId() // INPUT: this.user.user_id
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
         .then((response: any) => {
           this.isLoading = false;
           return response;
