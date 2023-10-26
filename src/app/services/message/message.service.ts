@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { ChatMessage } from "../../../interfaces/message.interfaces";
+import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -19,9 +19,10 @@ export class MessageService {
     return this.http.get(`${ this.apiUrl }/messages/${ id }`);
   }
 
-  public async sendMessage(message: ChatMessage): Promise<any> {
-    return this.http.post(`${ this.apiUrl }/messages`, message).toPromise();
+  public sendMessage(message: ChatMessage): Observable<any> {
+    return this.http.post(`${ this.apiUrl }/messages`, message);
   }
+
 
   public buildMessage(message: ChatMessage): ChatMessage {
     return {

@@ -4,13 +4,14 @@
 </div>
 <!-- END LOADING ANIMATION -->
 
-<!-- Back Arrow Button and Selected Conversation Details -->
+<!-- BACK ARROW BUTTON -->
 <div *ngIf="selectedConversation">
   <div (click)="deselectConversation()">
     <mat-icon class="back-arrow">arrow_back</mat-icon>
     <span style="color: white;">Back to Conversations</span>
   </div>
 </div>
+<!-- END BACK ARROW BUTTON -->
 
 <!-- CONVERSATIONS LIST -->
 <div *ngIf="!selectedConversation">

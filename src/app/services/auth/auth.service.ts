@@ -27,32 +27,32 @@ export class AuthService {
   ) { }
 
   /** PUBLIC METHODS */
-  public async login(email: string, password: string): Promise<any> {
-    try {
-      // CONSTRUCT QUERY PARAMETERS
-      let params: HttpParams = new HttpParams()
-        .set('email', email)
-        .set('password', password)
-
-      // SEND GET REQUEST WITH QUERY PARAMETERS
-      this.http.get<any>(`${ this.apiUrl }/users`, { params })
-        .subscribe((response: any): void => {
-          // EMIT USERID TO GLOBAL STATE
-          if (response.IsValid && response.UserID) {
-            this.loggedIn.next(true);
-            const user: { userID: number } = { userID: response.UserID };
-            this.currentUserSubject.next(user);
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.router.navigate(['/home']);
-          } else {
-            this.snackBar.open('Invalid user credentials. Please try again.', 'Dismiss', { duration: 5000 });
-          }
-        });
-    } catch (error: any) {
-      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-      throw error;
-    }
+  public isAuthenticated(): boolean {
+    return this.loggedIn.value && this.currentUserSubject.value !== null;
   }
+
+  public login(email: string, password: string): Observable<any> {
+    let params: HttpParams = new HttpParams().set('email', email).set('password', password);
+
+    return this.http.get<any>(`${this.apiUrl}/users`, { params }).pipe(
+      tap((response: any) => {
+        if (response.IsValid && response.UserID) {
+          this.loggedIn.next(true);
+          const user: { user_id: number } = { user_id: response.UserID };
+          this.currentUserSubject.next(user);
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.router.navigate(['/home']);
+        } else {
+          this.snackBar.open('Invalid user credentials. Please try again.', 'Dismiss', { duration: 5000 });
+        }
+      }),
+      catchError((error: any) => {
+        this.snackBar.open('An error occurred', 'Dismiss', { duration: 5000 });
+        return throwError(error);
+      })
+    );
+  }
+
 
   public async register(user: any): Promise<any> {
     try {

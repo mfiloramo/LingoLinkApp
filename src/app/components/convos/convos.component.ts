@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Conversation } from '../../../interfaces/conversation.interfaces';
+import { Conversation } from '../../../interfaces/Conversation.interfaces';
 import { ConversationService } from '../../services/conversation/conversation.service';
 import dayjs from 'dayjs';
 
@@ -24,7 +24,7 @@ export class ConvosComponent implements OnInit {
     // LOAD CONVERSATIONS BY USERID
     try {
       this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.userID)
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
         .then((response: any) => {
           this.isLoading = false;
           return response;
@@ -36,10 +36,10 @@ export class ConvosComponent implements OnInit {
 
   /** PUBLIC METHODS */
   public async loadConversations(): Promise<void> {
-    // LOAD CONVERSATIONS BY USERID
+    // LOAD CONVERSATIONS BY user_id
     try {
       this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.userID)
+      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
         .then((response: any) => {
           this.isLoading = false;
           return response;

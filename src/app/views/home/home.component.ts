@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.subscriptions.add(
-      this.authService.currentUser$.subscribe((user): void => {
+      this.authService.currentUser$
+        .subscribe((user): void => {
         this.user = user;
       })
     );

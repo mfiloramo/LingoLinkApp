@@ -9,9 +9,9 @@
 
 /* LOGIN CARD */
 .login-card {
-  max-width: 350px;
-  height: 400px;
-  margin: 0 auto;
+  max-width: 335px;
+  height: 385px;
+  margin: -20px auto;
   background: #202028;
   border-radius: 15px;
   box-shadow: 3px 7px 7px rgba(0, 0, 0, 0.3);
@@ -67,15 +67,14 @@ button:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 25px;
 }
 
-/* TODO: DECIDE ON DROP-SHADOW DEFAULT (PHOTOSHOP OR CSS); LOGO HAS IT AND TEXT DOES NOT */
 .logo-container img {
   filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.5));
 }
 
 .logo {
+  padding-top: 20px;
   width: 225px;
   height: auto;
 }
