@@ -45,9 +45,9 @@ export class ConversationService {
     try {
       // GENERATE RANDOM USER DATA
       const response: any = await this.http.get('https://randomuser.me/api/').toPromise();
-      conversation.profileImageSrc = response['results'][0]['picture']['large'];
-      conversation.firstName = response['results'][0]['name']['first'];
-      conversation.lastName = response['results'][0]['name']['last'];
+      conversation.profileImageSrc = response.results[0].picture.large;
+      conversation.firstName = response.results[0].name.first;
+      conversation.lastName = response.results[0].name.last;
 
       // GENERATE RANDOM SENTENCE
       const lorem: any = new LoremIpsum({

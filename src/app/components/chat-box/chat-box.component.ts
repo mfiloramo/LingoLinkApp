@@ -102,7 +102,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       this.messageService.loadMessages(this.conversationId)
         .subscribe(async (response: any): Promise<void> => {
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
-          const translationPromises = response.map(async (message: any) => {
+          const translationPromises = response.map(async (message: any): Promise<void> => {
             if (message.source_language !== localLangCode && message.textInput) {
           //     TRANSLATE/STRINGIFY MESSAGE CONTENT
               message.textInput = await this.cacheCheckTranslation(message, localLangCode);
@@ -114,7 +114,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
           this.mainConvoContainer = response;
           this.scrollToBottom();
           this.isLoading = false;
-
         }, (error: any): void => {
           this.isLoading = false;
           console.error('Failed to load messages for conversation:', error);
@@ -169,6 +168,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       const storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
+        // TODO: MAKE THIS A DIRECT CALL TO TRANSLATE.SERVICE
         const decodedText: string = await this.translateText(message.textInput, message.source_language, localLangCode);
         this.translationService.storeTranslation(translateKey, decodedText);
         message.textInput = decodedText;
