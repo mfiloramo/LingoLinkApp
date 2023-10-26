@@ -19,9 +19,9 @@ export class ConversationService {
   }
 
   // CALLED WHEN USER LOADS CONVERSATION MODULE
-  public async loadConversationsByUserId(userId: number): Promise<any> {
+  public async loadConversationsByUserId(user_id: number): Promise<any> {
     // CONSTRUCT QUERY PARAMETERS
-    const params: HttpParams = new HttpParams().set('id', userId.toString());
+    const params: HttpParams = new HttpParams().set('id', user_id.toString());
 
     const response: any = await this.http.get(`${ environment.apiBaseUrl }/conversations`, { params }).toPromise();
 

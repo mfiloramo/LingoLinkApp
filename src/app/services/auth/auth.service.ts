@@ -38,7 +38,7 @@ export class AuthService {
       tap((response: any) => {
         if (response.IsValid && response.UserID) {
           this.loggedIn.next(true);
-          const user: { userID: number } = { userID: response.UserID };
+          const user: { user_id: number } = { user_id: response.UserID };
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.router.navigate(['/home']);

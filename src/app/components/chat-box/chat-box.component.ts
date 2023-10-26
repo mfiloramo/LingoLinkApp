@@ -1,11 +1,14 @@
 import { Component, ViewChild, ElementRef, Input, OnChanges, AfterViewChecked, OnInit, SimpleChanges } from '@angular/core';
-import { ChatMessage } from "../../../interfaces/message.interfaces";
-import { Language } from '../../../interfaces/language.interfaces';
+import { ChatMessage } from "../../../interfaces/Message.interfaces";
+import { Language } from '../../../interfaces/Language.interfaces';
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { ConversationService } from '../../services/conversation/conversation.service';
 import { MessageService } from '../../services/message/message.service';
 import languageArray from '../../../utils/languageMapper';
+import { catchError, switchMap } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { User } from "../../../interfaces/User.interfaces";
 
 
 @Component({
@@ -14,7 +17,7 @@ import languageArray from '../../../utils/languageMapper';
   styleUrls: ['./chat-box.component.css'],
 })
 export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
-  @Input() user!: any;
+  @Input() user!: User;
   @Input() conversationId!: number;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
@@ -61,18 +64,31 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
-      userID: this.user.userID,
+      user_id: this.user.user_id,
       textInput: this.textInput,
       conversationId: this.conversationId,
       source_language: this.source_language,
     });
 
     // HANDLE/SEND MESSAGE WITHIN APPLICATION
-    await this.messageService.sendMessage(message);
-    this.webSocketService.send(message);
-    if (!this.conversationId) await this.createConversationWithId(message);
-    this.mainConvoContainer.push(message);
-    this.textInput = '';
+    this.messageService.sendMessage(message).pipe(
+      switchMap((response: any): Promise<void> | Observable<void> => {
+        this.webSocketService.send(message);
+        if (!this.conversationId) {
+          return this.createConversationWithId(message);
+        }
+        return of(response);
+      }),
+      catchError((error) => {
+        console.error('Failed to send message:', error);
+        return of(null);
+      })
+    ).subscribe((response: void | null): void => {
+      if (response) {
+        this.mainConvoContainer.push(message);
+        this.textInput = '';
+      }
+    });
   }
 
   public async createConversationWithId(message: ChatMessage): Promise<any> {
@@ -184,7 +200,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   /** UTILITY FUNCTIONS */
   private async translateText(textInput: string, source_language: string, targLang: string): Promise<string> {
     return await this.translationService.getLiveTranslation({
-      user: this.user.userID, textInput, source_language, targLang }).toPromise();
+      user: this.user.user_id, textInput, source_language, targLang }).toPromise();
   }
 
   private playClickSound(): void {
