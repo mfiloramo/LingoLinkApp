@@ -1,6 +1,6 @@
 export interface ChatMessage {
   readonly message_id?: number;
-  readonly user_id: number;
+  readonly userID: number;
   conversationId: number;
   readonly source_language: any;
   readonly timestamp?: string;

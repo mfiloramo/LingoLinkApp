@@ -25,7 +25,7 @@ export class MessageService {
 
   public buildMessage(message: ChatMessage): ChatMessage {
     return {
-      user_id: message.user_id,
+      userID: message.userID,
       textInput: message.textInput,
       conversationId: message.conversationId,
       source_language: message.source_language.code,

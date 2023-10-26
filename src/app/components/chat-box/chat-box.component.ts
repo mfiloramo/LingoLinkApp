@@ -61,7 +61,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
-      user_id: this.user.user_id,
+      userID: this.user.userID,
       textInput: this.textInput,
       conversationId: this.conversationId,
       source_language: this.source_language,
@@ -184,7 +184,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   /** UTILITY FUNCTIONS */
   private async translateText(textInput: string, source_language: string, targLang: string): Promise<string> {
     return await this.translationService.getLiveTranslation({
-      user: this.user.user_id, textInput, source_language, targLang }).toPromise();
+      user: this.user.userID, textInput, source_language, targLang }).toPromise();
   }
 
   private playClickSound(): void {

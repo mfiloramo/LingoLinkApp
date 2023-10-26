@@ -35,10 +35,10 @@
   <!-- CONVERSATION LOADER -->
   <div class="messageList" #chatContainer>
     <ng-container *ngFor="let message of mainConvoContainer">
-      <div class="messageContainer animate-fadeIn" [ngClass]="{'userMessage transition-opacity duration-300 ease-in-out': message.user_id == this.user.user_id, 'otherMessage transition-opacity duration-300 ease-in-out': message.user_id != this.user.user_id}">
-        <mat-icon *ngIf="message.user_id != this.user.user_id">person</mat-icon>
+      <div class="messageContainer animate-fadeIn" [ngClass]="{'userMessage transition-opacity duration-300 ease-in-out': message.userID == this.user.userID, 'otherMessage transition-opacity duration-300 ease-in-out': message.userID != this.user.userID}">
+        <mat-icon *ngIf="message.userID != this.user.userID">person</mat-icon>
         <div class="messageText">{{ message.textInput }}</div>
-        <mat-icon *ngIf="message.user_id == this.user.user_id">person</mat-icon>
+        <mat-icon *ngIf="message.userID == this.user.userID">person</mat-icon>
       </div>
       <br />
       <br />
