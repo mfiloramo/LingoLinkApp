@@ -32,7 +32,9 @@ export class AuthService {
   }
 
   public login(email: string, password: string): Observable<any> {
-    let params: HttpParams = new HttpParams().set('email', email).set('password', password);
+    let params: HttpParams = new HttpParams()
+      .set('email', email)
+      .set('password', password);
 
     return this.http.get<any>(`${this.apiUrl}/users`, { params }).pipe(
       tap((response: any) => {

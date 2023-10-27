@@ -1,69 +1,80 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { Conversation } from '../../../interfaces/Conversation.interfaces';
 import { ConversationService } from '../../services/conversation/conversation.service';
 import dayjs from 'dayjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-convos',
   templateUrl: './convos.component.html',
   styleUrls: ['./convos.component.css'],
 })
-export class ConvosComponent implements OnInit {
+export class ConvosComponent implements OnInit, OnDestroy {
   @Input() user: any;
-  @Output() conversationSelected: EventEmitter<any> = new EventEmitter<any>();
-  public conversations: any[] = [];
+  @Output() conversationSelected: EventEmitter<Conversation | null> = new EventEmitter();
+
+  public conversations: Conversation[] = [];
   public isLoading: boolean = false;
   public selectedConversation: any;
 
+  private destroy$: Subject<void> = new Subject<void>();
+
   constructor(
     private conversationService: ConversationService,
+    private http: HttpClient
   ) { }
 
   /** LIFECYCLE HOOKS */
-  async ngOnInit(): Promise<any> {
-    // LOAD CONVERSATIONS BY USERID
-    try {
-      this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
-        .then((response: any) => {
-          this.isLoading = false;
-          return response;
-        });
-    } catch (error) {
-      console.error('Error loading conversations:', error);
-      }
-    }
+  ngOnInit(): void {
+    this.loadConversations();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   /** PUBLIC METHODS */
-  public async loadConversations(): Promise<void> {
-    // LOAD CONVERSATIONS BY user_id
-    try {
-      this.isLoading = true;
-      this.conversations = await this.conversationService.loadConversationsByUserId(this.user.user_id)
-        .then((response: any) => {
+  public loadConversations(): void {
+    this.isLoading = true;
+    this.conversationService.loadConversationsByUserId(this.user.user_id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: async (conversations: Conversation[]): Promise<void> => {
+          for (const conversation of conversations) {
+            try {
+              const pic: any = await this.http.get('https://randomuser.me/api/').toPromise();
+              conversation.profileImageSrc = pic.results[0].picture.large;
+            } catch (error) {
+              console.error('Error loading profile image:', error);
+              conversation.profileImageSrc = 'default_image_url';
+            }
+          }
+          this.conversations = conversations;
           this.isLoading = false;
-          return response;
-        });
-    } catch (error) {
-      console.error('Error loading conversations:', error);
-    }
+        },
+        error: (error: any): void => {
+          console.error('Error loading conversations:', error);
+          this.isLoading = false;
+        }
+      });
   }
 
   public onSelectConversation(conversation: Conversation): void {
-    // EMIT SELECTED CONVERSATION
     this.conversationSelected.emit(conversation);
-    this.selectedConversation = true;
+    this.selectedConversation = conversation;
   }
 
   public deselectConversation(): void {
     this.conversationSelected.emit(null);
-    this.selectedConversation = false;
+    this.selectedConversation = null;
   }
 
   public checkConvoVisibility(conversation: Conversation): boolean {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
-
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
     return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
   }
@@ -71,7 +82,6 @@ export class ConvosComponent implements OnInit {
   public removeConvo(conversation: Conversation): void {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
-
     // SET SELECTED CONVERSATION TO "DISABLED" IN LOCALSTORAGE CACHE
     localStorage.setItem(conversationKey, 'disabled');
   }

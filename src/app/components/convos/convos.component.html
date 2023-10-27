@@ -15,17 +15,17 @@
 
 <!-- CONVERSATIONS LIST -->
 <div *ngIf="!selectedConversation">
-  <div *ngFor="let convo of conversations">
+  <div *ngFor="let conversation of conversations">
 
-    <div class="convoItem" *ngIf="checkConvoVisibility(convo)" (click)="onSelectConversation(convo)">
-      <div class="circle" [style.background-image]="'url(' + convo.profileImageSrc + ')'"></div>
+    <div class="convoItem" *ngIf="checkConvoVisibility(conversation)" (click)="onSelectConversation(conversation)">
+      <div class="circle" [style.background-image]="'url(' + conversation.profileImageSrc + ')'"></div>
       <div class="nameAndMessage">
-        <div class="name">{{ convo.firstName }} {{ convo.lastName }}</div>
-        <div class="message" [innerHTML]="truncateSentence(convo.randomSentence, 100)"></div>
+        <div class="name">{{ conversation.StarterUsername }}</div>
+        <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
       </div>
       <div class="notificationAndTimestamp">
         <mat-icon class="notificationIcon">notifications</mat-icon>
-        <div class="timestamp">{{ convertIsoString(convo.latest_timestamp) }}</div>
+        <div class="timestamp">{{ convertIsoString(conversation.latest_timestamp) }}</div>
       </div>
     </div>
 <!-- END CONVERSATIONS LIST -->
