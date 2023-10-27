@@ -14,7 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HomeComponent } from './views/home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ConvosComponent } from './components/convos/convos.component';
+import { ConversationsComponent } from './components/convos/conversations.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
@@ -41,7 +41,7 @@ const protectedResourceMap: any = environment.production
         ChatBoxComponent,
         NavbarComponent,
         HomeComponent,
-        ConvosComponent,
+        ConversationsComponent,
         PageNotFoundComponent,
         LoginComponent,
         RegistrationComponent

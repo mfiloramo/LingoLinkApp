@@ -8,10 +8,10 @@ import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-convos',
-  templateUrl: './convos.component.html',
-  styleUrls: ['./convos.component.css'],
+  templateUrl: './conversations.component.html',
+  styleUrls: ['./conversations.component.css'],
 })
-export class ConvosComponent implements OnInit, OnDestroy {
+export class ConversationsComponent implements OnInit, OnDestroy {
   @Input() user: any;
   @Output() conversationSelected: EventEmitter<Conversation | null> = new EventEmitter();
 
@@ -43,6 +43,7 @@ export class ConvosComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: async (conversations: Conversation[]): Promise<void> => {
+          // STUB: ASSIGN RANDOMLY GENERATED PROFILE PIC TO EACH CONVERSATION
           for (const conversation of conversations) {
             try {
               const pic: any = await this.http.get('https://randomuser.me/api/').toPromise();
