@@ -50,7 +50,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
               conversation.profileImageSrc = pic.results[0].picture.large;
             } catch (error) {
               console.error('Error loading profile image:', error);
-              conversation.profileImageSrc = 'default_image_url';
+              conversation.profileImageSrc = 'default_image_url'; // STUB
             }
           }
           this.conversations = conversations;
