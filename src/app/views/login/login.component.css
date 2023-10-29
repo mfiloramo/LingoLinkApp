@@ -88,7 +88,8 @@ button:disabled {
   }
 
   .login-card {
-    padding: 15px 15px 10px;
+    height: 400px;
+    padding: 15px 30px 20px;
   }
 
   button {
