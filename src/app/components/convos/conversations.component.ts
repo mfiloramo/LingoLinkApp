@@ -18,7 +18,6 @@ export class ConversationsComponent implements OnInit, OnDestroy {
   public conversations: Conversation[] = [];
   public isLoading: boolean = false;
   public selectedConversation: any;
-
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
