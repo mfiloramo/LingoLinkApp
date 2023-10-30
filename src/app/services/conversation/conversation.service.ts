@@ -25,7 +25,7 @@ export class ConversationService {
       .pipe(catchError(this.handleError));
   }
 
-  public deleteConvByConversationId(conversationId: number): Observable<any> {
+  public deleteConversationByConvId(conversationId: number): Observable<any> {
     return this.http.delete(`${ this.apiUrl }/conversations/${ conversationId }`)
       .pipe(catchError(this.handleError));
   }

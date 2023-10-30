@@ -5,6 +5,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from "../../../environments/environment";
+import { User } from "../../../interfaces/User.interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
   public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
 
 
+  // POSSIBLY NOT NEEDED DUE TO auth.guard
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
@@ -36,23 +38,25 @@ export class AuthService {
       .set('email', email)
       .set('password', password);
 
-    return this.http.get<any>(`${this.apiUrl}/users`, { params }).pipe(
-      tap((response: any) => {
+    return this.http.get<any>(`${ this.apiUrl }/users`, { params })
+      .pipe(tap((response: any): void => {
+        // LOG USER IN IF VALID RESPONSE AND
         if (response.IsValid && response.UserID) {
           this.loggedIn.next(true);
-          const user: { user_id: number } = { user_id: response.UserID };
+          const user: User = { user_id: response.UserID };
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
-          this.router.navigate(['/home']);
+          this.router.navigate([ '/home' ]);
         } else {
+          // DENY USER ACCESS IF INVALID RESPONSE
           this.snackBar.open('Invalid user credentials. Please try again.', 'Dismiss', { duration: 5000 });
         }
       }),
-      catchError((error: any) => {
-        this.snackBar.open('An error occurred', 'Dismiss', { duration: 5000 });
-        return throwError(error);
-      })
-    );
+        catchError((error: any) => {
+          this.snackBar.open('An error occurred', 'Dismiss', { duration: 5000 });
+          return throwError(error);
+        })
+      );
   }
 
 
