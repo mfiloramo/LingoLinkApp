@@ -1,26 +1,41 @@
-<div class="logo-container">
-  <img class="logo" src="../../../assets/images/titleLogoRev.png" alt=""/>
-</div><br><br>
+<!-- LOGO CONTAINER -->
+<div class="flex justify-center items-center pt-10">
+  <img class="w-56 filter drop-shadow-md" src="../../../assets/images/titleLogoRev.png" alt=""/>
+</div>
 
-<mat-card class="login-card">
-  <mat-card-header>
-    <mat-card-title>User Login</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+<!-- LOGIN CARD -->
+<div class="max-w-xs mx-auto bg-gray-800 rounded-md shadow-md mt-11 pb-4">
+
+  <!-- CARD TITLE -->
+  <div class="flex justify-around pt-4 pb-2">
+    <h1 class="text-gray-300 text-2xl font-serif">User Login</h1>
+  </div>
+
+  <!-- FORM CONTAINER -->
+  <div class="px-4">
     <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit(loginForm.get('email')?.value, loginForm.get('password')?.value)">
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required>
-        <mat-error *ngIf="loginForm.get('email')!.hasError('required')">Email is required</mat-error>
-        <mat-error *ngIf="loginForm.get('email')!.hasError('email')">Invalid email format</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password" required>
-        <mat-error *ngIf="loginForm.get('password')!.hasError('required')">Password is required</mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
-      <button mat-raised-button id="register-btn" color="primary" class="back-button" routerLink="/registration" >Register</button>
+
+      <!-- EMAIL FIELD -->
+      <div class="mb-4">
+        <label class="block text-gray-300 text-sm font-bold mb-2" for="email">Email</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" formControlName="email" required>
+        <p class="text-red-500 text-xs italic" *ngIf="loginForm.get('email')!.hasError('required')">Email is required</p>
+        <p class="text-red-500 text-xs italic" *ngIf="loginForm.get('email')!.hasError('email')">Invalid email format</p>
+      </div>
+
+      <!-- PASSWORD FIELD -->
+      <div class="mb-4">
+        <label class="block text-gray-300 text-sm font-bold mb-2" for="password">Password</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" required>
+        <p class="text-red-500 text-xs italic" *ngIf="loginForm.get('password')!.hasError('required')">Password is required</p>
+      </div>
+
+      <!-- BUTTONS CONTAINER -->
+      <div class="flex flex-col items-center space-y-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-sm font-normal" type="submit" [disabled]="loginForm.invalid">Login</button>
+        <a class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center text-sm font-normal" routerLink="/registration" role="button">Register</a>
+      </div>
+
     </form>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
