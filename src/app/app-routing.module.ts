@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./views/home/home.component";
 import { ChatBoxComponent } from "./components/chat-box/chat-box.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
-import { ConversationsComponent } from "./components/convos/conversations.component";
+import { ConversationsComponent } from "./components/conversations/conversations.component";
 import { PageNotFoundComponent } from "./views/page-not-found/page-not-found.component";
 import { LoginComponent } from "./views/login/login.component";
 import { RegistrationComponent } from "./views/registration/registration.component";

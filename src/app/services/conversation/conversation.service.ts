@@ -25,8 +25,11 @@ export class ConversationService {
       .pipe(catchError(this.handleError));
   }
 
-  public deleteConversationByConvId(conversationId: number): Observable<any> {
-    return this.http.delete(`${ this.apiUrl }/conversations/${ conversationId }`)
+  public deleteConversation(userId: number, conversationId: number): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('userId', userId.toString())
+      .set('convId', conversationId.toString());
+    return this.http.delete(`${ this.apiUrl }/participants/`, { body: { userId, conversationId }})
       .pipe(catchError(this.handleError));
   }
 
