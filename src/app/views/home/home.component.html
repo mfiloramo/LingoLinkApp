@@ -14,11 +14,11 @@
   <!-- MINI MID COLUMN -->
   <div class="gridCol miniMidColumn">
     <div [ngClass]="{'fadeOut': fadeOutConvos}">
-      <app-convos
+      <app-conversations
         (conversationSelected)="onConversationSelected($event)"
         [user]="user"
         *ngIf="showConvos">
-      </app-convos>
+      </app-conversations>
     </div>
   </div>
   <!-- END MINI MID COLUMN -->

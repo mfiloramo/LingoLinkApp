@@ -5,9 +5,10 @@ import dayjs from 'dayjs';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HttpClient } from "@angular/common/http";
+import { User } from "../../../interfaces/User.interfaces";
 
 @Component({
-  selector: 'app-convos',
+  selector: 'app-conversations',
   templateUrl: './conversations.component.html',
   styleUrls: ['./conversations.component.css'],
 })
@@ -76,14 +77,22 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
-    return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
+    // return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
+    return true;
   }
 
-  public removeConvo(conversation: Conversation): void {
-    // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
-    const conversationKey: string = this.convertToConvoKey(conversation.name);
-    // SET SELECTED CONVERSATION TO "DISABLED" IN LOCALSTORAGE CACHE
-    localStorage.setItem(conversationKey, 'disabled');
+  public async deleteConversation(userId: User, conversation: number): Promise<any> {
+    // MARK CONVERSATION AS DISABLED (INVISIBLE) IN LOCAL CACHE
+    // const conversationKey: string = this.convertToConvoKey(conversation.name);
+    // localStorage.setItem(conversationKey, 'disabled');
+
+    // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
+    // @ts-ignore
+    await this.conversationService.deleteConversation(userId.user_id, conversation)
+      .subscribe((response: any): void => {
+        // RETURN SUCCESS/ERROR RESPONSE TO USER
+        return response;
+      })
   }
 
   /** UTILITY FUNCTIONS */
