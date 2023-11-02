@@ -78,21 +78,19 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     const conversationKey: string = this.convertToConvoKey(conversation.name);
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
     // return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
+
+    // DEBUG: INVOKING this.convertToConvokey(conversation.name) CAUSES CONVERSATIONS TO NOT APPEAR ON THE DOM
     return true;
   }
 
-  public async deleteConversation(userId: User, conversation: number): Promise<any> {
+  public async removeConversation(userId: User, conversation: Conversation): Promise<any> {
     // MARK CONVERSATION AS DISABLED (INVISIBLE) IN LOCAL CACHE
-    // const conversationKey: string = this.convertToConvoKey(conversation.name);
-    // localStorage.setItem(conversationKey, 'disabled');
+    const conversationKey: string = this.convertToConvoKey(conversation.name);
+    localStorage.setItem(conversationKey, 'disabled');
 
     // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
-    // @ts-ignore
     await this.conversationService.deleteConversation(userId.user_id, conversation)
-      .subscribe((response: any): void => {
-        // RETURN SUCCESS/ERROR RESPONSE TO USER
-        return response;
-      })
+      .subscribe((response: any): void => response);
   }
 
   /** UTILITY FUNCTIONS */
