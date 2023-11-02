@@ -24,17 +24,17 @@
         <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
       </div>
 
+      <!-- NOTIFICATION BELL -->
+      <div class="notificationAndTimestamp">
+        <mat-icon class="notificationIcon">notifications</mat-icon>
+        <div class="timestamp">{{ convertIsoString(conversation.latest_timestamp) }}</div>
+      </div>
+
       <!-- DELETE CONVERSATION BUTTON -->
       <div class="deleteConversation">
         <div (click)="deleteConversation(user, conversation.conversation_id)">
           <mat-icon class="notificationIcon">close</mat-icon>
         </div>
-      </div>
-
-      <!-- NOTIFICATION BELL -->
-      <div class="notificationAndTimestamp">
-        <mat-icon class="notificationIcon">notifications</mat-icon>
-        <div class="timestamp">{{ convertIsoString(conversation.latest_timestamp) }}</div>
       </div>
 
     </div>
