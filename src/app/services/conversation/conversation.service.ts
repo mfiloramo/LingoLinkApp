@@ -25,9 +25,13 @@ export class ConversationService {
       .pipe(catchError(this.handleError));
   }
 
-  public deleteConversation(userId: number, conversationId: number): any {
+  public deleteConversation(userId: number, conversation: Conversation): any {
     try {
-      return this.http.delete(`${ this.apiUrl }/participants/`, { body: { userId, conversationId }})
+      return this.http.delete(`${ this.apiUrl }/participants/`, {
+        body: {
+          userId,
+          conversationId: conversation.conversation_id
+        }})
     } catch (error: any) {
       console.log('Error occurred', error);
     }
