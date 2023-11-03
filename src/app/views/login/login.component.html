@@ -1,10 +1,10 @@
 <!-- LOGO CONTAINER -->
-<div class="flex justify-center items-center pt-10">
-  <img class="w-56 filter drop-shadow-md" src="../../../assets/images/titleLogoRev.png" alt=""/>
+<div class="flex justify-center items-center pt-10 mb-10">
+  <img class="w-56 filter drop-shadow-md" ngSrc="../../../assets/images/titleLogoRev.png" alt="" height="220" width="211"/>
 </div>
 
 <!-- LOGIN CARD -->
-<div class="max-w-xs mx-auto bg-gray-800 rounded-md shadow-md mt-11 pb-4">
+<div class="max-w-xs mx-auto bg-gray-800 rounded-md shadow-md mt-8 pb-2">
 
   <!-- CARD TITLE -->
   <div class="flex justify-around pt-4 pb-2">
@@ -16,36 +16,29 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit(loginForm.get('email')?.value, loginForm.get('password')?.value)">
 
       <!-- EMAIL FIELD -->
-      <div class="mb-4">
+      <div class="mb-3">
         <label class="block text-gray-300 text-sm font-bold mb-2" for="email">Email</label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" formControlName="email" required>
-        <p class="text-red-500 text-xs italic" *ngIf="loginForm.get('email')!.hasError('required')">Email is required</p>
-        <p class="text-red-500 text-xs italic" *ngIf="loginForm.get('email')!.hasError('email')">Invalid email format</p>
+        <div class="min-h-[16px]">
+          <p *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="text-red-500 text-xs italic mt-1">Email is required</p>
+          <p *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" class="text-red-500 text-xs italic mt-1">Invalid email format</p>
+        </div>
       </div>
 
       <!-- PASSWORD FIELD -->
-      <div class="mb-4">
+      <div class="mb-7">
         <label class="block text-gray-300 text-sm font-bold mb-2" for="password">Password</label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" required>
-        <p class="text-red-500 text-xs italic" *ngIf="loginForm.get('password')!.hasError('required')">Password is required</p>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" required>
+        <div class="min-h-[16px] mb--10">
+          <p *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-red-500 text-xs italic mt-1">Password is required</p>
+        </div>
       </div>
 
-      <!-- BUTTONS CONTAINER -->
-<!--      <div class="flex flex-col items-center space-y-2">-->
+      <!-- NEW LOGIN BUTTON -->
+      <a><button class="bn632-hover bn26" type="submit" [disabled]="loginForm.invalid">Login</button></a>
 
-        <!-- NEW LOGIN BUTTON -->
-        <a><button class="bn632-hover bn26" type="submit" [disabled]="loginForm.invalid">Login</button></a>
-
-        <!-- NEW REGISTER BUTTON -->
-        <a routerLink="/registration"><button class="bn632-hover bn27">Register</button></a>
-
-        <!-- LOGIN BUTTON -->
-<!--        <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-sm font-normal" type="submit" [disabled]="loginForm.invalid">Login</button>-->
-
-        <!-- REGISTER BUTTON -->
-<!--        <a class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center text-sm font-normal" routerLink="/registration" role="button">Register</a>-->
-<!--      </div>-->
-
+      <!-- NEW REGISTER BUTTON -->
+      <a routerLink="/registration"><button class="bn632-hover bn27">Register</button></a>
     </form>
   </div>
 </div>
