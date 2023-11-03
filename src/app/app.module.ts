@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,10 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegistrationComponent } from './views/registration/registration.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
-import { MsalGuard, MsalInterceptor, MsalModule } from '@azure/msal-angular';
-import { msalInstance } from '../config/msalBrowserConfig';
 import { environment } from '../environments/environment';
-import { InteractionType } from '@azure/msal-browser';
 
 const protectedResourceMap: any = environment.production
   ? [[environment.apiBaseUrl, [`api://lingolink-api/general`]]]
@@ -66,34 +63,9 @@ const protectedResourceMap: any = environment.production
         MatSnackBarModule,
         MatRadioModule,
         _MatCheckboxRequiredValidatorModule,
-        MsalModule.forRoot(
-            msalInstance,
-            {
-                interactionType: InteractionType.Popup,
-                authRequest: {
-                    scopes: [
-                        'openid',
-                        'email',
-                        'user.read',
-                        `${ environment.apiBaseUrl }/access_as_user`,
-                    ],
-                    prompt: 'consent'
-                },
-            },
-            {
-                interactionType: InteractionType.Popup,
-                protectedResourceMap: new Map(protectedResourceMap),
-            },
-        ),
+        NgOptimizedImage,
     ],
-    providers: [
-        // {
-        //   provide: HTTP_INTERCEPTORS,
-        //   useClass: MsalInterceptor,
-        //   multi: true,
-        // },
-        // MsalGuard
-    ],
+    providers: [],
     exports: [
         NavbarComponent
     ],

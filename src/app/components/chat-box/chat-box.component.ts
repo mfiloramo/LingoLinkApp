@@ -94,7 +94,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
     const conversationName: string = `Conversation ${ String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10) }`;
 
     try {
-      // TODO: CALL THE NEW STORED PROCEDURE WITH THE INPUTS
+      // TODO: CALL THE NEW STORED PROCEDURE WITH INPUTS
       const response: any = await this.conversationService.createConversation({ 'name': conversationName });
       // ASSIGN CONVERSATION ID (TABLE IDENTITY) RESPONSE
       message.conversationId = response.Conversation_id;
