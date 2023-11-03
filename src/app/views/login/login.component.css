@@ -1,0 +1,52 @@
+.bn632-hover {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  height: 40px;
+  text-align:center;
+  margin-bottom: 1rem;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 4px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover:focus {
+  outline: none;
+}
+
+.bn632-hover.bn26 {
+  background-image: linear-gradient(
+    to right,
+    #257de1,
+    #446beb,
+    #0481fe,
+    #3f56ed
+  );
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.bn632-hover.bn27 {
+  background-image: linear-gradient(
+    to right,
+    #25bfe1,
+    #44b9eb,
+    #04c4fe,
+    #3fdeed
+  );
+  box-shadow: 0 4px 15px 0 rgba(0, 178, 255, 0.75);
+}
+

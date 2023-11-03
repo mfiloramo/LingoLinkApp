@@ -47,15 +47,15 @@ mat-icon {
   right: 0;
 }
 
-.miniMidColumn {
+.miniMidContainer {
   width: 30vw;
 }
 
-.mainColumn {
+.mainContainer {
   width: 70vw;
 }
 
-.mainColumn::before {
+.mainContainer::before {
   content: "";
   background-image: url("../../../assets/images/chatboxBgLogo.png");
   background-repeat: no-repeat;
@@ -79,12 +79,12 @@ mat-icon {
     overflow-x: hidden;
   }
 
-  .miniMidColumn {
+  .miniMidContainer {
     height: auto;
     width: 100vw;
   }
 
-  .mainColumn {
+  .mainContainer {
     height: 87vh;
     width: 100vw;
   }

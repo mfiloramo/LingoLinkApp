@@ -11,8 +11,8 @@
   ></app-navbar>
   <!-- END USER PROFILE SIDE-NAVBAR COMPONENT -->
 
-  <!-- MINI MID COLUMN -->
-  <div class="gridCol miniMidColumn">
+  <!-- MINI MID CONTAINER -->
+  <div class="gridCol miniMidContainer">
     <div [ngClass]="{'fadeOut': fadeOutConvos}">
       <app-conversations
         (conversationSelected)="onConversationSelected($event)"
@@ -21,10 +21,10 @@
       </app-conversations>
     </div>
   </div>
-  <!-- END MINI MID COLUMN -->
+  <!-- END MINI MID CONTAINER -->
 
-  <!-- MAIN COLUMN -->
-  <div class="gridCol mainColumn" *ngIf="showChat">
+  <!-- MAIN CONTAINER -->
+  <div class="gridCol mainContainer" *ngIf="showChat">
     <div [ngClass]="{ 'fadeOut': fadeOutConvos }" class="chatboxContainer">
       <div class="chatboxWrapper">
         <app-chatbox
@@ -35,6 +35,6 @@
       </div>
     </div>
   </div>
-  <!-- END MAIN COLUMN -->
+  <!-- END MAIN CONTAINER -->
 </div>
 <!-- END HOME CONTAINER -->

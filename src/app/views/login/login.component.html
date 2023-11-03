@@ -31,10 +31,20 @@
       </div>
 
       <!-- BUTTONS CONTAINER -->
-      <div class="flex flex-col items-center space-y-2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-sm font-normal" type="submit" [disabled]="loginForm.invalid">Login</button>
-        <a class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center text-sm font-normal" routerLink="/registration" role="button">Register</a>
-      </div>
+<!--      <div class="flex flex-col items-center space-y-2">-->
+
+        <!-- NEW LOGIN BUTTON -->
+        <a><button class="bn632-hover bn26" type="submit" [disabled]="loginForm.invalid">Login</button></a>
+
+        <!-- NEW REGISTER BUTTON -->
+        <a routerLink="/registration"><button class="bn632-hover bn27">Register</button></a>
+
+        <!-- LOGIN BUTTON -->
+<!--        <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-sm font-normal" type="submit" [disabled]="loginForm.invalid">Login</button>-->
+
+        <!-- REGISTER BUTTON -->
+<!--        <a class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-center text-sm font-normal" routerLink="/registration" role="button">Register</a>-->
+<!--      </div>-->
 
     </form>
   </div>
