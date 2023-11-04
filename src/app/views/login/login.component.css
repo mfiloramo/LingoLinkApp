@@ -36,7 +36,7 @@
     #0481fe,
     #3f56ed
   );
-  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.4);
 }
 
 .bn632-hover.bn27 {
@@ -47,5 +47,5 @@
     #04c4fe,
     #3fdeed
   );
-  box-shadow: 0 4px 15px 0 rgba(0, 178, 255, 0.75);
+  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.75);
 }
