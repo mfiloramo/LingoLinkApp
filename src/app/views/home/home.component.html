@@ -2,14 +2,16 @@
 <div class="colContainer">
 
   <!-- USER PROFILE SIDE-NAVBAR COMPONENT -->
-  <app-navbar
-    id="profile"
-    [user]="user"
-    style="padding-left: 15px"
-    (profileClick)="onProfileClick()"
-    (showConversations)="onShowConversations()"
-    (showChat)="onShowChatBox()"
-  ></app-navbar>
+  <div *ngIf="!this.showChat">
+      <app-navbar
+      id="profile"
+      [user]="user"
+      style="padding-left: 15px"
+      (profileClick)="onProfileClick()"
+      (showConversations)="onShowConversations()"
+      (showChat)="onShowChatBox()"
+    ></app-navbar>
+  </div>
 
   <!-- MINI MID CONTAINER -->
   <div class="gridCol miniMidContainer">

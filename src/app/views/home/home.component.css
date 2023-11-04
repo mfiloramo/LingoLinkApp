@@ -81,6 +81,7 @@ mat-icon {
   #profile {
     position: absolute;
     bottom: 0;
+    left: 0;
   }
 
   .colContainer {
@@ -94,7 +95,7 @@ mat-icon {
   }
 
   .mainContainer {
-    height: 87vh;
-    width: 100vw;
+    height: 97vh;
+    width: 100%;
   }
 }
