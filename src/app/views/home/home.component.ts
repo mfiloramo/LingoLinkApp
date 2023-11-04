@@ -10,9 +10,10 @@ import { AuthService } from "../../services/auth/auth.service";
 export class HomeComponent implements OnInit, OnDestroy {
   @Input() user: any;
   public selectedConversation: any;
-  public showConvos: boolean = false;
+  public showConvos: boolean = true; // Defaulted to true to show conversations on init
   public showChat: boolean = false;
-  public fadeOutConvos: boolean = false;
+  public showModal: boolean = false;
+  public modalAnimationClass: string = '';
   private subscriptions: Subscription = new Subscription();
 
   constructor(private authService: AuthService) {}
@@ -20,8 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.subscriptions.add(
-      this.authService.currentUser$
-        .subscribe((user): void => {
+      this.authService.currentUser$.subscribe(user => {
         this.user = user;
       })
     );
@@ -33,23 +33,36 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /** PUBLIC METHODS */
   public onProfileClick(): void {
-    this.fadeOutConvos = true;
-    setTimeout((): void => {
-      this.showConvos = false;
-      this.fadeOutConvos = false;
-    }, 300);
+    // No need for fadeOutConvos if we are not visually transitioning
+    this.showConvos = false;
   }
 
   public onConversationSelected(conversation: any): void {
     this.selectedConversation = conversation;
-    this.showChat = !this.showChat;
+    this.showChat = true; // Directly setting to true as we know we want to show the chat
+    this.showConvos = false; // Hide conversations when a chat is selected
   }
 
   public onShowConversations(): void {
-    this.showConvos = !this.showConvos;
+    this.showConvos = true;
+    this.showChat = false; // Hide chat when showing conversations
   }
 
   public onShowChatBox(): void {
-    this.showChat = !this.showChat;
+    this.showChat = true;
+  }
+
+  toggleModal() {
+    if (!this.showModal) {
+      // When opening the modal
+      this.showModal = true;
+      this.modalAnimationClass = 'modal-animate-in';
+    } else {
+      // When closing the modal
+      this.modalAnimationClass = 'modal-animate-out';
+      setTimeout(() => {
+        this.showModal = false;
+      }, 400); // Duration of the animation
+    }
   }
 }
