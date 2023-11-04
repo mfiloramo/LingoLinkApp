@@ -1,5 +1,6 @@
 <!-- INPUT CONTAINER -->
 <div class="inputContainer transition-opacity duration-300 ease-in-out">
+
   <!-- LANGUAGE SELECTION -->
   <select class="languageSelect" (change)="onLangSelect($event)">
     <option>English</option>
@@ -9,7 +10,6 @@
     </option>
 
   </select>
-  <!-- END LANGUAGE SELECTION -->
 
   <!-- TEXT INPUT -->
   <input
@@ -20,18 +20,17 @@
     [(ngModel)]="textInput"
     placeholder="Type something to send..."
   >
-  <!-- END TEXT INPUT -->
 
   <!-- SEND MESSAGE BUTTON -->
   <button class="sendMessageButton" (click)="onSendMessage()" style="color: #e8e9ff; float: right">
     <mat-icon>send</mat-icon>
   </button>
-  <!-- END SEND MESSAGE BUTTON -->
+
 </div>
-<!-- END INPUT CONTAINER -->
 
 <!-- CONVERSATION CONTAINER -->
 <div class="conversation-container">
+
   <!-- CONVERSATION LOADER -->
   <div class="messageList" #chatContainer>
     <ng-container *ngFor="let message of mainConvoContainer">
@@ -44,12 +43,10 @@
       <br />
     </ng-container>
   </div>
-  <!-- END CONVERSATION LOADER -->
+
 </div>
-<!-- END CONVERSATION CONTAINER -->
 
 <!-- LOADING ANIMATION -->
 <div *ngIf="isLoading" class="loading-container">
   <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
 </div>
-<!-- END LOADING ANIMATION -->

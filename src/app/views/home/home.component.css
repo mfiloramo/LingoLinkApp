@@ -29,6 +29,10 @@ mat-icon {
   min-height: 100vh;
 }
 
+#profile {
+  position: relative;
+}
+
 .gridCol {
   background: linear-gradient(to top left, #04112d, #061934);
   box-shadow: -10px 0 20px rgba(0, 0, 0, 0.24);
@@ -74,6 +78,11 @@ mat-icon {
 
 /* MOBILE SCREEN MEDIA QUERY RULES */
 @media screen and (max-width: 600px) {
+  #profile {
+    position: absolute;
+    bottom: 0;
+  }
+
   .colContainer {
     flex-direction: column;
     overflow-x: hidden;

@@ -50,7 +50,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('conversationId' in changes) {
-      this.loadConversationByConvoId();
+      this.loadConvMessagesByConvId();
     }
   }
 
@@ -105,7 +105,8 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
     return message;
   }
 
-  public loadConversationByConvoId(): any {
+  public loadConvMessagesByConvId(): any {
+    console.log('loadConversationByConvoId()');
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
       this.isLoading = true;
@@ -119,7 +120,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
           const translationPromises = response.map(async (message: any): Promise<void> => {
             if (message.source_language !== localLangCode && message.textInput) {
-          //     TRANSLATE/STRINGIFY MESSAGE CONTENT
+              // TRANSLATE/STRINGIFY MESSAGE CONTENT
               message.textInput = await this.cacheCheckTranslation(message, localLangCode);
             }
           });
