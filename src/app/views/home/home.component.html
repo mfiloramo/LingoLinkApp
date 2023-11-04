@@ -1,15 +1,17 @@
 <!-- HOME CONTAINER -->
 <div class="colContainer">
+
   <!-- USER PROFILE SIDE-NAVBAR COMPONENT -->
-  <app-navbar
-    id="profile"
-    [user]="user"
-    style="padding-left: 15px"
-    (profileClick)="onProfileClick()"
-    (showConversations)="onShowConversations()"
-    (showChat)="onShowChatBox()"
-  ></app-navbar>
-  <!-- END USER PROFILE SIDE-NAVBAR COMPONENT -->
+  <div *ngIf="!this.showChat">
+      <app-navbar
+      id="profile"
+      [user]="user"
+      style="padding-left: 15px"
+      (profileClick)="onProfileClick()"
+      (showConversations)="onShowConversations()"
+      (showChat)="onShowChatBox()"
+    ></app-navbar>
+  </div>
 
   <!-- MINI MID CONTAINER -->
   <div class="gridCol miniMidContainer">
@@ -21,7 +23,6 @@
       </app-conversations>
     </div>
   </div>
-  <!-- END MINI MID CONTAINER -->
 
   <!-- MAIN CONTAINER -->
   <div class="gridCol mainContainer" *ngIf="showChat">
@@ -34,7 +35,7 @@
         </app-chatbox>
       </div>
     </div>
+
   </div>
-  <!-- END MAIN CONTAINER -->
+
 </div>
-<!-- END HOME CONTAINER -->
