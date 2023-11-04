@@ -22,7 +22,7 @@ mat-icon {
   margin: 5px;
 }
 
-.colContainer {
+.home-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -33,7 +33,7 @@ mat-icon {
   position: relative;
 }
 
-.gridCol {
+.home-section {
   background: linear-gradient(to top left, #04112d, #061934);
   box-shadow: -10px 0 20px rgba(0, 0, 0, 0.24);
   font-size: 16px;
@@ -43,7 +43,7 @@ mat-icon {
   position: relative;
 }
 
-.chatboxWrapper {
+.msg-box-wrapper {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -51,15 +51,15 @@ mat-icon {
   right: 0;
 }
 
-.miniMidContainer {
+.conversations-container {
   width: 30vw;
 }
 
-.mainContainer {
+.msg-box-container {
   width: 70vw;
 }
 
-.mainContainer::before {
+.msg-box-container::before {
   content: "";
   background-image: url("../../../assets/images/chatboxBgLogo.png");
   background-repeat: no-repeat;
@@ -75,6 +75,26 @@ mat-icon {
   transform: scale(0.75);
 }
 
+.conversation-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #001b4f !important;
+  height: 50px;
+}
+
+.conversation-toolbar-edit-btn {
+  margin-left: 5vw;
+  margin-top: 1.3vh;
+  color: white;
+  font-size: 18px;
+}
+
+.conversation-toolbar-compose-btn {
+  color: #c1c9da;
+  margin-right: 5vw;
+}
+
 
 /* MOBILE SCREEN MEDIA QUERY RULES */
 @media screen and (max-width: 600px) {
@@ -84,17 +104,17 @@ mat-icon {
     left: 0;
   }
 
-  .colContainer {
+  .home-container {
     flex-direction: column;
     overflow-x: hidden;
   }
 
-  .miniMidContainer {
+  .conversations-container {
     height: auto;
     width: 100vw;
   }
 
-  .mainContainer {
+  .msg-box-container {
     height: 97vh;
     width: 100%;
   }
