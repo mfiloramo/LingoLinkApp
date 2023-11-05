@@ -24,7 +24,7 @@ mat-icon {
   background: linear-gradient(to top left, #04112d, #061934);
   box-shadow: -10px 0 20px rgba(0, 0, 0, 0.24);
   font-size: 16px;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
@@ -108,7 +108,7 @@ mat-icon {
 
 
 /* MOBILE SCREEN MEDIA QUERY RULES */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   #profile {
     position: absolute;
     bottom: 0;
@@ -121,12 +121,12 @@ mat-icon {
   }
 
   .conversations-container {
-    height: auto;
+    height: 100%;
     width: 100vw;
   }
 
   .msg-box-container {
-    height: 97vh;
+    height: 100vh;
     width: 100%;
   }
 }

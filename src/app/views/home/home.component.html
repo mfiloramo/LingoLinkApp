@@ -24,7 +24,9 @@
     </div>
 
     <!-- NEW CONVERSATION MODAL -->
-    <div *ngIf="showModal" class="new-conversation-modal" (click)="toggleModal()"></div>
+    <div *ngIf="showModal" class="new-conversation-modal" (click)="toggleModal()">
+      <!-- ... -->
+    </div>
 
     <!-- CONVERSATION LIST -->
     <app-conversations
@@ -33,12 +35,14 @@
     </app-conversations>
   </div>
 
-  <!-- MAIN CONTAINER -->
+  <!-- MESSAGE CONTAINER -->
   <div *ngIf="showChat" class="home-section msg-box-container">
     <div class="msg-box-wrapper">
       <app-chatbox
         [conversationId]="selectedConversation?.conversation_id"
-        [user]="user">
+        [user]="user"
+        (conversationDeselected)="onDeselectConversation()"
+      >
       </app-chatbox>
     </div>
   </div>

@@ -1,4 +1,14 @@
-import { Component, ViewChild, ElementRef, Input, OnChanges, AfterViewChecked, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  Input,
+  OnChanges,
+  AfterViewChecked,
+  OnInit,
+  SimpleChanges,
+  Output, EventEmitter
+} from '@angular/core';
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Language } from '../../../interfaces/Language.interfaces';
 import { TranslationService } from '../../services/translation/translation.service';
@@ -9,6 +19,7 @@ import languageArray from '../../../utils/languageMapper';
 import { catchError, switchMap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 import { User } from "../../../interfaces/User.interfaces";
+import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 
 @Component({
@@ -19,6 +30,7 @@ import { User } from "../../../interfaces/User.interfaces";
 export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() user!: User;
   @Input() conversationId!: number;
+  @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
   public source_language: any = { code: 'en' };
@@ -106,7 +118,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   public loadConvMessagesByConvId(): any {
-    console.log('loadConversationByConvoId()');
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
       this.isLoading = true;
@@ -147,6 +158,10 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   public scrollToBottom(): void {
     const element: HTMLInputElement = this.chatContainer.nativeElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  public onDeselectConversation(): void {
+    this.conversationDeselected.emit(null);
   }
 
   /** PRIVATE METHODS */
