@@ -40,8 +40,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public onConversationSelected(conversation: any): void {
     this.selectedConversation = conversation;
-    this.showChat = true; // Directly setting to true as we know we want to show the chat
-    this.showConvos = false; // Hide conversations when a chat is selected
+    this.showChat = true;
+    this.showConvos = false;
   }
 
   public onDeselectConversation(): void {
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public onShowConversations(): void {
     this.showConvos = true;
-    this.showChat = false; // HIDE CHAT WHEN SHOWING CONVERSATIONS
+    this.showChat = false;
   }
 
   public onShowChatBox(): void {

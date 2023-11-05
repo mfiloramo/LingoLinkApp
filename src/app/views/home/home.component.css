@@ -14,7 +14,6 @@ mat-icon {
   flex-direction: row;
   align-items: center;
   min-height: 100vh;
-  overflow-y: hidden;
 }
 
 #profile {
