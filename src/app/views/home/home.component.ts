@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         // SEND FIRST MESSAGE IN THE NEW CONVERSATION
         if (newConversation) {
-          this.selectedConversation = newConversation; // ASSIGN THE NEW CONVERSATION
+          this.selectedConversation = newConversation;
           this.messageService.sendMessage({
             conversationId: newConversation.conversation_id,
             user_id: this.user.user_id,
@@ -111,6 +111,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             timestamp: new Date().toISOString(),
           }).subscribe((response: any): void => {
             this.isInitialMessageSent = true;
+            return response;
           }, (error: any): void => {
             console.error(error);
           });
