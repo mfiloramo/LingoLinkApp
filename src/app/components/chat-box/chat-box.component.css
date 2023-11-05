@@ -63,8 +63,8 @@ body::-webkit-scrollbar {
 
 .input-container {
   background-color: #1f293f;
-  height: auto;
-  position: absolute;
+  height: 8vh;
+  position: fixed;
   width: 100%;
   display: flex;
   align-items: center;
@@ -118,7 +118,7 @@ body::-webkit-scrollbar {
 
 .msg-list {
   padding-top: 50px;
-  padding-bottom: 40px;
+  padding-bottom: 85px;
   position: relative;
   z-index: 1;
 }
