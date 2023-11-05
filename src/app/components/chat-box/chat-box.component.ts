@@ -109,27 +109,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   }
 
-  // DEPRECATED
-  public createConversationWithId(message: ChatMessage): Observable<ChatMessage> {
-    const conversationName: string = `Conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
-
-    // Convert the Promise returned by createConversation to an Observable
-    return new Observable(subscriber => {
-      this.conversationService.createConversation({ 'name': conversationName }).subscribe(
-        (response: any): void => {
-          // Assign the new conversation ID to the message
-          message.conversationId = response.Conversation_id;
-          subscriber.next(message); // Emit the message with updated conversation ID
-          subscriber.complete(); // Close the observable stream
-        },
-        (error: any): void => {
-          subscriber.error(error); // Emit an error if the conversation creation failed
-        }
-      );
-    });
-  }
-
-
   public loadMessagesByConvId(): any {
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
