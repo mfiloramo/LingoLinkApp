@@ -24,8 +24,35 @@
     </div>
 
     <!-- NEW CONVERSATION MODAL -->
-    <div *ngIf="showModal" class="new-conversation-modal" (click)="toggleModal()">
-      <!-- ... -->
+    <div *ngIf="showModal" class="new-conversation-modal">
+
+      <!-- MODAL TITLE -->
+      <div class="flex justify-around pt-4 pb-2">
+        <h1 class="text-gray-300 text-2xl font-serif">New Conversation</h1>
+      </div>
+
+      <!-- FORM CONTAINER -->
+      <div class="px-4">
+        <form [formGroup]="newConversationForm" (ngSubmit)="onNewConversationFormSubmit(newConversationForm.get('recipientEmail')?.value, newConversationForm.get('conversationName')?.value)">
+
+          <!-- RECIPIENT EMAIL FIELD -->
+          <div class="mb-3">
+            <label class="block text-amber-800 text-sm font-bold mb-2" for="recipientEmail">Recipient Email</label>
+            <input class="font-black" id="recipientEmail" type="text" formControlName="recipientEmail" required>
+          </div>
+
+          <!-- CONVERSATION NAME FIELD -->
+          <div class="mb-3">
+            <label class="block text-amber-800 text-sm font-bold mb-2" for="conversationName">Conversation Name</label>
+            <input class="font-black" id="conversationName" type="text" formControlName="conversationName" required>
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+          <a><button class="bn632-hover bn26" type="submit" [disabled]="newConversationForm.invalid">Submit</button></a>
+
+        </form>
+      </div>
+
     </div>
 
     <!-- CONVERSATION LIST -->
@@ -41,7 +68,8 @@
       <app-chatbox
         [conversationId]="selectedConversation?.conversation_id"
         [user]="user"
-        (conversationDeselected)="onDeselectConversation()"
+        (conversationDeselected)="onConversationDeselected()"
+        (newMessage)="onNewConversationMsgSubmit($event)"
       >
       </app-chatbox>
     </div>
