@@ -9,10 +9,11 @@ import { LoginComponent } from "./views/login/login.component";
 import { RegistrationComponent } from "./views/registration/registration.component";
 import { AuthGuard } from "./guards/auth/auth.guard";
 
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { animation: 'home' },
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       {
         path: '',

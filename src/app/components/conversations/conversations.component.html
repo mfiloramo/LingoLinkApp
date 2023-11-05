@@ -2,43 +2,31 @@
 <div *ngIf="isLoading" class="loading-container">
   <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
 </div>
-<!-- END LOADING ANIMATION -->
-
-<!-- BACK ARROW BUTTON -->
-<div *ngIf="selectedConversation">
-  <div (click)="deselectConversation()">
-    <mat-icon class="back-arrow">arrow_back</mat-icon>
-    <span style="color: white;">Back to Conversations</span>
-  </div>
-</div>
-<!-- END BACK ARROW BUTTON -->
 
 <!-- CONVERSATIONS LIST -->
 <div *ngIf="!selectedConversation">
   <div *ngFor="let conversation of conversations">
-
-    <div class="convoItem" *ngIf="checkConvoVisibility(conversation)" (click)="onSelectConversation(conversation)">
+    <div class="conversation-item" *ngIf="checkConvoVisibility(conversation)" (click)="onSelectConversation(conversation)">
       <div class="circle" [style.background-image]="'url(' + conversation.profileImageSrc + ')'"></div>
-      <div class="nameAndMessage">
+      <div class="name-and-msg">
         <div class="name">{{ conversation.StarterUsername }}</div>
         <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
       </div>
 
       <!-- NOTIFICATION BELL -->
-      <div class="notificationAndTimestamp">
-        <mat-icon class="notificationIcon">notifications</mat-icon>
+      <div class="notification-and-timestamp">
+        <mat-icon class="notification-icon">notifications</mat-icon>
         <div class="timestamp">{{ convertIsoString(conversation.latest_timestamp) }}</div>
       </div>
 
       <!-- DELETE CONVERSATION BUTTON -->
-      <div class="deleteConversation">
+      <div class="delete-conversation">
         <div (click)="removeConversation(user, conversation)">
-          <mat-icon class="notificationIcon">close</mat-icon>
+          <mat-icon class="notification-icon">close</mat-icon>
         </div>
       </div>
 
     </div>
-<!-- END CONVERSATIONS LIST -->
 
   </div>
 </div>

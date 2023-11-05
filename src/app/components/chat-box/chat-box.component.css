@@ -6,31 +6,31 @@ body::-webkit-scrollbar {
   width: 0 !important;
 }
 
-.userMessage,
-.otherMessage {
+.msg-sent,
+.msg-received {
   display: flex;
   align-items: center;
   padding: 0 10px;
   animation: fadeIn 0.5s;
 }
 
-.userMessage {
+.msg-sent {
   justify-content: flex-end;
 }
 
-.otherMessage {
+.msg-received {
   justify-content: flex-start;
 }
 
-.languageSelect:focus,
-.textInput:focus {
+.lang-select:focus,
+.text-input:focus {
   outline: none;
   border-color: #63a0ff;
   box-shadow: 0 0 3px rgba(99, 160, 255, 0.5);
 }
 
-.userMessage .messageText,
-.otherMessage .messageText {
+.msg-sent .msg-text,
+.msg-received .msg-text {
   color: white;
   display: flex;
   align-items: center;
@@ -47,24 +47,24 @@ body::-webkit-scrollbar {
   font-family: 'Roboto', sans-serif;
 }
 
-.userMessage .messageText {
+.msg-sent .msg-text {
   background: #284a86;
   justify-content: flex-end;
 }
 
-.otherMessage .messageText {
+.msg-received .msg-text {
   background: #5e6179;
   justify-content: flex-start;
 }
 
-.inputContainer {
+.input-container {
   background-color: #1f293f;
-  height: 50px;
+  height: auto;
   position: absolute;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 10px 10px;
   bottom: 0;
   z-index: 3;
   animation: fadeIn 0.5s;
@@ -75,17 +75,17 @@ body::-webkit-scrollbar {
     opacity: .5;
   }
 }
-.sendMessageButton:hover {
+.send-msg-btn:hover {
   animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.textInput,
-.sendMessageButton {
+.text-input,
+.send-msg-btn {
   border-radius: 10px;
   height: 80%;
 }
 
-.languageSelect {
+.lang-select {
   background-color: #989aad;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
   border-radius: 10px;
@@ -93,7 +93,7 @@ body::-webkit-scrollbar {
   height: 35px
 }
 
-.textInput {
+.text-input {
   background-color: #989aad;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
   height: 35px;
@@ -103,35 +103,57 @@ body::-webkit-scrollbar {
   padding-left: 10px;
 }
 
-.textInput::placeholder {
+.text-input::placeholder {
   color: #565869;
 }
 
-.sendMessageButton {
+.send-msg-btn {
   margin-left: 10px;
   width: 7vw;
 }
 
-.messageList {
+.msg-list {
   padding: 10px;
   position: relative;
   z-index: 1;
 }
 
-.conversation-container {
+.msg-container {
   position: relative;
   height: calc(100% - 35px);
   width: 100%;
   overflow-y: auto;
 }
 
-.conversation-container::-webkit-scrollbar {
+.msg-container::-webkit-scrollbar {
   width: 0 !important;
 }
 
-.conversation-container {
+.msg-container {
   scrollbar-width: none;
 }
+
+.back-arrow-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(to top, #001641, #071a46) !important;
+  padding: 10px;
+}
+
+.back-arrow {
+  vertical-align: middle;
+  cursor: pointer;
+  color: #dae3ff;
+  margin-right: 15px;
+}
+
+.msg-container {
+  padding-top: 50px;
+}
+
 
 .loading-container {
   display: flex;
@@ -218,13 +240,13 @@ body::-webkit-scrollbar {
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 600px) {
-  .languageSelect {
+@media screen and (max-width: 768px) {
+  .lang-select {
     width: 100px;
   }
 
-  .userMessage .messageText,
-  .otherMessage .messageText {
+  .msg-sent .msg-text,
+  .msg-received .msg-text {
     min-width: 180px;
     max-width: 220px;
   }

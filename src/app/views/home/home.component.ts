@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs";
 import { AuthService } from "../../services/auth/auth.service";
+import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ import { AuthService } from "../../services/auth/auth.service";
 export class HomeComponent implements OnInit, OnDestroy {
   @Input() user: any;
   public selectedConversation: any;
-  public showConvos: boolean = true; // Defaulted to true to show conversations on init
+  // SET DEFAULT VIEW BY CHANGING ANY ONE SLICE OF STATE TO TRUE FOR show-- PROPS
+  public showConvos: boolean = true;
   public showChat: boolean = false;
   public showModal: boolean = false;
   public modalAnimationClass: string = '';
@@ -33,7 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /** PUBLIC METHODS */
   public onProfileClick(): void {
-    // No need for fadeOutConvos if we are not visually transitioning
     this.showConvos = false;
   }
 
@@ -43,26 +44,33 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.showConvos = false; // Hide conversations when a chat is selected
   }
 
+  public onDeselectConversation(): void {
+    this.selectedConversation = null;
+    this.showChat = false;
+    this.showConvos = true;
+  }
+
   public onShowConversations(): void {
     this.showConvos = true;
-    this.showChat = false; // Hide chat when showing conversations
+    this.showChat = false; // HIDE CHAT WHEN SHOWING CONVERSATIONS
   }
 
   public onShowChatBox(): void {
     this.showChat = true;
+    this.showConvos = false;
   }
 
-  toggleModal() {
+  public toggleModal(): void {
     if (!this.showModal) {
-      // When opening the modal
+      // WHEN OPENING THE MODAL
       this.showModal = true;
       this.modalAnimationClass = 'modal-animate-in';
     } else {
-      // When closing the modal
+      // WHEN CLOSING THE MODAL
       this.modalAnimationClass = 'modal-animate-out';
       setTimeout(() => {
         this.showModal = false;
-      }, 400); // Duration of the animation
+      }, 400); // DURATION OF ANIMATION
     }
   }
 }
