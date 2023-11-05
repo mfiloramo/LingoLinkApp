@@ -34,8 +34,8 @@ body::-webkit-scrollbar {
   color: white;
   display: flex;
   align-items: center;
-  padding: 15px 15px;
-  min-height: 65px;
+  padding: 10px 15px;
+  min-height: 45px;
   min-width: 275px;
   max-width: 370px;
   margin: 0 5px;
@@ -55,6 +55,10 @@ body::-webkit-scrollbar {
 .msg-received .msg-text {
   background: #5e6179;
   justify-content: flex-start;
+}
+
+.msg-sent .msg-received {
+  margin-bottom: 5px !important;
 }
 
 .input-container {
@@ -113,7 +117,8 @@ body::-webkit-scrollbar {
 }
 
 .msg-list {
-  padding: 10px;
+  padding-top: 50px;
+  padding-bottom: 40px;
   position: relative;
   z-index: 1;
 }
@@ -123,14 +128,11 @@ body::-webkit-scrollbar {
   height: calc(100% - 35px);
   width: 100%;
   overflow-y: auto;
+  padding-top: 5px;
 }
 
 .msg-container::-webkit-scrollbar {
   width: 0 !important;
-}
-
-.msg-container {
-  scrollbar-width: none;
 }
 
 .back-arrow-wrapper {
@@ -150,11 +152,6 @@ body::-webkit-scrollbar {
   margin-right: 15px;
 }
 
-.msg-container {
-  padding-top: 50px;
-}
-
-
 .loading-container {
   display: flex;
   justify-content: center;
@@ -167,7 +164,6 @@ body::-webkit-scrollbar {
   transform: translate(-50%, -50%);
   z-index: 5;
 }
-
 
 /* ANIMATIONS */
 @keyframes fadeIn {

@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <!-- CONVERSATION LOADER -->
+  <!-- MESSAGE LIST -->
   <div class="msg-list" #chatContainer>
     <ng-container *ngFor="let message of mainConvoContainer">
       <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.user_id == this.user.user_id, 'msg-received transition-opacity duration-300 ease-in-out': message.user_id != this.user.user_id}">
@@ -46,8 +46,6 @@
         <div class="msg-text">{{ message.textInput }}</div>
         <mat-icon *ngIf="message.user_id == this.user.user_id">person</mat-icon>
       </div>
-      <br />
-      <br />
     </ng-container>
   </div>
 
