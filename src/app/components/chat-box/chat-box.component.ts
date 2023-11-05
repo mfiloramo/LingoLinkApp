@@ -32,6 +32,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() conversationId!: number;
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
   @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
+  @Output() newConversation: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
   public source_language: any = { code: 'en' };
@@ -85,15 +86,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       this.messageService.sendMessage(message).pipe(
         switchMap((response: any) => {
           this.webSocketService.send(message);
-          if (!this.conversationId) {
-            // If conversation ID is not set, create it
-            return this.createConversationWithId(message).pipe(
-              tap((createdConversation: any): void => {
-                this.conversationId = createdConversation.Conversation_id;
-                message.conversationId = this.conversationId;
-              })
-            );
-          }
           return of(response);
         }),
         catchError((error) => {
@@ -102,7 +94,9 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
         })
       ).subscribe((response: any): void => {
         if (response && !response.error) {
+          console.log(response);
           this.mainConvoContainer.push(message);
+          console.log(this.mainConvoContainer)
           this.textInput = '';
         } else {
           console.log('Error');
@@ -111,6 +105,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
     } else {
       // CREATE NEW CONVERSATION WITH CONVERSATION/MESSAGE INPUT
       this.newMessage.emit(this.textInput);
+      this.newConversation.emit();
     }
 
   }

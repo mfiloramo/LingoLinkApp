@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public modalAnimationClass: string = '';
   public newConversationForm!: FormGroup;
   public newConversationCache!: any;
+  public isInitialMessageSent: boolean = false;
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -30,7 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private conversationService: ConversationService,
     private messageService: MessageService,
     private snackBar: MatSnackBar,
-    private router: Router
   ) {}
 
   /** LIFECYCLE HOOKS */
@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.user = user;
       })
     );
+    this.resetInitialMessageFlag();
   }
 
   ngOnDestroy(): void {
@@ -80,15 +81,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     // SWITCH VIEWS TO CHAT-BOX
+    // await this.router.navigate(['/chat'])
     this.onShowChatBox();
     this.toggleModal();
-    // await this.router.navigate(['/chat']);
     return;
   }
 
-  public async onNewConversationMsgSubmit(stubMessage: string): Promise<void> {
+  public async onNewConversationMsgSubmit(messageToSend: string): Promise<void> {
+    if (this.isInitialMessageSent) return;
+
     // Check if a new conversation needs to be started
-    if (this.newConversationCache && stubMessage) {
+    if (this.newConversationCache && messageToSend) {
       try {
         // First, create a conversation
         let newConversation = await this.conversationService.createConversation({
@@ -106,19 +109,24 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.messageService.sendMessage({
             conversationId: newConversation.NewConversationId,
             user_id: this.user.user_id,
-            textInput: 'testing',
+            textInput: messageToSend,
             source_language: 'en',
             timestamp: new Date().toISOString(),
           }).subscribe((response: any): void => {
-            console.log('Message sent to the newly created conversation', response);
-          }, error => {
-            console.error('Failed to send message to the new conversation', error);
+            this.isInitialMessageSent = true;
+            console.log(response);
+          }, (error: any): void => {
+            console.error(error);
           });
         }
       } catch (error: any) {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       }
     }
+  }
+
+  public resetInitialMessageFlag(): void {
+    this.isInitialMessageSent = false;
   }
 
   public toggleModal(): void {
@@ -130,7 +138,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     } else {
       // WHEN CLOSING THE MODAL
       this.modalAnimationClass = 'modal-animate-out';
-      this.newConversationForm.reset();
+      // this.newConversationForm.reset();
       setTimeout((): void => {
         this.showModal = false;
       }, 400); // DURATION OF ANIMATION

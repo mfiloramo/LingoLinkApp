@@ -70,6 +70,7 @@
         [user]="user"
         (conversationDeselected)="onConversationDeselected()"
         (newMessage)="onNewConversationMsgSubmit($event)"
+        (newConversation)="resetInitialMessageFlag()"
       >
       </app-chatbox>
     </div>
