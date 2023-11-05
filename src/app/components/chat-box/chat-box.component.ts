@@ -29,7 +29,7 @@ import { Conversation } from "../../../interfaces/Conversation.interfaces";
 })
 export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() user!: User;
-  @Input() conversationId!: number;
+  @Input() conversationId: number = 1;
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
   @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
   @Output() newConversation: EventEmitter<any> = new EventEmitter<any>();
@@ -55,7 +55,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    this.connectWebSocket()
+    this.connectWebSocket();
   }
 
   ngAfterViewChecked(): void {
@@ -94,9 +94,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
         })
       ).subscribe((response: any): void => {
         if (response && !response.error) {
-          console.log(response);
           this.mainConvoContainer.push(message);
-          console.log(this.mainConvoContainer)
           this.textInput = '';
         } else {
           console.log('Error');
@@ -104,12 +102,14 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       });
     } else {
       // CREATE NEW CONVERSATION WITH CONVERSATION/MESSAGE INPUT
-      this.newMessage.emit(this.textInput);
       this.newConversation.emit();
+      this.newMessage.emit(this.textInput);
+      this.textInput = '';
     }
 
   }
 
+  // DEPRECATED
   public createConversationWithId(message: ChatMessage): Observable<ChatMessage> {
     const conversationName: string = `Conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
 
