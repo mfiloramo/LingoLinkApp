@@ -16,7 +16,7 @@ import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { ConversationService } from '../../services/conversation/conversation.service';
 import { MessageService } from '../../services/message/message.service';
 import languageArray from '../../../utils/languageMapper';
-import { catchError, switchMap } from "rxjs/operators";
+import { catchError, switchMap, tap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 import { User } from "../../../interfaces/User.interfaces";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
@@ -31,6 +31,7 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() user!: User;
   @Input() conversationId!: number;
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
+  @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
   public source_language: any = { code: 'en' };
@@ -62,13 +63,12 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('conversationId' in changes) {
-      this.loadConvMessagesByConvId();
+      this.loadMessagesByConvId();
     }
   }
 
   /** PUBLIC METHODS */
-  public async onSendMessage(): Promise<void> {
-    // DEFAULT MESSAGE SEND BEHAVIOR
+  public onSendMessage(): void {
     if (!this.textInput.trim()) return;
     this.playClickSound();
 
@@ -80,44 +80,62 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       source_language: this.source_language,
     });
 
-    // HANDLE/SEND MESSAGE WITHIN APPLICATION
-    this.messageService.sendMessage(message).pipe(
-      switchMap((response: any): Promise<void> | Observable<void> => {
-        this.webSocketService.send(message);
-        if (!this.conversationId) {
-          return this.createConversationWithId(message);
+    if (this.conversationId) {
+      // SEND MESSAGE TO EXISTING CONVERSATION
+      this.messageService.sendMessage(message).pipe(
+        switchMap((response: any) => {
+          this.webSocketService.send(message);
+          if (!this.conversationId) {
+            // If conversation ID is not set, create it
+            return this.createConversationWithId(message).pipe(
+              tap((createdConversation: any): void => {
+                this.conversationId = createdConversation.Conversation_id;
+                message.conversationId = this.conversationId;
+              })
+            );
+          }
+          return of(response);
+        }),
+        catchError((error) => {
+          console.error('Failed to send message:', error);
+          return of({ error: true });
+        })
+      ).subscribe((response: any): void => {
+        if (response && !response.error) {
+          this.mainConvoContainer.push(message);
+          this.textInput = '';
+        } else {
+          console.log('Error');
         }
-        return of(response);
-      }),
-      catchError((error) => {
-        console.error('Failed to send message:', error);
-        return of(null);
-      })
-    ).subscribe((response: void | null): void => {
-      if (response) {
-        this.mainConvoContainer.push(message);
-        this.textInput = '';
-      }
+      });
+    } else {
+      // CREATE NEW CONVERSATION WITH CONVERSATION/MESSAGE INPUT
+      this.newMessage.emit(this.textInput);
+    }
+
+  }
+
+  public createConversationWithId(message: ChatMessage): Observable<ChatMessage> {
+    const conversationName: string = `Conversation ${String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10)}`;
+
+    // Convert the Promise returned by createConversation to an Observable
+    return new Observable(subscriber => {
+      this.conversationService.createConversation({ 'name': conversationName }).subscribe(
+        (response: any): void => {
+          // Assign the new conversation ID to the message
+          message.conversationId = response.Conversation_id;
+          subscriber.next(message); // Emit the message with updated conversation ID
+          subscriber.complete(); // Close the observable stream
+        },
+        (error: any): void => {
+          subscriber.error(error); // Emit an error if the conversation creation failed
+        }
+      );
     });
   }
 
-  public async createConversationWithId(message: ChatMessage): Promise<any> {
-    // STUB: GENERATE RANDOM CONVERSATION NAME
-    const conversationName: string = `Conversation ${ String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 10) }`;
 
-    try {
-      // TODO: CALL THE NEW STORED PROCEDURE WITH INPUTS
-      const response: any = await this.conversationService.createConversation({ 'name': conversationName });
-      // ASSIGN CONVERSATION ID (TABLE IDENTITY) RESPONSE
-      message.conversationId = response.Conversation_id;
-    } catch (error: any) {
-      console.log('Failed to create new conversation:', error);
-    }
-
-    return message;
-  }
-
-  public loadConvMessagesByConvId(): any {
+  public loadMessagesByConvId(): any {
     // CHECK IF CONVERSATION ID EXISTS
     if (this.conversationId) {
       this.isLoading = true;

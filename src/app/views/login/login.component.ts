@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    this.buildForm();
+    this.buildLoginForm();
   }
 
   /** PUBLIC METHODS */
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   /** PRIVATE METHODS */
-  private buildForm(): void {
+  private buildLoginForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
