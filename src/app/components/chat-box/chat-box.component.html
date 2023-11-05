@@ -26,11 +26,6 @@
     <mat-icon>send</mat-icon>
   </button>
 
-  <!-- BACK BUTTON -->
-  <button class="send-msg-btn" (click)="onDeselectConversation()" style="color: #e8e9ff; float: right">
-    <mat-icon>person</mat-icon>
-  </button>
-
 </div>
 
 <!-- MESSAGE CONTAINER -->
@@ -38,11 +33,10 @@
 
   <!-- BACK ARROW BUTTON -->
   <div class="back-arrow-wrapper">
-    <div *ngIf="mainConvoContainer.length > 0" (click)="onDeselectConversation()">
-      <mat-icon class="back-arrow">arrow_back</mat-icon>
+    <div *ngIf="mainConvoContainer.length > 0">
+      <mat-icon class="back-arrow" (click)="onDeselectConversation()">arrow_back</mat-icon>
     </div>
   </div>
-
 
   <!-- CONVERSATION LOADER -->
   <div class="msg-list" #chatContainer>
