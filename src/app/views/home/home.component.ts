@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from "rxjs";
 import { AuthService } from "../../services/auth/auth.service";
@@ -14,7 +14,7 @@ import { Router } from "@angular/router";
 })
 export class HomeComponent implements OnInit, OnDestroy {
   @Input() user: any;
-  public selectedConversation: any;
+  @Output() public selectedConversation: any;
   // SET DEFAULT VIEW BY CHANGING ANY ONE SLICE OF STATE TO TRUE FOR show-- PROPS
   public showConvos: boolean = true;
   public showChat: boolean = false;
@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.user = user;
       })
     );
-    this.resetInitialMessageFlag();
   }
 
   ngOnDestroy(): void {
@@ -81,17 +80,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     // SWITCH VIEWS TO CHAT-BOX
-    // await this.router.navigate(['/chat'])
     this.onShowChatBox();
     this.toggleModal();
-    return;
   }
 
   public async onNewConversationMsgSubmit(messageToSend: string): Promise<void> {
     if (this.isInitialMessageSent) return;
 
-    // Check if a new conversation needs to be started
-    if (this.newConversationCache && messageToSend) {
+    // CHECK IF A CONVERSATION NEEDS TO BE STARTED
+    if (this.newConversationCache && messageToSend && !this.isInitialMessageSent) {
       try {
         // First, create a conversation
         let newConversation = await this.conversationService.createConversation({
@@ -102,19 +99,18 @@ export class HomeComponent implements OnInit, OnDestroy {
           timestamp: new Date().toISOString()
         }).toPromise();
 
-        // Now that the conversation is created, send the first message
+
+        // SEND FIRST MESSAGE IN THE NEW CONVERSATION
         if (newConversation) {
-          this.selectedConversation = newConversation.newConversationId; // Assign the new conversation
-          // this.selectedConversation = { conversation_id: newConversation }; // IF CONVERSATION TYPE IS NEEDED
+          this.selectedConversation = newConversation; // ASSIGN THE NEW CONVERSATION
           this.messageService.sendMessage({
-            conversationId: newConversation.NewConversationId,
+            conversationId: newConversation.conversation_id,
             user_id: this.user.user_id,
             textInput: messageToSend,
             source_language: 'en',
             timestamp: new Date().toISOString(),
           }).subscribe((response: any): void => {
             this.isInitialMessageSent = true;
-            console.log(response);
           }, (error: any): void => {
             console.error(error);
           });
