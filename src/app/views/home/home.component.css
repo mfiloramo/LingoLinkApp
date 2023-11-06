@@ -63,12 +63,17 @@ mat-icon {
 }
 
 .conversation-toolbar {
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background: linear-gradient(to top, #001641, #071a46) !important;
   height: 50px;
   overflow-y: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
 }
 
 .conversation-toolbar-edit-btn {
@@ -123,6 +128,7 @@ mat-icon {
   .conversations-container {
     height: 100%;
     width: 100vw;
+    padding-top: 50px;
   }
 
   .msg-box-container {
