@@ -117,7 +117,7 @@ body::-webkit-scrollbar {
 }
 
 .msg-list {
-  padding-top: 50px;
+  padding-top: 65px;
   padding-bottom: 85px;
   position: relative;
   z-index: 1;
@@ -142,14 +142,16 @@ body::-webkit-scrollbar {
   width: 100%;
   z-index: 10;
   background: linear-gradient(to top, #001641, #071a46) !important;
-  padding: 10px;
+  padding: 5px;
+  height: 50px;
 }
 
 .back-arrow {
   vertical-align: middle;
   cursor: pointer;
   color: #dae3ff;
-  margin-right: 15px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 .loading-container {
