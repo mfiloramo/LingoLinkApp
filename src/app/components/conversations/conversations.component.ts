@@ -28,6 +28,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
+    window.scrollTo(0,0);
     this.loadConversations();
   }
 

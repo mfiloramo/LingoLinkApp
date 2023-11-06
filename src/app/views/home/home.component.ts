@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     // CHECK IF A CONVERSATION NEEDS TO BE STARTED
     if (this.newConversationCache && messageToSend && !this.isInitialMessageSent) {
       try {
-        // First, create a conversation
+        // CREATE THE NEW CONVERSATION
         let newConversation = await this.conversationService.createConversation({
           recipientEmail: this.newConversationCache.recipientEmail,
           conversationName: this.newConversationCache.conversationName,
@@ -98,7 +98,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           senderUserId: this.user.user_id,
           timestamp: new Date().toISOString()
         }).toPromise();
-
 
         // SEND FIRST MESSAGE IN THE NEW CONVERSATION
         if (newConversation) {
