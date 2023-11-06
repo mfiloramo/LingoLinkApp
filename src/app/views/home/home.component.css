@@ -71,7 +71,7 @@ mat-icon {
   background: linear-gradient(to top, #001641, #071a46) !important;
   height: 50px;
   overflow-y: hidden;
-  position: absolute;
+  position: fixed;
   width: 100%;
   z-index: 10;
 }
@@ -129,6 +129,7 @@ mat-icon {
     height: 100%;
     width: 100vw;
     padding-top: 50px;
+    overflow-y: auto;
   }
 
   .msg-box-container {
