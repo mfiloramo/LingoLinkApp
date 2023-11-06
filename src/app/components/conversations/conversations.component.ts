@@ -47,8 +47,8 @@ export class ConversationsComponent implements OnInit, OnDestroy {
           // STUB: ASSIGN RANDOMLY GENERATED PROFILE PIC TO EACH CONVERSATION
           for (const conversation of conversations) {
             try {
-              const pic: any = await this.http.get('https://randomuser.me/api/').toPromise();
-              conversation.profileImageSrc = pic.results[0].picture.large;
+              // STUB: RANDOMLY FETCH PRE-GENERATED PROFILE PHOTOS
+              conversation.profileImageSrc = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? "men" : "women" }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
             } catch (error) {
               console.error('Error loading profile image:', error);
               conversation.profileImageSrc = 'default_image_url'; // STUB

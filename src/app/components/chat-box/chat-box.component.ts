@@ -106,7 +106,6 @@ export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
       this.newMessage.emit(this.textInput);
       this.textInput = '';
     }
-
   }
 
   public loadMessagesByConvId(): any {
