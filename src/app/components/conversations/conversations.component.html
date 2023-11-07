@@ -6,7 +6,7 @@
 <!-- CONVERSATIONS LIST -->
 <div *ngIf="!selectedConversation">
   <div *ngFor="let conversation of conversations">
-    <div class="conversation-item" *ngIf="checkConvoVisibility(conversation)" (click)="onSelectConversation(conversation)">
+    <div class="conversation-item" *ngIf="checkConversationVisibility(conversation)" (click)="onSelectConversation(conversation)">
       <div class="circle" [style.background-image]="'url(' + conversation.profileImageSrc + ')'"></div>
       <div class="name-and-msg">
         <div class="name">{{ conversation.StarterUsername }}</div>

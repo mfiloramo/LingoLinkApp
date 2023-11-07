@@ -48,7 +48,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
           for (const conversation of conversations) {
             try {
               // STUB: RANDOMLY FETCH PRE-GENERATED PROFILE PHOTOS
-              conversation.profileImageSrc = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? "men" : "women" }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
+              conversation.profileImageSrc = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
             } catch (error) {
               console.error('Error loading profile image:', error);
               conversation.profileImageSrc = 'default_image_url'; // STUB
@@ -69,12 +69,8 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     this.selectedConversation = conversation;
   }
 
-  public deselectConversation(): void {
-    this.conversationSelected.emit(null);
-    this.selectedConversation = null;
-  }
-
-  public checkConvoVisibility(conversation: Conversation): boolean {
+  // TODO: RE-ENABLE CACHING MECHANISM
+  public checkConversationVisibility(conversation: Conversation): boolean {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
