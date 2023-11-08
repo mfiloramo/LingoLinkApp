@@ -107,7 +107,6 @@ mat-icon {
   height: 90vh;
   background: linear-gradient(to bottom, #22458c, #071a46) !important;
   color: #000000;
-  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;

@@ -80,13 +80,13 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     // return true;
   }
 
-  public async removeConversation(userId: User, conversation: Conversation): Promise<any> {
+  public async removeConversation(user: User, conversation: Conversation): Promise<any> {
     // MARK CONVERSATION AS DISABLED (INVISIBLE) IN LOCAL CACHE
     const conversationKey: string = this.convertToConvoKey(conversation.name);
     localStorage.setItem(conversationKey, 'disabled');
 
     // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
-    await this.conversationService.deleteConversation(userId.user_id, conversation)
+    await this.conversationService.deleteConversation(user.user_id, conversation)
       .subscribe((response: any): void => response);
   }
 
