@@ -98,13 +98,15 @@ mat-icon {
 }
 
 .new-conversation-modal {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: -100%;
   left: 0;
   width: 100vw;
   height: 90vh;
   background: linear-gradient(to bottom, #22458c, #071a46) !important;
-  color: white;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;

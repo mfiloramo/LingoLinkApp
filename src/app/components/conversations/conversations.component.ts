@@ -74,10 +74,10 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
-    // return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
+    return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
 
     // DEBUG: INVOKING this.convertToConvokey(conversation.name) CAUSES CONVERSATIONS TO NOT APPEAR ON THE DOM
-    return true;
+    // return true;
   }
 
   public async removeConversation(userId: User, conversation: Conversation): Promise<any> {

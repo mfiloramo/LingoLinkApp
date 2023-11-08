@@ -5,7 +5,7 @@ import { AuthService } from "../../services/auth/auth.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
 import { MessageService } from "../../services/message/message.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
+import ShortUniqueId from "short-unique-id";
 
 @Component({
   selector: 'app-home',
@@ -73,11 +73,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.showConvos = false;
   }
 
-  public async onNewConversationFormSubmit(recipientEmail: string, conversationName: string): Promise<void> {
+  public async onNewConversationFormSubmit(recipientEmail: string): Promise<void> {
+    // GENERATE NEW CONVERSATION GUID
+    const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
+
     // CACHE CONVERSATION DATA
-    if (recipientEmail && conversationName) {
-      this.newConversationCache = { recipientEmail, conversationName };
-    }
+    if (recipientEmail) this.newConversationCache = { recipientEmail, conversationName };
 
     // SWITCH VIEWS TO CHAT-BOX
     this.onShowChatBox();
@@ -94,7 +95,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         let newConversation = await this.conversationService.createConversation({
           recipientEmail: this.newConversationCache.recipientEmail,
           conversationName: this.newConversationCache.conversationName,
-          sourceLanguage: 'en',
+          sourceLanguage: 'en', // STUB: REPLACE WITH USER-CONFIGURED LANGUAGE
           senderUserId: this.user.user_id,
           timestamp: new Date().toISOString()
         }).toPromise();
