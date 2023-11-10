@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./views/home/home.component";
-import { ChatBoxComponent } from "./components/chat-box/chat-box.component";
+import { MessageBoxComponent } from "./components/message-box/message-box.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
 import { PageNotFoundComponent } from "./views/page-not-found/page-not-found.component";
@@ -13,7 +13,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home', // '/login' FOR PROD
+    redirectTo: '/login', // '/login' FOR PROD
     pathMatch: 'full'
   },
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { animation: 'home' },
-    // canActivate: [AuthGuard], // RE-ENABLE FOR PROD
+    canActivate: [ AuthGuard ], // RE-ENABLE FOR PROD
     children: [
       {
         path: '',
@@ -36,19 +36,16 @@ const routes: Routes = [
         path: 'profile',
         component: NavbarComponent,
         data: { animation: 'profile' },
-        canActivate: [],
       },
       {
         path: 'conversations',
         component: ConversationsComponent,
         data: { animation: 'conversations' },
-        canActivate: [],
       },
       {
         path: 'chat',
-        component: ChatBoxComponent,
+        component: MessageBoxComponent,
         data: { animation: 'chat' },
-        canActivate: [],
       }
     ]
   },
@@ -65,7 +62,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
 export class AppRoutingModule { }

@@ -59,7 +59,6 @@ export class AuthService {
       );
   }
 
-
   public async register(user: any): Promise<any> {
     try {
       return this.http.post<any>('/register', user)
