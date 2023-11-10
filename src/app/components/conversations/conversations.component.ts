@@ -69,15 +69,11 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     this.selectedConversation = conversation;
   }
 
-  // TODO: RE-ENABLE CACHING MECHANISM
   public checkConversationVisibility(conversation: Conversation): boolean {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
     const conversationKey: string = this.convertToConvoKey(conversation.name);
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
     return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
-
-    // DEBUG: INVOKING this.convertToConvokey(conversation.name) CAUSES CONVERSATIONS TO NOT APPEAR ON THE DOM
-    // return true;
   }
 
   public async removeConversation(user: User, conversation: Conversation): Promise<any> {

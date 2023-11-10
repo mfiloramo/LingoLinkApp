@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ChatBoxComponent } from './components/chat-box/chat-box.component';
+import { MessageBoxComponent } from './components/message-box/message-box.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -35,7 +35,7 @@ const protectedResourceMap: any = environment.production
 @NgModule({
     declarations: [
         AppComponent,
-        ChatBoxComponent,
+        MessageBoxComponent,
         NavbarComponent,
         HomeComponent,
         ConversationsComponent,

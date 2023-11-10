@@ -19,15 +19,14 @@ import languageArray from '../../../utils/languageMapper';
 import { catchError, switchMap, tap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 import { User } from "../../../interfaces/User.interfaces";
-import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 
 @Component({
   selector: 'app-chatbox',
-  templateUrl: './chat-box.component.html',
-  styleUrls: ['./chat-box.component.css'],
+  templateUrl: './message-box.component.html',
+  styleUrls: ['./message-box.component.css'],
 })
-export class ChatBoxComponent implements OnInit, OnChanges, AfterViewChecked {
+export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() user!: User;
   @Input() conversationId: number = 1;
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
