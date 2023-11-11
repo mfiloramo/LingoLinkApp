@@ -2,38 +2,47 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from "../../services/auth/auth.service";
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.css', '../login/login.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  registrationForm: FormGroup<any> = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email])
-  });
+  public registrationForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder,
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.buildRegistrationForm();
+  }
 
   /** PUBLIC METHODS */
+  public buildRegistrationForm(): void {
+    this.registrationForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
+    })
+  }
+
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
-    this.authService.register(user)
-      .then(() => this.router.navigate([ '/home' ]),
-        (error: any): void => {
-          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-        })
+    console.log(user); // STUB
+    // THIS WILL PING A BACKEND SERVICE THAT WILL NOTIFY ADMIN OF NEW REG ATTEMPT
+  //   this.authService.register(user)
+  //     .then(() => this.router.navigate([ '/home' ]),
+  //       (error: any): void => {
+  //         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+  //       })
   }
 }

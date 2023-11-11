@@ -19,7 +19,8 @@
       <div class="mb-3">
         <label class="block text-gray-300 text-sm font-bold mb-2" for="email">Email</label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" formControlName="email" required>
-        <!-- FORM VALIDATORS -->
+
+        <!-- EMAIL FORM VALIDATORS -->
         <div class="min-h-[16px]">
           <p *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="text-red-500 text-xs italic mt-1">Email is required</p>
           <p *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" class="text-red-500 text-xs italic mt-1">Invalid email format</p>
@@ -30,16 +31,17 @@
       <div class="mb-7">
         <label class="block text-gray-300 text-sm font-bold mb-2" for="password">Password</label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" required>
-        <!-- FORM VALIDATORS -->
+
+        <!-- PASSWORD FORM VALIDATORS -->
         <div class="min-h-[16px] mb--10">
           <p *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-red-500 text-xs italic mt-1">Password is required</p>
         </div>
       </div>
 
-      <!-- NEW LOGIN BUTTON -->
+      <!-- LOGIN BUTTON -->
       <a><button class="bn632-hover bn26" type="submit" [disabled]="loginForm.invalid">Login</button></a>
 
-      <!-- NEW REGISTER BUTTON -->
+      <!-- REGISTER BUTTON -->
       <a routerLink="/registration"><button class="bn632-hover bn27">Register</button></a>
     </form>
   </div>

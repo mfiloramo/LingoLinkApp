@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             conversationId: newConversation.conversation_id,
             user_id: this.user.user_id,
             textInput: messageToSend,
-            source_language: 'en',
+            source_language: 'en', // STUB: REPLACE WITH USER-CONFIGURED LANGUAGE
             timestamp: new Date().toISOString(),
           }).subscribe((response: any): void => {
             this.isInitialMessageSent = true;
