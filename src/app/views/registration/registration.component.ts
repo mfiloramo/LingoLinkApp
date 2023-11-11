@@ -38,7 +38,8 @@ export class RegistrationComponent implements OnInit {
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
     console.log(user); // STUB
-    // THIS WILL PING A BACKEND SERVICE THAT WILL NOTIFY ADMIN OF NEW REG ATTEMPT
+    // TODO: IMPLEMENT MAILING CLIENT WITH USER APPROVAL FUNCTIONALITY
+
   //   this.authService.register(user)
   //     .then(() => this.router.navigate([ '/home' ]),
   //       (error: any): void => {
