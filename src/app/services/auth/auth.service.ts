@@ -43,7 +43,7 @@ export class AuthService {
         // LOG USER IN IF VALID RESPONSE AND
         if (response.IsValid && response.UserID) {
           this.loggedIn.next(true);
-          const user: User = { user_id: response.UserID };
+          const user: Partial<User> = { user_id: response.UserID };
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.router.navigate([ '/home' ]);
@@ -61,6 +61,7 @@ export class AuthService {
 
   public async register(user: any): Promise<any> {
     try {
+      // TODO: THIS IS WHERE THE CALL TO THE REGISTRATION API SYSTEM WILL BE PINGED VIA THE SERVER
       return this.http.post<any>('/register', user)
         .pipe(
           tap(res => {

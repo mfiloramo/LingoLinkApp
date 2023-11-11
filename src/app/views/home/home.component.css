@@ -113,6 +113,11 @@ mat-icon {
   animation: slideDown 0.4s forwards cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
+
 /* MOBILE SCREEN MEDIA QUERY RULES */
 @media screen and (max-width: 768px) {
   #profile {

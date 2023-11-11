@@ -36,14 +36,21 @@
       <div class="px-4">
         <form [formGroup]="newConversationForm" (ngSubmit)="onNewConversationFormSubmit(newConversationForm.get('recipientEmail')?.value)">
 
-          <!-- RECIPIENT EMAIL FIELD -->
+          <!-- RECIPIENT USERNAME FIELD -->
           <div class="mb-3">
-            <label class="block text-amber-800 text-sm font-bold mb-2" for="recipientEmail">Recipient Email</label>
+            <label class="block text-amber-800 text-sm font-bold mb-2" for="recipientEmail">Recipient Username</label>
             <input class="font-black" id="recipientEmail" type="text" formControlName="recipientEmail" required>
           </div>
 
-          <!-- SUBMIT BUTTON -->
-          <a><button class="bn632-hover bn26 text-white" type="submit" [disabled]="newConversationForm.invalid">Submit</button></a>
+          <div class="button-container">
+            <!-- SUBMIT BUTTON -->
+            <a><button class="bn632-hover bn26 text-white" type="submit" [disabled]="newConversationForm.invalid">Submit</button></a>
+
+            <div class="stub-spacer" style="width: 15px;"></div>
+
+            <!-- CANCEL BUTTON -->
+            <a><button class="bn632-hover bn26 text-white" type="reset" (click)="toggleModal()">Cancel</button></a>
+          </div>
 
         </form>
       </div>

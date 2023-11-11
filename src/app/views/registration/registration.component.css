@@ -11,9 +11,9 @@
 
 .registration-card {
   max-width: 400px;
+  margin-top: 40px;
   width: 100%;
-  margin: 0 auto;
-  padding: 40px;
+  padding: 30px;
   border-radius: 7px;
   background-color: #ececec;
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);

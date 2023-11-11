@@ -1,42 +1,83 @@
-<div class="registration-container">
-  <div class="registration-card mat-elevation-z4">
-    <h2 class="registration-header">Registration Module</h2>
-    <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationFormSubmit()" class="registration-form">
+<!-- LOGO CONTAINER -->
+<div class="flex justify-center items-center pt-6 mb-7">
+  <img class="w-28 filter drop-shadow-md" ngSrc="../../../assets/images/titleLogoRev.png" alt="" height="220" width="211"/>
+</div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username" required>
-        <mat-error *ngIf="registrationForm.get('username')!.hasError('required')">Username is required</mat-error>
-      </mat-form-field>
+<!-- USER REGISTRATION CARD -->
+<div class="max-w-xs mx-auto bg-gray-800 rounded-md shadow-md mt-6 pb-1">
 
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password" required>
-        <mat-error *ngIf="registrationForm.get('password')!.hasError('required')">Password is required</mat-error>
-      </mat-form-field>
+  <!-- CARD TITLE -->
+  <div class="flex justify-around pt-4 pb-2">
+    <h1 class="text-gray-300 text-2xl font-serif">User Registration</h1>
+  </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstName" required>
-        <mat-error *ngIf="registrationForm.get('firstName')!.hasError('required')">First Name is required</mat-error>
-      </mat-form-field>
+  <!-- FORM CONTAINER -->
+  <div class="px-4">
 
-      <mat-form-field appearance="fill">
-        <mat-label>Last Name</mat-label>
-        <input matInput formControlName="lastName" required>
-        <mat-error *ngIf="registrationForm.get('lastName')!.hasError('required')">Last Name is required</mat-error>
-      </mat-form-field>
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationFormSubmit()">
 
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required>
-        <mat-error *ngIf="registrationForm.get('email')!.hasError('required')">Email is required</mat-error>
-        <mat-error *ngIf="registrationForm.get('email')!.hasError('email')">Invalid email format</mat-error>
-      </mat-form-field>
+      <!-- FIRST NAME FIELD -->
+      <div>
+        <label class="block text-gray-300 text-sm font-bold mb-1" for="email">First Name</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstName" type="text" formControlName="firstName" required>
 
-      <button mat-raised-button color="primary" type="submit" class="registration-button" [disabled]="registrationForm.invalid">Register</button>
+        <!-- FIRST NAME FORM VALIDATORS -->
+        <div class="min-h-[16px]">
+          <p *ngIf="registrationForm.get('firstName')?.hasError('required') && registrationForm.get('firstName')?.touched" class="text-red-500 text-xs italic mt-1">First name is required</p>
+        </div>
+      </div>
 
-      <button mat-raised-button color="warn" routerLink="/login" id="return-button" class="registration-button">Return to Login</button>
+      <!-- LAST NAME FIELD -->
+      <div>
+        <label class="block text-gray-300 text-sm font-bold mb-1" for="email">Last Name</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastName" type="text" formControlName="lastName" required>
+
+
+        <!-- LAST NAME FORM VALIDATORS -->
+        <div class="min-h-[16px]">
+          <p *ngIf="registrationForm.get('lastName')?.hasError('required') && registrationForm.get('lastName')?.touched" class="text-red-500 text-xs italic mt-1">Last name is required</p>
+        </div>
+      </div>
+
+      <!-- USERNAME FIELD -->
+      <div>
+        <label class="block text-gray-300 text-sm font-bold mb-1" for="email">Username</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" formControlName="username" required>
+
+        <!-- USERNAME FORM VALIDATORS -->
+        <div class="min-h-[16px]">
+          <p *ngIf="registrationForm.get('username')?.hasError('required') && registrationForm.get('username')?.touched" class="text-red-500 text-xs italic mt-1">Username is required</p>
+        </div>
+      </div>
+
+      <!-- EMAIL FIELD -->
+      <div>
+        <label class="block text-gray-300 text-sm font-bold mb-1" for="email">Email</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" formControlName="email" required>
+
+        <!-- EMAIL FORM VALIDATORS -->
+        <div class="min-h-[16px]">
+          <p *ngIf="registrationForm.get('email')?.hasError('required') && registrationForm.get('email')?.touched" class="text-red-500 text-xs italic mt-1">Email is required</p>
+          <p *ngIf="registrationForm.get('email')?.hasError('email') && registrationForm.get('email')?.touched" class="text-red-500 text-xs italic mt-1">Invalid email format</p>
+        </div>
+      </div>
+
+      <!-- PASSWORD FIELD -->
+      <div class="mb-1">
+        <label class="block text-gray-300 text-sm font-bold mb-1" for="password">Password</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" required>
+
+        <!-- PASSWORD FORM VALIDATORS -->
+        <div class="min-h-[16px] mb--10">
+          <p *ngIf="registrationForm.get('password')?.hasError('required') && registrationForm.get('password')?.touched" class="text-red-500 text-xs italic mt-1">Password is required</p>
+        </div>
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <a><button class="bn632-hover bn26" style="height: 35px;" type="submit" [disabled]="registrationForm.invalid">Submit</button></a>
+
+      <!-- CANCEL BUTTON -->
+      <a routerLink="/home"><button class="bn632-hover bn27" style="height: 35px" >Cancel</button></a>
 
     </form>
   </div>
