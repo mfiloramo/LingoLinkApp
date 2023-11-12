@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from "../../services/auth/auth.service";
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -18,7 +18,8 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private fb: FormBuilder,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.buildRegistrationForm();
@@ -27,23 +28,20 @@ export class RegistrationComponent implements OnInit {
   /** PUBLIC METHODS */
   public buildRegistrationForm(): void {
     this.registrationForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
+      username: [ '', [ Validators.required ] ],
+      password: [ '', [ Validators.required ] ],
+      firstName: [ '', [ Validators.required ] ],
+      lastName: [ '', [ Validators.required ] ],
+      email: [ '', [ Validators.required, Validators.email ] ]
     })
   }
 
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
-    console.log(user); // STUB
-    // TODO: IMPLEMENT MAILING CLIENT WITH USER APPROVAL FUNCTIONALITY
-
-  //   this.authService.register(user)
-  //     .then(() => this.router.navigate([ '/home' ]),
-  //       (error: any): void => {
-  //         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-  //       })
+    this.authService.register(user)
+      .then(() => this.router.navigate([ '/home' ]),
+        (error: any): void => {
+          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+        })
   }
 }
