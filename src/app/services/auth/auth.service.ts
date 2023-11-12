@@ -17,7 +17,7 @@ export class AuthService {
   public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
 
 
-  // POSSIBLY NOT NEEDED DUE TO auth.guard
+  // DEPRECATED: POSSIBLY NOT NEEDED DUE TO auth.guard
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
@@ -61,15 +61,13 @@ export class AuthService {
 
   public async register(user: any): Promise<any> {
     try {
-      // TODO: THIS IS WHERE THE CALL TO THE REGISTRATION API SYSTEM WILL BE PINGED VIA THE SERVER
-      return this.http.post<any>('/register', user)
+      return this.http.post<any>(`${ this.apiUrl }/users`, user)
         .pipe(
-          tap(res => {
-            if (res.success) {
-              this.loggedIn.next(true);
-              this.router.navigate(['/home']);
+          tap((response: any): void => {
+            if (response.success) {
+              this.snackBar.open('Thanks for registering! Your account is currently pending approval.', 'Dismiss', { duration: 5000 });
             } else {
-              this.snackBar.open(res.message, 'Dismiss', { duration: 5000 });
+              this.snackBar.open(response.message, 'Dismiss', { duration: 5000 });
             }
           }),
           catchError((error: any) => {
