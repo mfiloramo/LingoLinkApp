@@ -152,6 +152,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   public onDeselectConversation(): void {
     this.conversationDeselected.emit(null);
+    this.webSocketService.disconnect();
   }
 
   /** PRIVATE METHODS */

@@ -11,10 +11,6 @@ export class WebSocketService {
   private readonly RECONNECT_INTERVAL: number = 5000;
   private webSocket: any;
 
-  constructor() {
-    this.connect();
-  }
-
   /** PUBLIC METHODS */
   public connect(): void {
     this.webSocket = new WebSocket(this.webSocketUrl);
@@ -27,12 +23,18 @@ export class WebSocketService {
       console.log(`WebSocket error observed: `, error);
     };
 
-    this.webSocket.onclose = (event: CloseEvent): void => {
-      console.log('WebSocket connection closed:', event);
-      setTimeout(() => this.connect(), this.RECONNECT_INTERVAL);
+    this.webSocket.onclose = (): void => {
+      console.log('WebSocket connection closed');
     };
   }
 
+  public disconnect(): void {
+    if (this.webSocket && this.webSocket.readyState === WebSocket.OPEN) {
+      this.webSocket.close();
+    } else {
+      console.error("Can't close the connection, as the WebSocket is not open.");
+    }
+  }
 
   public send(msgObj: object): void {
     if (this.webSocket.readyState === WebSocket.OPEN) {
