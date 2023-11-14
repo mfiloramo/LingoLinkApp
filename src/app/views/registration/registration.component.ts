@@ -39,7 +39,7 @@ export class RegistrationComponent implements OnInit {
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
     this.authService.register(user)
-      .then(() => this.router.navigate([ '/home' ]),
+      .then(() => this.router.navigate([ '/login' ]),
         (error: any): void => {
           this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
         })
