@@ -30,10 +30,6 @@ import { trigger, transition, style, animate, query, animateChild, group } from 
 export class AppComponent {
   public title: string = 'worldChatApp';
 
-  constructor(
-    private userService: UserService
-  ) {}
-
   prepareRoute(outlet: any): void {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }

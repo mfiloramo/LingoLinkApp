@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   @Input() user: any;
   @Output() public selectedConversation: any;
   // SET DEFAULT VIEW BY CHANGING ANY ONE SLICE OF STATE TO TRUE FOR show-- PROPS
+  public sourceLanguage: string = 'en';
   public showConvos: boolean = true;
   public showChat: boolean = false;
   public showModal: boolean = false;
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private conversationService: ConversationService,
     private messageService: MessageService,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {}
 
   /** LIFECYCLE HOOKS */
@@ -95,7 +96,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         let newConversation = await this.conversationService.createConversation({
           recipientEmail: this.newConversationCache.recipientEmail,
           conversationName: this.newConversationCache.conversationName,
-          sourceLanguage: 'en', // STUB: REPLACE WITH USER-CONFIGURED LANGUAGE
+          sourceLanguage: this.sourceLanguage,
           senderUserId: this.user.user_id,
           timestamp: new Date().toISOString()
         }).toPromise();
@@ -103,13 +104,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         // SEND FIRST MESSAGE IN THE NEW CONVERSATION
         if (newConversation) {
           this.selectedConversation = newConversation;
-          this.messageService.sendMessage({
+          await this.messageService.sendMessage({
             conversationId: newConversation.conversation_id,
             user_id: this.user.user_id,
             textInput: messageToSend,
-            source_language: 'en', // STUB: REPLACE WITH USER-CONFIGURED LANGUAGE
+            source_language: this.sourceLanguage,
             timestamp: new Date().toISOString(),
-          }).subscribe((response: any): void => {
+          })
+            .subscribe((response: any): void => {
             this.isInitialMessageSent = true;
             return response;
           }, (error: any): void => {
@@ -136,9 +138,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       // WHEN CLOSING THE MODAL
       this.modalAnimationClass = 'modal-animate-out';
       // this.newConversationForm.reset();
-      setTimeout((): void => {
-        this.showModal = false;
-      }, 400); // DURATION OF ANIMATION
+      this.showModal = false;
     }
   }
 

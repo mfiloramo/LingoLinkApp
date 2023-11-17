@@ -27,13 +27,20 @@ import { User } from "../../../interfaces/User.interfaces";
   styleUrls: ['./message-box.component.css'],
 })
 export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
+  // COMPONENT INPUTS
   @Input() user!: User;
   @Input() conversationId: number = 1;
+
+  // COMPONENT OUTPUTS
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
   @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
   @Output() newConversation: EventEmitter<any> = new EventEmitter<any>();
+
+  // COMPONENT CHILDREN
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
+
+  // COMPONENT STATE
   public source_language: any = { code: 'en' };
   public languageArray: Language[] = languageArray;
   public mainConvoContainer: ChatMessage[] = [];

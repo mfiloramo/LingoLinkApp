@@ -11,6 +11,6 @@ export class UserService {
   ) { }
 
   public setUser(): any {
-    return this.http.get(`${environment.apiBaseUrl}/users`);
+    return this.http.get(`${ environment.apiBaseUrl }/users`);
   }
 }
