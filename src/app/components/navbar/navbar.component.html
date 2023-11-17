@@ -5,15 +5,11 @@
   <mat-sidenav-content class="sidenav-item profile" style="background: #001b4f">
     <mat-icon>perm_identity</mat-icon>
   </mat-sidenav-content>
-  <!-- END PROFILE AVATAR -->
 
   <!-- NAVBAR BUTTONS  -->
   <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-24">
     <mat-icon>person</mat-icon>
   </mat-sidenav-content>
-<!--  <mat-sidenav-content class="sidenav-item" (click)="showChatBox()" routerLink="/home/chat">-->
-<!--    <mat-icon>textsms</mat-icon>-->
-<!--  </mat-sidenav-content>-->
   <mat-sidenav-content class="sidenav-item" (click)="showConversations.emit()" routerLink="/home/chat">
     <mat-icon>forum</mat-icon>
   </mat-sidenav-content>
@@ -26,7 +22,5 @@
   <mat-sidenav-content (click)="logout()" class="sidenav-item mb-24">
     <mat-icon>eject</mat-icon>
   </mat-sidenav-content>
-  <!-- END NAVBAR BUTTONS  -->
 
 </mat-sidenav-container>
-<!-- END NAVBAR CONTAINER -->

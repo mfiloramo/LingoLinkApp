@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subscription, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { User } from "../../../interfaces/User.interfaces";
 
@@ -94,7 +94,7 @@ export class AuthService {
       const params: any = new HttpParams().set('userEmail', userEmail);
       return this.http.get(`${ this.apiUrl }/auth/notify`, { params })
         .subscribe((response: any): void => {
-          this.snackBar.open(response[0]);
+          this.snackBar.open(response);
         })
     } catch (error: any) {
       this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
