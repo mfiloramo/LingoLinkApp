@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationComponent } from './registration.component';
+import { PageNotFoundView } from './page-not-found.view';
 
-describe('RegistrationComponent', () => {
-  let component: RegistrationComponent;
-  let fixture: ComponentFixture<RegistrationComponent>;
+describe('PageNotFoundComponent', () => {
+  let component: PageNotFoundView;
+  let fixture: ComponentFixture<PageNotFoundView>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistrationComponent ]
+      declarations: [ PageNotFoundView ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegistrationComponent);
+    fixture = TestBed.createComponent(PageNotFoundView);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
