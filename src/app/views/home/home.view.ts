@@ -9,10 +9,10 @@ import ShortUniqueId from "short-unique-id";
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './home.view.html',
+  styleUrls: ['./home.view.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeView implements OnInit, OnDestroy {
   @Input() user: any;
   @Output() public selectedConversation: any;
   // SET DEFAULT VIEW BY CHANGING ANY ONE SLICE OF STATE TO TRUE FOR show-- PROPS

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from "./views/home/home.component";
+import { HomeView } from "./views/home/home.view";
 import { MessageBoxComponent } from "./components/message-box/message-box.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
-import { PageNotFoundComponent } from "./views/page-not-found/page-not-found.component";
-import { LoginComponent } from "./views/login/login.component";
-import { RegistrationComponent } from "./views/registration/registration.component";
+import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
+import { LoginView } from "./views/login/login.view";
+import { RegistrationView } from "./views/registration/registration.view";
 import { AuthGuard } from "./guards/auth/auth.guard";
 
 
@@ -18,12 +18,12 @@ const routes: Routes = [
   },
   {
     path: 'registration',
-    component: RegistrationComponent,
+    component: RegistrationView,
     data: { animation: 'registration' }
   },
   {
     path: 'home',
-    component: HomeComponent,
+    component: HomeView,
     data: { animation: 'home' },
     canActivate: [ AuthGuard ], // RE-ENABLE FOR PROD
     children: [
@@ -51,12 +51,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginView,
     data: { animation: 'login' }
   },
   {
     path: '**',
-    component: PageNotFoundComponent,
+    component: PageNotFoundView,
     data: { animation: 'pageNotFound' }
   },
 ];

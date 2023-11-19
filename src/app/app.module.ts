@@ -12,17 +12,17 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HomeComponent } from './views/home/home.component';
+import { HomeView } from './views/home/home.view';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ConversationsComponent } from './components/conversations/conversations.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
-import { LoginComponent } from './views/login/login.component';
+import { PageNotFoundView } from './views/page-not-found/page-not-found.view';
+import { LoginView } from './views/login/login.view';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RegistrationComponent } from './views/registration/registration.component';
+import { RegistrationView } from './views/registration/registration.view';
 import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { environment } from '../environments/environment';
@@ -37,11 +37,11 @@ const protectedResourceMap: any = environment.production
         AppComponent,
         MessageBoxComponent,
         NavbarComponent,
-        HomeComponent,
+        HomeView,
         ConversationsComponent,
-        PageNotFoundComponent,
-        LoginComponent,
-        RegistrationComponent
+        PageNotFoundView,
+        LoginView,
+        RegistrationView
     ],
     imports: [
         BrowserModule,

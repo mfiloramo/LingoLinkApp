@@ -6,10 +6,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './login.view.html',
+  styleUrls: ['./login.view.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginView implements OnInit {
   @Output() user: any;
   public loginForm!: FormGroup;
 
