@@ -174,13 +174,20 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
         const reader: FileReader = new FileReader();
         reader.onload = async (): Promise<void> => {
           const message = JSON.parse(reader.result as string);
-          const msgSrc: string = this.translationService.getLanguageCode(message.source_language);
-          const targLng: string = this.translationService.getLanguageCode(this.source_language);
+          const source_language: string = this.translationService.getLanguageCode(message.source_language);
+          const targLang: string = this.translationService.getLanguageCode(this.source_language);
 
           // TRANSLATE MESSAGE IF NEEDED
-          if (msgSrc !== targLng) {
-            await this.translateText(message.textInput, msgSrc, targLng)
-              .then((response: any): void => message.textInput = response);
+          if (source_language !== targLang) {
+            await this.translationService.getLiveTranslation({
+              user: this.user.user_id,
+              textInput: message.textInput,
+              source_language,
+              targLang
+            })
+              .subscribe((response: any): void => message.textInput = response)
+            // await this.translateText(message.textInput, source_language, targLang)
+            //   .then((response: any): void => message.textInput = response);
           }
 
             // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM IF USER HAS SELECTED CONVERSATION
@@ -197,8 +204,13 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
       const storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        // TODO: MAKE THIS A DIRECT CALL TO TRANSLATE.SERVICE
-        const decodedText: string = await this.translateText(message.textInput, message.source_language, localLangCode);
+        const decodedText: any = await this.translationService.getLiveTranslation({
+          user: this.user.user_id,
+          textInput: message.textInput,
+          source_language: message.source_language,
+          targLang: localLangCode
+        })
+          .subscribe((response: any): void => response);
         this.translationService.storeTranslation(translateKey, decodedText);
         message.textInput = decodedText;
       } else {
@@ -211,11 +223,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   }
 
   /** UTILITY FUNCTIONS */
-  private async translateText(textInput: string, source_language: string, targLang: string): Promise<string> {
-    return await this.translationService.getLiveTranslation({
-      user: this.user.user_id, textInput, source_language, targLang }).toPromise();
-  }
-
   private playClickSound(): void {
     this.audio.load();
     this.audio.play();
