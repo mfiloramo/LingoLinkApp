@@ -36,7 +36,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
   @Output() newConversation: EventEmitter<any> = new EventEmitter<any>();
 
-  // COMPONENT CHILDREN
+  // COMPONENT SIBLINGS
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
 
