@@ -1,7 +1,0 @@
-{
-  "name": "LingoLinkClient",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
