@@ -170,6 +170,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
     // LISTEN FOR INCOMING MESSAGES OVER WEBSOCKET CONNECTION
     this.webSocketService.onMessage()
       .subscribe((event: any): void => {
+
         // PARSE INCOMING MESSAGE
         const reader: FileReader = new FileReader();
         reader.onload = async (): Promise<void> => {
@@ -179,19 +180,20 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
           // TRANSLATE MESSAGE IF NEEDED
           if (source_language !== targLang) {
-            await this.translationService.getLiveTranslation({
+            const translatedResponse = await this.translationService.getLiveTranslation({
               user: this.user.user_id,
               textInput: message.textInput,
               source_language,
               targLang
-            })
-              .subscribe((response: any): void => message.textInput = response)
-            // await this.translateText(message.textInput, source_language, targLang)
-            //   .then((response: any): void => message.textInput = response);
+            }).toPromise();
+
+            message.textInput = translatedResponse;
           }
 
-            // ADD MESSAGE TO CONVERSATION CONTAINER IN THE DOM IF USER HAS SELECTED CONVERSATION
-            if (message.conversationId === this.conversationId) this.mainConvoContainer.push(message);
+            // PUSH MESSAGE TO SELECTED CONVERSATION
+            if (message.conversationId === this.conversationId) {
+              this.mainConvoContainer.push(message);
+            }
         };
 
         reader.readAsText(event.data);
