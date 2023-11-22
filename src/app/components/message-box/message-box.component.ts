@@ -1,13 +1,14 @@
 import {
+  AfterViewChecked,
   Component,
-  ViewChild,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
-  AfterViewChecked,
   OnInit,
+  Output,
   SimpleChanges,
-  Output, EventEmitter
+  ViewChild
 } from '@angular/core';
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Language } from '../../../interfaces/Language.interfaces';
@@ -16,8 +17,8 @@ import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { ConversationService } from '../../services/conversation/conversation.service';
 import { MessageService } from '../../services/message/message.service';
 import languageArray from '../../../utils/languageMapper';
-import { catchError, switchMap, tap } from "rxjs/operators";
-import { Observable, of } from "rxjs";
+import { catchError, switchMap } from "rxjs/operators";
+import { of } from "rxjs";
 import { User } from "../../../interfaces/User.interfaces";
 
 
@@ -29,14 +30,16 @@ import { User } from "../../../interfaces/User.interfaces";
 export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   // COMPONENT INPUTS
   @Input() user!: User;
+  @Input() selectedLanguage!: string;
   @Input() conversationId: number = 1;
 
   // COMPONENT OUTPUTS
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
+  @Output() languageSelectionChange: EventEmitter<string> = new EventEmitter<string>()
   @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
   @Output() newConversation: EventEmitter<any> = new EventEmitter<any>();
 
-  // COMPONENT SIBLINGS
+  // COMPONENT CHILDREN
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
 
@@ -128,7 +131,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
           const translationPromises = response.map(async (message: any): Promise<void> => {
             if (message.source_language !== localLangCode && message.textInput) {
-              // TRANSLATE/STRINGIFY MESSAGE CONTENT
+            //   // TRANSLATE/STRINGIFY MESSAGE CONTENT
               message.textInput = await this.cacheCheckTranslation(message, localLangCode);
             }
           });
@@ -136,6 +139,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           // HANDLE TRANSLATED MESSAGES
           await Promise.all(translationPromises);
           this.mainConvoContainer = response;
+          console.log(this.mainConvoContainer);
           this.scrollToBottom();
           this.isLoading = false;
         }, (error: any): void => {
@@ -149,6 +153,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
     const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === lang.target.value);
     if (selectedLanguage) {
       this.source_language = { code: selectedLanguage.code };
+      this.languageSelectionChange.emit(selectedLanguage.code);
     }
   }
 
@@ -177,17 +182,16 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           const message = JSON.parse(reader.result as string);
           const source_language: string = this.translationService.getLanguageCode(message.source_language);
           const targLang: string = this.translationService.getLanguageCode(this.source_language);
+          console.log(message.textInput);
 
           // TRANSLATE MESSAGE IF NEEDED
           if (source_language !== targLang) {
-            const translatedResponse = await this.translationService.getLiveTranslation({
+            message.textInput = await this.translationService.getLiveTranslation({
               user: this.user.user_id,
               textInput: message.textInput,
               source_language,
               targLang
             }).toPromise();
-
-            message.textInput = translatedResponse;
           }
 
             // PUSH MESSAGE TO SELECTED CONVERSATION
@@ -203,19 +207,22 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   private async cacheCheckTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
     try {
       const translateKey: string = `${ message.message_id }_${ localLangCode }`;
-      const storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
+      let storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        const decodedText: any = await this.translationService.getLiveTranslation({
+        const response = await this.translationService.getLiveTranslation({
           user: this.user.user_id,
           textInput: message.textInput,
           source_language: message.source_language,
           targLang: localLangCode
-        })
-          .subscribe((response: any): void => response);
-        this.translationService.storeTranslation(translateKey, decodedText);
-        message.textInput = decodedText;
-      } else {
+        }).toPromise();
+
+        storedTranslation = response;
+        this.translationService.storeTranslation(translateKey, storedTranslation!);
+        console.log('decodedText:', storedTranslation);
+      }
+
+      if (storedTranslation !== null) {
         message.textInput = storedTranslation;
       }
       return message.textInput;
