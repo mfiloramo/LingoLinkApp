@@ -69,7 +69,9 @@
     <div class="msg-box-wrapper">
       <app-chatbox
         [conversationId]="selectedConversation?.conversation_id"
+        [selectedLanguage]="sourceLanguage"
         [user]="user"
+        (languageSelectionChange)="onLanguageSelection($event)"
         (conversationDeselected)="onConversationDeselected()"
         (newMessage)="onNewConversationMsgSubmit($event)"
         (newConversation)="resetInitialMessageFlag()"

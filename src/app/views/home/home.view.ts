@@ -6,6 +6,8 @@ import { ConversationService } from "../../services/conversation/conversation.se
 import { MessageService } from "../../services/message/message.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
+import { Language } from "../../../interfaces/Language.interfaces";
+import { User } from "../../../interfaces/User.interfaces";
 
 @Component({
   selector: 'app-home',
@@ -13,10 +15,14 @@ import ShortUniqueId from "short-unique-id";
   styleUrls: ['./home.view.css']
 })
 export class HomeView implements OnInit, OnDestroy {
+  // COMPONENT INPUTS
   @Input() user: any;
+
+  // COMPONENT OUTPUTS
   @Output() public selectedConversation: any;
-  // SET DEFAULT VIEW BY CHANGING ANY ONE SLICE OF STATE TO TRUE FOR show-- PROPS
-  public sourceLanguage: string = 'en';
+
+  // COMPONENT STATE
+  public sourceLanguage: any = 'en';
   public showConvos: boolean = true;
   public showChat: boolean = false;
   public showModal: boolean = false;
@@ -37,9 +43,10 @@ export class HomeView implements OnInit, OnDestroy {
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.subscriptions.add(
-      this.authService.currentUser$.subscribe(user => {
-        this.user = user;
-      })
+      this.authService.currentUser$
+        .subscribe((user: User): void => {
+          this.user = user;
+        })
     );
   }
 
@@ -122,6 +129,10 @@ export class HomeView implements OnInit, OnDestroy {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       }
     }
+  }
+
+  public onLanguageSelection(language: any): void {
+    this.sourceLanguage = language;
   }
 
   public resetInitialMessageFlag(): void {
