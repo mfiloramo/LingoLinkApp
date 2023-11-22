@@ -139,7 +139,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           // HANDLE TRANSLATED MESSAGES
           await Promise.all(translationPromises);
           this.mainConvoContainer = response;
-          console.log(this.mainConvoContainer);
           this.scrollToBottom();
           this.isLoading = false;
         }, (error: any): void => {
@@ -219,7 +218,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
         storedTranslation = response;
         this.translationService.storeTranslation(translateKey, storedTranslation!);
-        console.log('decodedText:', storedTranslation);
       }
 
       if (storedTranslation !== null) {
@@ -233,8 +231,8 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   /** UTILITY FUNCTIONS */
   private playClickSound(): void {
-    this.audio.load();
-    this.audio.play();
+    // this.audio.load();
+    // this.audio.play();
     return;
   }
 }
