@@ -34,15 +34,15 @@ body::-webkit-scrollbar {
   color: white;
   display: flex;
   align-items: center;
-  padding: 10px 15px;
-  min-height: 45px;
-  min-width: 275px;
+  padding: 11px 16px;
+  min-height: 50px;
+  min-width: 250px;
   max-width: 370px;
   margin: 0 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
   border-radius: 20px;
   word-wrap: break-word;
-  font-size: 14px;
+  font-size: 17px;
   font-family: 'Roboto', sans-serif;
 }
 

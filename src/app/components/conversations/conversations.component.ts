@@ -1,10 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { Conversation } from '../../../interfaces/Conversation.interfaces';
 import { ConversationService } from '../../services/conversation/conversation.service';
 import dayjs from 'dayjs';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
 import { User } from "../../../interfaces/User.interfaces";
 
 @Component({
@@ -23,12 +29,10 @@ export class ConversationsComponent implements OnInit, OnDestroy {
 
   constructor(
     private conversationService: ConversationService,
-    private http: HttpClient
   ) { }
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    window.scrollTo(0,0);
     this.loadConversations();
   }
 
