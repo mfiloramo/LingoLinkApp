@@ -134,15 +134,17 @@ body::-webkit-scrollbar {
   width: 0 !important;
 }
 
-.back-arrow-wrapper {
+.msg-box-top-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
   background: linear-gradient(to top, #001641, #071a46) !important;
-  padding: 5px;
+  padding: 15px 5px 5px;
   height: 50px;
+  color: #c1c9da !important;
+  font-size: 18px;
 }
 
 .back-arrow {
@@ -150,7 +152,7 @@ body::-webkit-scrollbar {
   cursor: pointer;
   color: #dae3ff;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-right: 20px;
 }
 
 .loading-container {

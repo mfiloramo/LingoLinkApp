@@ -59,7 +59,7 @@
 
     <!-- CONVERSATION LIST -->
     <app-conversations
-      (conversationSelected)="onConversationSelected($event)"
+      (conversationSelected)="onConversationSelected($event); "
       [user]="user">
     </app-conversations>
   </div>
@@ -69,6 +69,7 @@
     <div class="msg-box-wrapper">
       <app-chatbox
         [conversationId]="selectedConversation?.conversation_id"
+        [conversationStarter]="selectedConversation.StarterUsername"
         [selectedLanguage]="sourceLanguage"
         [user]="user"
         (languageSelectionChange)="onLanguageSelection($event)"

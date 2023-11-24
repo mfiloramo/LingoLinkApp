@@ -8,6 +8,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 import { Language } from "../../../interfaces/Language.interfaces";
 import { User } from "../../../interfaces/User.interfaces";
+import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeView implements OnInit, OnDestroy {
   @Input() user: any;
 
   // COMPONENT OUTPUTS
-  @Output() public selectedConversation: any;
+  @Output() public selectedConversation!: any;
 
   // COMPONENT STATE
   public sourceLanguage: any = 'en';
