@@ -11,6 +11,8 @@
   color: #dae3ff;
   font-size: 14px;
   animation: fadeIn 0.5s;
+  border-bottom: 1px solid #071f57;
+;
 }
 
 .circle {
