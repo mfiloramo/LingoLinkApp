@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
@@ -11,10 +11,10 @@ import { User } from "../../../interfaces/User.interfaces";
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
+  private apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
-  public currentUser$: Observable<any> = this.currentUserSubject.asObservable();
+  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
+  public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -28,29 +28,10 @@ export class AuthService {
   }
 
   public login(email: string, password: string): Observable<any> {
-    let params: HttpParams = new HttpParams()
-      .set('email', email)
-      .set('password', password);
-
-    return this.http.get<any>(`${ this.apiUrl }/auth`, { params })
-      .pipe(tap((response: any): void => {
-          // VALIDATE USER AGAINST DATABASE AND LOG IN IF VALID RESPONSE
-          if (response.IsValid && response.UserID) {
-            this.loggedIn.next(true);
-            const user: Partial<User> = { user_id: response.UserID };
-            this.currentUserSubject.next(user);
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.router.navigate([ '/home' ])
-              .then((response: any) => response);
-          } else {
-            // DENY USER ACCESS IF INVALID RESPONSE
-            this.snackBar.open('Invalid user credentials. Please try again.', 'Dismiss', { duration: 5000 });
-          }
-        }),
-        catchError((error: any) => {
-          this.snackBar.open('An error occurred', 'Dismiss', { duration: 5000 });
-          return throwError(error);
-        })
+    return this.http.get<any>(`${this.apiUrl}/auth`, { params: { email, password } })
+      .pipe(
+        tap(response => this.handleLoginResponse(response)),
+        catchError((error: any) => this.handleError(error))
       );
   }
 
@@ -58,47 +39,50 @@ export class AuthService {
     this.loggedIn.next(false);
     this.currentUserSubject.next(null);
     localStorage.removeItem('currentUser');
-    this.router.navigate(['/login'])
-      .then((response: any) => response);
+    this.router.navigate(['/login']);
   }
 
-  public async register(user: User): Promise<any> {
-    // REGISTER USER IN DATABASE
-    try {
-      return this.http.post<any>(`${ this.apiUrl }/users`, user)
-        .pipe(
-          tap((response: any): void => {
-            if (response) {
-              // SEND EMAIL NOTIFICATIONS TO ADMIN / USER
-              this.sendAdminRegNotification(user.email);
-              this.snackBar.open('Thanks for registering! Your account is currently pending approval.', 'Dismiss', { duration: 5000 });
-            } else {
-              this.snackBar.open('Error registering account', 'Dismiss', { duration: 5000 });
-            }
-          }),
-          catchError((error: any) => {
-            this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-            return throwError(error);
-          })
-        ).toPromise();
-    } catch (error: any) {
-      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-      throw error;
-    }
+  public register(user: User): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/users`, user)
+      .pipe(
+        tap(response => this.handleRegisterResponse(response, user)),
+        catchError((error: any) => this.handleError(error))
+      );
   }
 
   /** PRIVATE METHODS */
-  private async sendAdminRegNotification(userEmail: any): Promise<any> {
-    // SEND EMAIL REGISTRATION NOTIFICATIONS TO ADMIN
-    try {
-      const params: any = new HttpParams().set('userEmail', userEmail);
-      return this.http.get(`${ this.apiUrl }/auth/notify`, { params })
-        .subscribe((response: any): void => {
-          this.snackBar.open(response);
-        })
-    } catch (error: any) {
-      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-      return throwError(error);
+  private handleLoginResponse(response: any): void {
+    if (response.IsValid && response.UserID) {
+      this.loggedIn.next(true);
+      const user: Partial<User> = { user_id: response.UserID };
+      this.currentUserSubject.next(user as User);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.router.navigate(['/home']);
+    } else {
+      this.displaySnackBar('Invalid user credentials. Please try again.');
+      console.error('Login failed:', response);
     }
+  }
+
+  private handleRegisterResponse(response: any, user: User): void {
+    if (response) {
+      this.sendAdminRegNotification(user.email).subscribe();
+      this.displaySnackBar('Thanks for registering! Your account is currently pending approval.');
+    } else {
+      this.displaySnackBar('Error registering account');
+    }
+  }
+
+  private sendAdminRegNotification(userEmail: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/auth/notify`, { params: { userEmail } });
+  }
+
+  private handleError(error: any): Observable<never> {
+    this.displaySnackBar('An error occurred');
+    return throwError(error);
+  }
+
+  private displaySnackBar(message: string): void {
+    this.snackBar.open(message, 'Dismiss', { duration: 5000 });
   }
 }
