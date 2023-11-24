@@ -28,9 +28,9 @@ export class AuthService {
   }
 
   public login(email: string, password: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/auth`, { params: { email, password } })
+    return this.http.get<any>(`${ this.apiUrl }/auth`, { params: { email, password } })
       .pipe(
-        tap(response => this.handleLoginResponse(response)),
+        tap((response: any) => this.handleLoginResponse(response)),
         catchError((error: any) => this.handleError(error))
       );
   }
@@ -45,16 +45,16 @@ export class AuthService {
   public register(user: User): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/users`, user)
       .pipe(
-        tap(response => this.handleRegisterResponse(response, user)),
+        tap((response: any) => this.handleRegisterResponse(response, user)),
         catchError((error: any) => this.handleError(error))
       );
   }
 
   /** PRIVATE METHODS */
   private handleLoginResponse(response: any): void {
-    if (response.IsValid && response.UserID) {
+    if (response.enabled && response.userId) {
       this.loggedIn.next(true);
-      const user: Partial<User> = { user_id: response.UserID };
+      const user: any = { user_id: response.userId };
       this.currentUserSubject.next(user as User);
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.router.navigate(['/home']);

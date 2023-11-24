@@ -25,13 +25,14 @@ import { User } from "../../../interfaces/User.interfaces";
 @Component({
   selector: 'app-chatbox',
   templateUrl: './message-box.component.html',
-  styleUrls: ['./message-box.component.css'],
+  styleUrls: ['./message-box.component.css', '../conversations/conversations.component.css'],
 })
 export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   // COMPONENT INPUTS
   @Input() user!: User;
   @Input() selectedLanguage!: string;
-  @Input() conversationId: number = 1;
+  @Input() conversationId!: number;
+  @Input() conversationStarter!: string;
 
   // COMPONENT OUTPUTS
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
