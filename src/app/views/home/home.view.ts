@@ -44,7 +44,7 @@ export class HomeView implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(
       this.authService.currentUser$
-        .subscribe((user: User): void => {
+        .subscribe((user: any): void => {
           this.user = user;
         })
     );

@@ -20,7 +20,7 @@ export class ConversationService {
   }
 
   public loadConversationsByUserId(user_id: number): Observable<Conversation[]> {
-    const params: HttpParams = new HttpParams().set('id', user_id.toString());
+    const params: HttpParams = new HttpParams().set('id', user_id);
     return this.http.get<Conversation[]>(`${ this.apiUrl }/conversations`, { params })
       .pipe(catchError(this.handleError));
   }

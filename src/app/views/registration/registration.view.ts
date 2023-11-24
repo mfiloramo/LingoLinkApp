@@ -38,10 +38,13 @@ export class RegistrationView implements OnInit {
 
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
-    this.authService.register(user)
-      .then(() => this.router.navigate([ '/login' ]),
-        (error: any): void => {
-          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-        })
+    this.authService.register(user).subscribe({
+      next: (): void => {
+        this.router.navigate(['/login']);
+      },
+      error: (error: any): void => {
+        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+      }
+    });
   }
 }
