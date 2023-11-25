@@ -157,7 +157,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
     }
   }
 
-  // TODO: DEPRECATE THIS DIRECT DOM MANIPULATION HERE TO RENDERER2
+  // TODO: DEPRECATE DIRECT DOM MANIPULATION HERE TO RENDERER2
   public scrollToBottom(): void {
     const element: HTMLInputElement = this.chatContainer.nativeElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'end' });
