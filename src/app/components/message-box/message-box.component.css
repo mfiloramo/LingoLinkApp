@@ -135,25 +135,34 @@ body::-webkit-scrollbar {
 }
 
 .msg-box-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10;
   background: linear-gradient(to top, #001641, #071a46) !important;
-  padding: 17px 5px 5px;
+  padding: 5px 5px;
   height: 50px;
   color: #c1c9da !important;
   font-size: 18px;
 }
 
+.conversation-starter {
+  margin-left: -10px;
+}
+
 .back-arrow {
-  vertical-align: middle;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   color: #dae3ff;
   margin-left: 10px;
-  margin-right: 20px;
-  margin-top: -7px;
+  margin-right: 10px;
   font-size: 30px;
 }
 

@@ -57,7 +57,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
     private conversationService: ConversationService,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
@@ -210,14 +210,12 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
       let storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        const response = await this.translationService.getLiveTranslation({
+        storedTranslation = await this.translationService.getLiveTranslation({
           user: this.user.user_id,
           textInput: message.textInput,
           source_language: message.source_language,
           targLang: localLangCode
         }).toPromise();
-
-        storedTranslation = response;
         this.translationService.storeTranslation(translateKey, storedTranslation!);
       }
 
@@ -231,6 +229,10 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   }
 
   /** UTILITY FUNCTIONS */
+  public loadRandomUserImg(): string {
+    return `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
+  }
+
   private playClickSound(): void {
     // this.audio.load();
     // this.audio.play();

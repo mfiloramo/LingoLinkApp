@@ -13,7 +13,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // '/login' FOR PROD
+    redirectTo: '/home', // '/login' FOR PROD
     pathMatch: 'full'
   },
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeView,
     data: { animation: 'home' },
-    canActivate: [ AuthGuard ], // ENABLED FOR PROD
+    // canActivate: [ AuthGuard ], // ENABLED FOR PROD
     children: [
       {
         path: '',
