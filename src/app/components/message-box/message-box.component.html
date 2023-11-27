@@ -34,8 +34,10 @@
   <!-- BACK ARROW BUTTON -->
   <div class="msg-box-top-bar">
     <mat-icon class="back-arrow" (click)="onDeselectConversation()">arrow_back</mat-icon>
-    {{ conversationStarter }}
+    <div class="circle" [style.background-image]="'url(' + loadRandomUserImg() + ')'"></div>
+    <span class="conversation-starter">{{ conversationStarter }}</span>
   </div>
+
 
   <!-- MESSAGE LIST -->
   <div class="msg-list" #chatContainer>
