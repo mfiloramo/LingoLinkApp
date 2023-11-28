@@ -33,6 +33,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   @Input() selectedLanguage!: string;
   @Input() conversationId!: number;
   @Input() conversationStarter!: string;
+  @Input() conversationStarterPic!: string;
 
   // COMPONENT OUTPUTS
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
@@ -67,7 +68,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.connectWebSocket();
-    this.randomUserImageUrl = this.loadRandomUserImg();
   }
 
   ngAfterViewChecked(): void {
@@ -184,7 +184,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           const message = JSON.parse(reader.result as string);
           const source_language: string = this.translationService.getLanguageCode(message.source_language);
           const targLang: string = this.translationService.getLanguageCode(this.source_language);
-          console.log(message.textInput);
 
           // TRANSLATE MESSAGE IF NEEDED
           if (source_language !== targLang) {
@@ -231,10 +230,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   }
 
   /** UTILITY FUNCTIONS */
-  public loadRandomUserImg(): string {
-    return `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
-  }
-
   private playClickSound(): void {
     // this.audio.load();
     // this.audio.play();
