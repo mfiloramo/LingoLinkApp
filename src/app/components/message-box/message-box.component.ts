@@ -51,6 +51,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   public textInput: string = '';
   public audio: any = new Audio();
   public isLoading: boolean = false;
+  public randomUserImageUrl!: string;
 
 
   constructor(
@@ -66,6 +67,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.connectWebSocket();
+    this.randomUserImageUrl = this.loadRandomUserImg();
   }
 
   ngAfterViewChecked(): void {
