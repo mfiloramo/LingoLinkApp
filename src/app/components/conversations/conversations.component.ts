@@ -20,7 +20,7 @@ import { User } from "../../../interfaces/User.interfaces";
 })
 export class ConversationsComponent implements OnInit, OnDestroy {
   @Input() user: any;
-  @Output() conversationSelected: EventEmitter<Conversation | null> = new EventEmitter();
+  @Output() conversationIsSelected: EventEmitter<Conversation | null> = new EventEmitter();
 
   public conversations: Conversation[] = [];
   public isLoading: boolean = false;
@@ -48,16 +48,6 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: async (conversations: Conversation[]): Promise<void> => {
-          // STUB: ASSIGN RANDOMLY GENERATED PROFILE PIC TO EACH CONVERSATION
-          for (const conversation of conversations) {
-            try {
-              // STUB: RANDOMLY FETCH PRE-GENERATED USER PROFILE PHOTOS
-              conversation.profileImageSrc = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
-            } catch (error) {
-              console.error('Error loading profile image:', error);
-              conversation.profileImageSrc = 'default_image_url'; // STUB
-            }
-          }
           this.conversations = conversations;
           this.isLoading = false;
         },
@@ -69,7 +59,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
   }
 
   public onSelectConversation(conversation: Conversation): void {
-    this.conversationSelected.emit(conversation);
+    this.conversationIsSelected.emit(conversation);
     this.selectedConversation = conversation;
   }
 
