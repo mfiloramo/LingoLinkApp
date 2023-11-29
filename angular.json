@@ -74,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "worldChatApp:build:production"
+              "buildTarget": "worldChatApp:build:production"
             },
             "development": {
-              "browserTarget": "worldChatApp:build:development"
+              "buildTarget": "worldChatApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -112,6 +112,5 @@
         }
       }
     }
-  },
-  "defaultProject": "worldChatApp"
+  }
 }

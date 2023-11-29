@@ -1,16 +1,15 @@
 <!-- INPUT CONTAINER -->
 <div class="input-container transition-opacity duration-300 ease-in-out">
-
   <!-- LANGUAGE SELECTION -->
   <select class="lang-select" (change)="onLangSelect($event)">
     <option>English</option>
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
-    <option *ngFor="let languageObj of languageArray" [selected]="languageObj.code === source_language.code">
-      {{ languageObj.name }}
-    </option>
-
+    @for (languageObj of languageArray; track languageObj) {
+      <option [selected]="languageObj.code === source_language.code">
+        {{ languageObj.name }}
+      </option>
+    }
   </select>
-
   <!-- TEXT INPUT -->
   <input
     #inputElement
@@ -19,38 +18,33 @@
     type="text"
     [(ngModel)]="textInput"
     placeholder="Type something to send..."
-  >
-
-  <!-- SEND MESSAGE BUTTON -->
-  <button class="send-msg-btn" (click)="onSendMessage()" style="color: #e8e9ff; float: right">
-    <mat-icon>send</mat-icon>
-  </button>
-
-</div>
-
-<!-- MESSAGE CONTAINER -->
-<div class="msg-container">
-
-  <!-- BACK ARROW BUTTON -->
-  <div class="msg-box-top-bar">
-    <mat-icon class="back-arrow" (click)="onDeselectConversation()">arrow_back</mat-icon>
-    <div class="circle" [style.background-image]="'url(' + conversationStarterPic + ')'"></div>
-    <span class="conversation-starter">{{ conversationStarter }}</span>
+    >
+    <!-- SEND MESSAGE BUTTON -->
+    <button class="send-msg-btn" (click)="onSendMessage()" style="color: #e8e9ff; float: right">
+      <mat-icon>send</mat-icon>
+    </button>
   </div>
-
-
-  <!-- MESSAGE LIST -->
-  <div class="msg-list" #chatContainer>
-    <ng-container *ngFor="let message of mainConvoContainer">
-      <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.user_id == this.user.user_id, 'msg-received transition-opacity duration-300 ease-in-out': message.user_id != this.user.user_id}">
-        <div class="msg-text">{{ message.textInput }}</div>
-      </div>
-    </ng-container>
+  <!-- MESSAGE CONTAINER -->
+  <div class="msg-container">
+    <!-- BACK ARROW BUTTON -->
+    <div class="msg-box-top-bar">
+      <mat-icon class="back-arrow" (click)="onDeselectConversation()">arrow_back</mat-icon>
+      <div class="circle" [style.background-image]="'url(' + conversationStarterPic + ')'"></div>
+      <span class="conversation-starter">{{ conversationStarter }}</span>
+    </div>
+    <!-- MESSAGE LIST -->
+    <div class="msg-list" #chatContainer>
+      @for (message of mainConvoContainer; track message) {
+        <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.user_id == this.user.user_id, 'msg-received transition-opacity duration-300 ease-in-out': message.user_id != this.user.user_id}">
+          <div class="msg-text">{{ message.textInput }}</div>
+        </div>
+      }
+    </div>
   </div>
-
-</div>
-
-<!-- LOADING ANIMATION -->
-<div *ngIf="isLoading" class="loading-container">
-  <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
-</div>
+  <!-- LOADING ANIMATION -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
+    </div>
+  }
+  
