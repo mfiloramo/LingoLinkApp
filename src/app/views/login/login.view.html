@@ -2,12 +2,15 @@
 <div class="flex justify-center items-center pt-10 mb-10">
   <img class="w-56 filter drop-shadow-md" ngSrc="../../../assets/images/titleLogoRev.png" alt="" height="220" width="211" priority />
 </div>
+
 <!-- LOGIN CARD -->
 <div class="max-w-xs mx-auto bg-gray-800 rounded-md shadow-md mt-8 pb-2">
+
   <!-- CARD TITLE -->
   <div class="flex justify-around pt-4 pb-2">
     <h1 class="text-gray-300 text-2xl font-serif">User Login</h1>
   </div>
+
   <!-- FORM CONTAINER -->
   <div class="px-4">
     <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit(loginForm.get('email')?.value, loginForm.get('password')?.value)">
@@ -43,4 +46,3 @@
         </form>
       </div>
     </div>
-    

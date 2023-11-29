@@ -6,9 +6,6 @@ import { ConversationService } from "../../services/conversation/conversation.se
 import { MessageService } from "../../services/message/message.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
-import { Language } from "../../../interfaces/Language.interfaces";
-import { User } from "../../../interfaces/User.interfaces";
-import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 @Component({
   selector: 'app-home',
@@ -112,7 +109,7 @@ export class HomeView implements OnInit, OnDestroy {
         // SEND FIRST MESSAGE IN THE NEW CONVERSATION
         if (newConversation) {
           this.selectedConversation = newConversation;
-          await this.messageService.sendMessage({
+          this.messageService.sendMessage({
             conversationId: newConversation.conversation_id,
             user_id: this.user.user_id,
             textInput: messageToSend,
@@ -120,11 +117,11 @@ export class HomeView implements OnInit, OnDestroy {
             timestamp: new Date().toISOString(),
           })
             .subscribe((response: any): void => {
-            this.isInitialMessageSent = true;
-            return response;
-          }, (error: any): void => {
-            console.error(error);
-          });
+              this.isInitialMessageSent = true;
+              return response;
+            }, (error: any): void => {
+              console.error('hi');
+            });
         }
       } catch (error: any) {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
