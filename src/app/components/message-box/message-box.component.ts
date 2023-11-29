@@ -52,7 +52,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   public textInput: string = '';
   public audio: any = new Audio();
   public isLoading: boolean = false;
-  public randomUserImageUrl!: string;
 
 
   constructor(
@@ -134,7 +133,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
           const translationPromises = response.map(async (message: any): Promise<void> => {
             if (message.source_language !== localLangCode && message.textInput) {
-            //   // TRANSLATE/STRINGIFY MESSAGE CONTENT
+              // TRANSLATE/STRINGIFY MESSAGE CONTENT
               message.textInput = await this.cacheCheckTranslation(message, localLangCode);
             }
           });
