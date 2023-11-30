@@ -16,7 +16,6 @@ export class LoginView implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
     private snackBar: MatSnackBar
   ) {}
 
