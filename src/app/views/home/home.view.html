@@ -55,9 +55,9 @@
 
         <!-- CONVERSATION LIST -->
         <app-conversations
-          (conversationIsSelected)="onConversationSelected($event); "
-          [user]="user">
-        </app-conversations>
+          [user]="user"
+          (conversationIsSelected)="onConversationSelected($event);"
+        ></app-conversations>
       </div>
     }
 
