@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HomeView } from './views/home/home.view';
+import { ChatView } from './views/chat/chat.view';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ConversationsComponent } from './components/conversations/conversations.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,7 +37,7 @@ const protectedResourceMap: any = environment.production
         AppComponent,
         MessageBoxComponent,
         NavbarComponent,
-        HomeView,
+        ChatView,
         ConversationsComponent,
         PageNotFoundView,
         LoginView,

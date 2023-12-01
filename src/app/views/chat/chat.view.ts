@@ -8,11 +8,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.view.html',
-  styleUrls: ['./home.view.css']
+  selector: 'app-chat',
+  templateUrl: './chat.view.html',
+  styleUrls: ['./chat.view.css']
 })
-export class HomeView implements OnInit, OnDestroy {
+export class ChatView implements OnInit, OnDestroy {
   // COMPONENT INPUTS
   @Input() user: any;
 
@@ -58,6 +58,10 @@ export class HomeView implements OnInit, OnDestroy {
   }
 
   public onConversationSelected(conversation: any): void {
+    conversation.StarterUsername = conversation.StarterUsername || this.user.username;
+    conversation.StarterUserPic = conversation.StarterUserPic || this.user.userPic;
+
+
     this.selectedConversation = conversation;
     this.showChat = true;
     this.showConvos = false;
@@ -79,16 +83,20 @@ export class HomeView implements OnInit, OnDestroy {
     this.showConvos = false;
   }
 
-  public async onNewConversationFormSubmit(recipientEmail: string): Promise<void> {
-    // GENERATE NEW CONVERSATION GUID
-    const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
+  public async onNewConversationFormSubmit(recipientUsername: string): Promise<void> {
+    try {
+      // GENERATE NEW CONVERSATION GUID
+      const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
 
-    // CACHE CONVERSATION DATA
-    if (recipientEmail) this.newConversationCache = { recipientEmail, conversationName };
+      // CACHE CONVERSATION DATA
+      if (recipientUsername) this.newConversationCache = { recipientUsername, conversationName };
 
-    // SWITCH VIEWS TO CHAT-BOX
-    this.onShowChatBox();
-    this.toggleModal();
+      // SWITCH VIEWS TO CHAT-BOX
+      this.onShowChatBox();
+      this.toggleModal();
+    } catch (error: any) {
+      console.error(error);
+    }
   }
 
   public async onNewConversationMsgSubmit(messageToSend: string): Promise<void> {
@@ -99,14 +107,13 @@ export class HomeView implements OnInit, OnDestroy {
       try {
         // CREATE THE NEW CONVERSATION
         let newConversation = await this.conversationService.createConversation({
-          recipientEmail: this.newConversationCache.recipientEmail,
+          recipientUsername: this.newConversationCache.recipientUsername,
           conversationName: this.newConversationCache.conversationName,
           sourceLanguage: this.sourceLanguage,
           senderUserId: this.user.user_id,
           timestamp: new Date().toISOString()
         }).toPromise();
 
-        // SEND FIRST MESSAGE IN THE NEW CONVERSATION
         if (newConversation) {
           this.selectedConversation = newConversation;
           this.messageService.sendMessage({
@@ -120,7 +127,7 @@ export class HomeView implements OnInit, OnDestroy {
               this.isInitialMessageSent = true;
               return response;
             }, (error: any): void => {
-              console.error('hi');
+              console.error(error);
             });
         }
       } catch (error: any) {
@@ -154,7 +161,7 @@ export class HomeView implements OnInit, OnDestroy {
   /** PRIVATE METHODS */
   private buildNewConversationForm(): void {
     this.newConversationForm = this.fb.group({
-      recipientEmail: [''],
+      recipientUsername: [''],
       conversationName: [''],
       sourceLanguage: [''],
       senderUserId: [''],

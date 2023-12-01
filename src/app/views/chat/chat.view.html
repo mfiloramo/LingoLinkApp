@@ -1,5 +1,5 @@
-<!-- HOME CONTAINER -->
-<div class="home-container">
+<!-- CHAT CONTAINER -->
+<div class="chat-container">
 
   <!-- NAVBAR -->
   @if (!showChat) {
@@ -35,12 +35,15 @@
           </div>
           <!-- FORM CONTAINER -->
           <div class="px-4">
-            <form [formGroup]="newConversationForm" (ngSubmit)="onNewConversationFormSubmit(newConversationForm.get('recipientEmail')?.value)">
+            <form
+              [formGroup]="newConversationForm"
+              (ngSubmit)="onNewConversationFormSubmit(newConversationForm.get('recipientUsername')?.value)"
+            >
               <!-- RECIPIENT USERNAME FIELD -->
               <div class="mb-3">
-                <label class="block text-amber-800 text-sm font-bold mb-2" for="recipientEmail">Recipient Username</label>
-                <input class="font-black" id="recipientEmail" type="text" formControlName="recipientEmail" required>
-                </div>
+                <label class="block text-amber-800 text-sm font-bold mb-2" for="recipientUsername">Recipient Username</label>
+                <input class="font-black" id="recipientUsername" type="text" formControlName="recipientUsername" required>
+              </div>
                 <div class="button-container">
                   <!-- SUBMIT BUTTON -->
                   <a><button class="bn632-hover bn26 text-white" type="submit" [disabled]="newConversationForm.invalid">Submit</button></a>
@@ -50,8 +53,8 @@
                 </div>
               </form>
             </div>
-          </div>
-        }
+        </div>
+      }
 
         <!-- CONVERSATION LIST -->
         <app-conversations
@@ -67,8 +70,8 @@
         <div class="msg-box-wrapper">
           <app-chatbox
             [conversationId]="selectedConversation?.conversation_id"
-            [conversationStarter]="selectedConversation.StarterUsername"
-            [conversationStarterPic]="selectedConversation.StarterUserPic"
+            [conversationStarter]="selectedConversation?.StarterUsername"
+            [conversationStarterPic]="selectedConversation?.StarterUserPic"
             [selectedLanguage]="sourceLanguage"
             [user]="user"
             (languageSelectionChange)="onLanguageSelection($event)"
