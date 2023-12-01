@@ -14,7 +14,6 @@ import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Language } from '../../../interfaces/Language.interfaces';
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
-import { ConversationService } from '../../services/conversation/conversation.service';
 import { MessageService } from '../../services/message/message.service';
 import languageArray from '../../../utils/languageMapper';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -57,7 +56,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   constructor(
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
-    private conversationService: ConversationService,
     private messageService: MessageService
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';

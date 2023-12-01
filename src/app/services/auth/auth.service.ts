@@ -52,12 +52,11 @@ export class AuthService {
 
   /** PRIVATE METHODS */
   private handleLoginResponse(response: any): void {
-    if (response.enabled && response.userId) {
+    if (response.enabled && response.user_id) {
       this.loggedIn.next(true);
-      const user: any = { user_id: response.userId };
-      this.currentUserSubject.next(user as User);
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.router.navigate(['/home']);
+      this.currentUserSubject.next(response as User);
+      localStorage.setItem('currentUser', JSON.stringify(response));
+      this.router.navigate(['/chat']);
     } else {
       this.displaySnackBar('Invalid user credentials. Please try again.');
       console.error('Login failed:', response);

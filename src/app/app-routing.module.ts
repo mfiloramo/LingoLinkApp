@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeView } from "./views/home/home.view";
+import { ChatView } from "./views/chat/chat.view";
 import { MessageBoxComponent } from "./components/message-box/message-box.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
@@ -13,7 +13,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login' | DEV: '/home'
+    redirectTo: '/login', // PROD: '/login' | DEV: '/chat'
     pathMatch: 'full'
   },
   {
@@ -22,10 +22,10 @@ const routes: Routes = [
     data: { animation: 'registration' }
   },
   {
-    path: 'home',
-    component: HomeView,
-    data: { animation: 'home' },
-    canActivate: [ AuthGuard ], // ENABLE FOR PROD
+    path: 'chat',
+    component: ChatView,
+    data: { animation: 'chat' },
+    // canActivate: [ AuthGuard ], // ENABLED FOR PROD
     children: [
       {
         path: '',
