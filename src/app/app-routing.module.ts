@@ -13,7 +13,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/chat', // PROD: '/login' | DEV: '/chat'
+    redirectTo: '/login', // PROD: '/login' | DEV: '/chat'
     pathMatch: 'full'
   },
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'chat',
     component: ChatView,
     data: { animation: 'chat' },
-    canActivate: [ AuthGuard ], // ENABLED FOR PROD
+    // canActivate: [ AuthGuard ], // ENABLED FOR PROD
     children: [
       {
         path: '',
