@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'chat',
     component: ChatView,
     data: { animation: 'chat' },
-    // canActivate: [ AuthGuard ], // ENABLED FOR PROD
+    canActivate: [ AuthGuard ], // ENABLED FOR PROD
     children: [
       {
         path: '',
