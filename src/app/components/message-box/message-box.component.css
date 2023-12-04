@@ -256,7 +256,6 @@ body::-webkit-scrollbar {
 
   .msg-sent .msg-text,
   .msg-received .msg-text {
-    min-width: 50px;
     max-width: 220px;
   }
 }
