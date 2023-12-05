@@ -6,4 +6,5 @@ export interface User {
   readonly firstName?: string,
   readonly lastName?: string,
   readonly enabled: boolean,
+  profile_img: string,
 }
