@@ -43,6 +43,8 @@ export class AuthService {
   }
 
   public register(user: User): Observable<any> {
+    // STUB: GENERATE RANDOM PROFILE IMAGE AS STRING
+    user.profile_img = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`
     return this.http.post<any>(`${this.apiUrl}/users`, user)
       .pipe(
         tap((response: any) => this.handleRegisterResponse(response, user)),
