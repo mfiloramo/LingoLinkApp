@@ -106,7 +106,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
           this.mainConvoContainer.push(message);
           this.textInput = '';
         } else {
-          console.log('Error');
+          console.error('Error sending message');
         }
       });
     } else {
