@@ -79,7 +79,8 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   /** PUBLIC METHODS */
   public onSendMessage(): void {
-    if (!this.textInput.trim()) return;
+    if (!this.textInput.trim() || !this.selectedLanguage) return;
+
     this.playClickSound();
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
