@@ -68,6 +68,6 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_TREE_0D3C88E0F }}
           action: "upload"
-          app_location: "dist/world-home-app"
+          app_location: "dist/world-chat-app"
           api_location: ""
-          output_location: "dist/world-home-app"
+          output_location: "dist/world-chat-app"
