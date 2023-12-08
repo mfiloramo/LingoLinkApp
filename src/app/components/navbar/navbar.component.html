@@ -7,19 +7,19 @@
   </mat-sidenav-content>
 
   <!-- NAVBAR BUTTONS  -->
-  <mat-sidenav-content (click)="profileClick.emit()" routerLink="/" class="sidenav-item mt-24">
+  <mat-sidenav-content class="sidenav-item mt-24" (click)="profileClick.emit()" routerLink="/" >
     <mat-icon>person</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item" (click)="showConversations.emit()" routerLink="/chat/chat">
+  <mat-sidenav-content class="sidenav-item" (click)="showConversations.emit()" routerLink="/home/chat">
     <mat-icon>forum</mat-icon>
   </mat-sidenav-content>
   <mat-sidenav-content class="sidenav-item">
     <mat-icon>contacts</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item">
+  <mat-sidenav-content class="sidenav-item" (click)="showSettings.emit()" routerLink="/home/settings">
     <mat-icon>settings</mat-icon>
   </mat-sidenav-content>
-  <mat-sidenav-content (click)="logout()" class="sidenav-item mb-24">
+  <mat-sidenav-content class="sidenav-item mb-24" (click)="logout()">
     <mat-icon>eject</mat-icon>
   </mat-sidenav-content>
 

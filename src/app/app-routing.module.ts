@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChatView } from "./views/chat/chat.view";
+import { Home } from "./views/home/home";
 import { MessageBoxComponent } from "./components/message-box/message-box.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
@@ -8,12 +8,13 @@ import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 import { LoginView } from "./views/login/login.view";
 import { RegistrationView } from "./views/registration/registration.view";
 import { AuthGuard } from "./guards/auth/auth.guard";
+import { SettingsView } from "./views/settings/settings.view";
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login' | DEV: '/chat'
+    redirectTo: '/home', // PROD: '/login' | DEV: '/home'
     pathMatch: 'full'
   },
   {
@@ -22,20 +23,15 @@ const routes: Routes = [
     data: { animation: 'registration' }
   },
   {
-    path: 'chat',
-    component: ChatView,
-    data: { animation: 'chat' },
-    canActivate: [ AuthGuard ], // ENABLED FOR PROD
+    path: 'home',
+    component: Home,
+    data: { animation: 'home' },
+    canActivate: [ AuthGuard ], // ENABLE FOR PROD
     children: [
       {
         path: '',
         redirectTo: '',
         pathMatch: 'full'
-      },
-      {
-        path: 'profile',
-        component: NavbarComponent,
-        data: { animation: 'profile' },
       },
       {
         path: 'conversations',
@@ -46,6 +42,11 @@ const routes: Routes = [
         path: 'chat',
         component: MessageBoxComponent,
         data: { animation: 'chat' },
+      },
+      {
+        path: 'settings',
+        component: SettingsView,
+        data: { animation: 'settings' }
       }
     ]
   },
@@ -58,7 +59,7 @@ const routes: Routes = [
     path: '**',
     component: PageNotFoundView,
     data: { animation: 'pageNotFound' }
-  },
+  }
 ];
 
 @NgModule({
