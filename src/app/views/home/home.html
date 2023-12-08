@@ -3,15 +3,16 @@
 
   <!-- NAVBAR -->
   @if (!showChat) {
-    <div>
+<!--    <div>-->
       <app-navbar
         id="profile"
         [user]="user"
         (profileClick)="onProfileClick()"
         (showConversations)="onShowConversations()"
         (showChat)="onShowChatBox()"
+        (showSettings)="onShowSettings()"
       ></app-navbar>
-    </div>
+<!--    </div>-->
   }
 
   <!-- CONVERSATIONS COMPONENT CONTAINER -->
@@ -59,8 +60,8 @@
         <!-- CONVERSATION LIST -->
         <app-conversations
           [user]="user"
-          (conversationIsSelected)="onConversationSelected($event);"
-        ></app-conversations>
+          (conversationIsSelected)="onConversationSelected($event)"
+        />
       </div>
     }
 
@@ -78,10 +79,16 @@
             (conversationDeselected)="onConversationDeselected()"
             (newMessage)="onNewConversationMsgSubmit($event)"
             (newConversation)="resetInitialMessageFlag()"
-            >
-          </app-chatbox>
+          />
         </div>
       </div>
     }
+
+  <!-- SETTINGS PAGE CONTAINER -->
+  @if (showSettings) {
+    <app-settings
+
+    />
+  }
 
   </div>

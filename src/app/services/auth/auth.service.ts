@@ -58,7 +58,7 @@ export class AuthService {
       this.loggedIn.next(true);
       this.currentUserSubject.next(response as User);
       localStorage.setItem('currentUser', JSON.stringify(response));
-      this.router.navigate(['/chat']);
+      this.router.navigate(['/home']);
     } else {
       this.displaySnackBar('Invalid user credentials. Please try again.');
       console.error('Login failed:', response);

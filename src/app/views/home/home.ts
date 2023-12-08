@@ -8,11 +8,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.view.html',
-  styleUrls: ['./chat.view.css']
+  selector: 'app-home',
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
 })
-export class ChatView implements OnInit, OnDestroy {
+export class Home implements OnInit, OnDestroy {
   // COMPONENT INPUTS
   @Input() user: any;
 
@@ -24,6 +24,7 @@ export class ChatView implements OnInit, OnDestroy {
   public showConvos: boolean = true;
   public showChat: boolean = false;
   public showModal: boolean = false;
+  public showSettings: boolean = false;
   public modalAnimationClass: string = '';
   public newConversationForm!: FormGroup;
   public newConversationCache!: any;
@@ -54,6 +55,9 @@ export class ChatView implements OnInit, OnDestroy {
 
   /** PUBLIC METHODS */
   public onProfileClick(): void {
+    this.showChat = true;
+    this.showConvos = false;
+    this.showSettings = false;
     this.showConvos = false;
   }
 
@@ -61,25 +65,34 @@ export class ChatView implements OnInit, OnDestroy {
     conversation.StarterUsername = conversation.StarterUsername || this.user.username;
     conversation.StarterUserPic = conversation.StarterUserPic || this.user.userPic;
 
-
     this.selectedConversation = conversation;
     this.showChat = true;
     this.showConvos = false;
+    this.showSettings = false;
   }
 
   public onConversationDeselected(): void {
     this.selectedConversation = null;
     this.showChat = false;
     this.showConvos = true;
+    this.showSettings = false;
   }
 
   public onShowConversations(): void {
     this.showConvos = true;
     this.showChat = false;
+    this.showSettings = false;
   }
 
   public onShowChatBox(): void {
+    this.showSettings = false;
     this.showChat = true;
+    this.showConvos = false;
+  }
+
+  public onShowSettings(): void {
+    this.showSettings = true;
+    this.showChat = false;
     this.showConvos = false;
   }
 

@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { ChatView } from './views/chat/chat.view';
+import { Home } from './views/home/home';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ConversationsComponent } from './components/conversations/conversations.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +26,7 @@ import { RegistrationView } from './views/registration/registration.view';
 import { MatRadioModule } from '@angular/material/radio';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { environment } from '../environments/environment';
+import { SettingsView } from "./views/settings/settings.view";
 
 const protectedResourceMap: any = environment.production
   ? [[environment.apiBaseUrl, [`api://lingolink-api/general`]]]
@@ -37,34 +38,35 @@ const protectedResourceMap: any = environment.production
         AppComponent,
         MessageBoxComponent,
         NavbarComponent,
-        ChatView,
+        Home,
         ConversationsComponent,
         PageNotFoundView,
         LoginView,
         RegistrationView
     ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        CommonModule,
-        HttpClientModule,
-        MatExpansionModule,
-        FormsModule,
-        MatButtonModule,
-        MatCardModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatGridListModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatProgressSpinnerModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatSnackBarModule,
-        MatRadioModule,
-        _MatCheckboxRequiredValidatorModule,
-        NgOptimizedImage,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    HttpClientModule,
+    MatExpansionModule,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatRadioModule,
+    _MatCheckboxRequiredValidatorModule,
+    NgOptimizedImage,
+    SettingsView,
+  ],
     providers: [],
     exports: [
         NavbarComponent
