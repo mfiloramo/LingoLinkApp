@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Home } from "./views/home/home";
 import { MessageBoxComponent } from "./components/message-box/message-box.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
 import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 import { LoginView } from "./views/login/login.view";
