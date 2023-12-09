@@ -1,1 +1,13 @@
-<div class="settings-container">Settings</div>
+<!-- SETTINGS VIEW CONTAINER -->
+<div class="settings-container">Settings
+  <!-- LANGUAGE SELECTION -->
+  <select class="lang-select" (change)="selectLanguage($event)">
+    <option>English</option>
+    <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
+    @for (languageObj of languageArray; track languageObj) {
+      <option>
+        {{ languageObj.name }}
+      </option>
+    }
+  </select>
+</div>

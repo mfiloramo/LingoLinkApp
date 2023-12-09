@@ -11,7 +11,7 @@
         (showConversations)="onShowConversations()"
         (showChat)="onShowChatBox()"
         (showSettings)="onShowSettings()"
-      ></app-navbar>
+      />
 <!--    </div>-->
   }
 
@@ -75,7 +75,7 @@
             [conversationStarterPic]="selectedConversation?.StarterUserPic"
             [selectedLanguage]="sourceLanguage"
             [user]="user"
-            (languageSelectionChange)="onLanguageSelection($event)"
+            (languageSelectionChange)="onLanguageSelect($event)"
             (conversationDeselected)="onConversationDeselected()"
             (newMessage)="onNewConversationMsgSubmit($event)"
             (newConversation)="resetInitialMessageFlag()"
@@ -87,7 +87,7 @@
   <!-- SETTINGS PAGE CONTAINER -->
   @if (showSettings) {
     <app-settings
-
+      (selectedLanguage)="onLanguageSelect($event)"
     />
   }
 
