@@ -41,6 +41,7 @@ export class Home implements OnInit, OnDestroy {
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
+    console.log('home.view.sourceLanguage:', this.sourceLanguage);
     this.subscriptions.add(
       this.authService.currentUser$
         .subscribe((user: any): void => {
@@ -149,7 +150,7 @@ export class Home implements OnInit, OnDestroy {
     }
   }
 
-  public onLanguageSelection(language: any): void {
+  public onLanguageSelect(language: any): void {
     this.sourceLanguage = language;
   }
 

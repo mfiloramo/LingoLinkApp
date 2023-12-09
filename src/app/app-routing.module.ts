@@ -13,7 +13,7 @@ import { SettingsView } from "./views/settings/settings.view";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home', // PROD: '/login' | DEV: '/home'
+    redirectTo: '/login', // PROD: '/login' | DEV: '/home'
     pathMatch: 'full'
   },
   {

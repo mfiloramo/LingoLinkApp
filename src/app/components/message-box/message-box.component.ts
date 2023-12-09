@@ -29,7 +29,7 @@ import { User } from '../../../interfaces/User.interfaces';
 export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
   // COMPONENT INPUTS
   @Input() user!: User;
-  @Input() selectedLanguage!: string;
+  @Input() selectedLanguage!: any;
   @Input() conversationId!: number;
   @Input() conversationStarter!: string;
   @Input() conversationStarterPic!: string;
@@ -45,7 +45,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
 
   // COMPONENT STATE
-  public source_language: any = { code: 'en' };
+  public source_language: any = this.selectedLanguage || { code: 'en' };
   public languageArray: Language[] = languageArray;
   public mainConvoContainer: ChatMessage[] = [];
   public textInput: string = '';
@@ -59,11 +59,13 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
     private messageService: MessageService
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
+    // @ts-ignore
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
   }
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
+    console.log('message-box.component.source_language:', this.source_language);
     this.connectWebSocket();
   }
 
@@ -152,7 +154,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   public onLangSelect(lang: any): void {
     const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === lang.target.value);
     if (selectedLanguage) {
-      this.source_language = { code: selectedLanguage.code };
+      this.source_language = { code: selectedLanguage.code};
       this.languageSelectionChange.emit(selectedLanguage.code);
     }
   }
