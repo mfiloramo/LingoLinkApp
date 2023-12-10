@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Home } from "./views/home/home";
+import { HomeView } from "./views/home/home.view";
 import { MessageBoxComponent } from "./components/message-box/message-box.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
 import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: Home,
+    component: HomeView,
     data: { animation: 'home' },
     canActivate: [ AuthGuard ], // ENABLE FOR PROD
     children: [

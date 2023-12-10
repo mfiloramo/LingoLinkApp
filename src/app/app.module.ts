@@ -1,36 +1,38 @@
+// CORE MODULE IMPORTS
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MessageBoxComponent } from './components/message-box/message-box.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+
+// ANGULAR MATERIAL COMPONENTS
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { Home } from './views/home/home';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { ConversationsComponent } from './components/conversations/conversations.component';
-import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PageNotFoundView } from './views/page-not-found/page-not-found.view';
-import { LoginView } from './views/login/login.view';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RegistrationView } from './views/registration/registration.view';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
-import { environment } from '../environments/environment';
-import { SettingsView } from "./views/settings/settings.view";
 
-const protectedResourceMap: any = environment.production
-  ? [[environment.apiBaseUrl, [`api://lingolink-api/general`]]]
-  : [[environment.apiBaseUrl, [`${environment.apiBaseUrl}/.default`]]];
+// CUSTOM COMPONENTS
+import { AppComponent } from './app.component';
+import { MessageBoxComponent } from './components/message-box/message-box.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ConversationsComponent } from './components/conversations/conversations.component';
+
+// VIEWS
+import { HomeView } from './views/home/home.view';
+import { LoginView } from './views/login/login.view';
+import { PageNotFoundView } from './views/page-not-found/page-not-found.view';
+import { RegistrationView } from './views/registration/registration.view';
+import { SettingsView } from "./views/settings/settings.view";
 
 
 @NgModule({
@@ -38,7 +40,7 @@ const protectedResourceMap: any = environment.production
         AppComponent,
         MessageBoxComponent,
         NavbarComponent,
-        Home,
+        HomeView,
         ConversationsComponent,
         PageNotFoundView,
         LoginView,

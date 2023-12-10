@@ -9,10 +9,10 @@ import ShortUniqueId from "short-unique-id";
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.html',
-  styleUrls: ['./home.css']
+  templateUrl: './home.view.html',
+  styleUrls: ['./home.view.css']
 })
-export class Home implements OnInit, OnDestroy {
+export class HomeView implements OnInit, OnDestroy {
   // COMPONENT INPUTS
   @Input() user: any;
 
@@ -86,15 +86,15 @@ export class Home implements OnInit, OnDestroy {
   }
 
   public onShowChatBox(): void {
-    this.showSettings = false;
     this.showChat = true;
     this.showConvos = false;
+    this.showSettings = false;
   }
 
   public onShowSettings(): void {
-    this.showSettings = true;
     this.showChat = false;
     this.showConvos = false;
+    this.showSettings = true;
   }
 
   public async onNewConversationFormSubmit(recipientUsername: string): Promise<void> {
