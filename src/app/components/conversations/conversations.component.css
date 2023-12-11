@@ -85,6 +85,10 @@
   height: auto;
 }
 
+.conversation-list {
+  overflow: scroll;
+}
+
 /* PSEUDO SELECTORS */
 .conversation-item:hover {
   background: #061a46;
