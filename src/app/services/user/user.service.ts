@@ -10,7 +10,7 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  public setUser(): any {
+  public getUser(): any {
     return this.http.get(`${ environment.apiBaseUrl }/users`);
   }
 }

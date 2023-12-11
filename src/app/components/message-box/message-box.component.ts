@@ -6,7 +6,7 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output,
+  Output, Renderer2,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -36,7 +36,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   // COMPONENT OUTPUTS
   @Output() conversationDeselected: EventEmitter<null> = new EventEmitter();
-  @Output() languageSelectionChange: EventEmitter<string> = new EventEmitter<string>()
+  @Output() languageSelectionChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() newMessage: EventEmitter<string> = new EventEmitter<string>();
   @Output() newConversation: EventEmitter<any> = new EventEmitter<any>();
 
@@ -139,6 +139,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
             }
           });
 
+          // TODO: THIS MIGHT HAVE TO DO WITH THE NEW CONVERSATION MESSAGE NOT APPEARING ONINIT
           // HANDLE TRANSLATED MESSAGES
           await Promise.all(translationPromises);
           this.mainConvoContainer = response;
@@ -161,7 +162,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   public scrollToBottom(): void {
     const element: HTMLInputElement = this.chatContainer.nativeElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    element.scrollIntoView({ block: 'end' });
   }
 
   public onDeselectConversation(): void {

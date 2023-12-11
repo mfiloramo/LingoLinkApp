@@ -37,7 +37,8 @@ export class HomeView implements OnInit, OnDestroy {
     private conversationService: ConversationService,
     private messageService: MessageService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
@@ -175,11 +176,11 @@ export class HomeView implements OnInit, OnDestroy {
   /** PRIVATE METHODS */
   private buildNewConversationForm(): void {
     this.newConversationForm = this.fb.group({
-      recipientUsername: [''],
-      conversationName: [''],
-      sourceLanguage: [''],
-      senderUserId: [''],
-      timestamp: [''],
+      recipientUsername: [ '' ],
+      conversationName: [ '' ],
+      sourceLanguage: [ '' ],
+      senderUserId: [ '' ],
+      timestamp: [ '' ],
     })
   }
 }
