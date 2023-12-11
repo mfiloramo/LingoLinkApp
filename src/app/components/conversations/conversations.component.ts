@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
   OnDestroy,
-  Output,
+  Output, ViewChild, ElementRef, AfterViewChecked, AfterViewInit,
 } from '@angular/core';
 import { Conversation } from '../../../interfaces/Conversation.interfaces';
 import { ConversationService } from '../../services/conversation/conversation.service';
@@ -18,9 +18,10 @@ import { User } from "../../../interfaces/User.interfaces";
   templateUrl: './conversations.component.html',
   styleUrls: ['./conversations.component.css'],
 })
-export class ConversationsComponent implements OnInit, OnDestroy {
+export class ConversationsComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Input() user: any;
   @Output() conversationIsSelected: EventEmitter<Conversation | null> = new EventEmitter();
+  @ViewChild('conversationList') conversationList!: ElementRef<any>;
 
   public conversations: Conversation[] = [];
   public isLoading: boolean = false;
@@ -34,6 +35,10 @@ export class ConversationsComponent implements OnInit, OnDestroy {
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
     this.loadConversations();
+  }
+
+  ngAfterViewChecked(): void {
+    this.conversationList.nativeElement.scrollTop = 0;
   }
 
   ngOnDestroy(): void {

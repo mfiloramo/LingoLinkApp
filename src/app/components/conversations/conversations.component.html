@@ -7,33 +7,33 @@
 
 <!-- CONVERSATIONS LIST -->
 @if (!selectedConversation) {
-  <div>
-    @for (conversation of conversations; track conversation) {
-      <div>
-        @if (checkConversationVisibility(conversation)) {
-          <div class="conversation-item" (click)="onSelectConversation(conversation)">
-            <div class="circle" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
-            <div class="name-and-msg">
-              <div class="name">{{ conversation.StarterUsername }}</div>
-              <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
-            </div>
-
-            <!-- NOTIFICATION BELL -->
-            <div class="notification-and-timestamp">
-              <mat-icon class="notification-icon">notifications</mat-icon>
-              <div class="timestamp">{{ convertIsoString(conversation.latest_timestamp) }}</div>
-            </div>
-
-            <!-- DELETE CONVERSATION BUTTON -->
-            <div class="delete-conversation">
-              <div (click)="removeConversation(user, conversation)">
-                <mat-icon class="notification-icon">close</mat-icon>
-              </div>
-            </div>
-
+  <div class="conversation-list" #conversationList>
+  @for (conversation of conversations; track conversation) {
+    <div>
+      @if (checkConversationVisibility(conversation)) {
+        <div class="conversation-item" (click)="onSelectConversation(conversation)">
+          <div class="circle" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
+          <div class="name-and-msg">
+            <div class="name">{{ conversation.StarterUsername }}</div>
+            <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
           </div>
-        }
-      </div>
-    }
+
+          <!-- NOTIFICATION BELL -->
+          <div class="notification-and-timestamp">
+            <mat-icon class="notification-icon">notifications</mat-icon>
+            <div class="timestamp">{{ convertIsoString(conversation.latest_timestamp) }}</div>
+          </div>
+
+          <!-- DELETE CONVERSATION BUTTON -->
+          <div class="delete-conversation">
+            <div (click)="removeConversation(user, conversation)">
+              <mat-icon class="notification-icon">close</mat-icon>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+  }
   </div>
 }
