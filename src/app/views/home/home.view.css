@@ -132,7 +132,8 @@ mat-icon {
   }
 
   .conversations-container {
-    height: 100%;
+    margin-top: 0;
+    height: calc(100vh - 80px);
     width: 100vw;
     padding-top: 50px;
     overflow-y: auto;
