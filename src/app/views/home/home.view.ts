@@ -45,9 +45,7 @@ export class HomeView implements OnInit, OnDestroy {
     console.log('home.view.sourceLanguage:', this.sourceLanguage);
     this.subscriptions.add(
       this.authService.currentUser$
-        .subscribe((user: any): void => {
-          this.user = user;
-        })
+        .subscribe((user: any): void => this.user = user)
     );
   }
 
