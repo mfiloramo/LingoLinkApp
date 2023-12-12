@@ -3,16 +3,14 @@
 
   <!-- NAVBAR -->
   @if (!showChat) {
-<!--    <div>-->
-      <app-navbar
-        id="profile"
-        [user]="user"
-        (profileClick)="onProfileClick()"
-        (showConversations)="onShowConversations()"
-        (showChat)="onShowChatBox()"
-        (showSettings)="onShowSettings()"
-      />
-<!--    </div>-->
+    <app-navbar
+      id="profile"
+      [user]="user"
+      (profileClick)="onProfileClick()"
+      (showConversations)="onShowConversations()"
+      (showChat)="onShowChatBox()"
+      (showSettings)="onShowSettings()"
+    />
   }
 
   <!-- CONVERSATIONS COMPONENT CONTAINER -->
