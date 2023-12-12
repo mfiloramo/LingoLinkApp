@@ -38,7 +38,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   }
 
   ngAfterViewChecked(): void {
-    this.conversationList.nativeElement.scrollTop = 0;
+    this.scrollToTop();
   }
 
   ngOnDestroy(): void {
@@ -96,5 +96,9 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
 
   public truncateSentence(sentence: string, maxLength: number): string {
     return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
+  }
+
+  public scrollToTop(): void {
+    this.conversationList.nativeElement.scrollTop = 0;
   }
 }
