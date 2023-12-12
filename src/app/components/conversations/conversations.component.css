@@ -87,6 +87,7 @@
 
 .conversation-list {
   overflow: scroll;
+  margin-bottom: 80px;
 }
 
 /* PSEUDO SELECTORS */
