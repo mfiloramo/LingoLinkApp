@@ -11,7 +11,6 @@ export class UserService {
     userId: '',
     username: '',
     email: '',
-    password: '',
     firstName: '',
     lastName: '',
     enabled: false,

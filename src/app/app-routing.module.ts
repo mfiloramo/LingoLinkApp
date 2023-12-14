@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeView,
     data: { animation: 'home' },
-    canActivate: [ AuthGuard ], // ENABLE FOR PROD
+    // canActivate: [ AuthGuard ], // ENABLE FOR PROD
     children: [
       {
         path: '',

@@ -95,6 +95,20 @@ export class HomeView implements OnInit, OnDestroy {
     this.showSettings = true;
   }
 
+  public toggleModal(): void {
+    if (!this.showModal) {
+      // WHEN OPENING THE MODAL
+      this.showModal = true;
+      this.modalAnimationClass = 'modal-animate-in';
+      this.buildNewConversationForm();
+    } else {
+      // WHEN CLOSING THE MODAL
+      this.modalAnimationClass = 'modal-animate-out';
+      // this.newConversationForm.reset();
+      this.showModal = false;
+    }
+  }
+
   public async onNewConversationFormSubmit(recipientUsername: string): Promise<void> {
     try {
       // GENERATE NEW CONVERSATION GUID
@@ -154,20 +168,6 @@ export class HomeView implements OnInit, OnDestroy {
 
   public resetInitialMessageFlag(): void {
     this.isInitialMessageSent = false;
-  }
-
-  public toggleModal(): void {
-    if (!this.showModal) {
-      // WHEN OPENING THE MODAL
-      this.showModal = true;
-      this.modalAnimationClass = 'modal-animate-in';
-      this.buildNewConversationForm();
-    } else {
-      // WHEN CLOSING THE MODAL
-      this.modalAnimationClass = 'modal-animate-out';
-      // this.newConversationForm.reset();
-      this.showModal = false;
-    }
   }
 
   /** PRIVATE METHODS */
