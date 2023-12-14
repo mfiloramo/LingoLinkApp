@@ -1,7 +1,8 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from "../../services/user/user.service";
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.view.css'],
 })
 export class LoginView implements OnInit {
-  @Output() user: any;
   public loginForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -27,7 +28,9 @@ export class LoginView implements OnInit {
   public onLoginFormSubmit(email: string, password: string): void {
     try {
       this.authService.login(email, password)
-        .subscribe((response: any) => response);
+        .subscribe((response: any): void => {
+          this.userService.updateUserState(response);
+        });
     } catch (error: any) {
       this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
     }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from "rxjs";
 import { AuthService } from "../../services/auth/auth.service";
@@ -42,7 +42,6 @@ export class HomeView implements OnInit, OnDestroy {
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    console.log('home.view.sourceLanguage:', this.sourceLanguage);
     this.subscriptions.add(
       this.authService.currentUser$
         .subscribe((user: any): void => this.user = user)
@@ -123,17 +122,17 @@ export class HomeView implements OnInit, OnDestroy {
           recipientUsername: this.newConversationCache.recipientUsername,
           conversationName: this.newConversationCache.conversationName,
           sourceLanguage: this.sourceLanguage,
-          senderUserId: this.user.user_id,
+          senderUserId: this.user.userId,
           timestamp: new Date().toISOString()
         }).toPromise();
 
         if (newConversation) {
           this.selectedConversation = newConversation;
           this.messageService.sendMessage({
-            conversationId: newConversation.conversation_id,
-            user_id: this.user.user_id,
+            conversationId: newConversation.conversationId,
+            userId: this.user.userId,
             textInput: messageToSend,
-            source_language: this.sourceLanguage,
+            sourceLanguage: this.sourceLanguage,
             timestamp: new Date().toISOString(),
           })
             .subscribe((response: any): void => {

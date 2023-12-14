@@ -10,7 +10,7 @@ import { FormsModule } from "@angular/forms";
   standalone: true,
   imports: [ CommonModule, MatIconModule, FormsModule ],
   templateUrl: './settings.view.html',
-  styleUrls: ['./settings.view.css', '../../components/message-box/message-box.component.css']
+  styleUrls: ['./settings.view.css', '../../components/messages/messages.component.css']
 })
 export class SettingsView {
   @Output() selectedLanguage: EventEmitter<any> = new EventEmitter<any>();

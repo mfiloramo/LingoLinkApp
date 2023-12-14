@@ -23,7 +23,7 @@ import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox'
 
 // CUSTOM COMPONENTS
 import { AppComponent } from './app.component';
-import { MessageBoxComponent } from './components/message-box/message-box.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ConversationsComponent } from './components/conversations/conversations.component';
 
@@ -38,7 +38,7 @@ import { SettingsView } from "./views/settings/settings.view";
 @NgModule({
     declarations: [
         AppComponent,
-        MessageBoxComponent,
+        MessagesComponent,
         NavbarComponent,
         HomeView,
         ConversationsComponent,

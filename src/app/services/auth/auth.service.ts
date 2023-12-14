@@ -30,8 +30,7 @@ export class AuthService {
   public login(email: string, password: string): Observable<any> {
     return this.http.get<any>(`${ this.apiUrl }/auth`, { params: { email, password } })
       .pipe(
-        tap((response: any) => this.handleLoginResponse(response)),
-        catchError((error: any) => this.handleError(error))
+        catchError((error: any): any => this.handleError(error))
       );
   }
 
@@ -44,7 +43,8 @@ export class AuthService {
 
   public register(user: User): Observable<any> {
     // STUB: GENERATE RANDOM PROFILE IMAGE AS STRING
-    user.profile_img = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`
+    user.profileImg = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
+
     return this.http.post<any>(`${this.apiUrl}/users`, user)
       .pipe(
         tap((response: any) => this.handleRegisterResponse(response, user)),
@@ -54,11 +54,17 @@ export class AuthService {
 
   /** PRIVATE METHODS */
   private handleLoginResponse(response: any): void {
-    if (response.enabled && response.user_id) {
+
+    if (response.enabled && response.userId) {
       this.loggedIn.next(true);
+
+      // USER SERVICE LOGIC
       this.currentUserSubject.next(response as User);
       localStorage.setItem('currentUser', JSON.stringify(response));
+
+      // LOGIN VIEW LOGIC
       this.router.navigate(['/home']);
+
     } else {
       this.displaySnackBar('Invalid user credentials. Please try again.');
       console.error('Login failed:', response);

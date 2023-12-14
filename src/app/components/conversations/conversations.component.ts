@@ -49,7 +49,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   /** PUBLIC METHODS */
   public loadConversations(): void {
     this.isLoading = true;
-    this.conversationService.loadConversationsByUserId(this.user.user_id)
+    this.conversationService.loadConversationsByUserId(this.user.userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: async (conversations: Conversation[]): Promise<void> => {
@@ -81,7 +81,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
     localStorage.setItem(conversationKey, 'disabled');
 
     // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
-    await this.conversationService.deleteConversation(user.user_id, conversation)
+    await this.conversationService.deleteConversation(user.userId, conversation)
       .subscribe((response: any): void => response);
   }
 

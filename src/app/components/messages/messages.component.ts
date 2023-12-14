@@ -22,11 +22,11 @@ import { User } from '../../../interfaces/User.interfaces';
 
 
 @Component({
-  selector: 'app-chatbox',
-  templateUrl: './message-box.component.html',
-  styleUrls: ['./message-box.component.css', '../conversations/conversations.component.css'],
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.css', '../conversations/conversations.component.css'],
 })
-export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked {
+export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
   // COMPONENT INPUTS
   @Input() user!: User;
   @Input() selectedLanguage!: any;
@@ -45,7 +45,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
 
   // COMPONENT STATE
-  public source_language: any = this.selectedLanguage || { code: 'en' };
+  public sourceLanguage: any = this.selectedLanguage || { code: 'en' };
   public languageArray: Language[] = languageArray;
   public mainConvoContainer: ChatMessage[] = [];
   public textInput: string = '';
@@ -65,7 +65,6 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    console.log('message-box.component.source_language:', this.source_language);
     this.connectWebSocket();
   }
 
@@ -87,10 +86,10 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
-      user_id: this.user.user_id,
+      userId: this.user.userId,
       textInput: this.textInput,
       conversationId: this.conversationId,
-      source_language: this.source_language,
+      sourceLanguage: this.sourceLanguage,
     });
 
     if (this.conversationId) {
@@ -126,14 +125,14 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
       this.isLoading = true;
 
       // GET LOCAL LANGUAGE CODE
-      const localLangCode: string = this.translationService.getLanguageCode(this.source_language);
+      const localLangCode: string = this.translationService.getLanguageCode(this.sourceLanguage);
 
       // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
       this.messageService.loadMessages(this.conversationId)
         .subscribe(async (response: any): Promise<void> => {
           // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
           const translationPromises = response.map(async (message: any): Promise<void> => {
-            if (message.source_language !== localLangCode && message.textInput) {
+            if (message.sourceLanguage !== localLangCode && message.textInput) {
               // TRANSLATE/STRINGIFY MESSAGE CONTENT
               message.textInput = await this.cacheCheckTranslation(message, localLangCode);
             }
@@ -155,7 +154,7 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
   public onLangSelect(lang: any): void {
     const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === lang.target.value);
     if (selectedLanguage) {
-      this.source_language = { code: selectedLanguage.code};
+      this.sourceLanguage = { code: selectedLanguage.code};
       this.languageSelectionChange.emit(selectedLanguage.code);
     }
   }
@@ -183,15 +182,15 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
         const reader: FileReader = new FileReader();
         reader.onload = async (): Promise<void> => {
           const message = JSON.parse(reader.result as string);
-          const source_language: string = this.translationService.getLanguageCode(message.source_language);
-          const targLang: string = this.translationService.getLanguageCode(this.source_language);
+          const sourceLanguage: string = this.translationService.getLanguageCode(message.sourceLanguage);
+          const targLang: string = this.translationService.getLanguageCode(this.sourceLanguage);
 
           // TRANSLATE MESSAGE IF NEEDED
-          if (source_language !== targLang) {
+          if (sourceLanguage !== targLang) {
             message.textInput = await this.translationService.getLiveTranslation({
-              user: this.user.user_id,
+              user: this.user.userId,
               textInput: message.textInput,
-              source_language,
+              sourceLanguage: sourceLanguage,
               targLang
             }).toPromise();
           }
@@ -208,14 +207,14 @@ export class MessageBoxComponent implements OnInit, OnChanges, AfterViewChecked 
 
   private async cacheCheckTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
     try {
-      const translateKey: string = `${ message.message_id }_${ localLangCode }`;
+      const translateKey: string = `${ message.messageId }_${ localLangCode }`;
       let storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
         storedTranslation = await this.translationService.getLiveTranslation({
-          user: this.user.user_id,
+          user: this.user.userId,
           textInput: message.textInput,
-          source_language: message.source_language,
+          sourceLanguage: message.sourceLanguage,
           targLang: localLangCode
         }).toPromise();
         this.translationService.storeTranslation(translateKey, storedTranslation!);

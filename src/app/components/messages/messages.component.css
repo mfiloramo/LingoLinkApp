@@ -189,6 +189,15 @@ body::-webkit-scrollbar {
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes bounce {
   0% {
     transform: translateY(0);
@@ -243,6 +252,10 @@ body::-webkit-scrollbar {
 
 .animate-fadeIn {
   animation: fadeIn 0.75s;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.75s;
 }
 
 .ping-slower {
