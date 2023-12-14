@@ -19,8 +19,8 @@ export class ConversationService {
       .pipe(catchError(this.handleError));
   }
 
-  public loadConversationsByUserId(user_id: number): Observable<Conversation[]> {
-    const params: HttpParams = new HttpParams().set('id', user_id);
+  public loadConversationsByUserId(userId: number): Observable<Conversation[]> {
+    const params: HttpParams = new HttpParams().set('id', userId);
     return this.http.get<Conversation[]>(`${ this.apiUrl }/conversations`, { params })
       .pipe(catchError(this.handleError));
   }
@@ -28,7 +28,7 @@ export class ConversationService {
   public deleteConversation(userId: number, conversation: Conversation): any {
     try {
       return this.http.delete(`${ this.apiUrl }/participants`, {
-        body: { userId, conversationId: conversation.conversation_id }})
+        body: { userId, conversationId: conversation.conversationId }})
     } catch (error: any) {
       console.log('Error occurred', error);
     }

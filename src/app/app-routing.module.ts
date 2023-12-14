@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeView } from "./views/home/home.view";
-import { MessageBoxComponent } from "./components/message-box/message-box.component";
+import { MessagesComponent } from "./components/messages/messages.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
 import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 import { LoginView } from "./views/login/login.view";
@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeView,
     data: { animation: 'home' },
-    canActivate: [ AuthGuard ], // ENABLE FOR PROD
+    // canActivate: [ AuthGuard ], // ENABLE FOR PROD
     children: [
       {
         path: '',
@@ -39,7 +39,7 @@ const routes: Routes = [
       },
       {
         path: 'chat',
-        component: MessageBoxComponent,
+        component: MessagesComponent,
         data: { animation: 'chat' },
       },
       {

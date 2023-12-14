@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css', '../message-box/message-box.component.css']
+  styleUrls: ['./navbar.component.css', '../messages/messages.component.css']
 })
 export class NavbarComponent {
   // COMPONENT INPUTS

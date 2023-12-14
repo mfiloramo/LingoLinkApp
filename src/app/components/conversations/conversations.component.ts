@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from "../../../interfaces/User.interfaces";
+import { UserService } from "../../services/user/user.service";
 
 @Component({
   selector: 'app-conversations',
@@ -19,10 +20,10 @@ import { User } from "../../../interfaces/User.interfaces";
   styleUrls: ['./conversations.component.css'],
 })
 export class ConversationsComponent implements OnInit, OnDestroy, AfterViewChecked {
-  @Input() user: any;
   @Output() conversationIsSelected: EventEmitter<Conversation | null> = new EventEmitter();
   @ViewChild('conversationList') conversationList!: ElementRef<any>;
 
+  public userState!: User;
   public conversations: Conversation[] = [];
   public isLoading: boolean = false;
   public selectedConversation: any;
@@ -30,10 +31,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
 
   constructor(
     private conversationService: ConversationService,
+    private userService: UserService
   ) { }
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
+    this.userState = this.userService.userState();
     this.loadConversations();
   }
 
@@ -49,7 +52,8 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   /** PUBLIC METHODS */
   public loadConversations(): void {
     this.isLoading = true;
-    this.conversationService.loadConversationsByUserId(this.user.user_id)
+    console.log('tomato', this.userState);
+    this.conversationService.loadConversationsByUserId(this.userState.userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: async (conversations: Conversation[]): Promise<void> => {
@@ -81,7 +85,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
     localStorage.setItem(conversationKey, 'disabled');
 
     // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
-    await this.conversationService.deleteConversation(user.user_id, conversation)
+    await this.conversationService.deleteConversation(user.userId, conversation)
       .subscribe((response: any): void => response);
   }
 

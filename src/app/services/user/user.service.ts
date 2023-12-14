@@ -1,16 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { User } from "../../../interfaces/User.interfaces";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(
-    private http: HttpClient
-  ) { }
+  private apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
+  public userState: WritableSignal<any> = signal({
+    userId: '',
+    username: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    enabled: false,
+    profileImg: ''
+  })
 
-  public getUser(): any {
-    return this.http.get(`${ environment.apiBaseUrl }/users`);
+  constructor() {}
+
+  /** PUBLIC METHODS */
+  public updateUserState(newUserState: User): void {
+    this.userState.update((currentState: User) => ({ ...currentState, ...newUserState }));
   }
 }

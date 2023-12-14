@@ -1,7 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from "@angular/router";
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from "../../services/user/user.service";
 
 @Component({
   selector: 'app-login',
@@ -9,12 +11,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.view.css'],
 })
 export class LoginView implements OnInit {
-  @Output() user: any;
   public loginForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
+    private router: Router,
     private snackBar: MatSnackBar
   ) {}
 
@@ -25,11 +28,18 @@ export class LoginView implements OnInit {
 
   /** PUBLIC METHODS */
   public onLoginFormSubmit(email: string, password: string): void {
-    try {
-      this.authService.login(email, password)
-        .subscribe((response: any) => response);
-    } catch (error: any) {
-      this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+    if (this.loginForm.valid) {
+      this.authService.login(email, password).subscribe({
+        next: (response: any): void => {
+          this.userService.updateUserState(response);
+          this.router.navigate(['/home']);
+        },
+        error: (error: any): void => {
+          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+        }
+      });
+    } else {
+      this.snackBar.open('Please enter valid credentials', 'Dismiss', { duration: 5000 });
     }
   }
 
