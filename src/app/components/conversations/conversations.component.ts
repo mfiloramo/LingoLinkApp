@@ -20,7 +20,6 @@ import { UserService } from "../../services/user/user.service";
   styleUrls: ['./conversations.component.css'],
 })
 export class ConversationsComponent implements OnInit, OnDestroy, AfterViewChecked {
-  @Output() conversationIsSelected: EventEmitter<Conversation | null> = new EventEmitter();
   @ViewChild('conversationList') conversationList!: ElementRef<any>;
 
   public userState!: User;
@@ -52,7 +51,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   /** PUBLIC METHODS */
   public loadConversations(): void {
     this.isLoading = true;
-    console.log('tomato', this.userState);
     this.conversationService.loadConversationsByUserId(this.userState.userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -68,7 +66,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   }
 
   public onSelectConversation(conversation: Conversation): void {
-    this.conversationIsSelected.emit(conversation);
     this.selectedConversation = conversation;
   }
 

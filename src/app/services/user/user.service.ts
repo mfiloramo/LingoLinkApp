@@ -6,7 +6,6 @@ import { User } from "../../../interfaces/User.interfaces";
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
   public userState: WritableSignal<any> = signal({
     userId: '',
     username: '',
@@ -16,8 +15,7 @@ export class UserService {
     enabled: false,
     profileImg: ''
   })
-
-  constructor() {}
+  private apiUrl: string = environment.apiBaseUrl;
 
   /** PUBLIC METHODS */
   public updateUserState(newUserState: User): void {

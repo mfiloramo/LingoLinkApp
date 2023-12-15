@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { User } from "../../../interfaces/User.interfaces";
@@ -11,10 +11,8 @@ import { User } from "../../../interfaces/User.interfaces";
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
-  public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
+  private loggedIn: WritableSignal<boolean> = signal(false);
+  private apiUrl: string = environment.apiBaseUrl;
 
   constructor(
     private http: HttpClient,
@@ -24,20 +22,19 @@ export class AuthService {
 
   /** PUBLIC METHODS */
   public isAuthenticated(): boolean {
-    return this.loggedIn.value && this.currentUserSubject.value !== null;
+    return this.loggedIn();
   }
 
   public login(email: string, password: string): Observable<any> {
     return this.http.get<any>(`${ this.apiUrl }/auth`, { params: { email, password } })
       .pipe(
-        catchError((error: any): any => this.handleError(error))
+        tap((response: User) => this.handleLoginResponse(response)),
+        catchError((error: any): any => this.handleError(error)),
       );
   }
 
   public logout(): void {
-    this.loggedIn.next(false);
-    this.currentUserSubject.next(null);
-    localStorage.removeItem('currentUser');
+    this.loggedIn.set(false);
     this.router.navigate(['/login']);
   }
 
@@ -54,17 +51,8 @@ export class AuthService {
 
   /** PRIVATE METHODS */
   private handleLoginResponse(response: any): void {
-
     if (response.enabled && response.userId) {
-      this.loggedIn.next(true);
-
-      // USER SERVICE LOGIC
-      this.currentUserSubject.next(response as User);
-      localStorage.setItem('currentUser', JSON.stringify(response));
-
-      // LOGIN VIEW LOGIC
-      this.router.navigate(['/home']);
-
+      this.loggedIn.set(true);
     } else {
       this.displaySnackBar('Invalid user credentials. Please try again.');
       console.error('Login failed:', response);

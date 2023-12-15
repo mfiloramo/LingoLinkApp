@@ -39,7 +39,7 @@
 }
 
 /* MOBILE SCREEN MEDIA QUERY RULES */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 2000px) {
   .sidenav {
     height: 80px;
     flex-direction: row;
