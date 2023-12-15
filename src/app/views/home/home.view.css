@@ -9,7 +9,7 @@ mat-icon {
   margin: 5px;
 }
 
-.chat-container {
+.home-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -119,14 +119,14 @@ mat-icon {
 }
 
 /* MOBILE SCREEN MEDIA QUERY RULES */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 2000px) {
   #profile {
     position: absolute;
     bottom: 0;
     left: 0;
   }
 
-  .chat-container {
+  .home-container {
     flex-direction: column;
     overflow-x: hidden;
   }

@@ -263,7 +263,7 @@ body::-webkit-scrollbar {
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 2000px) {
   .lang-select {
     width: 100px;
   }

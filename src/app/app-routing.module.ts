@@ -29,18 +29,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        redirectTo: 'conversations'
       },
       {
         path: 'conversations',
         component: ConversationsComponent,
-        data: { animation: 'conversations' },
+        data: { animation: 'conversations' }
       },
       {
         path: 'chat',
         component: MessagesComponent,
-        data: { animation: 'chat' },
+        data: { animation: 'chat' }
       },
       {
         path: 'settings',
