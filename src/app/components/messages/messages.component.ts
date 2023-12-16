@@ -1,14 +1,15 @@
 import { AfterViewChecked, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { ChatMessage } from "../../../interfaces/Message.interfaces";
-import { Language } from '../../../interfaces/Language.interfaces';
-import { TranslationService } from '../../services/translation/translation.service';
-import { WebSocketService } from '../../services/web-socket/web-socket.service';
-import { MessageService } from '../../services/message/message.service';
-import languageArray from '../../../utils/languageMapper';
+import { Router } from "@angular/router";
 import { catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { User } from '../../../interfaces/User.interfaces';
+import { TranslationService } from '../../services/translation/translation.service';
+import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { UserService } from "../../services/user/user.service";
+import { MessageService } from '../../services/message/message.service';
+import { ChatMessage } from "../../../interfaces/Message.interfaces";
+import { Language } from '../../../interfaces/Language.interfaces';
+import { User } from '../../../interfaces/User.interfaces';
+import languageArray from '../../../utils/languageMapper';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
   public userState!: User;
   public messagesContainer: ChatMessage[] = [];
   public languageArray: Language[] = languageArray;
-  public sourceLanguage!: Language;
+  public sourceLanguage!: any;
   public textInput: string = '';
   public audio: any = new Audio();
   public isLoading: boolean = false;
@@ -35,6 +36,7 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
 
 
   constructor(
+    private router: Router,
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
     private messageService: MessageService,
@@ -145,6 +147,7 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   public onDeselectConversation(): void {
+    this.router.navigate(['/home/conversations']);
     this.webSocketService.disconnect();
   }
 

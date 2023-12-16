@@ -21,7 +21,7 @@ export class RegistrationView implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.buildRegistrationForm();
   }
 

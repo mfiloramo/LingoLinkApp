@@ -1,146 +1,14 @@
-mat-grid-tile {
-  background: #383838;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
-  min-height: 100%;
-}
-
-mat-icon {
-  margin: 5px;
-}
-
-.home-container {
+body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 #profile {
-  position: relative;
-}
-
-.home-section {
-  background: linear-gradient(to top left, #04112d, #061934);
-  box-shadow: -10px 0 20px rgba(0, 0, 0, 0.24);
-  font-size: 16px;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: relative;
-}
-
-.msg-box-wrapper {
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
-  right: 0;
 }
 
-.conversations-container {
-  width: 30vw;
-}
-
-.msg-box-container {
-  width: 70vw;
-}
-
-.msg-box-container::before {
-  content: "";
-  background-image: url("../../../assets/images/chatboxBgLogo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 40%;
-  opacity: 0.15;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform-origin: center;
-  transform: scale(0.75);
-}
-
-.conversation-toolbar {
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background: linear-gradient(to top, #001641, #071a46) !important;
-  height: 50px;
-  overflow-y: hidden;
-  position: fixed;
-  width: 100%;
-  z-index: 10;
-}
-
-.conversation-toolbar-edit-btn {
-  margin-left: 5vw;
-  margin-top: 1.3vh;
-  color: #c1c9da !important;
-  font-size: 18px;
-}
-
-.conversation-toolbar-compose-btn {
-  color: #c1c9da;
-  margin-right: 5vw;
-}
-
-@keyframes slideDown {
-  from {
-    top: -100%;
-  }
-  to {
-    top: 0;
-  }
-}
-
-.new-conversation-modal {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: -100%;
-  left: 0;
-  width: 100vw;
-  height: calc(100vh - 80px);
-  background: linear-gradient(to bottom, #22458c, #071a46) !important;
-  color: #000000;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  animation: slideDown 0.4s forwards cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.button-container {
-  display: flex;
-  flex-direction: row;
-}
-
-/* MOBILE SCREEN MEDIA QUERY RULES */
-@media screen and (max-width: 2000px) {
-  #profile {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-
-  .home-container {
-    flex-direction: column;
-    overflow-x: hidden;
-  }
-
-  .conversations-container {
-    margin-top: 0;
-    height: calc(100vh - 80px);
-    width: 100vw;
-    padding-top: 50px;
-    overflow-y: auto;
-  }
-
-  .msg-box-container {
-    height: 100vh;
-    width: 100%;
-  }
-}

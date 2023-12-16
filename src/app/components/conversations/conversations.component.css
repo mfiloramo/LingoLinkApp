@@ -85,8 +85,63 @@
   height: auto;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .conversation-list {
   overflow: scroll;
+}
+
+.conversations-container {
+  margin-top: 0;
+  height: calc(100vh - 80px);
+  width: 100vw;
+  padding-top: 50px;
+  overflow-y: auto;
+}
+
+.conversation-toolbar {
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: linear-gradient(to top, #001641, #071a46) !important;
+  height: 50px;
+  overflow-y: hidden;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.conversation-toolbar-edit-btn {
+  margin-left: 5vw;
+  margin-top: 1.3vh;
+  color: #c1c9da !important;
+  font-size: 18px;
+}
+
+.conversation-toolbar-compose-btn {
+  color: #c1c9da;
+  margin-right: 5vw;
+}
+
+.new-conversation-modal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  background: linear-gradient(to bottom, #22458c, #071a46) !important;
+  color: #000000;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: slideDown 0.4s forwards cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* PSEUDO SELECTORS */
