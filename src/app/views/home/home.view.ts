@@ -15,6 +15,7 @@ export class HomeView implements AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
+  /** LIFECYCLE HOOKS */
   public ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();
   }

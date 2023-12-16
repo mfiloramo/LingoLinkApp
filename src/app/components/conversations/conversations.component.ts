@@ -81,7 +81,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
       const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
 
       // SWITCH VIEWS TO CHAT-BOX
-      this.toggleModal();
+      // ...
     } catch (error: any) {
       console.error(error);
     }
@@ -157,7 +157,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
     return dayjs(isoString).format('MM/DD/YYYY');
   }
 
-  private convertToConvoKey(conversationName: string): string {
+  public convertToConvoKey(conversationName: string): string {
     return `${ conversationName }_vis`;
   }
 
