@@ -11,6 +11,8 @@ import { ConversationService } from '../../services/conversation/conversation.se
 import { MessageService } from "../../services/message/message.service";
 import { Conversation } from '../../../interfaces/Conversation.interfaces';
 import { User } from "../../../interfaces/User.interfaces";
+import { Router } from "@angular/router";
+import { routerAnimationSlide } from "../../../utils/routerAnimations";
 
 @Component({
   selector: 'app-conversations',
@@ -24,7 +26,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   public isLoading: boolean = false;
   public sourceLanguage: any;
   public selectedConversation: any;
-  public modalAnimationClass: string = '';
   public newConversationForm!: FormGroup;
   public newConversationCache!: any;
   public isInitialMessageSent: boolean = false;
@@ -32,6 +33,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private userService: UserService,
     private conversationService: ConversationService,
     private messageService: MessageService,
@@ -75,19 +77,13 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
     this.selectedConversation = conversation;
   }
 
-  public async onNewConversationFormSubmit(recipientUsername: string): Promise<void> {
-    try {
-      // GENERATE NEW CONVERSATION GUID
-      const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
-
-      // SWITCH VIEWS TO CHAT-BOX
-      // ...
-    } catch (error: any) {
-      console.error(error);
-    }
+  public onCreateNewConversation(): void {
+    this.router.navigate(['home/chat']);
   }
 
   public async onNewConversationMsgSubmit(messageToSend: string): Promise<void> {
+    const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
+
     if (this.isInitialMessageSent) return;
 
     // CHECK IF A CONVERSATION NEEDS TO BE STARTED
@@ -168,14 +164,4 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   public scrollToTop(): void {
     this.conversationList.nativeElement.scrollTop = 0;
   }
-
-  public toggleModal(): void {
-    // WHEN OPENING THE MODAL
-    this.modalAnimationClass = 'modal-animate-in';
-
-    // WHEN CLOSING THE MODAL
-    this.modalAnimationClass = 'modal-animate-out';
-  }
-
-
 }

@@ -1,12 +1,12 @@
-import { Component, ChangeDetectorRef, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { routerAnimation } from "../../../utils/routerAnimation";
+import { routerAnimationFade } from "../../../utils/routerAnimations";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.view.html',
   styleUrls: [ './home.view.css' ],
-  animations: routerAnimation,
+  animations: routerAnimationFade,
 
 })
 export class HomeView implements AfterViewInit {

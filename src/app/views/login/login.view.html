@@ -18,6 +18,7 @@
       <div class="mb-3">
         <label class="block text-gray-300 text-sm font-bold mb-2" for="email">Email</label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" formControlName="email" required>
+
           <!-- EMAIL FORM VALIDATORS -->
           <div class="min-h-[16px]">
             @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
@@ -28,6 +29,7 @@
             }
           </div>
         </div>
+
         <!-- PASSWORD FIELD -->
         <div class="mb-7">
           <label class="block text-gray-300 text-sm font-bold mb-2" for="password">Password</label>
@@ -45,4 +47,4 @@
           <a routerLink="/registration"><button class="bn632-hover bn27">Register</button></a>
         </form>
       </div>
-    </div>
+</div>

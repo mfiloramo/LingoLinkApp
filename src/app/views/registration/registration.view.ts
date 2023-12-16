@@ -26,16 +26,6 @@ export class RegistrationView implements OnInit {
   }
 
   /** PUBLIC METHODS */
-  public buildRegistrationForm(): void {
-    this.registrationForm = this.fb.group({
-      username: [ '', [ Validators.required ] ],
-      password: [ '', [ Validators.required ] ],
-      firstName: [ '', [ Validators.required ] ],
-      lastName: [ '', [ Validators.required ] ],
-      email: [ '', [ Validators.required, Validators.email ] ]
-    })
-  }
-
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
     this.authService.register(user).subscribe({
@@ -46,5 +36,22 @@ export class RegistrationView implements OnInit {
         this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
       }
     });
+  }
+
+  /** PRIVATE METHODS */
+  private buildRegistrationForm(): void {
+    this.registrationForm = this.fb.group({
+      firstName: [ '', [ Validators.required ] ],
+      lastName: [ '', [ Validators.required ] ],
+      username: [ '', [ Validators.required ] ],
+      email: [ '', [ Validators.required, Validators.email ] ],
+      password: [ '', [ Validators.required ] ],
+      confirmPassword: [ '', [ Validators.required ] ]
+    }, { validator: this.passwordMatchValidator });
+  }
+
+
+  private passwordMatchValidator(form: FormGroup): any {
+    return form.controls['password'].value === form.controls['confirmPassword'].value ? null : { 'mismatch': true };
   }
 }

@@ -13,6 +13,7 @@
   <!-- FORM CONTAINER -->
   <div class="px-4">
     <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationFormSubmit()">
+
       <!-- FIRST NAME FIELD -->
       <div>
         <label class="block text-gray-300 text-sm font-bold mb-1" for="email">First Name</label>
@@ -24,6 +25,7 @@
             }
           </div>
         </div>
+
         <!-- LAST NAME FIELD -->
         <div>
           <label class="block text-gray-300 text-sm font-bold mb-1" for="email">Last Name</label>
@@ -35,6 +37,7 @@
               }
             </div>
           </div>
+
           <!-- USERNAME FIELD -->
           <div>
             <label class="block text-gray-300 text-sm font-bold mb-1" for="email">Username</label>
@@ -46,6 +49,7 @@
                 }
               </div>
             </div>
+
             <!-- EMAIL FIELD -->
             <div>
               <label class="block text-gray-300 text-sm font-bold mb-1" for="email">Email</label>
@@ -60,22 +64,39 @@
                   }
                 </div>
               </div>
+
               <!-- PASSWORD FIELD -->
               <div class="mb-5">
                 <label class="block text-gray-300 text-sm font-bold mb-1" for="password">Password</label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" formControlName="password" required>
                   <!-- PASSWORD FORM VALIDATORS -->
-                  <div class="min-h-[16px] mb--10">
+                  <div class="min-h-[16px] -mb-5">
                     @if (registrationForm.get('password')?.hasError('required') && registrationForm.get('password')?.touched) {
                       <p class="text-red-500 text-xs italic mt-1">Password is required</p>
                     }
                   </div>
                 </div>
-                <!-- SUBMIT BUTTON -->
-                <a><button class="bn632-hover bn26" style="height: 35px;" type="submit" [disabled]="registrationForm.invalid">Submit</button></a>
-                <!-- CANCEL BUTTON -->
-                <a routerLink="/login"><button class="bn632-hover bn27" style="height: 35px" >Cancel</button></a>
-              </form>
-            </div>
 
+              <!-- PASSWORD FIELD -->
+              <div class="mb-5">
+                <label class="block text-gray-300 text-sm font-bold mb-1" for="password">Confirm Password</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirmPassword" type="password" formControlName="confirmPassword" required>
+                <!-- CONFIRM PASSWORD FORM VALIDATORS -->
+                <div class="min-h-[16px] mb--10">
+                  @if (registrationForm.get('password')?.hasError('required') && registrationForm.get('password')?.touched) {
+                    <p class="text-red-500 text-xs italic mt-1">Password is required</p>
+                  } @else if (registrationForm.hasError('mismatch')) {
+                    <!-- ERROR MESSAGE FOR MISMATCHED PASSWORDS -->
+                    <div class="text-red-500 text-xs italic mt-1">Passwords do not match</div>
+                  }
+                </div>
+              </div>
+
+              <!-- SUBMIT BUTTON -->
+              <a><button class="bn632-hover bn26" style="height: 35px;" type="submit" [disabled]="registrationForm.invalid">Submit</button></a>
+              <!-- CANCEL BUTTON -->
+              <a routerLink="/login"><button class="bn632-hover bn27" style="height: 35px" >Cancel</button></a>
+            </form>
           </div>
+
+  </div>
