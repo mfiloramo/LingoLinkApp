@@ -22,7 +22,7 @@ export class LoginView implements OnInit {
   ) {}
 
   /** LIFECYCLE HOOKS */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.buildLoginForm();
   }
 

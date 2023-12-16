@@ -5,35 +5,70 @@
   </div>
 }
 
-<!-- CONVERSATIONS LIST -->
-@if (!selectedConversation) {
-  <div class="conversation-list" #conversationList>
-  @for (conversation of conversations; track conversation) {
-    <div>
-      @if (checkConversationVisibility(conversation)) {
-        <div class="conversation-item" (click)="onSelectConversation(conversation)">
-          <div class="circle" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
-          <div class="name-and-msg">
-            <div class="name">{{ conversation.StarterUsername }}</div>
-            <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
-          </div>
+<!-- CONVERSATIONS TOOLBAR -->
+  <div class="conversation-toolbar">
+    <button class="conversation-toolbar-edit-btn" mat-button>Edit</button>
+    <span class="toolbar-spacer"></span>
+    <button class="conversation-toolbar-compose-btn" mat-icon-button (click)="toggleModal()">
+      <mat-icon>create</mat-icon>
+    </button>
+  </div>
 
-          <!-- NOTIFICATION BELL -->
-          <div class="notification-and-timestamp">
-            <mat-icon class="notification-icon">notifications</mat-icon>
-            <div class="timestamp">{{ convertIsoString(conversation.latestTimestamp) }}</div>
-          </div>
-
-          <!-- DELETE CONVERSATION BUTTON -->
-          <div class="delete-conversation">
-            <div (click)="removeConversation(userState, conversation)">
-              <mat-icon class="notification-icon">close</mat-icon>
-            </div>
-          </div>
-
-        </div>
-      }
+  <!-- NEW CONVERSATION MODAL -->
+  <div class="new-conversation-modal">
+    <!-- MODAL TITLE -->
+    <div class="flex justify-around pt-4 pb-2">
+      <h1 class="text-gray-300 text-2xl font-serif">New Conversation</h1>
     </div>
-  }
+    <!-- FORM CONTAINER -->
+    <div class="px-4">
+      <form
+        [formGroup]="newConversationForm"
+        (ngSubmit)="onNewConversationFormSubmit(newConversationForm.get('recipientUsername')?.value)"
+      >
+        <!-- RECIPIENT USERNAME FIELD -->
+        <div class="mb-3">
+          <label class="block text-amber-800 text-sm font-bold mb-2" for="recipientUsername">Recipient Username</label>
+          <input class="font-black" id="recipientUsername" type="text" formControlName="recipientUsername" required>
+        </div>
+        <div class="button-container">
+          <!-- SUBMIT BUTTON -->
+          <a><button class="bn632-hover bn26 text-white" type="submit" [disabled]="newConversationForm.invalid">Submit</button></a>
+          <div class="stub-spacer" style="width: 15px;"></div>
+          <!-- CANCEL BUTTON -->
+          <a><button class="bn632-hover bn26 text-white" type="reset" (click)="toggleModal()">Cancel</button></a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- CONVERSATIONS LIST -->
+<div class="conversation-list" #conversationList>
+@for (conversation of conversations; track conversation) {
+  <div>
+    @if (checkConversationVisibility(conversation)) {
+      <div class="conversation-item" (click)="onSelectConversation(conversation)">
+        <div class="circle" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
+        <div class="name-and-msg">
+          <div class="name">{{ conversation.StarterUsername }}</div>
+          <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
+        </div>
+
+        <!-- NOTIFICATION BELL -->
+        <div class="notification-and-timestamp">
+          <mat-icon class="notification-icon">notifications</mat-icon>
+          <div class="timestamp">{{ convertIsoString(conversation.latestTimestamp) }}</div>
+        </div>
+
+        <!-- DELETE CONVERSATION BUTTON -->
+        <div class="delete-conversation">
+          <div (click)="removeConversation(userState, conversation)">
+            <mat-icon class="notification-icon">close</mat-icon>
+          </div>
+        </div>
+
+      </div>
+    }
   </div>
 }
+</div>

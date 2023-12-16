@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeView,
     data: { animation: 'home' },
-    // canActivate: [ AuthGuard ], // ENABLE FOR PROD
+    canActivate: [ AuthGuard ], // ENABLE FOR PROD
     children: [
       {
         path: '',
@@ -35,16 +35,19 @@ const routes: Routes = [
       {
         path: 'conversations',
         component: ConversationsComponent,
+        canActivate: [ AuthGuard ], // ENABLE FOR PROD
         data: { animation: 'conversations' }
       },
       {
         path: 'chat',
         component: MessagesComponent,
+        canActivate: [ AuthGuard ], // ENABLE FOR PROD
         data: { animation: 'chat' }
       },
       {
         path: 'settings',
         component: SettingsView,
+        canActivate: [ AuthGuard ], // ENABLE FOR PROD
         data: { animation: 'settings' }
       }
     ]
