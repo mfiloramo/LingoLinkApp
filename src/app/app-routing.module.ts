@@ -8,6 +8,7 @@ import { LoginView } from "./views/login/login.view";
 import { RegistrationView } from "./views/registration/registration.view";
 import { AuthGuard } from "./guards/auth/auth.guard";
 import { SettingsView } from "./views/settings/settings.view";
+import { ContactsComponent } from "./components/contacts/contacts.component";
 
 
 const routes: Routes = [
@@ -35,11 +36,16 @@ const routes: Routes = [
         path: 'conversations',
         component: ConversationsComponent,
         canActivate: [ AuthGuard ], // ENABLE FOR PROD
-        data: { animation: 'converwsations' }
+        data: { animation: 'conversations' }
       },
       {
         path: 'chat',
         component: MessagesComponent,
+        canActivate: [ AuthGuard ], // ENABLE FOR PROD
+      },
+      {
+        path: 'contacts',
+        component: ContactsComponent,
         canActivate: [ AuthGuard ], // ENABLE FOR PROD
       },
       {

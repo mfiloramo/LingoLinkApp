@@ -1,18 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked
 } from '@angular/core';
+import { Router } from "@angular/router";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import ShortUniqueId from "short-unique-id";
 import dayjs from 'dayjs';
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from '../../services/conversation/conversation.service';
-import { MessageService } from "../../services/message/message.service";
 import { Conversation } from '../../../interfaces/Conversation.interfaces';
 import { User } from "../../../interfaces/User.interfaces";
-import { Router } from "@angular/router";
-import { routerAnimationSlide } from "../../../utils/routerAnimations";
 
 @Component({
   selector: 'app-conversations',
@@ -27,8 +23,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   public sourceLanguage: any;
   public selectedConversation: any;
   public newConversationForm!: FormGroup;
-  public newConversationCache!: any;
-  public isInitialMessageSent: boolean = false;
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -36,8 +30,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
     private router: Router,
     private userService: UserService,
     private conversationService: ConversationService,
-    private messageService: MessageService,
-    private snackBar: MatSnackBar
   ) {}
 
   /** LIFECYCLE HOOKS */
@@ -74,50 +66,12 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   }
 
   public onSelectConversation(conversation: Conversation): void {
-    this.selectedConversation = conversation;
+    this.conversationService.conversationSelected.set(conversation);
+    this.router.navigate(['home/chat']).then((response: any) => response);
   }
 
   public onCreateNewConversation(): void {
-    this.router.navigate(['home/chat']);
-  }
-
-  public async onNewConversationMsgSubmit(messageToSend: string): Promise<void> {
-    const conversationName: string = new ShortUniqueId({ length: 10 }).rnd();
-
-    if (this.isInitialMessageSent) return;
-
-    // CHECK IF A CONVERSATION NEEDS TO BE STARTED
-    if (this.newConversationCache && messageToSend && !this.isInitialMessageSent) {
-      try {
-        // CREATE THE NEW CONVERSATION
-        let newConversation = await this.conversationService.createConversation({
-          recipientUsername: this.newConversationCache.recipientUsername,
-          conversationName: this.newConversationCache.conversationName,
-          sourceLanguage: this.userState.sourceLanguage,
-          senderUserId: this.userState.userId,
-          timestamp: new Date().toISOString()
-        }).toPromise();
-
-        if (newConversation) {
-          this.selectedConversation = newConversation;
-          this.messageService.sendMessage({
-            conversationId: newConversation.conversationId,
-            userId: this.userState.userId,
-            textInput: messageToSend,
-            sourceLanguage: this.sourceLanguage,
-            timestamp: new Date().toISOString(),
-          })
-            .subscribe((response: any): void => {
-              this.isInitialMessageSent = true;
-              return response;
-            }, (error: any): void => {
-              console.error(error);
-            });
-        }
-      } catch (error: any) {
-        this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-      }
-    }
+    this.router.navigate(['home/contacts']).then((response: any) => response);
   }
 
   public checkConversationVisibility(conversation: Conversation): boolean {

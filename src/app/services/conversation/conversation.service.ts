@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
@@ -9,13 +9,15 @@ import { catchError } from "rxjs/operators";
   providedIn: 'root'
 })
 export class ConversationService {
+  public conversationSelected: WritableSignal<any> = signal(null);
+  public isNewConversation: WritableSignal<boolean> = signal(false);
   private apiUrl: string = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /** PUBLIC METHODS */
-  public createConversation(body: object): Observable<any> {
-    return this.http.post(`${ this.apiUrl }/conversations`, body)
+  public createConversation(conversation: any): Observable<any> {
+    return this.http.post(`${ this.apiUrl }/conversations`, conversation)
       .pipe(catchError(this.handleError));
   }
 

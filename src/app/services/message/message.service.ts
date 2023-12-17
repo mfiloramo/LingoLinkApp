@@ -23,13 +23,12 @@ export class MessageService {
     return this.http.post(`${ this.apiUrl }/messages`, message);
   }
 
-
   public buildMessage(message: ChatMessage): ChatMessage {
     return {
       userId: message.userId,
       textInput: message.textInput,
-      conversationId: message.conversationId,
-      sourceLanguage: message.sourceLanguage.code,
+      conversationId: message.conversationId.conversationId,
+      sourceLanguage: message.sourceLanguage,
       timestamp: new Date().toISOString()
     };
   }
