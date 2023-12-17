@@ -1,4 +1,5 @@
 .conversation-item {
+  background: #041331;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -91,12 +92,12 @@
 }
 
 .conversation-list {
+  margin-top: 50px;
+  position: relative;
   overflow: scroll;
 }
 
 .conversations-container {
-  margin-top: 0;
-  height: calc(100vh - 80px);
   width: 100vw;
   padding-top: 50px;
   overflow-y: auto;
@@ -126,22 +127,6 @@
 .conversation-toolbar-compose-btn {
   color: #c1c9da;
   margin-right: 5vw;
-}
-
-.new-conversation-modal {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: -100%;
-  left: 0;
-  width: 100vw;
-  height: calc(100vh - 80px);
-  background: linear-gradient(to bottom, #22458c, #071a46) !important;
-  color: #000000;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  animation: slideDown 0.4s forwards cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* PSEUDO SELECTORS */

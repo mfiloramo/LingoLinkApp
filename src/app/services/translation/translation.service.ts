@@ -21,10 +21,6 @@ export class TranslationService {
       .pipe(map((response: object) => response))
   }
 
-  public getLanguageCode(language: Language): string {
-    return typeof language === 'object' ? language.code : language;
-  }
-
   public getStoredTranslation(translationKey: string): string | null {
     return localStorage.getItem(translationKey);
   }

@@ -13,12 +13,13 @@ export class UserService {
     firstName: '',
     lastName: '',
     enabled: false,
+    sourceLanguage: 'en',
     profileImg: ''
   })
   private apiUrl: string = environment.apiBaseUrl;
 
   /** PUBLIC METHODS */
-  public updateUserState(newUserState: User): void {
+  public updateUserState(newUserState: any): void {
     this.userState.update((currentState: User) => ({ ...currentState, ...newUserState }));
   }
 }

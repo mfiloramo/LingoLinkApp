@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { routerAnimation } from "../utils/routerAnimation";
+import { routerAnimationFade } from "../utils/routerAnimations";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: routerAnimation,
+  animations: routerAnimationFade,
 })
 export class AppComponent {
   public title: string = 'worldChatApp';

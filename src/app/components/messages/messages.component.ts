@@ -1,7 +1,7 @@
-import { AfterViewChecked, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { catchError, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { UserService } from "../../services/user/user.service";
@@ -10,6 +10,8 @@ import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Language } from '../../../interfaces/Language.interfaces';
 import { User } from '../../../interfaces/User.interfaces';
 import languageArray from '../../../utils/languageMapper';
+import { ConversationService } from "../../services/conversation/conversation.service";
+import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 
 @Component({
@@ -17,7 +19,7 @@ import languageArray from '../../../utils/languageMapper';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css', '../conversations/conversations.component.css'],
 })
-export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
+export class MessagesComponent implements OnInit, AfterViewChecked {
   // COMPONENT CHILDREN
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
@@ -26,12 +28,11 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
   public userState!: User;
   public messagesContainer: ChatMessage[] = [];
   public languageArray: Language[] = languageArray;
-  public sourceLanguage!: any;
   public textInput: string = '';
   public audio: any = new Audio();
   public isLoading: boolean = false;
-  public conversationId!: number;
-  public conversationStarter!: string;
+  public conversationSelected!: Conversation;
+  public conversationStarterName!: string;
   public conversationStarterPic!: string;
 
 
@@ -39,8 +40,9 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
     private router: Router,
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
+    private conversationService: ConversationService,
     private messageService: MessageService,
-    private userService: UserService,
+    public userService: UserService,
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     // @ts-ignore
@@ -48,36 +50,43 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   /** LIFECYCLE HOOKS */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.userState = this.userService.userState();
+    this.conversationSelected = this.conversationService.conversationSelected();
+    this.conversationStarterName = this.conversationSelected.StarterUsername;
+    this.conversationStarterPic = this.conversationSelected.StarterUserPic;
     this.connectWebSocket();
-  }
-
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('conversationId' in changes) {
-      this.loadMessagesByConvId();
+    if (!this.conversationService.isNewConversation()) {
+      this.loadMessagesByConvId(this.conversationSelected)
     }
+  }
+
+  public ngAfterViewChecked(): void {
+    this.scrollToBottom();
   }
 
   /** PUBLIC METHODS */
   public onSendMessage(): void {
-    if (!this.textInput.trim() || !this.sourceLanguage) return;
+    let messageLanguage = this.userService.userState().sourceLanguage;
 
-    this.playClickSound();
+    // TODO: ENSURE A MORE CONSISTENT AND UNIFIED APPROACH TO LANGUAGE NAMES/CODES
+    if (messageLanguage.charAt(0) === messageLanguage.charAt(0).toUpperCase()) {
+      const foundLanguage = this.languageArray.find(language => language.name === messageLanguage);
+      messageLanguage = foundLanguage ? foundLanguage.code : messageLanguage;
+    }
+
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
       userId: this.userState.userId,
       textInput: this.textInput,
-      conversationId: this.conversationId,
-      sourceLanguage: this.sourceLanguage,
+      conversationId: this.conversationService.conversationSelected(),
+      sourceLanguage: messageLanguage,
     });
 
-    if (this.conversationId) {
+    console.log(message)
+
+    if (this.conversationSelected) {
       // SEND MESSAGE TO EXISTING CONVERSATION
       this.messageService.sendMessage(message).pipe(
         switchMap((response: any) => {
@@ -99,45 +108,53 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
     } else {
       this.textInput = '';
     }
+
+    if (this.conversationService.isNewConversation()) {
+      this.conversationService.isNewConversation.set(false);
+    }
+
+    this.playClickSound();
   }
 
-  public loadMessagesByConvId(): any {
-    // CHECK IF CONVERSATION ID EXISTS
-    if (this.conversationId) {
-      this.isLoading = true;
+  public async loadMessagesByConvId(conversation: Conversation): Promise<void> {
+    if (!this.conversationSelected) {
+      return;
+    }
 
-      // GET LOCAL LANGUAGE CODE
-      const localLangCode: string = this.translationService.getLanguageCode({ code: this.sourceLanguage.code });
+    this.isLoading = true;
 
-      // FETCH MESSAGES FOR THE GIVEN CONVERSATION ID
-      this.messageService.loadMessages(this.conversationId)
-        .subscribe(async (response: any): Promise<void> => {
-          // LOOP THROUGH MESSAGES AND TRANSLATE IF NECESSARY
-          const translationPromises = response.map(async (message: any): Promise<void> => {
-            if (message.sourceLanguage !== localLangCode && message.textInput) {
-              // TRANSLATE/STRINGIFY MESSAGE CONTENT
-              message.textInput = await this.cacheCheckTranslation(message, localLangCode);
-            }
-          });
+    try {
+      const response: any = await this.messageService.loadMessages(conversation.conversationId).toPromise();
+      const messages: ChatMessage[] = response;
 
-          // TODO: THIS MIGHT HAVE TO DO WITH THE NEW CONVERSATION MESSAGE NOT APPEARING ONINIT
-          // HANDLE TRANSLATED MESSAGES
-          await Promise.all(translationPromises);
-          this.messagesContainer = response;
-          this.scrollToBottom();
-          this.isLoading = false;
-        }, (error: any): void => {
-          this.isLoading = false;
-          console.error('Failed to load messages for conversation:', error);
-        });
+      // Translate all messages asynchronously and wait for all to complete
+      const translationPromises = messages.map(message =>
+        message.sourceLanguage !== this.userService.userState().sourceLanguage
+          ? this.cacheCheckTranslation(message)
+          : Promise.resolve(message.textInput)
+      );
+
+      const translatedTexts: any = await Promise.all(translationPromises);
+
+      // Assign translated texts back to messages
+      messages.forEach((message, index) => message.textInput = translatedTexts[index]);
+
+      this.messagesContainer = messages;
+    } catch (error) {
+      console.error('Failed to load messages:', error);
+    } finally {
+      this.isLoading = false;
+      this.scrollToBottom();
     }
   }
 
-  // TODO: IMPLEMENT USING USER SERVICE
-  public onLangSelect(lang: any): void {
-    const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === lang.target.value);
+  // TODO: MOVE TO USER SERVICE
+  public onLanguageSelect(selectedLanguageEvent: any): void {
+    const selectedLanguageName = selectedLanguageEvent.target.value;
+    const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === selectedLanguageName);
+
     if (selectedLanguage) {
-      this.sourceLanguage = { code: selectedLanguage.code};
+      this.userService.updateUserState({ sourceLanguage: selectedLanguage.code });
     }
   }
 
@@ -147,6 +164,7 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   public onDeselectConversation(): void {
+    this.conversationService.conversationSelected.set(null)
     this.router.navigate(['/home/conversations']);
     this.webSocketService.disconnect();
   }
@@ -164,8 +182,8 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
         const reader: FileReader = new FileReader();
         reader.onload = async (): Promise<void> => {
           const message = JSON.parse(reader.result as string);
-          const sourceLanguage: string = this.translationService.getLanguageCode(message.sourceLanguage);
-          const targetLanguage: string = this.translationService.getLanguageCode(this.sourceLanguage);
+          const sourceLanguage: string = this.userService.userState().sourceLanguage.code;
+          const targetLanguage: string = message.sourceLanguage;
 
           // TRANSLATE MESSAGE IF NEEDED
           if (sourceLanguage !== targetLanguage) {
@@ -173,12 +191,12 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
               user: this.userState.userId,
               textInput: message.textInput,
               sourceLanguage: sourceLanguage,
-              targLang: targetLanguage
+              targetLanguage: targetLanguage
             }).toPromise();
           }
 
             // PUSH MESSAGE TO SELECTED CONVERSATION
-            if (message.conversationId === this.conversationId) {
+            if (message.conversationId === this.conversationSelected) {
               this.messagesContainer.push(message);
             }
         };
@@ -187,27 +205,27 @@ export class MessagesComponent implements OnInit, OnChanges, AfterViewChecked {
       });
   }
 
-  private async cacheCheckTranslation(message: ChatMessage, localLangCode: string): Promise<any> {
+  private async cacheCheckTranslation(message: ChatMessage): Promise<string> {
     try {
-      const translateKey: string = `${ message.messageId }_${ localLangCode }`;
+      const translateKey: string = `${ message.messageId }_${ this.userService.userState().sourceLanguage }`;
       let storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
-        storedTranslation = await this.translationService.getLiveTranslation({
+        storedTranslation = await firstValueFrom(this.translationService.getLiveTranslation({
           user: this.userState.userId,
           textInput: message.textInput,
           sourceLanguage: message.sourceLanguage,
-          targLang: localLangCode
-        }).toPromise();
-        this.translationService.storeTranslation(translateKey, storedTranslation!);
+          targetLanguage: this.userService.userState().sourceLanguage
+        })).then((response: string): string => {
+          this.translationService.storeTranslation(translateKey, response);
+          return response;
+        });
       }
 
-      if (storedTranslation !== null) {
-        message.textInput = storedTranslation;
-      }
+      return storedTranslation!;
+    } catch (error) {
+      console.error('Error in cacheCheckTranslation:', error);
       return message.textInput;
-    } catch (error: any) {
-      console.log(error);
     }
   }
 
