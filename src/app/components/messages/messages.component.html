@@ -8,19 +8,19 @@
 <!-- MAIN CONTAINER -->
 <div class="home-section msg-box-container">
   <div class="msg-box-wrapper">
+
   <!-- INPUT CONTAINER -->
   <div class="input-container transition-opacity duration-300 ease-in-out">
 
-  <!-- LANGUAGE SELECTION -->
-  <select class="lang-select" (change)="onLanguageSelect($event)">
-    <option>English</option>
-    <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
-    @for (languageObj of languageArray; track languageObj) {
-      <option [selected]="languageObj.code === userService.userState().sourceLanguage ">
-        {{ languageObj.name }}
-      </option>
-    }
-  </select>
+    <!-- LANGUAGE SELECTION -->
+    <select class="lang-select" (change)="onLanguageSelect($event)">
+      <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
+      @for (languageObj of languageArray; track languageObj) {
+        <option [value]="languageObj.code" [selected]="languageObj.code === userState.sourceLanguage">
+          {{ languageObj.name }}
+        </option>
+      }
+    </select>
 
   <!-- TEXT INPUT -->
   <input

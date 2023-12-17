@@ -67,14 +67,9 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   /** PUBLIC METHODS */
   public onSendMessage(): void {
+    if (!this.textInput) return;
+
     let messageLanguage = this.userService.userState().sourceLanguage;
-
-    // TODO: ENSURE A MORE CONSISTENT AND UNIFIED APPROACH TO LANGUAGE NAMES/CODES
-    if (messageLanguage.charAt(0) === messageLanguage.charAt(0).toUpperCase()) {
-      const foundLanguage = this.languageArray.find(language => language.name === messageLanguage);
-      messageLanguage = foundLanguage ? foundLanguage.code : messageLanguage;
-    }
-
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
@@ -83,8 +78,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       conversationId: this.conversationService.conversationSelected().conversationId,
       sourceLanguage: messageLanguage,
     });
-
-    console.log(message);
 
     if (this.conversationSelected) {
       // SEND MESSAGE TO EXISTING CONVERSATION
@@ -150,12 +143,14 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   // TODO: MOVE TO USER SERVICE
   public onLanguageSelect(selectedLanguageEvent: any): void {
-    const selectedLanguageName = selectedLanguageEvent.target.value;
-    const selectedLanguage: Language | undefined = this.languageArray.find((language: Language): boolean => language.name === selectedLanguageName);
+    const selectedLanguageCode = selectedLanguageEvent.target.value;
+    const selectedLanguageObj: Language | undefined = this.languageArray.find((language: Language): boolean => language.code === selectedLanguageCode);
 
-    if (selectedLanguage) {
-      this.userService.updateUserState({ sourceLanguage: selectedLanguage.code });
+    if (selectedLanguageObj) {
+      this.userService.updateUserState({ sourceLanguage: selectedLanguageObj.code });
     }
+
+
   }
 
   public scrollToBottom(): void {

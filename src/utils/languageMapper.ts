@@ -1,16 +1,4 @@
 const languageMapper: object = {
-  aa: {
-    name: 'Afar',
-    nativeName: 'Afaraf',
-  },
-  ab: {
-    name: 'Abkhaz',
-    nativeName: 'аҧсуа бызшәа',
-  },
-  ae: {
-    name: 'Avestan',
-    nativeName: 'avesta',
-  },
   af: {
     name: 'Afrikaans',
     nativeName: 'Afrikaans',
@@ -23,10 +11,6 @@ const languageMapper: object = {
     name: 'Amharic',
     nativeName: 'አማርኛ',
   },
-  an: {
-    name: 'Aragonese',
-    nativeName: 'aragonés',
-  },
   ar: {
     name: 'Arabic',
     nativeName: 'اَلْعَرَبِيَّةُ',
@@ -34,10 +18,6 @@ const languageMapper: object = {
   as: {
     name: 'Assamese',
     nativeName: 'অসমীয়া',
-  },
-  av: {
-    name: 'Avaric',
-    nativeName: 'авар мацӀ',
   },
   ay: {
     name: 'Aymara',
@@ -47,10 +27,6 @@ const languageMapper: object = {
     name: 'Azerbaijani',
     nativeName: 'azərbaycan dili',
   },
-  ba: {
-    name: 'Bashkir',
-    nativeName: 'башҡорт теле',
-  },
   be: {
     name: 'Belarusian',
     nativeName: 'беларуская мова',
@@ -58,10 +34,6 @@ const languageMapper: object = {
   bg: {
     name: 'Bulgarian',
     nativeName: 'български език',
-  },
-  bi: {
-    name: 'Bislama',
-    nativeName: 'Bislama',
   },
   bm: {
     name: 'Bambara',
@@ -71,14 +43,6 @@ const languageMapper: object = {
     name: 'Bengali',
     nativeName: 'বাংলা',
   },
-  bo: {
-    name: 'Tibetan',
-    nativeName: 'བོད་ཡིག',
-  },
-  br: {
-    name: 'Breton',
-    nativeName: 'brezhoneg',
-  },
   bs: {
     name: 'Bosnian',
     nativeName: 'bosanski jezik',
@@ -86,14 +50,6 @@ const languageMapper: object = {
   ca: {
     name: 'Catalan',
     nativeName: 'Català',
-  },
-  ce: {
-    name: 'Chechen',
-    nativeName: 'нохчийн мотт',
-  },
-  ch: {
-    name: 'Chamorro',
-    nativeName: 'Chamoru',
   },
   co: {
     name: 'Corsican',
@@ -106,14 +62,6 @@ const languageMapper: object = {
   cs: {
     name: 'Czech',
     nativeName: 'čeština',
-  },
-  cu: {
-    name: 'Old Church Slavonic',
-    nativeName: 'ѩзыкъ словѣньскъ',
-  },
-  cv: {
-    name: 'Chuvash',
-    nativeName: 'чӑваш чӗлхи',
   },
   cy: {
     name: 'Welsh',
@@ -130,10 +78,6 @@ const languageMapper: object = {
   dv: {
     name: 'Divehi',
     nativeName: 'ދިވެހި',
-  },
-  dz: {
-    name: 'Dzongkha',
-    nativeName: 'རྫོང་ཁ',
   },
   ee: {
     name: 'Ewe',
@@ -167,21 +111,9 @@ const languageMapper: object = {
     name: 'Persian',
     nativeName: 'فارسی',
   },
-  ff: {
-    name: 'Fula',
-    nativeName: 'Fulfulde',
-  },
   fi: {
     name: 'Finnish',
     nativeName: 'suomi',
-  },
-  fj: {
-    name: 'Fijian',
-    nativeName: 'vosa Vakaviti',
-  },
-  fo: {
-    name: 'Faroese',
-    nativeName: 'føroyskt',
   },
   fr: {
     name: 'French',
@@ -211,10 +143,6 @@ const languageMapper: object = {
     name: 'Gujarati',
     nativeName: 'ગુજરાતી',
   },
-  gv: {
-    name: 'Manx',
-    nativeName: 'Gaelg',
-  },
   ha: {
     name: 'Hausa',
     nativeName: 'هَوُسَ',
@@ -226,10 +154,6 @@ const languageMapper: object = {
   hi: {
     name: 'Hindi',
     nativeName: 'हिन्दी',
-  },
-  ho: {
-    name: 'Hiri Motu',
-    nativeName: 'Hiri Motu',
   },
   hr: {
     name: 'Croatian',
@@ -247,37 +171,13 @@ const languageMapper: object = {
     name: 'Armenian',
     nativeName: 'Հայերեն',
   },
-  hz: {
-    name: 'Herero',
-    nativeName: 'Otjiherero',
-  },
-  ia: {
-    name: 'Interlingua',
-    nativeName: 'Interlingua',
-  },
   id: {
     name: 'Indonesian',
     nativeName: 'Bahasa Indonesia',
   },
-  ie: {
-    name: 'Interlingue',
-    nativeName: 'Interlingue',
-  },
   ig: {
     name: 'Igbo',
     nativeName: 'Asụsụ Igbo',
-  },
-  ii: {
-    name: 'Nuosu',
-    nativeName: 'ꆈꌠ꒿ Nuosuhxop',
-  },
-  ik: {
-    name: 'Inupiaq',
-    nativeName: 'Iñupiaq',
-  },
-  io: {
-    name: 'Ido',
-    nativeName: 'Ido',
   },
   is: {
     name: 'Icelandic',
@@ -339,21 +239,9 @@ const languageMapper: object = {
     name: 'Kanuri',
     nativeName: 'Kanuri',
   },
-  ks: {
-    name: 'Kashmiri',
-    nativeName: 'कश्मीरी',
-  },
   ku: {
     name: 'Kurdish',
     nativeName: 'Kurdî',
-  },
-  kv: {
-    name: 'Komi',
-    nativeName: 'коми кыв',
-  },
-  kw: {
-    name: 'Cornish',
-    nativeName: 'Kernewek',
   },
   ky: {
     name: 'Kyrgyz',
@@ -370,10 +258,6 @@ const languageMapper: object = {
   lg: {
     name: 'Ganda',
     nativeName: 'Luganda',
-  },
-  li: {
-    name: 'Limburgish',
-    nativeName: 'Limburgs',
   },
   ln: {
     name: 'Lingala',
@@ -398,10 +282,6 @@ const languageMapper: object = {
   mg: {
     name: 'Malagasy',
     nativeName: 'fiteny malagasy',
-  },
-  mh: {
-    name: 'Marshallese',
-    nativeName: 'Kajin M̧ajeļ',
   },
   mi: {
     name: 'Māori',
@@ -435,57 +315,21 @@ const languageMapper: object = {
     name: 'Burmese',
     nativeName: 'ဗမာစာ',
   },
-  na: {
-    name: 'Nauru',
-    nativeName: 'Dorerin Naoero',
-  },
-  nb: {
-    name: 'Norwegian Bokmål',
-    nativeName: 'Norsk bokmål',
-  },
-  nd: {
-    name: 'Northern Ndebele',
-    nativeName: 'isiNdebele',
-  },
   ne: {
     name: 'Nepali',
     nativeName: 'नेपाली',
-  },
-  ng: {
-    name: 'Ndonga',
-    nativeName: 'Owambo',
   },
   nl: {
     name: 'Dutch',
     nativeName: 'Nederlands',
   },
-  nn: {
-    name: 'Norwegian Nynorsk',
-    nativeName: 'Norsk nynorsk',
-  },
   no: {
     name: 'Norwegian',
     nativeName: 'Norsk',
   },
-  nr: {
-    name: 'Southern Ndebele',
-    nativeName: 'isiNdebele',
-  },
-  nv: {
-    name: 'Navajo',
-    nativeName: 'Diné bizaad',
-  },
   ny: {
     name: 'Chichewa',
     nativeName: 'chiCheŵa',
-  },
-  oc: {
-    name: 'Occitan',
-    nativeName: 'occitan',
-  },
-  oj: {
-    name: 'Ojibwe',
-    nativeName: 'ᐊᓂᔑᓈᐯᒧᐎᓐ',
   },
   om: {
     name: 'Oromo',
@@ -495,17 +339,9 @@ const languageMapper: object = {
     name: 'Oriya',
     nativeName: 'ଓଡ଼ିଆ',
   },
-  os: {
-    name: 'Ossetian',
-    nativeName: 'ирон æвзаг',
-  },
   pa: {
     name: 'Panjabi',
     nativeName: 'ਪੰਜਾਬੀ',
-  },
-  pi: {
-    name: 'Pāli',
-    nativeName: 'पाऴि',
   },
   pl: {
     name: 'Polish',
@@ -523,14 +359,6 @@ const languageMapper: object = {
     name: 'Quechua',
     nativeName: 'Runa Simi',
   },
-  rm: {
-    name: 'Romansh',
-    nativeName: 'rumantsch grischun',
-  },
-  rn: {
-    name: 'Kirundi',
-    nativeName: 'Ikirundi',
-  },
   ro: {
     name: 'Romanian',
     nativeName: 'Română',
@@ -547,21 +375,9 @@ const languageMapper: object = {
     name: 'Sanskrit',
     nativeName: 'संस्कृतम्',
   },
-  sc: {
-    name: 'Sardinian',
-    nativeName: 'sardu',
-  },
   sd: {
     name: 'Sindhi',
     nativeName: 'सिन्धी',
-  },
-  se: {
-    name: 'Northern Sami',
-    nativeName: 'Davvisámegiella',
-  },
-  sg: {
-    name: 'Sango',
-    nativeName: 'yângâ tî sängö',
   },
   si: {
     name: 'Sinhala',
@@ -594,10 +410,6 @@ const languageMapper: object = {
   sr: {
     name: 'Serbian',
     nativeName: 'српски језик',
-  },
-  ss: {
-    name: 'Swati',
-    nativeName: 'SiSwati',
   },
   st: {
     name: 'Southern Sotho',
@@ -643,14 +455,6 @@ const languageMapper: object = {
     name: 'Tagalog',
     nativeName: 'Wikang Tagalog',
   },
-  tn: {
-    name: 'Tswana',
-    nativeName: 'Setswana',
-  },
-  to: {
-    name: 'Tonga',
-    nativeName: 'faka Tonga',
-  },
   tr: {
     name: 'Turkish',
     nativeName: 'Türkçe',
@@ -662,14 +466,6 @@ const languageMapper: object = {
   tt: {
     name: 'Tatar',
     nativeName: 'татар теле',
-  },
-  tw: {
-    name: 'Twi',
-    nativeName: 'Twi',
-  },
-  ty: {
-    name: 'Tahitian',
-    nativeName: 'Reo Tahiti',
   },
   ug: {
     name: 'Uyghur',
@@ -687,25 +483,9 @@ const languageMapper: object = {
     name: 'Uzbek',
     nativeName: 'Ўзбек',
   },
-  ve: {
-    name: 'Venda',
-    nativeName: 'Tshivenḓa',
-  },
   vi: {
     name: 'Vietnamese',
     nativeName: 'Tiếng Việt',
-  },
-  vo: {
-    name: 'Volapük',
-    nativeName: 'Volapük',
-  },
-  wa: {
-    name: 'Walloon',
-    nativeName: 'walon',
-  },
-  wo: {
-    name: 'Wolof',
-    nativeName: 'Wollof',
   },
   xh: {
     name: 'Xhosa',
@@ -718,10 +498,6 @@ const languageMapper: object = {
   yo: {
     name: 'Yoruba',
     nativeName: 'Yorùbá',
-  },
-  za: {
-    name: 'Zhuang',
-    nativeName: 'Saɯ cueŋƅ',
   },
   zh: {
     name: 'Chinese',
