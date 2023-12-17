@@ -27,7 +27,7 @@ export class MessageService {
     return {
       userId: message.userId,
       textInput: message.textInput,
-      conversationId: message.conversationId.conversationId,
+      conversationId: message.conversationId,
       sourceLanguage: message.sourceLanguage,
       timestamp: new Date().toISOString()
     };

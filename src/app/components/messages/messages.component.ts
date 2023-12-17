@@ -84,8 +84,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       sourceLanguage: messageLanguage,
     });
 
-    console.log(message)
-
     if (this.conversationSelected) {
       // SEND MESSAGE TO EXISTING CONVERSATION
       this.messageService.sendMessage(message).pipe(
@@ -216,7 +214,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           textInput: message.textInput,
           sourceLanguage: message.sourceLanguage,
           targetLanguage: this.userService.userState().sourceLanguage
-        })).then((response: string): string => {
+        }))
+          .then((response: string): string => {
           this.translationService.storeTranslation(translateKey, response);
           return response;
         });
