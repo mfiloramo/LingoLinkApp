@@ -80,9 +80,11 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     const message: ChatMessage = this.messageService.buildMessage({
       userId: this.userState.userId,
       textInput: this.textInput,
-      conversationId: this.conversationService.conversationSelected(),
+      conversationId: this.conversationService.conversationSelected().conversationId,
       sourceLanguage: messageLanguage,
     });
+
+    console.log(message);
 
     if (this.conversationSelected) {
       // SEND MESSAGE TO EXISTING CONVERSATION
@@ -180,8 +182,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
         const reader: FileReader = new FileReader();
         reader.onload = async (): Promise<void> => {
           const message = JSON.parse(reader.result as string);
-          const sourceLanguage: string = this.userService.userState().sourceLanguage.code;
-          const targetLanguage: string = message.sourceLanguage;
+          const sourceLanguage: string = message.sourceLanguage;
+          const targetLanguage: string = this.userService.userState().sourceLanguage;
 
           // TRANSLATE MESSAGE IF NEEDED
           if (sourceLanguage !== targetLanguage) {
@@ -194,9 +196,10 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           }
 
             // PUSH MESSAGE TO SELECTED CONVERSATION
-            if (message.conversationId === this.conversationSelected) {
+            if (message.conversationId === this.conversationService.conversationSelected().conversationId) {
               this.messagesContainer.push(message);
             }
+
         };
 
         reader.readAsText(event.data);
@@ -216,8 +219,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           targetLanguage: this.userService.userState().sourceLanguage
         }))
           .then((response: string): string => {
-          this.translationService.storeTranslation(translateKey, response);
-          return response;
+            this.translationService.storeTranslation(translateKey, response);
+            return response;
         });
       }
 
