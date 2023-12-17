@@ -13,10 +13,10 @@
 
   <!-- LANGUAGE SELECTION -->
   <select class="lang-select" (change)="onLanguageSelect($event)">
-    <option>English</option>
+    <option>{{ this.userState.sourceLanguage }}</option>
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
     @for (languageObj of languageArray; track languageObj) {
-      <option [selected]="languageObj.code === userService.userState().sourceLanguage ">
+      <option [selected]="languageObj.code === this.userState.sourceLanguage ">
         {{ languageObj.name }}
       </option>
     }

@@ -84,8 +84,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       sourceLanguage: messageLanguage,
     });
 
-    console.log(message);
-
     if (this.conversationSelected) {
       // SEND MESSAGE TO EXISTING CONVERSATION
       this.messageService.sendMessage(message).pipe(
