@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -14,9 +14,8 @@ import { User } from "../../../interfaces/User.interfaces";
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.css'
 })
-export class ContactsComponent implements OnInit {
+export class ContactsComponent {
   public stubContacts: Array<string> = [ 'TestUser_1', 'TestUser_2', 'TestUser_3', 'TestUser_4' ]
-  public userState!: User;
 
   constructor(
     private router: Router,
@@ -24,11 +23,6 @@ export class ContactsComponent implements OnInit {
     private userService: UserService,
     private conversationService: ConversationService,
   ) {}
-
-  /** LIFECYCLE HOOKS */
-  public ngOnInit(): void {
-    this.userState = this.userService.userState();
-  }
 
   /** PUBLIC METOHDS */
   public async stubOnContactClick(contact: any): Promise<void> {
@@ -39,7 +33,7 @@ export class ContactsComponent implements OnInit {
       recipientUsername: contact.target.innerText,
       conversationName: new ShortUniqueId({ length: 10 }).rnd(),
       sourceLanguage: this.userService.userState().sourceLanguage,
-      senderUserId: this.userState.userId,
+      senderUserId: this.userService.userState().userId,
       timestamp: new Date().toISOString()
     })
       .subscribe({

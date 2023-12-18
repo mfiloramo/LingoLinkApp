@@ -16,7 +16,7 @@
     <select class="language-select" (change)="onLanguageSelect($event)">
       <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
       @for (languageObj of languageArray; track languageObj) {
-        <option [value]="languageObj.code" [selected]="languageObj.code === userState.defaultLanguage">
+        <option [value]="languageObj.code" [selected]="languageObj.code === this.userService.userState().defaultLanguage">
           {{ languageObj.name }}
         </option>
       }
@@ -51,7 +51,7 @@
       <!-- MESSAGE LIST -->
       <div class="msg-list" #chatContainer>
         @for (message of messagesContainer; track message) {
-          <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.userId == this.userState.userId, 'msg-received transition-opacity duration-300 ease-in-out': message.userId != this.userState.userId}">
+          <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.userId == this.userService.userState().userId, 'msg-received transition-opacity duration-300 ease-in-out': message.userId != this.userService.userState().userId}">
             <div class="msg-text">{{ message.textInput }}</div>
           </div>
         }

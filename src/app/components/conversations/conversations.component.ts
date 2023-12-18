@@ -21,7 +21,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   public conversations: Conversation[] = [];
   public isLoading: boolean = false;
   public sourceLanguage: any;
-  public selectedConversation: any;
   public newConversationForm!: FormGroup;
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -34,7 +33,6 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
 
   /** LIFECYCLE HOOKS */
   ngOnInit(): void {
-    this.userState = this.userService.userState();
     this.loadConversations();
     this.buildNewConversationForm();
   }
@@ -51,7 +49,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   /** PUBLIC METHODS */
   public loadConversations(): void {
     this.isLoading = true;
-    this.conversationService.loadConversationsByUserId(this.userState.userId)
+    this.conversationService.loadConversationsByUserId(this.userService.userState().userId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: async (conversations: Conversation[]): Promise<void> => {

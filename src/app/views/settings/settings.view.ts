@@ -4,7 +4,6 @@ import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { UserService } from "../../services/user/user.service";
 import { Language } from "../../../interfaces/Language.interfaces";
-import { User } from "../../../interfaces/User.interfaces";
 import languageArray from '../../../utils/languageMapper';
 
 @Component({
