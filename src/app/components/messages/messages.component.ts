@@ -8,8 +8,6 @@ import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
 import { MessageService } from '../../services/message/message.service';
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
-import { Language } from '../../../interfaces/Language.interfaces';
-import { User } from '../../../interfaces/User.interfaces';
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
 import languageArray from '../../../utils/languageMapper';
 
@@ -134,16 +132,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     } finally {
       this.isLoading = false;
       this.scrollToBottom();
-    }
-  }
-
-  // TODO: MOVE TO USER SERVICE
-  public onLanguageSelect(selectedLanguageEvent: any): void {
-    const selectedLanguageCode = selectedLanguageEvent.target.value;
-    const selectedLanguageObj: Language | undefined = this.languageArray.find((language: Language): boolean => language.code === selectedLanguageCode);
-
-    if (selectedLanguageObj) {
-      this.userService.updateUserState({ defaultLanguage: selectedLanguageObj.code });
     }
   }
 
