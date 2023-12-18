@@ -1,4 +1,5 @@
-<select class="language-select" (change)="selectLanguage($event)">
+<!-- LANGUAGE-SELECTOR COMPONNET -->
+<select class="language-selector" (change)="selectLanguage($event)">
   <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
   @for (languageObj of languageArray; track languageObj) {
     <option [value]="languageObj.code" [selected]="languageObj.code === this.userService.userState().defaultLanguage">
