@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
@@ -14,18 +14,12 @@ import languageArray from '../../../utils/languageMapper';
   templateUrl: './settings.view.html',
   styleUrls: ['./settings.view.css', '../../components/messages/messages.component.css']
 })
-export class SettingsView implements OnInit {
-  public userState!: User;
+export class SettingsView {
   public languageArray: Language[] = languageArray;
 
   constructor(public userService: UserService) {
     // @ts-ignore
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
-  }
-
-  /** LIFECYCLE HOOKS */
-  public ngOnInit(): void {
-    this.userState = this.userService.userState();
   }
 
   /** PUBLIC METHODS */
@@ -34,9 +28,7 @@ export class SettingsView implements OnInit {
     const selectedLanguageObj: Language | undefined = this.languageArray.find((language: Language): boolean => language.code === selectedLanguageCode);
 
     if (selectedLanguageObj) {
-      this.userService.updateUserState({ sourceLanguage: selectedLanguageObj.code });
+      this.userService.updateUserState({ defaultLanguage: selectedLanguageObj.code });
     }
-
-
   }
 }

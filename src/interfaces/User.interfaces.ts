@@ -7,5 +7,6 @@ export interface User {
   readonly lastName?: string,
   readonly enabled: boolean,
   sourceLanguage: string,
+  defaultLanguage: string,
   profileImg: string,
 }
