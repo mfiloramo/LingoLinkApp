@@ -5,13 +5,13 @@ import { firstValueFrom, of } from 'rxjs';
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { UserService } from "../../services/user/user.service";
+import { ConversationService } from "../../services/conversation/conversation.service";
 import { MessageService } from '../../services/message/message.service';
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Language } from '../../../interfaces/Language.interfaces';
 import { User } from '../../../interfaces/User.interfaces';
-import languageArray from '../../../utils/languageMapper';
-import { ConversationService } from "../../services/conversation/conversation.service";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
+import languageArray from '../../../utils/languageMapper';
 
 
 @Component({
@@ -25,9 +25,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
 
   // COMPONENT STATE
-  public userState!: User;
   public messagesContainer: ChatMessage[] = [];
-  public languageArray: Language[] = languageArray;
+  public languageArray: any[] = languageArray;
   public textInput: string = '';
   public audio: any = new Audio();
   public isLoading: boolean = false;
@@ -45,19 +44,17 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     public userService: UserService,
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
-    // @ts-ignore
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
   }
 
   /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
-    this.userState = this.userService.userState();
     this.conversationSelected = this.conversationService.conversationSelected();
     this.conversationStarterName = this.conversationSelected.StarterUsername;
     this.conversationStarterPic = this.conversationSelected.StarterUserPic;
     this.connectWebSocket();
     if (!this.conversationService.isNewConversation()) {
-      this.loadMessagesByConvId(this.conversationSelected)
+      this.loadMessagesByConvId(this.conversationSelected).then((response: any) => response)
     }
   }
 
@@ -73,7 +70,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
-      userId: this.userState.userId,
+      userId: this.userService.userState().userId,
       textInput: this.textInput,
       conversationId: this.conversationService.conversationSelected().conversationId,
       sourceLanguage: messageLanguage,
@@ -110,9 +107,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   public async loadMessagesByConvId(conversation: Conversation): Promise<void> {
-    if (!this.conversationSelected) {
-      return;
-    }
+    if (!this.conversationSelected) return;
 
     this.isLoading = true;
 
@@ -120,17 +115,18 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       const response: any = await this.messageService.loadMessages(conversation.conversationId).toPromise();
       const messages: ChatMessage[] = response;
 
-      // Translate all messages asynchronously and wait for all to complete
-      const translationPromises = messages.map(message =>
-        message.sourceLanguage !== this.userService.userState().sourceLanguage
+      // TRANSLATE ALL MESSAGES ASYNCHRONOUSLY AND WAIT FOR ALL TO COMPLETE
+      const translationPromises = messages.map((message: ChatMessage): Promise<string> =>
+        message.sourceLanguage !== this.userService.userState().defaultLanguage
           ? this.cacheCheckTranslation(message)
           : Promise.resolve(message.textInput)
       );
 
       const translatedTexts: any = await Promise.all(translationPromises);
 
+      // ASSIGN TRANSLATED TEXTS BACK TO MESSAGES
       // Assign translated texts back to messages
-      messages.forEach((message, index) => message.textInput = translatedTexts[index]);
+      messages.forEach((message: ChatMessage, index: number) => message.textInput = translatedTexts[index]);
 
       this.messagesContainer = messages;
     } catch (error) {
@@ -147,10 +143,8 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     const selectedLanguageObj: Language | undefined = this.languageArray.find((language: Language): boolean => language.code === selectedLanguageCode);
 
     if (selectedLanguageObj) {
-      this.userService.updateUserState({ sourceLanguage: selectedLanguageObj.code });
+      this.userService.updateUserState({ defaultLanguage: selectedLanguageObj.code });
     }
-
-
   }
 
   public scrollToBottom(): void {
@@ -178,12 +172,12 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
         reader.onload = async (): Promise<void> => {
           const message = JSON.parse(reader.result as string);
           const sourceLanguage: string = message.sourceLanguage;
-          const targetLanguage: string = this.userService.userState().sourceLanguage;
+          const targetLanguage: string = this.userService.userState().defaultLanguage;
 
           // TRANSLATE MESSAGE IF NEEDED
           if (sourceLanguage !== targetLanguage) {
             message.textInput = await this.translationService.getLiveTranslation({
-              user: this.userState.userId,
+              user: this.userService.userState().userId,
               textInput: message.textInput,
               sourceLanguage: sourceLanguage,
               targetLanguage: targetLanguage
@@ -203,15 +197,15 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   private async cacheCheckTranslation(message: ChatMessage): Promise<string> {
     try {
-      const translateKey: string = `${ message.messageId }_${ this.userService.userState().sourceLanguage }`;
+      const translateKey: string = `${ message.messageId }_${ this.userService.userState().defaultLanguage }`;
       let storedTranslation: string | null = this.translationService.getStoredTranslation(translateKey);
 
       if (!storedTranslation) {
         storedTranslation = await firstValueFrom(this.translationService.getLiveTranslation({
-          user: this.userState.userId,
+          user: this.userService.userState().userId,
           textInput: message.textInput,
           sourceLanguage: message.sourceLanguage,
-          targetLanguage: this.userService.userState().sourceLanguage
+          targetLanguage: this.userService.userState().defaultLanguage
         }))
           .then((response: string): string => {
             this.translationService.storeTranslation(translateKey, response);

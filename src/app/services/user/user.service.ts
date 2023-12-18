@@ -13,7 +13,8 @@ export class UserService {
     firstName: '',
     lastName: '',
     enabled: false,
-    sourceLanguage: 'en',
+    sourceLanguage: '',
+    defaultLanguage: '',
     profileImg: ''
   })
   private apiUrl: string = environment.apiBaseUrl;

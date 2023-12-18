@@ -1,10 +1,10 @@
 <!-- SETTINGS VIEW CONTAINER -->
 <div class="settings-container">Settings
   <!-- LANGUAGE SELECTION -->
-  <select class="lang-select" (change)="selectLanguage($event)">
+  <select class="language-select" (change)="selectLanguage($event)">
     <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
     @for (languageObj of languageArray; track languageObj) {
-      <option [value]="languageObj.code" [selected]="languageObj.code === userState.sourceLanguage">
+      <option [value]="languageObj.code" [selected]="languageObj.code === userState.defaultLanguage">
         {{ languageObj.name }}
       </option>
     }

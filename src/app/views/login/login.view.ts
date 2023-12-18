@@ -32,7 +32,7 @@ export class LoginView implements OnInit {
       this.authService.login(email, password).subscribe({
         next: (response: any): void => {
           this.userService.updateUserState(response);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']).then((response: any) => response);
         },
         error: (error: any): void => {
           this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
