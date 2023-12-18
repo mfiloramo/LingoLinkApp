@@ -5,13 +5,13 @@ import { firstValueFrom, of } from 'rxjs';
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { UserService } from "../../services/user/user.service";
+import { ConversationService } from "../../services/conversation/conversation.service";
 import { MessageService } from '../../services/message/message.service';
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Language } from '../../../interfaces/Language.interfaces';
 import { User } from '../../../interfaces/User.interfaces';
-import languageArray from '../../../utils/languageMapper';
-import { ConversationService } from "../../services/conversation/conversation.service";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
+import languageArray from '../../../utils/languageMapper';
 
 
 @Component({
@@ -149,8 +149,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     if (selectedLanguageObj) {
       this.userService.updateUserState({ sourceLanguage: selectedLanguageObj.code });
     }
-
-
   }
 
   public scrollToBottom(): void {
