@@ -13,14 +13,7 @@
   <div class="input-container transition-opacity duration-300 ease-in-out">
 
     <!-- LANGUAGE SELECTION -->
-    <select class="language-select" (change)="onLanguageSelect($event)">
-      <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
-      @for (languageObj of languageArray; track languageObj) {
-        <option [value]="languageObj.code" [selected]="languageObj.code === this.userService.userState().defaultLanguage">
-          {{ languageObj.name }}
-        </option>
-      }
-    </select>
+    <app-language-selector />
 
   <!-- TEXT INPUT -->
   <input

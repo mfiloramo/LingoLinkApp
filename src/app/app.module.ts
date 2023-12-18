@@ -33,6 +33,7 @@ import { LoginView } from './views/login/login.view';
 import { PageNotFoundView } from './views/page-not-found/page-not-found.view';
 import { RegistrationView } from './views/registration/registration.view';
 import { SettingsView } from "./views/settings/settings.view";
+import { LanguageSelectorComponent } from "./components/language-selector/language-selector.component";
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { SettingsView } from "./views/settings/settings.view";
     _MatCheckboxRequiredValidatorModule,
     NgOptimizedImage,
     SettingsView,
+    LanguageSelectorComponent,
   ],
     providers: [],
     exports: [
