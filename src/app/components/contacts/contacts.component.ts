@@ -5,7 +5,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
-import { User } from "../../../interfaces/User.interfaces";
 
 @Component({
   selector: 'app-contacts',
@@ -15,7 +14,7 @@ import { User } from "../../../interfaces/User.interfaces";
   styleUrl: './contacts.component.css'
 })
 export class ContactsComponent {
-  public stubContacts: Array<string> = [ 'TestUser_1', 'TestUser_2', 'TestUser_3', 'TestUser_4' ]
+  public stubContacts: string[] = [ 'TestUser_1', 'TestUser_2', 'TestUser_3', 'TestUser_4' ]
 
   constructor(
     private router: Router,
@@ -24,7 +23,7 @@ export class ContactsComponent {
     private conversationService: ConversationService,
   ) {}
 
-  /** PUBLIC METOHDS */
+  /** PUBLIC METHODS */
   public async stubOnContactClick(contact: any): Promise<void> {
     this.conversationService.isNewConversation.set(true);
 
@@ -38,7 +37,8 @@ export class ContactsComponent {
     })
       .subscribe({
         next: (response: any): void => {
-          this.conversationService.conversationSelected.set(response.conversationId);
+          console.log(response.conversationId);
+          this.conversationService.conversationSelected.set(response);
           this.router.navigate([ 'home/chat' ]).then((response: any) => response);
         },
         error: (error: any): void => {
