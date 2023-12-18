@@ -9,7 +9,7 @@ import { Language } from "../../../interfaces/Language.interfaces";
   standalone: true,
   imports: [ CommonModule ],
   templateUrl: './language-selector.component.html',
-  styleUrls: [ './language-selector.component.css', '../../components/messages/messages.component.css' ]
+  styleUrl: './language-selector.component.css'
 })
 export class LanguageSelectorComponent {
   protected readonly languageArray: any[] = languageArray;

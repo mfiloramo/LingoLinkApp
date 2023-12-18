@@ -52,7 +52,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     this.conversationStarterPic = this.conversationSelected.StarterUserPic;
     this.connectWebSocket();
     if (!this.conversationService.isNewConversation()) {
-      this.loadMessagesByConvId(this.conversationSelected).then((response: any) => response)
+      this.loadMessagesByConvId(this.conversationSelected.conversationId).then((response: any) => response)
     }
   }
 
@@ -64,7 +64,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   public onSendMessage(): void {
     if (!this.textInput) return;
 
-    let messageLanguage = this.userService.userState().sourceLanguage;
+    let messageLanguage = this.userService.userState().defaultLanguage;
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
     const message: ChatMessage = this.messageService.buildMessage({
@@ -104,13 +104,13 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     this.playClickSound();
   }
 
-  public async loadMessagesByConvId(conversation: Conversation): Promise<void> {
+  public async loadMessagesByConvId(conversationId: number): Promise<void> {
     if (!this.conversationSelected) return;
 
     this.isLoading = true;
 
     try {
-      const response: any = await this.messageService.loadMessages(conversation.conversationId).toPromise();
+      const response: any = await this.messageService.loadMessages(conversationId).toPromise();
       const messages: ChatMessage[] = response;
 
       // TRANSLATE ALL MESSAGES ASYNCHRONOUSLY AND WAIT FOR ALL TO COMPLETE
