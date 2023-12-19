@@ -17,7 +17,7 @@ import languageArray from '../../../utils/languageMapper';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css', '../conversations/conversations.component.css'],
 })
-export class MessagesComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class MessagesComponent implements OnInit, AfterViewChecked {
   // COMPONENT CHILDREN
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
