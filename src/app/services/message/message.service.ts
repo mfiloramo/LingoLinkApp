@@ -11,9 +11,7 @@ export class MessageService {
   public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000';
   public user: object = {};
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
   public loadMessages(id: number): Observable<object> {
     return this.http.get(`${ this.apiUrl }/messages/${ id }`);
