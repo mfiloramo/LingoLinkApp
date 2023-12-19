@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { catchError, switchMap } from 'rxjs/operators';
 import { firstValueFrom, of } from 'rxjs';
@@ -17,7 +17,7 @@ import languageArray from '../../../utils/languageMapper';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css', '../conversations/conversations.component.css'],
 })
-export class MessagesComponent implements OnInit, AfterViewChecked {
+export class MessagesComponent implements OnInit, AfterViewInit, AfterViewChecked {
   // COMPONENT CHILDREN
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLInputElement>;
   @ViewChild('inputElement') inputElement!: ElementRef<HTMLInputElement>;
@@ -54,6 +54,14 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     if (!this.conversationService.isNewConversation()) {
       this.loadMessagesByConvId(this.conversationSelected.conversationId).then((response: any) => response)
     }
+  }
+
+  public ngAfterViewInit(): void {
+    this.inputElement.nativeElement.addEventListener('focus', (): void => {
+      setTimeout((): void => {
+        this.inputElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+    });
   }
 
   public ngAfterViewChecked(): void {
