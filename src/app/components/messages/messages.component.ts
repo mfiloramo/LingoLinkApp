@@ -56,14 +56,6 @@ export class MessagesComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
   }
 
-  public ngAfterViewInit(): void {
-    this.inputElement.nativeElement.addEventListener('focus', (): void => {
-      setTimeout((): void => {
-        this.inputElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 300);
-    });
-  }
-
   public ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
