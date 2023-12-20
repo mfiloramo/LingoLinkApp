@@ -87,7 +87,10 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   public checkIfExistingConversation(): void {
-    this.conversationService.isNewConversation() ? this.sendMessageNewConversation() : this.sendMessageExistingConversation()
+    // CHECK IF CONVERSATION EXISTS AND ROUTE MESSAGE ACCORDINGLY
+    this.conversationService.isNewConversation()
+      ? this.sendMessageNewConversation()
+      : this.sendMessageExistingConversation()
   }
 
   public sendMessageNewConversation(): void {
@@ -162,7 +165,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       this.textInput = '';
     }
   }
-
 
   public async loadMessagesByConvId(conversationId: number): Promise<void> {
     if (!this.conversationService.conversationSelected()) return;
