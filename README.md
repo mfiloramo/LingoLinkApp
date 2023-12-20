@@ -11,6 +11,7 @@
 <div align="center">
   <img alt="GitHub Workflow Status (with event)" src="https://img.shields.io/github/actions/workflow/status/mfiloramo/worldChatApp/.github%2Fworkflows%2Fmain_lingolink.yml">
   <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/mfiloramo/worldChatApp">
+  <img alt="GitHub package.json version (branch)" src="https://img.shields.io/github/package-json/v/mfiloramo/worldChatApp/main">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mfiloramo/worldChatApp">
   <img alt="GitHub License" src="https://img.shields.io/github/license/mfiloramo/worldChatApp">
 </div>
