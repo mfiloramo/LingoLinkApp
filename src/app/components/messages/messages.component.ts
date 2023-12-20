@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { catchError, switchMap } from 'rxjs/operators';
 import { firstValueFrom, of } from 'rxjs';
@@ -10,6 +10,8 @@ import { MessageService } from '../../services/message/message.service';
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
 import languageArray from '../../../utils/languageMapper';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Message } from "postcss";
 
 
 @Component({
@@ -28,13 +30,13 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   public textInput: string = '';
   public audio: any = new Audio();
   public isLoading: boolean = false;
-  public conversationSelected!: Conversation;
   public conversationStarterName!: string;
   public conversationStarterPic!: string;
 
 
   constructor(
     private router: Router,
+    private snackBar: MatSnackBar,
     private translationService: TranslationService,
     private webSocketService: WebSocketService,
     private conversationService: ConversationService,
@@ -47,13 +49,17 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
-    this.conversationSelected = this.conversationService.conversationSelected();
-    this.conversationStarterName = this.conversationSelected.StarterUsername;
-    this.conversationStarterPic = this.conversationSelected.StarterUserPic;
-    this.connectWebSocket();
+    // SET CONVERSATION METADATA
+    this.conversationStarterName = this.conversationService.conversationSelected().StarterUsername;
+    this.conversationStarterPic = this.conversationService.conversationSelected().StarterUserPic;
+
+    // LOAD MESSAGES BY CONVERSATION ID
     if (!this.conversationService.isNewConversation()) {
-      this.loadMessagesByConvId(this.conversationSelected.conversationId).then((response: any) => response)
+      this.loadMessagesByConvId(this.conversationService.conversationSelected().conversationId).then((response: any) => response)
     }
+
+    // CONNECT WEBSOCKET
+    this.connectWebSocket();
   }
 
   public ngAfterViewChecked(): void {
@@ -61,51 +67,88 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   /** PUBLIC METHODS */
-  public onSendMessage(): void {
-    if (!this.textInput) return;
+  public buildConversationPayload(): Conversation {
+    return {
+      recipientUsername: this.conversationService.conversationSelected().recipientUsername,
+      conversationName: this.conversationService.conversationSelected().conversationName,
+      sourceLanguage: this.userService.userState().defaultLanguage, // TODO: REPLACE THIS WITH SOURCE LANGUAGE?
+      senderUserId: this.userService.userState().userId,
+      timestamp: new Date().toISOString(),
+    }
+  }
 
-    let messageLanguage = this.userService.userState().defaultLanguage;
-
-    // BUILD MESSAGE OBJECT FOR HTTP REQUEST
-    const message: ChatMessage = this.messageService.buildMessage({
+  public buildMessagePayload(): any {
+    return this.messageService.buildMessage({
       userId: this.userService.userState().userId,
       textInput: this.textInput,
       conversationId: this.conversationService.conversationSelected().conversationId,
-      sourceLanguage: messageLanguage,
+      sourceLanguage: this.userService.userState().defaultLanguage,
     });
+  }
 
-    if (this.conversationSelected) {
-      // SEND MESSAGE TO EXISTING CONVERSATION
-      this.messageService.sendMessage(message).pipe(
-        switchMap((response: any) => {
-          this.webSocketService.send(message);
-          return of(response);
-        }),
-        catchError((error) => {
-          console.error('Failed to send message:', error);
-          return of({ error: true });
-        })
-      ).subscribe((response: any): void => {
-        if (response && !response.error) {
-          this.messagesContainer.push(message);
-          this.textInput = '';
-        } else {
-          console.error('Error sending message');
-        }
-      });
-    } else {
-      this.textInput = '';
+  public onSendMessage(): void {
+    try {
+      // CHECK FOR EMPTY INPUT
+      if (!this.textInput) return;
+
+      // CREATE NEW CONVERSATION AND DERIVE NEW CONVERSATION ID
+      if (this.conversationService.isNewConversation()) {
+
+        // BUILD CONVERSATION OBJECT FOR HTTP REQUEST
+        const newConversationPayload: any = this.buildConversationPayload();
+
+        this.conversationService.createConversation(newConversationPayload)
+          .subscribe({
+            next: (response: any): void => {
+              const updatedConversationState: Conversation = { conversationId: response.conversationId }
+
+              this.conversationService.updateConversation(updatedConversationState);
+
+              // BUILD MESSAGE OBJECT FOR HTTP REQUEST
+              const message: any = this.buildMessagePayload()
+
+
+              if (this.conversationService.conversationSelected()) {
+                // SEND MESSAGE TO EXISTING CONVERSATION
+                this.messageService.sendMessage(message).pipe(
+                  switchMap((response: any) => {
+                    this.webSocketService.send(message);
+                    return of(response);
+                  }),
+                  catchError((error) => {
+                    console.error('Failed to send message:', error);
+                    return of({ error: true });
+                  })
+                ).subscribe((response: any): void => {
+                  if (response && !response.error) {
+                    this.messagesContainer.push(message);
+                    this.textInput = '';
+
+                    // RESET NEW CONVERSATION FLAG IF NEW CONVERSATION
+                    if (this.conversationService.isNewConversation()) {
+                      this.conversationService.isNewConversation.set(false);
+                      this.playClickSound();
+                    }
+                  } else {
+                    console.error('Error sending message');
+                  }
+                });
+              } else {
+                this.textInput = '';
+              }
+            },
+            error: (error: any): void => {
+              this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+            }
+          })
+      }
+    } catch (error: any) {
+      console.error(error);
     }
-
-    if (this.conversationService.isNewConversation()) {
-      this.conversationService.isNewConversation.set(false);
-    }
-
-    this.playClickSound();
   }
 
   public async loadMessagesByConvId(conversationId: number): Promise<void> {
-    if (!this.conversationSelected) return;
+    if (!this.conversationService.conversationSelected()) return;
 
     this.isLoading = true;
 

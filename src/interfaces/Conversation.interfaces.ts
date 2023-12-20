@@ -1,11 +1,13 @@
 export interface Conversation {
-  LatestMessage: string;
-  StarterUsername: any;
-  StarterUserPic: string;
-  recipientUsername: string; // STUB?
-  readonly conversationId: number;
-  latestTimestamp: string;
-  name: string;
-  conversationName: string; // STUB?
-  profileImageSrc: any;
+  LatestMessage?: string;
+  StarterUsername?: any;
+  StarterUserPic?: string;
+  conversationName?: string;
+  sourceLanguage?: string;
+  recipientUsername?: string | null;
+  senderUserId?: string;
+  readonly conversationId?: any;
+  timestamp?: any;
+  latestTimestamp?: string;
+  profileImageSrc?: any;
 }

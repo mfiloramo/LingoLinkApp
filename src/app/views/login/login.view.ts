@@ -18,8 +18,9 @@ export class LoginView implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+  ) {
+  }
 
   /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
@@ -29,15 +30,22 @@ export class LoginView implements OnInit {
   /** PUBLIC METHODS */
   public onLoginFormSubmit(email: string, password: string): void {
     if (this.loginForm.valid) {
-      this.authService.login(email, password).subscribe({
-        next: (response: any): void => {
-          this.userService.updateUserState(response);
-          this.router.navigate(['/home']).then((response: any) => response);
-        },
-        error: (error: any): void => {
-          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-        }
-      });
+      this.authService.login(email, password)
+        .subscribe({
+          next: (response: any): void => {
+            this.userService.updateUserState(response);
+            this.userService.updateUserState({
+              StarterUsername: this.userService.userState().username,
+              StarterUserPic: response.profileImg,
+              defaultLanguage: response.defaultLanguage,
+            })
+            this.router.navigate([ '/home' ])
+              .then((response: any) => response);
+          },
+          error: (error: any): void => {
+            this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+          }
+        });
     } else {
       this.snackBar.open('Please enter valid credentials', 'Dismiss', { duration: 5000 });
     }
@@ -46,8 +54,8 @@ export class LoginView implements OnInit {
   /** PRIVATE METHODS */
   private buildLoginForm(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      email: [ '', [ Validators.required, Validators.email ] ],
+      password: [ '', [ Validators.required ] ],
     });
   }
 }

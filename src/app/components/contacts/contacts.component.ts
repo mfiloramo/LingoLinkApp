@@ -5,6 +5,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
+import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 @Component({
   selector: 'app-contacts',
@@ -18,32 +19,38 @@ export class ContactsComponent {
 
   constructor(
     private router: Router,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar, // TODO: IMPLEMENT SNACKBAR
     private userService: UserService,
     private conversationService: ConversationService,
   ) {}
 
   /** PUBLIC METHODS */
-  public async stubOnContactClick(contact: any): Promise<void> {
-    this.conversationService.isNewConversation.set(true);
+  public selectContactToChat(username: any): void {
+    // SET CONVERSATION RECIPIENT USERNAME
+    const selectedUsername: string = username.target.innerText
+    this.conversationService.userSelected.set(selectedUsername);
 
-    // TODO: DON'T CREATE CONVERSATION YET; CACHE FIRST IN SERVICE, THEN MAKE A MULTI-STEP TRANSACTION WITH CREATECONVO AND THEN SEND MESSAGE
-    this.conversationService.createConversation({
-      recipientUsername: contact.target.innerText,
-      conversationName: new ShortUniqueId({ length: 10 }).rnd(),
-      sourceLanguage: this.userService.userState().sourceLanguage,
-      senderUserId: this.userService.userState().userId,
-      timestamp: new Date().toISOString()
-    })
-      .subscribe({
-        next: (response: any): void => {
-          console.log(response.conversationId);
-          this.conversationService.conversationSelected.set(response);
-          this.router.navigate([ 'home/chat' ]).then((response: any) => response);
-        },
-        error: (error: any): void => {
-          this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-        }
-      });
+    try {
+      // CREATE NEW CONVERSATION UNIQUE ID
+      const newConversationName: string = new ShortUniqueId({ length: 10 }).rnd()
+
+      // CACHE CONVERSATION DATA BEFORE STARTING CONVERSATION
+      const cachedConversation: any = {
+        StarterUsername: this.userService.userState().StarterUsername,
+        StarterUserPic: this.userService.userState().StarterUserPic,
+        recipientUsername: this.conversationService.userSelected(),
+        conversationName: newConversationName,
+      }
+
+      // SET CACHED CONVERSATION IN CONVERSATION SERVICE
+      this.conversationService.isNewConversation.set(true);
+      this.conversationService.conversationSelected.set(cachedConversation);
+    } catch (error: any) {
+      // TODO: IMPLEMENT SNACKBAR FOR ALL FRONTEND ERROR HANDLING
+      console.error('Error starting new conversation: ', error);
+    } finally {
+      this.router.navigate(['home/chat'])
+        .then((response: any) => response);
+    }
   }
 }
