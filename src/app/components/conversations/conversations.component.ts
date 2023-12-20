@@ -69,23 +69,24 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   }
 
   public onCreateNewConversation(): void {
-    this.router.navigate(['home/contacts']).then((response: any) => response);
+    this.router.navigate(['home/contacts'])
+      .then((response: any) => response);
   }
 
   public checkConversationVisibility(conversation: Conversation): boolean {
     // IDENTIFY CONVERSATION ACCORDING TO LOCALSTORAGE KEY
-    const conversationKey: string = this.convertToConvoKey(conversation.name);
+    const conversationKey: any = this.convertToConvoKey(conversation.conversationName);
     // INDICATE IF CONVERSATION KEY IS CACHED IN LOCALSTORAGE; DISPLAY ACCORDINGLY
     return (localStorage.getItem(conversationKey) ?? 'enabled') === 'enabled';
   }
 
   public async removeConversation(user: User, conversation: Conversation): Promise<any> {
     // MARK CONVERSATION AS DISABLED (INVISIBLE) IN LOCAL CACHE
-    const conversationKey: string = this.convertToConvoKey(conversation.name);
+    const conversationKey: string = this.convertToConvoKey(conversation.conversationName);
     localStorage.setItem(conversationKey, 'disabled');
 
     // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
-    await this.conversationService.deleteConversation(user.userId, conversation)
+    await this.conversationService.deleteConversation(this.userService.userState().userId, conversation)
       .subscribe((response: any): void => response);
   }
 
@@ -101,15 +102,15 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   }
 
   /** UTILITY FUNCTIONS */
-  public convertIsoString(isoString: string): string {
+  public convertIsoString(isoString: string | undefined): string {
     return dayjs(isoString).format('MM/DD/YYYY');
   }
 
-  public convertToConvoKey(conversationName: string): string {
+  public convertToConvoKey(conversationName: any): string {
     return `${ conversationName }_vis`;
   }
 
-  public truncateSentence(sentence: string, maxLength: number): string {
+  public truncateSentence(sentence: any, maxLength: number): string {
     return sentence.length > maxLength ? sentence.slice(0, maxLength - 3) + '...' : sentence;
   }
 

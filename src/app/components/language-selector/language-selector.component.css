@@ -4,7 +4,8 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
   border-radius: 10px;
   width: 8vw;
-  height: 35px
+  height: 35px;
+  color: black;
 }
 
 .language-selector:focus {
