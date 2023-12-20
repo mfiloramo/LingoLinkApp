@@ -105,7 +105,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       this.conversationService.createConversation(newConversationPayload)
         .subscribe({
           next: (response: any): void => {
-
             // UPDATE CONVERSATION WITH NEWLY GENERATED CONVERSATION ID
             const updatedConversationState: Conversation = { conversationId: response.conversationId }
             this.conversationService.updateConversation(updatedConversationState);
@@ -176,7 +175,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       const messages: ChatMessage[] = response;
 
       // TRANSLATE ALL MESSAGES ASYNCHRONOUSLY AND WAIT FOR ALL TO COMPLETE
-      const translationPromises = messages.map((message: ChatMessage): Promise<string> =>
+      const translationPromises: Promise<string>[] = messages.map((message: ChatMessage): Promise<string> =>
         message.sourceLanguage !== this.userService.userState().defaultLanguage
           ? this.cacheCheckTranslation(message)
           : Promise.resolve(message.textInput)
@@ -185,7 +184,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       const translatedTexts: any = await Promise.all(translationPromises);
 
       // ASSIGN TRANSLATED TEXTS BACK TO MESSAGES
-      // Assign translated texts back to messages
       messages.forEach((message: ChatMessage, index: number) => message.textInput = translatedTexts[index]);
 
       this.messagesContainer = messages;
@@ -195,11 +193,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       this.isLoading = false;
       this.scrollToBottom();
     }
-  }
-
-  public scrollToBottom(): void {
-    const element: HTMLInputElement = this.chatContainer.nativeElement;
-    element.scrollIntoView({ block: 'end' });
   }
 
   public onDeselectConversation(): void {
@@ -271,6 +264,11 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   /** UTILITY FUNCTIONS */
+  private scrollToBottom(): void {
+    const element: HTMLInputElement = this.chatContainer.nativeElement;
+    element.scrollIntoView({ block: 'end' });
+  }
+
   private playClickSound(): void {
     // this.audio.load();
     // this.audio.play();
