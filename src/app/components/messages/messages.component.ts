@@ -86,66 +86,83 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  public onSendMessage(): void {
+  public checkIfExistingConversation(): void {
+    this.conversationService.isNewConversation() ? this.sendMessageNewConversation() : this.sendMessageExistingConversation()
+  }
+
+  public sendMessageNewConversation(): void {
     try {
       // CHECK FOR EMPTY INPUT
       if (!this.textInput) return;
 
+      // BUILD CONVERSATION OBJECT FOR HTTP REQUEST
+      const newConversationPayload: any = this.buildConversationPayload();
+
       // CREATE NEW CONVERSATION AND DERIVE NEW CONVERSATION ID
-      if (this.conversationService.isNewConversation()) {
+      this.conversationService.createConversation(newConversationPayload)
+        .subscribe({
+          next: (response: any): void => {
 
-        // BUILD CONVERSATION OBJECT FOR HTTP REQUEST
-        const newConversationPayload: any = this.buildConversationPayload();
+            // UPDATE CONVERSATION WITH NEWLY GENERATED CONVERSATION ID
+            const updatedConversationState: Conversation = { conversationId: response.conversationId }
+            this.conversationService.updateConversation(updatedConversationState);
 
-        this.conversationService.createConversation(newConversationPayload)
-          .subscribe({
-            next: (response: any): void => {
-              const updatedConversationState: Conversation = { conversationId: response.conversationId }
+            // BUILD MESSAGE OBJECT FOR HTTP REQUEST
+            const message: any = this.buildMessagePayload()
 
-              this.conversationService.updateConversation(updatedConversationState);
+            // SEND MESSAGE TO CONVERSATION
+            this.sendMessage(message);
 
-              // BUILD MESSAGE OBJECT FOR HTTP REQUEST
-              const message: any = this.buildMessagePayload()
+            // RESET NEW CONVERSATION FLAG
+            this.conversationService.isNewConversation.set(false);
 
-
-              if (this.conversationService.conversationSelected()) {
-                // SEND MESSAGE TO EXISTING CONVERSATION
-                this.messageService.sendMessage(message).pipe(
-                  switchMap((response: any) => {
-                    this.webSocketService.send(message);
-                    return of(response);
-                  }),
-                  catchError((error) => {
-                    console.error('Failed to send message:', error);
-                    return of({ error: true });
-                  })
-                ).subscribe((response: any): void => {
-                  if (response && !response.error) {
-                    this.messagesContainer.push(message);
-                    this.textInput = '';
-
-                    // RESET NEW CONVERSATION FLAG IF NEW CONVERSATION
-                    if (this.conversationService.isNewConversation()) {
-                      this.conversationService.isNewConversation.set(false);
-                      this.playClickSound();
-                    }
-                  } else {
-                    console.error('Error sending message');
-                  }
-                });
-              } else {
-                this.textInput = '';
-              }
-            },
-            error: (error: any): void => {
-              this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
-            }
-          })
-      }
+          },
+          error: (error: any): void => {
+            this.snackBar.open(error.message, 'Dismiss', { duration: 5000 });
+          }
+        })
     } catch (error: any) {
       console.error(error);
     }
   }
+
+  public sendMessageExistingConversation(): void {
+    // CHECK FOR EMPTY INPUT
+    if (!this.textInput) return;
+
+    // BUILD MESSAGE OBJECT FOR HTTP REQUEST
+    const message: any = this.buildMessagePayload()
+
+    // SEND MESSAGE TO CONVERSATION
+    this.sendMessage(message);
+  }
+
+  public sendMessage(message: ChatMessage): void {
+    if (this.conversationService.conversationSelected()) {
+      // SEND MESSAGE TO CONVERSATION
+      this.messageService.sendMessage(message).pipe(
+        switchMap((response: any) => {
+          this.webSocketService.send(message);
+          return of(response);
+        }),
+        catchError((error) => {
+          console.error('Failed to send message:', error);
+          return of({ error: true });
+        })
+      ).subscribe((response: any): void => {
+        if (response && !response.error) {
+          this.messagesContainer.push(message);
+          this.textInput = '';
+          this.playClickSound();
+        } else {
+          console.error('Error sending message');
+        }
+      });
+    } else {
+      this.textInput = '';
+    }
+  }
+
 
   public async loadMessagesByConvId(conversationId: number): Promise<void> {
     if (!this.conversationService.conversationSelected()) return;

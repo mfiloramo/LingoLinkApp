@@ -40,7 +40,6 @@ export class ConversationService {
   }
 
   public updateConversation(newConversationState: any): void {
-    console.log('newConversationState:', newConversationState)
     this.conversationSelected.update((currentConversationState: Conversation) => ({ ...currentConversationState, ...newConversationState }));
 
     console.log('updatedConversationState:', this.conversationSelected())

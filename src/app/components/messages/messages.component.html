@@ -19,14 +19,14 @@
   <input
     #inputElement
     class="text-input"
-    (keyup.enter)="onSendMessage()"
+    (keyup.enter)="checkIfExistingConversation()"
     type="text"
     [(ngModel)]="textInput"
     placeholder="Type something to send..."
   >
 
     <!-- SEND MESSAGE BUTTON -->
-    <button class="send-msg-btn" (click)="onSendMessage()" style="color: #e8e9ff; float: right">
+    <button class="send-msg-btn" (click)="checkIfExistingConversation()" style="color: #e8e9ff; float: right">
       <mat-icon>send</mat-icon>
     </button>
 

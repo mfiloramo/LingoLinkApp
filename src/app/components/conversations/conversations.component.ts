@@ -86,7 +86,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
     localStorage.setItem(conversationKey, 'disabled');
 
     // REMOVE USER AS PARTICIPANT IN SELECTED CONVERSATION
-    await this.conversationService.deleteConversation(user.userId, conversation)
+    await this.conversationService.deleteConversation(this.userService.userState().userId, conversation)
       .subscribe((response: any): void => response);
   }
 
