@@ -1,8 +1,17 @@
-<p align="center">
+<div align="center">
   <img src="https://user-images.githubusercontent.com/72812809/236295242-99005189-2eeb-4d21-9653-6fed5f4520c6.png" alt="readmeLogo" width="23%" height="23%" />
-</p>
+</div>
 
-LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the server's integration of Google Translate API, users can send and receive messages in their own language while the server automatically translates the messages in real-time for all other parties.
+<h1 align="center">Multilingual Messaging Made Easy</h1>
+<hr/>
+
+<h4 align="center">LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the server's integration of Google Translate API, users can send and receive messages in their own language while the server automatically translates the messages in real-time for all other parties.</h4><br/>
+
+<div align="center">
+  <img alt="GitHub Workflow Status (with event)" src="https://img.shields.io/github/actions/workflow/status/mfiloramo/worldChatApp/.github%2Fworkflows%2Fmain_lingolink.yml">
+</div>
+
+
 
 ## Early Screenshots (Desktop Version Only)
 Below are some preview screenshots of an early iteration of LingoLink's interface. The screenshots are for UI demonstration purposes only.
