@@ -4,7 +4,6 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
 import { environment } from '../../../environments/environment';
-import { User } from "../../../interfaces/User.interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +40,6 @@ export class ConversationService {
 
   public updateConversation(newConversationState: any): void {
     this.conversationSelected.update((currentConversationState: Conversation) => ({ ...currentConversationState, ...newConversationState }));
-
-    console.log('updatedConversationState:', this.conversationSelected())
   }
 
   /** PRIVATE METHODS */
