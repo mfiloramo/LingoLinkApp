@@ -16,8 +16,6 @@
   <img alt="GitHub License" src="https://img.shields.io/github/license/mfiloramo/worldChatApp">
 </div>
 
-
-
 ## Early Screenshots (Desktop Version Only)
 Below are some preview screenshots of an early iteration of LingoLink's interface. The screenshots are for UI demonstration purposes only.
 
