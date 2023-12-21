@@ -77,7 +77,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public buildMessagePayload(): any {
+  public buildMessagePayload(): ChatMessage {
     return this.messageService.buildMessage({
       userId: this.userService.userState().userId,
       textInput: this.textInput,
