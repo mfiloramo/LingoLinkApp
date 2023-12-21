@@ -7,7 +7,7 @@ import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 import { LoginView } from "./views/login/login.view";
 import { RegistrationView } from "./views/registration/registration.view";
 import { AuthGuard } from "./guards/auth/auth.guard";
-import { SettingsView } from "./views/settings/settings.view";
+import { SettingsView } from "./components/settings/settings.view";
 import { ContactsComponent } from "./components/contacts/contacts.component";
 
 
