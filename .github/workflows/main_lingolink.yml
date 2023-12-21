@@ -57,7 +57,7 @@ jobs:
     name: Deploy Application
     environment:
       name: Production
-      url: ${{ secrets.APP_DEPLOYMENT_URL }}
+      url: https://orange-tree-0d3c88e0f.3.azurestaticapps.net/ # TODO: PIPE THIS VALUE IN FROM AZURE IN steps.x
     if: (github.event_name == 'push') || (github.event_name == 'pull_request' && github.event.pull_request.merged == true && github.event.pull_request.head.ref != 'dev')
     steps:
       - name: Download Build Artifact
