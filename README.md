@@ -1,8 +1,20 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/72812809/235482535-571dd542-8214-4dcc-ad81-d5001eac5d22.png" alt="readmeLogo" width="40%" height="40%" />
-</p>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/72812809/236295242-99005189-2eeb-4d21-9653-6fed5f4520c6.png" alt="readmeLogo" width="23%" height="23%" />
+</div>
 
-LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the server's integration of Google Translate API, users can send and receive messages in their own language while the server automatically translates the messages in real-time for all other parties.
+<h1 align="center">Multilingual Messaging Made Easy</h1>
+
+<hr/>
+
+<h4 align="center">LingoLink is a messaging application that allows users to communicate with others regardless of the language they speak. With the server's integration of Google Translate API, users can send and receive messages in their own language while the server automatically translates the messages in real-time for all other parties.</h4><br/>
+
+<div align="center">
+  <img alt="GitHub Workflow Status (with event)" src="https://img.shields.io/github/actions/workflow/status/mfiloramo/worldChatApp/.github%2Fworkflows%2Fmain_lingolink.yml">
+  <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/mfiloramo/worldChatApp">
+  <img alt="GitHub package.json version (branch)" src="https://img.shields.io/github/package-json/v/mfiloramo/worldChatApp/main">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/mfiloramo/worldChatApp">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/mfiloramo/worldChatApp">
+</div>
 
 ## Early Screenshots (Desktop Version Only)
 Below are some preview screenshots of an early iteration of LingoLink's interface. The screenshots are for UI demonstration purposes only.
@@ -40,8 +52,7 @@ The application is currently a work in progress and is not yet available for dow
 <p align="left">
   <a href="https://www.typescriptlang.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a>
   <a href="https://angular.io/" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235690049-7261a5d5-9daa-4fa2-8d64-32901e0eabc5.png" alt="angular" width="40" height="42"/> </a>
-  <a href="https://material.angular.io/" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235689161-97bab0c0-7aaf-4af5-99fb-3060213ee09f.png" alt="material" width="40" height="42"/> </a>  
-  <a href="https://ionicframework.com//" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235688363-cbb55b67-d12b-4476-80a8-79041de0d92f.png" alt="ionic" width="40" height="40"/> </a>
+  <a href="https://material.angular.io/" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235689161-97bab0c0-7aaf-4af5-99fb-3060213ee09f.png" alt="material" width="40" height="42"/> </a>
   <a href="https://tailwindcss.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a>
   <a href="https://nodejs.org" target="_blank"> <img src="https://i.ibb.co/YyZ3N7z/js.png" alt="nodejs" width="36" height="40"/> </a>
   <a href="https://expressjs.com" target="_blank"> <img src="https://user-images.githubusercontent.com/72812809/235751208-f8e1739e-67a8-4a4c-8b8b-e08b057a3580.png" alt="express" width="40" height="40"/> </a>
