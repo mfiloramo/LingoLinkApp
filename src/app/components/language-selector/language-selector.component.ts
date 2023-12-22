@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import languageArray from "../../../utils/languageMapper";
 import { UserService } from "../../services/user/user.service";
 import { Language } from "../../../interfaces/Language.interfaces";
+import languageArray from "../../../utils/languageMapper";
 
 @Component({
   selector: 'app-language-selector',
@@ -12,10 +12,10 @@ import { Language } from "../../../interfaces/Language.interfaces";
   styleUrl: './language-selector.component.css'
 })
 export class LanguageSelectorComponent {
-  protected readonly languageArray: any[] = languageArray;
+  protected readonly languageArray: Language[] = languageArray;
 
   constructor(public userService: UserService) {
-    this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
+    this.languageArray.sort((a: Language, b: Language) => a.name!.localeCompare(b.name!));
   }
 
   /** PUBLIC METHODS */

@@ -111,7 +111,7 @@ body::-webkit-scrollbar {
   padding-bottom: 80px;
   position: relative;
   z-index: 1;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .msg-container {
@@ -180,7 +180,6 @@ body::-webkit-scrollbar {
 .msg-box-container {
   height: 100vh;
   width: 100%;
-
 }
 
 .msg-box-container::before {
@@ -195,6 +194,7 @@ body::-webkit-scrollbar {
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   transform-origin: center;
   transform: scale(0.75);
 }

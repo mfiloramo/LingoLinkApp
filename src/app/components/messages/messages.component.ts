@@ -55,7 +55,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
     // LOAD MESSAGES BY CONVERSATION ID
     if (!this.conversationService.isNewConversation()) {
-      this.loadMessagesByConvId(this.conversationService.conversationSelected().conversationId).then((response: any) => response)
+      this.loadMessagesByConversationId(this.conversationService.conversationSelected().conversationId).then((response: any) => response)
     }
 
     // CONNECT WEBSOCKET
@@ -71,13 +71,13 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     return {
       recipientUsername: this.conversationService.conversationSelected().recipientUsername,
       conversationName: this.conversationService.conversationSelected().conversationName,
-      sourceLanguage: this.userService.userState().defaultLanguage, // TODO: REPLACE THIS WITH SOURCE LANGUAGE?
+      sourceLanguage: this.userService.userState().defaultLanguage,
       senderUserId: this.userService.userState().userId,
       timestamp: new Date().toISOString(),
     }
   }
 
-  public buildMessagePayload(): ChatMessage {
+  public buildMessage(): ChatMessage {
     return this.messageService.buildMessage({
       userId: this.userService.userState().userId,
       textInput: this.textInput,
@@ -110,7 +110,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
             this.conversationService.updateConversation(updatedConversationState);
 
             // BUILD MESSAGE OBJECT FOR HTTP REQUEST
-            const message: any = this.buildMessagePayload()
+            const message: any = this.buildMessage()
 
             // SEND MESSAGE TO CONVERSATION
             this.sendMessage(message);
@@ -133,7 +133,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     if (!this.textInput) return;
 
     // BUILD MESSAGE OBJECT FOR HTTP REQUEST
-    const message: any = this.buildMessagePayload()
+    const message: any = this.buildMessage()
 
     // SEND MESSAGE TO CONVERSATION
     this.sendMessage(message);
@@ -165,7 +165,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public async loadMessagesByConvId(conversationId: number): Promise<void> {
+  public async loadMessagesByConversationId(conversationId: number): Promise<void> {
     if (!this.conversationService.conversationSelected()) return;
 
     this.isLoading = true;
