@@ -9,7 +9,13 @@
   color: black;
   width: 100vw;
   height: calc(100vh - 80px);
-  overflow: scroll;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.settings-container::-webkit-scrollbar {
+  display: none;
 }
 
 .button-pair-container {
