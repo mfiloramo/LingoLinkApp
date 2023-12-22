@@ -11,4 +11,6 @@ import { LanguageSelectorComponent } from "../language-selector/language-selecto
   templateUrl: './settings.view.html',
   styleUrls: ['./settings.view.css']
 })
-export class SettingsView {}
+export class SettingsView {
+
+}

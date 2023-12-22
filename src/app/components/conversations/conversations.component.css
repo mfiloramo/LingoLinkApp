@@ -94,7 +94,7 @@
 .conversation-list {
   margin-top: 50px;
   position: relative;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .conversations-container {
