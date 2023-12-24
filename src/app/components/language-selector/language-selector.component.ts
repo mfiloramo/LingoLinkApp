@@ -13,7 +13,8 @@ import languageArray from "../../../utils/languageMapper";
 })
 export class LanguageSelectorComponent {
   @Input() backgroundColor!: string;
-  @Input() settingsWidth!: string;
+  @Input() customWidth!: string;
+  @Input() customHeight!: string;
   protected readonly languageArray: Language[] = languageArray;
 
   constructor(public userService: UserService) {
