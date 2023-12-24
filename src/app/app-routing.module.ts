@@ -14,7 +14,7 @@ import { ContactsComponent } from "./components/contacts/contacts.component";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login' | DEV: '/home'
+    redirectTo: '/home/settings', // PROD: '/login' | DEV: '/home'
     pathMatch: 'full'
   },
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeView,
-    canActivate: [ AuthGuard ], // ENABLE FOR PROD
+    // canActivate: [ AuthGuard ], // ENABLE FOR PROD
     children: [
       {
         path: '',
@@ -35,23 +35,23 @@ const routes: Routes = [
       {
         path: 'conversations',
         component: ConversationsComponent,
-        canActivate: [ AuthGuard ], // ENABLE FOR PROD
+        // canActivate: [ AuthGuard ], // ENABLE FOR PROD
         data: { animation: 'conversations' }
       },
       {
         path: 'chat',
         component: MessagesComponent,
-        canActivate: [ AuthGuard ], // ENABLE FOR PROD
+        // canActivate: [ AuthGuard ], // ENABLE FOR PROD
       },
       {
         path: 'contacts',
         component: ContactsComponent,
-        canActivate: [ AuthGuard ], // ENABLE FOR PROD
+        // canActivate: [ AuthGuard ], // ENABLE FOR PROD
       },
       {
         path: 'settings',
         component: SettingsView,
-        canActivate: [ AuthGuard ], // ENABLE FOR PROD
+        // canActivate: [ AuthGuard ], // ENABLE FOR PROD
       }
     ]
   },
