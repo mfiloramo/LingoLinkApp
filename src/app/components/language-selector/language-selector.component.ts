@@ -15,6 +15,7 @@ export class LanguageSelectorComponent {
   @Input() backgroundColor!: string;
   @Input() customWidth!: string;
   @Input() customHeight!: string;
+  @Input() customFontSize!: string;
   protected readonly languageArray: Language[] = languageArray;
 
   constructor(public userService: UserService) {
