@@ -1,0 +1,14 @@
+.language-view-container {
+  background-color: #030f2c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.language-title {
+  color: white;
+  font-size: 25px;
+  padding-top: 15px;
+  padding-bottom: 40px;
+}

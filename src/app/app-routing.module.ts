@@ -10,6 +10,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 import { SettingsView } from "./views/settings/settings.view";
 import { ContactsComponent } from "./components/contacts/contacts.component";
 import { LanguageSelectorComponent } from "./components/language-selector/language-selector.component";
+import { LanguageView } from "./views/language/language.view";
 
 
 const routes: Routes = [
@@ -42,21 +43,25 @@ const routes: Routes = [
       {
         path: 'chat',
         component: MessagesComponent,
+        data: { animation: 'chat' },
         canActivate: [ AuthGuard ],
       },
       {
         path: 'contacts',
         component: ContactsComponent,
+        data: { animation: 'contacts' },
         canActivate: [ AuthGuard ],
       },
       {
         path: 'settings',
         component: SettingsView,
+        data: { animation: 'settings' },
         canActivate: [ AuthGuard ],
       },
       {
         path: 'language',
-        component: LanguageSelectorComponent,
+        component: LanguageView,
+        data: { animation: 'language' },
         canActivate: [ AuthGuard ],
       },
     ]
