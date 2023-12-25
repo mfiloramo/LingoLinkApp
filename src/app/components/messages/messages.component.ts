@@ -32,6 +32,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   public isLoading: boolean = false;
   public conversationStarterName!: string;
   public conversationStarterPic!: string;
+  public languageSelectorStyling: object = { 'background-color': '#989aad', 'width': '100px', 'height': '35px', 'font-size': '16px' };
 
 
   constructor(
