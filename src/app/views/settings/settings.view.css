@@ -50,7 +50,7 @@
   border-top-right-radius: 12px;
 }
 
-.settings-bottom-button, .settings-container :last-child {
+.settings-bottom-button {
   border-top: 1px solid gray;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
