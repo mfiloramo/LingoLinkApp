@@ -41,17 +41,19 @@
 }
 
 .settings-top-button {
+  border-bottom: 1px solid gray;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
 
 .settings-bottom-button {
+  border-top: 1px solid gray;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   margin-bottom: 5vh;
 }
 
-.settings-title {
+.view-title {
   color: white;
   font-size: 25px;
   padding-top: 15px;

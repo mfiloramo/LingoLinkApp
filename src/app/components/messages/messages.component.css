@@ -149,7 +149,7 @@ body::-webkit-scrollbar {
 .back-arrow {
   position: absolute;
   left: 10px;
-  top: 50%;
+  top: 3vh;
   transform: translateY(-50%);
   cursor: pointer;
   color: #dae3ff;

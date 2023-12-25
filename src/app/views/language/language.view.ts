@@ -9,7 +9,7 @@ import { RouterLink } from "@angular/router";
   standalone: true,
   imports: [ CommonModule, LanguageSelectorComponent, MatIconModule, RouterLink ],
   templateUrl: './language.view.html',
-  styleUrl: './language.view.css'
+  styleUrls: ['./language.view.css', '../../components/messages/messages.component.css', '../settings/settings.view.css']
 })
 export class LanguageView {
 
