@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ CommonModule, MatIconModule, RouterLink ],
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.css'
+  styleUrls: ['./contacts.component.css', '../../views/settings/settings.view.css', '../../components/messages/messages.component.css']
 })
 export class ContactsComponent {
-  public stubContacts: string[] = [ 'TestUser_1', 'TestUser_2', 'TestUser_3', 'TestUser_4' ]
+  public stubContacts: string[] = [ 'TestUser_1', 'TestUser_2', 'TestUser_3', 'TestUser_4',  ]
 
   constructor(
     private router: Router,

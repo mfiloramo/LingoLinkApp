@@ -1,7 +1,10 @@
 <!-- CONTACTS COMPONENT -->
-<div class="stubContactListButtons">`
+<div class="settings-container">
+  <mat-icon class="back-arrow" routerLink="/home/settings">arrow_back</mat-icon>
+  <div class="view-title">Contacts</div>
+  `
   @for (contact of stubContacts; track contact) {
-    <button class="py-2 px-3 bg-blue-800 text-white text-sm font-semibold rounded-md shadow-lg shadow-indigo-500/50 focus:outline-none" (click)="selectContactToChat($event)">
+    <button class="menu-button" (click)="selectContactToChat($event)">
       {{ contact }}
     </button>
   }
