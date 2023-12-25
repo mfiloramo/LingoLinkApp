@@ -12,3 +12,15 @@
   padding-top: 15px;
   padding-bottom: 40px;
 }
+
+.back-arrow {
+  position: absolute;
+  left: 2vw;
+  top: 3vh;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #dae3ff;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 30px;
+}

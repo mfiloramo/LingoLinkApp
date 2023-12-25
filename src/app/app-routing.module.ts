@@ -1,22 +1,31 @@
+// CORE MODULE IMPORTS
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeView } from "./views/home/home.view";
+
+// COMPONENT IMPORTS
 import { MessagesComponent } from "./components/messages/messages.component";
 import { ConversationsComponent } from "./components/conversations/conversations.component";
-import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
+import { ContactsComponent } from "./components/contacts/contacts.component";
+
+// VIEW IMPORTS
 import { LoginView } from "./views/login/login.view";
 import { RegistrationView } from "./views/registration/registration.view";
-import { AuthGuard } from "./guards/auth/auth.guard";
+import { HomeView } from "./views/home/home.view";
 import { SettingsView } from "./views/settings/settings.view";
-import { ContactsComponent } from "./components/contacts/contacts.component";
-import { LanguageSelectorComponent } from "./components/language-selector/language-selector.component";
 import { LanguageView } from "./views/language/language.view";
+import { AccountView } from "./views/account/account.view";
+import { AvatarView } from "./views/avatar/avatar.view";
+import { DisplayView } from "./views/display/display.view";
+import { InfoView } from "./views/info/info.view";
+import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 
+// GUARD IMPORTS
+import { AuthGuard } from "./guards/auth/auth.guard";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login' | DEV: '/home'
+    redirectTo: '/home/settings', // PROD: '/login' | DEV: '/home'
     pathMatch: 'full'
   },
   {
@@ -27,42 +36,67 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeView,
-    canActivate: [ AuthGuard ],
+    // canActivate: [ AuthGuard ],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'conversations'
+        redirectTo: 'conversations',
+        data: { animation: 'conversations' },
       },
       {
         path: 'conversations',
         component: ConversationsComponent,
-        canActivate: [ AuthGuard ],
         data: { animation: 'conversations' }
+        // canActivate: [ AuthGuard ],
       },
       {
         path: 'chat',
         component: MessagesComponent,
         data: { animation: 'chat' },
-        canActivate: [ AuthGuard ],
+        // canActivate: [ AuthGuard ],
       },
       {
         path: 'contacts',
         component: ContactsComponent,
         data: { animation: 'contacts' },
-        canActivate: [ AuthGuard ],
+        // canActivate: [ AuthGuard ],
       },
       {
         path: 'settings',
         component: SettingsView,
         data: { animation: 'settings' },
-        canActivate: [ AuthGuard ],
+        // canActivate: [ AuthGuard ],
+      },
+      {
+        path: 'account',
+        component: AccountView,
+        data: { animation: 'account' },
+        // canActivate: [ AuthGuard ],
+      },
+      {
+        path: 'avatar',
+        component: AvatarView,
+        data: { animation: 'avatar' },
+        // canActivate: [ AuthGuard ],
+      },
+      {
+        path: 'display',
+        component: DisplayView,
+        data: { animation: 'display' },
+        // canActivate: [ AuthGuard ],
       },
       {
         path: 'language',
         component: LanguageView,
         data: { animation: 'language' },
-        canActivate: [ AuthGuard ],
+        // canActivate: [ AuthGuard ],
+      },
+      {
+        path: 'info',
+        component: InfoView,
+        data: { animation: 'info' },
+        // canActivate: [ AuthGuard ],
       },
     ]
   },
