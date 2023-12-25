@@ -15,7 +15,7 @@ import { LanguageSelectorComponent } from "./components/language-selector/langua
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home/settings', // PROD: '/login' | DEV: '/home'
+    redirectTo: '/login', // PROD: '/login' | DEV: '/home'
     pathMatch: 'full'
   },
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeView,
-    // canActivate: [ AuthGuard ],
+    canActivate: [ AuthGuard ],
     children: [
       {
         path: '',
@@ -36,28 +36,28 @@ const routes: Routes = [
       {
         path: 'conversations',
         component: ConversationsComponent,
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
         data: { animation: 'conversations' }
       },
       {
         path: 'chat',
         component: MessagesComponent,
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'contacts',
         component: ContactsComponent,
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'settings',
         component: SettingsView,
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'language',
         component: LanguageSelectorComponent,
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
     ]
   },
