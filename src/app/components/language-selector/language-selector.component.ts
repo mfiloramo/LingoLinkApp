@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from "../../services/user/user.service";
 import { Language } from "../../../interfaces/Language.interfaces";
@@ -9,13 +9,10 @@ import languageArray from "../../../utils/languageMapper";
   standalone: true,
   imports: [ CommonModule ],
   templateUrl: './language-selector.component.html',
-  styleUrl: './language-selector.component.css'
+  styleUrl: './language-selector.component.css',
 })
 export class LanguageSelectorComponent {
-  @Input() backgroundColor!: string;
-  @Input() customWidth!: string;
-  @Input() customHeight!: string;
-  @Input() customFontSize!: string;
+  @Input() customStyle?: object;
   protected readonly languageArray: Language[] = languageArray;
 
   constructor(public userService: UserService) {

@@ -1,9 +1,6 @@
 <!-- LANGUAGE-SELECTOR COMPONENT -->
 <select class="language-selector"
-  [style.background-color]="backgroundColor"
-  [style.width]="customWidth"
-  [style.height]="customHeight"
-  [style.font-size]="customFontSize"
+  [ngStyle]="customStyle"
   (change)="selectLanguage($event)"
 >
   <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
