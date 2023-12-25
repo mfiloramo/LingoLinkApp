@@ -197,8 +197,9 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   }
 
   public onDeselectConversation(): void {
-    this.conversationService.conversationSelected.set(null)
-    this.router.navigate(['/home/conversations']);
+    this.conversationService.conversationSelected.set(null);
+    this.conversationService.isNewConversation.set(false);
+    this.router.navigate(['/home/conversations']).then((response: any) => response);
     this.webSocketService.disconnect();
   }
 

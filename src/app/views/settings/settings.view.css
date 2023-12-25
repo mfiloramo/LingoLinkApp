@@ -32,6 +32,10 @@
   width: 90vw;
 }
 
+.menu-button :last-child {
+  border-bottom: none;
+}
+
 .menu-button:hover {
   background: #dcdcdc;
 }
@@ -40,7 +44,7 @@
   background: #c5c5c5;
 }
 
-.settings-top-button, .settings-container :first-child {
+.settings-top-button {
   border-bottom: 1px solid gray;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
