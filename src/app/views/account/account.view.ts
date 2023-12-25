@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from "@angular/material/icon";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule],
+  imports: [ CommonModule, MatIconModule, RouterLink ],
   templateUrl: './account.view.html',
-  styleUrl: './account.view.css'
+  styleUrls: ['./account.view.css', '../../components/messages/messages.component.css', '../settings/settings.view.css']
 })
 export class AccountView {
 
