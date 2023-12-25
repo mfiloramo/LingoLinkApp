@@ -12,8 +12,14 @@
   <!-- INPUT CONTAINER -->
   <div class="input-container transition-opacity duration-300 ease-in-out">
 
-    <!-- LANGUAGE SELECTION -->
-    <app-language-selector />
+    <!-- LANGUAGE SELECTOR -->
+    <app-language-selector
+      [style.color]="'red'"
+      [backgroundColor]="'#989aad'"
+      [customWidth]="'100px'"
+      [customHeight]="'35px'"
+      [customFontSize]="'16px'"
+    />
 
   <!-- TEXT INPUT -->
   <input

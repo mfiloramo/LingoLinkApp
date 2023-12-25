@@ -1,9 +1,10 @@
 <!-- LANGUAGE-SELECTOR COMPONENT -->
 <select class="language-selector"
-        [style.background-color]="backgroundColor"
-        [style.width]="customWidth"
-        [style.height]="customHeight"
-        (change)="selectLanguage($event)"
+  [style.background-color]="backgroundColor"
+  [style.width]="customWidth"
+  [style.height]="customHeight"
+  [style.font-size]="customFontSize"
+  (change)="selectLanguage($event)"
 >
   <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
   @for (languageObj of languageArray; track languageObj) {
