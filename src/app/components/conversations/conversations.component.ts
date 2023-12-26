@@ -64,7 +64,7 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   }
 
   public onSelectConversation(conversation: Conversation): void {
-    this.conversationService.conversationSelected.set(conversation);
+    this.conversationService.updateConversation(conversation);
     this.router.navigate(['home/chat']).then((response: any) => response);
   }
 
