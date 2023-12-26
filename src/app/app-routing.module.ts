@@ -25,7 +25,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home/settings', // PROD: '/login' | DEV: '/home'
+    redirectTo: '/login', // PROD: '/login' | DEV: '/home'
     pathMatch: 'full'
   },
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeView,
-    // canActivate: [ AuthGuard ],
+    canActivate: [ AuthGuard ],
     children: [
       {
         path: '',
@@ -47,56 +47,56 @@ const routes: Routes = [
       {
         path: 'conversations',
         component: ConversationsComponent,
-        data: { animation: 'conversations' }
-        // canActivate: [ AuthGuard ],
+        data: { animation: 'conversations' },
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'chat',
         component: MessagesComponent,
         data: { animation: 'chat' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'contacts',
         component: ContactsComponent,
         data: { animation: 'contacts' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'settings',
         component: SettingsView,
         data: { animation: 'settings' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'account',
         component: AccountView,
         data: { animation: 'account' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'avatar',
         component: AvatarView,
         data: { animation: 'avatar' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'display',
         component: DisplayView,
         data: { animation: 'display' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'language',
         component: LanguageView,
         data: { animation: 'language' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
       {
         path: 'info',
         component: InfoView,
         data: { animation: 'info' },
-        // canActivate: [ AuthGuard ],
+        canActivate: [ AuthGuard ],
       },
     ]
   },
