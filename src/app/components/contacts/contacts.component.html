@@ -1,10 +1,12 @@
 <!-- CONTACTS COMPONENT -->
-<div class="settings-container">
-  <mat-icon class="back-arrow" routerLink="/home/settings">arrow_back</mat-icon>
-  <div class="view-title">Contacts</div>
-  `
+<div class="view-container">
+
+  <!-- PAGE TITLE -->
+  <app-title [title]="'Contacts'" />
+
+  <!-- CONTACTS LIST -->
   @for (contact of stubContacts; track contact) {
-    <button class="menu-button" (click)="selectContactToChat($event)">
+    <button class="menu-button" [ngStyle]="contactsMenuButtonStyling" (click)="selectContactToChat($event)">
       {{ contact }}
     </button>
   }

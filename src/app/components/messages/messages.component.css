@@ -146,19 +146,6 @@ body::-webkit-scrollbar {
   margin-left: -10px;
 }
 
-.back-arrow {
-  position: absolute;
-  left: 10px;
-  top: 3vh;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #dae3ff;
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 30px;
-}
-
-
 .home-section {
   background: linear-gradient(to top left, #04112d, #061934);
   box-shadow: -10px 0 20px rgba(0, 0, 0, 0.24);

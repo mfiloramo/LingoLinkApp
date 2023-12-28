@@ -1,4 +1,4 @@
-.settings-container {
+.view-container {
   font-size: 20px;
   display: flex;
   justify-content: flex-start;
@@ -8,13 +8,14 @@
   z-index: 15;
   color: black;
   width: 100vw;
+  /*height: calc(100% - 80px);*/
   height: calc(100vh - 80px);
-  overflow-y: auto;
+  overflow-y: visible;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.settings-container::-webkit-scrollbar {
+.view-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -55,13 +56,6 @@
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   margin-bottom: 5vh;
-}
-
-.view-title {
-  color: white;
-  font-size: 25px;
-  padding-top: 15px;
-  padding-bottom: 40px;
 }
 
 .settings-language-selector {
