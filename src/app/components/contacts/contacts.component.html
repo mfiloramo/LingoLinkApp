@@ -2,7 +2,7 @@
 <div class="view-container" [ngStyle]="{ 'height': '100%' }">
 
   <!-- PAGE TITLE -->
-  <app-title [title]="'Contacts'" />
+  <app-title [title]="'Contacts'" [link]="'/home/conversations'"/>
 
   <!-- CONTACTS LIST -->
   @for (contact of stubContacts; track contact) {

@@ -35,11 +35,20 @@
 
   <!-- MESSAGE CONTAINER -->
   <div class="msg-container">
+
+
     <!-- BACK ARROW BUTTON -->
     <div class="msg-box-top-bar">
-      <mat-icon class="back-arrow" (click)="onDeselectConversation()">arrow_back</mat-icon>
-      <div class="circle" [style.background-image]="'url(' + conversationStarterPic + ')'"></div>
-      <span class="conversation-starter">{{ conversationStarterName }}</span>
+
+      <!-- TITLE COMPONENT -->
+      <app-title (click)="onDeselectConversation()" [link]="'/home/conversations'">
+<!--         TODO: ADJUST PADDING-BOTTOM OF TITLE-COMPONENT-CONTAINER CLASS IN THIS INSTANCE-->
+        <div class="chat-title-content">
+          <div class="circle" [style.background-image]="'url(' + conversationStarterPic + ')'" [style.height]="'4vh'"></div>
+          <span class="conversation-starter">{{ conversationStarterName }}</span>
+        </div>
+      </app-title>
+
     </div>
 
       <!-- MESSAGE LIST -->
