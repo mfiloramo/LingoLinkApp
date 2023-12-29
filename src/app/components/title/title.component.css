@@ -1,18 +1,30 @@
+.title-component-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  width: 100vw;
+  position: relative;
+}
+
+.title-component-container::after {
+  content: '';
+  width: 50px;
+  height: 1px;
+  display: block;
+}
+
 .back-arrow {
-  position: absolute;
-  left: 10px;
-  top: 3vh;
-  transform: translateY(-50%);
+  margin: 2vh 15px;
   cursor: pointer;
   color: #dae3ff;
-  margin-left: 10px;
-  margin-right: 10px;
   font-size: 30px;
 }
 
 .view-title {
   color: white;
+  margin-left: -15px;
   font-size: 25px;
-  padding-top: 15px;
-  padding-bottom: 40px;
+  padding-top: 1vh;
+  text-align: center;
 }

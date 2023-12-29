@@ -1,17 +1,24 @@
+// CORE MODULES IMPORTS
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { catchError, switchMap } from 'rxjs/operators';
 import { firstValueFrom, of } from 'rxjs';
+
+// CUSTOM SERVICES
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
 import { MessageService } from '../../services/message/message.service';
+
+// INTERFACES
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
-import languageArray from '../../../utils/languageMapper';
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Message } from "postcss";
+
+// UTILITIES
+import languageArray from '../../../utils/languageMapper';
 
 
 @Component({

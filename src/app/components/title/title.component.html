@@ -1,5 +1,7 @@
 <!-- TITLE COMPONENT -->
-<div class="title-component">
-  <mat-icon class="back-arrow" routerLink="/home/settings">arrow_back</mat-icon>
+<div class="title-component-container">
+  <mat-icon class="back-arrow" routerLink="{{ link }}">arrow_back</mat-icon>
+  <!-- PLACEHOLDER FOR ADDITIONAL CONTENT -->
+  <ng-content />
   <div class="view-title">{{ title }}</div>
 </div>

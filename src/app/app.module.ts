@@ -26,6 +26,8 @@ import { AppComponent } from './app.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ConversationsComponent } from './components/conversations/conversations.component';
+import { LanguageSelectorComponent } from "./components/language-selector/language-selector.component";
+import { TitleComponent } from "./components/title/title.component";
 
 // VIEWS
 import { HomeView } from './views/home/home.view';
@@ -33,7 +35,6 @@ import { LoginView } from './views/login/login.view';
 import { PageNotFoundView } from './views/page-not-found/page-not-found.view';
 import { RegistrationView } from './views/registration/registration.view';
 import { SettingsView } from "./views/settings/settings.view";
-import { LanguageSelectorComponent } from "./components/language-selector/language-selector.component";
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { LanguageSelectorComponent } from "./components/language-selector/langua
     NgOptimizedImage,
     SettingsView,
     LanguageSelectorComponent,
+    TitleComponent,
   ],
     providers: [],
     exports: [
