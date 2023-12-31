@@ -90,7 +90,8 @@ body::-webkit-scrollbar {
 .chat-title-content {
   display: flex;
   flex-direction: row;
-  padding-bottom: -10px;
+  padding-top: 1vh;
+  padding-left: 10vw;
 }
 
 .text-input {
@@ -131,11 +132,6 @@ body::-webkit-scrollbar {
 .msg-container::-webkit-scrollbar {
   width: 0 !important;
 }
-
-.chat-title-content {
-  top: 0;
-}
-
 .msg-box-top-bar {
   display: flex;
   align-items: center;
@@ -147,7 +143,7 @@ body::-webkit-scrollbar {
   z-index: 10;
   background: linear-gradient(to top, #001641, #071a46) !important;
   padding-bottom: -30px;
-  height: 6vh;
+  height: 7vh;
   color: #c1c9da !important;
   font-size: 18px;
 }

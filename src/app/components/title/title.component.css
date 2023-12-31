@@ -2,9 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 4vh;
   width: 100vw;
-  position: relative;
 }
 
 .title-component-container::after {
