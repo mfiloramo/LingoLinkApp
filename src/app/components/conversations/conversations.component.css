@@ -125,6 +125,7 @@
 }
 
 .conversation-toolbar-compose-btn {
+  padding-bottom: 5px;
   color: #c1c9da;
   margin-right: 5vw;
 }
