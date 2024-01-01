@@ -149,6 +149,7 @@ body::-webkit-scrollbar {
 }
 
 .conversation-starter {
+  margin-top: 0.5vh;
   margin-left: -10px;
 }
 
