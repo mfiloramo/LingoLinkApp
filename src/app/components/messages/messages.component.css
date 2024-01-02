@@ -143,13 +143,13 @@ body::-webkit-scrollbar {
   z-index: 10;
   background: linear-gradient(to top, #001641, #071a46) !important;
   padding-bottom: -30px;
-  height: 7vh;
+  height: 50px;
   color: #c1c9da !important;
   font-size: 18px;
 }
 
 .conversation-starter {
-  margin-top: 0.5vh;
+  margin-top: 0.6vh;
   margin-left: -10px;
 }
 
