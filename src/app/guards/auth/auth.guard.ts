@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    // ENABLE FOR DEV; DISABLE FOR PROD
+    // ENABLE IN DEV FOR ROUTE DEBUGGING
     // return true;
   }
 }
