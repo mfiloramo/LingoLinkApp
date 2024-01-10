@@ -132,6 +132,7 @@ body::-webkit-scrollbar {
 .msg-container::-webkit-scrollbar {
   width: 0 !important;
 }
+
 .msg-box-top-bar {
   display: flex;
   align-items: center;

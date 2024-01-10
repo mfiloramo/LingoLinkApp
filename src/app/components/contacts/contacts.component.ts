@@ -5,7 +5,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import ShortUniqueId from "short-unique-id";
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
-import { Conversation } from "../../../interfaces/Conversation.interfaces";
 import { MatIconModule } from "@angular/material/icon";
 import { TitleComponent } from "../title/title.component";
 
