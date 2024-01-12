@@ -1,46 +1,48 @@
 <!-- LOADING ANIMATION -->
 @if (isLoading) {
-  <div class="loading-container">
-    <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower"/>
+  <div class="flex justify-center items-center h-12 w-12 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 animate-ping-slower">
+    <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" />
   </div>
 }
 
 <!-- CONVERSATIONS TOOLBAR -->
-<div class="conversation-toolbar">
-  <button class="conversation-toolbar-edit-btn" mat-button>Edit</button>
-  <span class="toolbar-spacer"></span>
-  <button class="conversation-toolbar-compose-btn" mat-icon-button (click)="onCreateNewConversation()">
+<div class="flex justify-between bg-gradient-to-t from-navy-900 to-navy-800 h-12 fixed top-0 left-0 w-full z-10">
+  <button class="ml-5 mt-1.5 text-lg !text-blue-200" mat-button>Edit</button>
+  <button class="pb-1 mr-5 !text-blue-200" mat-icon-button (click)="onCreateNewConversation()">
     <mat-icon>create</mat-icon>
   </button>
 </div>
 
+<!-- CONTAINER SHADOW OVERLAY (TOP) -->
+<div class='bg-gradient-to-b from-black/40 to-black/0 absolute h-14 w-full z-10 pointer-events-none'></div>
+
 <!-- CONVERSATIONS LIST -->
-<div class="conversation-list" #conversationList>
-@for (conversation of conversations; track conversation) {
-  <div>
-    @if (checkConversationVisibility(conversation)) {
-      <div class="conversation-item" (click)="onSelectConversation(conversation)">
-        <div class="circle" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
-        <div class="name-and-msg">
-          <div class="name">{{ conversation.StarterUsername }}</div>
-          <div class="message" [innerHTML]="truncateSentence(conversation.LatestMessage, 100)"></div>
-        </div>
+<div class="mt-12 relative overflow-hidden h-[calc(100vh-185px)]" #conversationList>
+  @for (conversation of conversations; track conversation) {
+    <div>
+      @if (checkConversationVisibility(conversation)) {
+        <div class="bg-navy-700 hover:bg-navy-800 active:bg-navy-900 flex flex-row justify-start items-center pl-7 pr-7 w-full h-20 max-h-20 text-blue-200 text-sm animate-fadeIn border-b border-navy-900 cursor-pointer" (click)="onSelectConversation(conversation)">
+          <div class="h-3/4 w-auto aspect-square rounded-full mr-5 bg-center bg-no-repeat bg-cover" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
+          <div class="flex-grow flex flex-col">
+            <div class="font-bold">{{ conversation.StarterUsername }}</div>
+            <div class="font-normal overflow-hidden truncate-2-lines">{{ truncateSentence(conversation.LatestMessage, 100) }}</div>
+          </div>
 
-        <!-- NOTIFICATION BELL -->
-        <div class="notification-and-timestamp">
-          <mat-icon class="notification-icon">notifications</mat-icon>
-          <div class="timestamp">{{ convertIsoString(conversation.latestTimestamp) }}</div>
-        </div>
+          <!-- NOTIFICATION BELL -->
+          <div class="flex flex-col items-end mr-2.5">
+            <mat-icon class="notification-icon pr-5 -ml-1.5">notifications</mat-icon>
+            <div class="self-center">{{ convertIsoString(conversation.latestTimestamp) }}</div>
+          </div>
 
-        <!-- DELETE CONVERSATION BUTTON -->
-        <div class="delete-conversation">
-          <div (click)="removeConversation(userState, conversation)">
-            <mat-icon class="notification-icon">close</mat-icon>
+          <!-- DELETE CONVERSATION BUTTON -->
+          <div class="mr-1.5" (click)="removeConversation(userState, conversation)">
+            <mat-icon>close</mat-icon>
           </div>
         </div>
-
-      </div>
-    }
-  </div>
-}
+      }
+    </div>
+  }
 </div>
+
+<!-- CONTAINER SHADOW OVERLAY (BOTTOM) -->
+<div class='bg-gradient-to-t from-black/40 to-black/0 absolute h-14 w-full z-10 pointer-events-none'></div>
