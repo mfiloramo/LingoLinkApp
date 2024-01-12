@@ -32,16 +32,15 @@ export class ConversationsComponent implements OnInit, OnDestroy, AfterViewCheck
   ) {}
 
   /** LIFECYCLE HOOKS */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadConversations();
     this.buildNewConversationForm();
   }
 
-  ngAfterViewChecked(): void {
-    this.scrollToTop();
+  public ngAfterViewChecked(): void { this.scrollToTop();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
