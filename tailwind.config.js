@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        navy: {
+        cust_navy: {
           700: '#082157', // ACTIVE COLOR FOR CONVERSATION-ITEMS
           800: '#061a46', // HOVER COLOR FOR CONVERSATION-ITEMS
           900: '#041331', // BASE COLOR FOR CONVERSATION-ITEMS
