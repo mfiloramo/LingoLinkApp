@@ -16,8 +16,13 @@
 <!-- CONTAINER SHADOW OVERLAY (TOP) -->
 <div class='bg-gradient-to-b from-black/30 to-black/0 absolute h-16 w-full z-10 pointer-events-none'></div>
 
+
+<!-- CONTAINER SHADOW OVERLAY (BOTTOM) -->
+<div class='bg-gradient-to-t from-black/30 to-black/0 absolute h-16 w-full mt-[calc(100vh-192px)] z-10 pointer-events-none'></div>
+
+
 <!-- CONVERSATIONS LIST -->
-<div class="mt-12 relative overflow-visible h-[calc(100vh-192px)]" #conversationList>
+<div class="top-0 mt-12 relative overflow-scroll h-[calc(100vh-128px)]" #conversationList>
   @for (conversation of conversations; track conversation) {
     <div>
       @if (checkConversationVisibility(conversation)) {
@@ -43,6 +48,3 @@
     </div>
   }
 </div>
-
-<!-- CONTAINER SHADOW OVERLAY (BOTTOM) -->
-<div class='bg-gradient-to-t from-black/30 to-black/0 absolute h-16 w-full z-10 pointer-events-none'></div>
