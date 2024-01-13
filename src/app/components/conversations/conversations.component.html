@@ -17,7 +17,7 @@
 <div class='bg-gradient-to-b from-black/30 to-black/0 absolute h-16 w-full z-10 pointer-events-none'></div>
 
 <!-- CONVERSATIONS LIST -->
-<div class="mt-12 relative overflow-hidden h-[calc(100vh-185px)]" #conversationList>
+<div class="mt-12 relative overflow-visible h-[calc(100vh-192px)]" #conversationList>
   @for (conversation of conversations; track conversation) {
     <div>
       @if (checkConversationVisibility(conversation)) {
