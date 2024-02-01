@@ -8,7 +8,7 @@ import { routerAnimationFade } from "../utils/routerAnimations";
   animations: routerAnimationFade,
 })
 export class AppComponent {
-  public title: string = 'worldChatApp';
+  public title: string = 'LingoLinkApp';
 
   public prepareRoute(outlet: any): any {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
