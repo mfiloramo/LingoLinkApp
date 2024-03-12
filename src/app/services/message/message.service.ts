@@ -13,12 +13,9 @@ export class MessageService {
 
   constructor(private http: HttpClient) { }
 
+  /** PUBLIC METHODS */
   public loadMessages(id: number): Observable<object> {
     return this.http.get(`${ this.apiUrl }/messages/${ id }`);
-  }
-
-  public sendMessage(message: ChatMessage): Observable<any> {
-    return this.http.post(`${ this.apiUrl }/messages`, message);
   }
 
   public buildMessage(message: ChatMessage): ChatMessage {
@@ -29,5 +26,9 @@ export class MessageService {
       sourceLanguage: message.sourceLanguage,
       timestamp: new Date().toISOString()
     };
+  }
+
+  public sendMessage(message: ChatMessage): Observable<any> {
+    return this.http.post(`${ this.apiUrl }/messages`, message);
   }
 }
