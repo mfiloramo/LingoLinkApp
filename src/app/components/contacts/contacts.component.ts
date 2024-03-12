@@ -16,7 +16,7 @@ import { TitleComponent } from "../title/title.component";
   styleUrls: ['./contacts.component.css', '../../views/settings/settings.view.css', '../../components/messages/messages.component.css', '../../components/title/title.component.css']
 })
 export class ContactsComponent {
-  public stubContacts: string[] = [ 'TestUser_1', 'TestUser_2', 'TestUser_3', 'TestUser_4','TestUser_5', 'TestUser_6 ', 'TestUser_7', 'TestUser_8', 'TestUser_9', 'TestUser_10', 'TestUser_11', 'TestUser_12', 'TestUser_13', 'TestUser_14', 'TestUser_15' ];
+  public stubContacts: string[] = [ 'TestUser_1', 'TestUser_2', 'TestUser_3','Filoramo', 'show_user_1', 'show_user_2', 'show_user_3', 'show_user_4', 'show_user_5', 'show_user_6' ];
   public contactsMenuButtonStyling: object = { 'background': '#023593', 'color': '#dae3ff' , 'border-bottom': '1px solid #437eec', 'height': '7vh', 'width': '100vw' };
 
   constructor(
@@ -48,7 +48,6 @@ export class ContactsComponent {
       this.conversationService.isNewConversation.set(true);
       this.conversationService.conversationSelected.set(cachedConversation);
     } catch (error: any) {
-      // TODO: IMPLEMENT SNACKBAR FOR ALL FRONTEND ERROR HANDLING
       console.error('Error starting new conversation: ', error);
     } finally {
       this.router.navigate(['home/chat'])

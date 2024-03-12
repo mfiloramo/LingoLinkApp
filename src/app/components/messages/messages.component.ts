@@ -1,4 +1,4 @@
-// CORE MODULES IMPORTS
+// CORE MODULES
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -15,7 +15,6 @@ import { MessageService } from '../../services/message/message.service';
 // INTERFACES
 import { ChatMessage } from "../../../interfaces/Message.interfaces";
 import { Conversation } from "../../../interfaces/Conversation.interfaces";
-import { Message } from "postcss";
 
 // UTILITIES
 import languageArray from '../../../utils/languageMapper';
