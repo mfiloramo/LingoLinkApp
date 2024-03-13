@@ -1,6 +1,6 @@
 {
   "name": "lingo-link-app",
-  "version": "2.22.30",
+  "version": "2.22.31",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
