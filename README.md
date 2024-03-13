@@ -16,18 +16,16 @@
   <img alt="GitHub License" src="https://img.shields.io/github/license/mfiloramo/worldChatApp">
 </div>
 
-## Early Screenshots (Desktop Version Only)
-Below are some preview screenshots of an early iteration of LingoLink's interface. The screenshots are for UI demonstration purposes only.
+## Early Screenshots
+Below are some preview screenshots of LingoLink's interface as of its pre-alpha stage of development.
 
-![mainApp](https://user-images.githubusercontent.com/72812809/235406312-57cbe937-ad9b-4160-8d53-e8c3ab1d44cf.png)
-
-![dynamic](https://user-images.githubusercontent.com/72812809/235567426-d72b0223-f2ce-4759-82a9-b57257643469.png)
-
-![loginScreen](https://user-images.githubusercontent.com/72812809/235406317-8ba3a0f8-797e-427c-8432-5a99971ba972.png)
-
+<p align="center">
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/0909bfe8-7462-4940-9ea4-d7b58a96363f" width="25%" />
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/591b04f7-c783-4289-99a6-8d1f23feea82" width="25%" />
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/5c429f2b-1e48-47fc-88d3-d903fb4d691b" width="25%" />
+</p>
 
 ## Features
-
 - Real-time translation of messages
 - User-friendly messaging interface
 - Easy-to-use language selection for sending and receiving messages
