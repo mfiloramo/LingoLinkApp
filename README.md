@@ -36,7 +36,7 @@ Below are some preview screenshots of LingoLink's interface as of its pre-alpha 
 
 ## Getting Started
 
-The application is currently a work in progress and is not yet available for download. Once the server is completed, it will be available online in desktop/mobile formats. To get started with a local working build of the server, follow these steps:
+The application is currently in its pre-alpha stage. It's available as a [web application](https://orange-tree-0d3c88e0f.3.azurestaticapps.net/), and is opened to user registration on a limited basis. To get started with a local working build of this app, follow these steps:
 
 1. Clone the repo
 2. Run `npm install` to install dependencies
