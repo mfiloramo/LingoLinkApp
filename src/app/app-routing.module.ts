@@ -24,7 +24,7 @@ import { AuthGuard } from "./guards/auth/auth.guard";
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home/language', // PROD: '/login'
+    redirectTo: '/login', // PROD: '/login'
     pathMatch: 'full'
   },
   {
