@@ -4,16 +4,32 @@
   <!-- PAGE TITLE -->
   <app-title [title]="'Settings'" [link]="'/home/conversations'" />
 
-  <!-- MENU BUTTONS -->
+  <!-- TOP BUTTON CONTAINER -->
   <div class='flex flex-col mx-auto bg-blue-200 w-[85vw] rounded-xl mb-12'>
-    <button class="h-11 focus:bg-[#abd0ff] border-black border-b-0 rounded-t-xl" routerLink="/home/account">Account</button>
-    <button class="h-11 focus:bg-[#abd0ff] rounded-b-xl" routerLink="/home/avatar">Avatar</button>
-  </div>
+    <!-- ACCOUNT BUTTON -->
+    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 border-black border-b-0 rounded-t-xl" routerLink="/home/account">Account</button>
 
+    <!-- AVATAR BUTTON -->
+    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-b-xl" routerLink="/home/avatar">Avatar</button>
+  </div>
+  <!-- END TOP BUTTON CONTAINER -->
+
+  <!-- BOTTOM BUTTON CONTAINER -->
   <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[85vw]'>
-    <button class="h-11 focus:bg-[#abd0ff] rounded-t-xl" routerLink="/home/language">Language</button>
-    <button class="h-11 focus:bg-[#abd0ff]" routerLink="/home/display">Display</button>
-    <button class="h-11 focus:bg-[#abd0ff] rounded-b-xl" routerLink="/home/info">Info</button>
-  </div>
+    <!-- LANGUAGE BUTTON -->
+    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-t-xl" routerLink="/home/language">Language</button>
 
+    <!-- DISPLAY BUTTON -->
+    <button class="h-11 hover:bg-[#abd0ff] text-left pl-4 focus:bg-[#94c3ff]" routerLink="/home/display">Display</button>
+
+    <!-- INFO BUTTON (EXT. LINK) -->
+    <a class='mx-auto w-full' href='https://michael-filoramo.com/portfolio/lingolink' target='_blank'>
+      <button class='flex justify-start items-center h-11 w-full hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-b-xl'>
+        <div class='pr-2'>Info</div>
+        <mat-icon class='pt-0.5'>open_in_new</mat-icon>
+      </button>
+    </a>
+  </div>
+  <!-- END BOTTOM BUTTON CONTAINER -->
 </div>
+<!-- END SETTINGS VIEW CONTAINER -->

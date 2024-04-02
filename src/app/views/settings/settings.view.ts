@@ -13,6 +13,4 @@ import { TitleComponent } from "../../components/title/title.component";
   templateUrl: './settings.view.html',
   styleUrls: ['./settings.view.css', '../../components/title/title.component.css']
 })
-export class SettingsView {
-
-}
+export class SettingsView { }
