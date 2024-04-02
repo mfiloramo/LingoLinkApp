@@ -1,20 +1,19 @@
 <!-- SETTINGS VIEW CONTAINER -->
-<div class="view-container">
+<div class="text-xl w-full flex flex-col bg-[#030f2c] z-20 text-black h-screen overflow-y-visible">
 
   <!-- PAGE TITLE -->
   <app-title [title]="'Settings'" [link]="'/home/conversations'" />
 
-  <!-- STUB BUTTONS -->
-  <div class="button-pair-container">
-    <button class="menu-button settings-top-button" routerLink="/home/account">Account</button>
-    <button class="menu-button settings-bottom-button" routerLink="/home/avatar">Avatar</button>
+  <!-- MENU BUTTONS -->
+  <div class='flex flex-col mx-auto bg-blue-200 w-[85vw] rounded-xl mb-12'>
+    <button class="h-11 focus:bg-[#abd0ff] border-black border-b-0 rounded-t-xl" routerLink="/home/account">Account</button>
+    <button class="h-11 focus:bg-[#abd0ff] rounded-b-xl" routerLink="/home/avatar">Avatar</button>
   </div>
 
-  <div class="button-pair-container">
-    <button class="menu-button settings-top-button" routerLink="/home/language">Language</button>
-    <button class="menu-button" routerLink="/home/display">Display</button>
-      <button class="menu-button settings-bottom-button" routerLink="/home/info">Info</button>
+  <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[85vw]'>
+    <button class="h-11 focus:bg-[#abd0ff] rounded-t-xl" routerLink="/home/language">Language</button>
+    <button class="h-11 focus:bg-[#abd0ff]" routerLink="/home/display">Display</button>
+    <button class="h-11 focus:bg-[#abd0ff] rounded-b-xl" routerLink="/home/info">Info</button>
   </div>
-  <!-- END STUB BUTTONS -->
 
 </div>
