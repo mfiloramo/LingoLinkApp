@@ -16,7 +16,6 @@ import { LanguageView } from "./views/language/language.view";
 import { AccountView } from "./views/account/account.view";
 import { AvatarView } from "./views/avatar/avatar.view";
 import { DisplayView } from "./views/display/display.view";
-import { InfoView } from "./views/info/info.view";
 import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 
 // GUARD IMPORTS
@@ -90,12 +89,6 @@ const routes: Routes = [
         path: 'language',
         component: LanguageView,
         data: { animation: 'language' },
-        canActivate: [ AuthGuard ],
-      },
-      {
-        path: 'info',
-        component: InfoView,
-        data: { animation: 'info' },
         canActivate: [ AuthGuard ],
       },
     ]

@@ -5,7 +5,7 @@
 >
   <!-- ITERATE THROUGH ITEMS IN LANGUAGE ARRAY -->
   @for (languageObj of languageArray; track languageObj) {
-    <option [value]="languageObj.code" [selected]="languageObj.code === this.userService.userState().defaultLanguage">
+    <option class='w-32' [value]="languageObj.code" [selected]="languageObj.code === this.userService.userState().defaultLanguage">
       {{ languageObj.name }}
     </option>
   }
