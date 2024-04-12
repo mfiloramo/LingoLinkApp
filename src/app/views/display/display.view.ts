@@ -12,5 +12,5 @@ import { TitleComponent } from "../../components/title/title.component";
   styleUrls: ['./display.view.css', '../../components/messages/messages.component.css', '../settings/settings.view.css']
 })
 export class DisplayView {
-
+  // TODO: ADD DARK MODE OPTIONS
 }

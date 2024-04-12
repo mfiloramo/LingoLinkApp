@@ -12,5 +12,5 @@ import { TitleComponent } from "../../components/title/title.component";
   styleUrls: ['./account.view.css', '../../components/messages/messages.component.css', '../settings/settings.view.css']
 })
 export class AccountView {
-
+  // TODO: ADD USER SELF-CRUD FUNCTIONALITY
 }
