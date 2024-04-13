@@ -20,9 +20,10 @@
 Below are some preview screenshots of LingoLink's interface as of its pre-alpha stage of development.
 
 <p align="center">
-  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/0909bfe8-7462-4940-9ea4-d7b58a96363f" width="25%" />
-  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/591b04f7-c783-4289-99a6-8d1f23feea82" width="25%" />
-  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/5c429f2b-1e48-47fc-88d3-d903fb4d691b" width="25%" />
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/0909bfe8-7462-4940-9ea4-d7b58a96363f" width="24%" />
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/591b04f7-c783-4289-99a6-8d1f23feea82" width="24%" />
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/5c429f2b-1e48-47fc-88d3-d903fb4d691b" width="24%" />
+  <img src="https://github.com/mfiloramo/LingoLinkApp/assets/72812809/506486ec-59cd-4c2b-bb9a-7fddfebb8ea5" width="24%" />
 </p>
 
 ## Features
