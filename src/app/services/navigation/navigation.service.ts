@@ -11,18 +11,18 @@ export class NavigationService {
   constructor(private router: Router) {
     this.router.events.pipe(
       filter((event: RouterEvent): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.history.push(event.urlAfterRedirects); // Now accessing event's property directly
+    ).subscribe((event: NavigationEnd): void => {
+      // ACCESS EVENT'S PROPERTY DIRECTLY
+      this.history.push(event.urlAfterRedirects);
     });
   }
 
-  // Get the previous url
-  getPreviousUrl(): string {
+  /** PUBLIC METHODS */
+  public getPreviousUrl(): string {
     return this.history[this.history.length - 2] || '/';
   }
 
-  // Method to navigate back
-  navigateBack(): void {
+  public navigateBack(): void {
     if (this.history.length > 1) {
       this.router.navigateByUrl(this.getPreviousUrl());
     }

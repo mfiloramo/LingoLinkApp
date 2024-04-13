@@ -25,7 +25,7 @@ import { MainSettingsView } from "./views/settings/main-settings/main-settings.v
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home/settings/main-settings', // PROD: '/login'
+    redirectTo: '/login', // PROD: '/login'
     pathMatch: 'full'
   },
   {
@@ -65,8 +65,7 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingsView,
-        data: { animation: 'settings' },
-        canActivate: [ AuthGuard ],
+        canActivate: [AuthGuard],
         children: [
           {
             path: '',
@@ -76,32 +75,27 @@ const routes: Routes = [
           {
             path: 'main-settings',
             component: MainSettingsView,
-            data: { animation: 'main-settings' },
-            canActivate: [ AuthGuard ],
+            canActivate: [AuthGuard],
           },
           {
             path: 'account',
             component: AccountView,
-            data: { animation: 'account' },
-            canActivate: [ AuthGuard ],
+            canActivate: [AuthGuard],
           },
           {
             path: 'avatar',
             component: AvatarView,
-            data: { animation: 'avatar' },
-            canActivate: [ AuthGuard ],
+            canActivate: [AuthGuard],
           },
           {
             path: 'display',
             component: DisplayView,
-            data: { animation: 'display' },
-            canActivate: [ AuthGuard ],
+            canActivate: [AuthGuard],
           },
           {
             path: 'language',
             component: LanguageView,
-            data: { animation: 'language' },
-            canActivate: [ AuthGuard ],
+            canActivate: [AuthGuard],
           }
         ]
       }
