@@ -1,14 +1,8 @@
 <!-- SETTINGS VIEW CONTAINER -->
-<div class="text-xl w-full flex flex-col bg-[#030f2c] z-20 text-black h-screen overflow-y-visible">
-
-  <!-- TODO: MAKE TITLE HEADING DYNAMICALLY DISPLAY VIEW NAME -->
-  <!-- PAGE TITLE -->
-  <app-title [title]="'Settings'" />
-
-  <!-- ROUTER OUTLET -->
+<div class="settings-view-container">
+  <app-title [title]="'Settings'"></app-title>
   <main [@routeAnimations]="prepareRoute(outlet)">
-    <router-outlet #outlet="outlet" />
+    <router-outlet #outlet="outlet"></router-outlet>
   </main>
-
 </div>
 <!-- END SETTINGS VIEW CONTAINER -->
