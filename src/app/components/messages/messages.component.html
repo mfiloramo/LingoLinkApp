@@ -40,7 +40,7 @@
     <div class="msg-box-top-bar">
 
       <!-- TITLE COMPONENT -->
-      <app-title (click)="onDeselectConversation()" [link]="'/home/conversations'" [ngStyle]="{'padding-top': '30px'}">
+      <app-title (click)="onDeselectConversation()" [ngStyle]="{'padding-top': '30px'}">
         <div class="chat-title-content">
           <div class="circle" [style.background-image]="'url(' + conversationStarterPic + ')'" [style.height]="'32px'"></div>
           <span class="conversation-starter">{{ conversationStarterName }}</span>
