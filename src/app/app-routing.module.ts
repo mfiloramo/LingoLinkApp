@@ -12,14 +12,15 @@ import { LoginView } from "./views/login/login.view";
 import { RegistrationView } from "./views/registration/registration.view";
 import { HomeView } from "./views/home/home.view";
 import { SettingsView } from "./views/settings/settings.view";
-import { LanguageView } from "./views/language/language.view";
-import { AccountView } from "./views/account/account.view";
-import { AvatarView } from "./views/avatar/avatar.view";
-import { DisplayView } from "./views/display/display.view";
+import { LanguageView } from "./views/settings/language/language.view";
+import { AccountView } from "./views/settings/account/account.view";
+import { AvatarView } from "./views/settings/avatar/avatar.view";
+import { DisplayView } from "./views/settings/display/display.view";
 import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 
 // GUARD IMPORTS
 import { AuthGuard } from "./guards/auth/auth.guard";
+import { MainSettingsView } from "./views/settings/main-settings/main-settings.view";
 
 const routes: Routes = [
   {
@@ -66,31 +67,44 @@ const routes: Routes = [
         component: SettingsView,
         data: { animation: 'settings' },
         canActivate: [ AuthGuard ],
-      },
-      {
-        path: 'account',
-        component: AccountView,
-        data: { animation: 'account' },
-        canActivate: [ AuthGuard ],
-      },
-      {
-        path: 'avatar',
-        component: AvatarView,
-        data: { animation: 'avatar' },
-        canActivate: [ AuthGuard ],
-      },
-      {
-        path: 'display',
-        component: DisplayView,
-        data: { animation: 'display' },
-        canActivate: [ AuthGuard ],
-      },
-      {
-        path: 'language',
-        component: LanguageView,
-        data: { animation: 'language' },
-        canActivate: [ AuthGuard ],
-      },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'main-settings'
+          },
+          {
+            path: 'main-settings',
+            component: MainSettingsView,
+            data: { animation: 'main-settings' },
+            canActivate: [ AuthGuard ],
+          },
+          {
+            path: 'account',
+            component: AccountView,
+            data: { animation: 'account' },
+            canActivate: [ AuthGuard ],
+          },
+          {
+            path: 'avatar',
+            component: AvatarView,
+            data: { animation: 'avatar' },
+            canActivate: [ AuthGuard ],
+          },
+          {
+            path: 'display',
+            component: DisplayView,
+            data: { animation: 'display' },
+            canActivate: [ AuthGuard ],
+          },
+          {
+            path: 'language',
+            component: LanguageView,
+            data: { animation: 'language' },
+            canActivate: [ AuthGuard ],
+          }
+        ]
+      }
     ]
   },
   {

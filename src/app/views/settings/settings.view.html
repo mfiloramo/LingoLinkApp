@@ -1,36 +1,14 @@
 <!-- SETTINGS VIEW CONTAINER -->
 <div class="text-xl w-full flex flex-col bg-[#030f2c] z-20 text-black h-screen overflow-y-visible">
 
+  <!-- TODO: MAKE TITLE HEADING DYNAMICALLY DISPLAY VIEW NAME -->
   <!-- PAGE TITLE -->
   <app-title [title]="'Settings'" [link]="'/home/conversations'" />
 
-  <!-- TOP BUTTON CONTAINER -->
-  <div class='flex flex-col mx-auto mt-2 bg-blue-200 w-[90vw] rounded-xl mb-12'>
-    <!-- ACCOUNT BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 border-black border-b-0 rounded-t-xl" routerLink="/home/account">Account</button>
+  <!-- ROUTER OUTLET -->
+  <main [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet" />
+  </main>
 
-    <!-- AVATAR BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-b-xl" routerLink="/home/avatar">Avatar</button>
-  </div>
-  <!-- END TOP BUTTON CONTAINER -->
-
-  <!-- BOTTOM BUTTON CONTAINER -->
-  <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw]'>
-
-    <!-- LANGUAGE BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-t-xl" routerLink="/home/language">Language</button>
-
-    <!-- DISPLAY BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] text-left pl-4 focus:bg-[#94c3ff]" routerLink="/home/display">Display</button>
-
-    <!-- INFO BUTTON (EXT. LINK) -->
-    <a class='mx-auto w-full' href='https://michael-filoramo.com/portfolio/lingolink' target='_blank'>
-      <button class='flex justify-start items-center h-11 w-full hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-b-xl'>
-        <div class='pr-2'>Info</div>
-        <mat-icon class='pt-[1px]'>open_in_new</mat-icon>
-      </button>
-    </a>
-  </div>
-  <!-- END BOTTOM BUTTON CONTAINER -->
 </div>
 <!-- END SETTINGS VIEW CONTAINER -->

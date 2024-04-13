@@ -16,11 +16,10 @@
 <!-- CONTAINER SHADOW OVERLAY (TOP) -->
 <div class='bg-gradient-to-b from-black/20 to-black/0 absolute h-12 w-full z-10 pointer-events-none'></div>
 
-
 <!-- CONTAINER SHADOW OVERLAY (BOTTOM) -->
 <div class='bg-gradient-to-t from-black/30 to-black/0 absolute h-16 w-full mt-[calc(100vh-192px)] z-10 pointer-events-none'></div>
 
-
+<!-- TODO: REFACTOR DISPLAY OF CONVERSATIONS TO FULL NAME IN LIEU OF USERNAME -->
 <!-- CONVERSATIONS LIST -->
 <div class="top-0 mt-12 relative overflow-scroll h-[calc(100vh-128px)]" #conversationList>
   @for (conversation of conversations; track conversation) {
@@ -28,7 +27,7 @@
       @if (checkConversationVisibility(conversation)) {
         <div class="bg-cust_navy-700 hover:bg-cust_navy-800 active:bg-cust_navy-900 flex flex-row justify-start items-center pl-7 pr-7 w-full h-20 max-h-20 text-blue-200 text-sm animate-fadeIn border-b border-cust_navy-900 cursor-pointer" (click)="onSelectConversation(conversation)">
           <div class="h-3/4 w-auto aspect-square rounded-full mr-5 bg-center bg-no-repeat bg-cover" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
-          <div class="flex-grow flex flex-col">
+          <div class="flex flex-col flex-grow">
             <div class="font-bold">{{ conversation.StarterUsername }}</div>
             <div class="font-normal overflow-hidden truncate-2-lines">{{ truncateSentence(conversation.LatestMessage, 100) }}</div>
           </div>
