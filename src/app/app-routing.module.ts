@@ -25,7 +25,7 @@ import { MainSettingsView } from "./views/settings/main-settings/main-settings.v
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login'
+    redirectTo: '/home/settings/main-settings', // PROD: '/login'
     pathMatch: 'full'
   },
   {

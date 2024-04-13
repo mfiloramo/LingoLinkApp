@@ -11,7 +11,7 @@ import { TitleComponent } from "../../components/title/title.component";
   standalone: true,
   imports: [ CommonModule, MatIconModule, FormsModule, LanguageSelectorComponent, RouterLink, RouterOutlet, TitleComponent ],
   templateUrl: './settings.view.html',
-  styleUrls: ['./settings.view.css', '../../components/title/title.component.css']
+  styleUrls: ['./settings.view.css']
 })
 export class SettingsView {
   // PUBLIC METHODS

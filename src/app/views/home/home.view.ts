@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit, WritableSignal, signal } from '@angular/core';
 import { Router } from "@angular/router";
 import { routerAnimationFade } from "../../../utils/routerAnimations";
 
@@ -10,6 +10,7 @@ import { routerAnimationFade } from "../../../utils/routerAnimations";
 
 })
 export class HomeView implements AfterViewInit {
+
   constructor(
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef
