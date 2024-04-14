@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class NavigationService {
-  private history: string[] = [];
+  private history: string[] = [ this.router.url ];
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -24,7 +24,8 @@ export class NavigationService {
 
   public navigateBack(): void {
     if (this.history.length > 1) {
-      this.router.navigateByUrl(this.getPreviousUrl());
+      this.router.navigateByUrl(this.getPreviousUrl())
+        .then((response: any): void => response);
     }
   }
 }
