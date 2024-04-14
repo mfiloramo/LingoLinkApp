@@ -1,9 +1,11 @@
 .title-component-container {
+  background-color: #030f2c;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 4vh;
   width: 100vw;
+  padding-top: 2vh;
+  padding-bottom: 1vh;
 }
 
 .title-component-container::after {
@@ -14,7 +16,9 @@
 }
 
 .back-arrow {
-  margin: 2vh 15px;
+  margin-top: -10px;
+  margin-left: 15px;
+  margin-right: 15px;
   cursor: pointer;
   color: #dae3ff;
   font-size: 30px;

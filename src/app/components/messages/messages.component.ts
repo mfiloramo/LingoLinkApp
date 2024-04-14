@@ -18,6 +18,7 @@ import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 // UTILITIES
 import languageArray from '../../../utils/languageMapper';
+import { NavigationService } from "../../services/navigation/navigation.service";
 
 
 @Component({
@@ -49,6 +50,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     private conversationService: ConversationService,
     private messageService: MessageService,
     public userService: UserService,
+    public navigationService: NavigationService
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
@@ -59,6 +61,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     // SET CONVERSATION METADATA
     this.conversationStarterName = this.conversationService.conversationSelected().StarterUsername;
     this.conversationStarterPic = this.conversationService.conversationSelected().StarterUserPic;
+    console.log(this.conversationStarterPic)
 
     // LOAD MESSAGES BY CONVERSATION ID
     if (!this.conversationService.isNewConversation()) {
