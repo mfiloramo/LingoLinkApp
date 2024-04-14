@@ -1,6 +1,8 @@
 <!-- TITLE COMPONENT -->
 <div class="title-component-container">
   <mat-icon class="back-arrow" (click)="navigationService.navigateBack()">arrow_back</mat-icon>
-  <ng-content></ng-content>
-  <div class="view-title">{{ title() }}</div>
+  <ng-content />
+  @if (title() !== 'Chat') {
+    <div class="text-sky-100 -ml-4 text-2xl text-center">{{ title() }}</div>
+  }
 </div>
