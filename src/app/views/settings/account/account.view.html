@@ -5,19 +5,27 @@
   <div class='flex flex-col mx-auto mt-2 w-[90vw] rounded-xl mb-12'>
 
     <!-- ACCOUNT INFO BUTTON -->
-    <button class="h-20 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 bg-blue-200 border-b-0 rounded-xl mb-12" routerLink=".account-info">Account Info</button>
+    <button class="h-20 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 bg-blue-200 border-b-0 rounded-xl mb-12" routerLink=".account-info">
+      <div class="flex flex-row">
+        <div class="w-12 h-12 bg-slate-400 rounded-full mt-1 mr-3"></div>
+        <div>
+          <div>Account Info</div>
+          <div class="italic text-lg">Name, Email, Account</div>
+        </div>
+      </div>
+    </button>
 
     <!-- EDIT DATA BUTTON CONTAINER -->
     <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw] mb-12'>
 
       <!-- EDIT USERNAME BUTTON -->
-      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-t-xl" routerLink="./change-username">Change Username</button>
+      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-t-xl" routerLink="./change-username">Change Username</button>
 
       <!-- EDIT NAME BUTTON -->
-      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4" routerLink="./change-name">Change Name</button>
+      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4" routerLink="./change-name">Change Name</button>
 
       <!-- EDIT EMAIL BUTTON -->
-      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#94c3ff] text-left pl-4 rounded-b-xl" routerLink="./change-email">Change Email</button>
+      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-b-xl" routerLink="./change-email">Change Email</button>
     </div>
     <!-- END EDIT DATA BUTTON CONTAINER -->
 
