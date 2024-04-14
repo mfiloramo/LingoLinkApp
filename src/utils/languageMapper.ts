@@ -509,7 +509,7 @@ const languageMapper: object = {
   },
 };
 
-const languageArray = Object.entries(languageMapper).map(([key, value]) => {
+const languageArray: any = Object.entries(languageMapper).map(([key, value]) => {
   return {
     code: key,
     name: value.name,

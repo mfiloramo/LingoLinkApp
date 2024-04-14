@@ -50,7 +50,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     private conversationService: ConversationService,
     private messageService: MessageService,
     public userService: UserService,
-    public navigationService: NavigationService
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
