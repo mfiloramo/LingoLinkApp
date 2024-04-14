@@ -1,8 +1,6 @@
 <!-- TITLE COMPONENT -->
 <div class="title-component-container">
-  <mat-icon class="back-arrow" (click)="navigateBack()">arrow_back</mat-icon>
-  <!-- PLACEHOLDER FOR ADDITIONAL CONTENT -->
+  <mat-icon class="back-arrow" (click)="navigationService.navigateBack()">arrow_back</mat-icon>
   <ng-content></ng-content>
-  <div class="view-title">{{ title }}</div>
+  <div class="view-title">{{ title() }}</div>
 </div>
-<!-- END TITLE COMPONENT -->
