@@ -1,39 +1,45 @@
 <!-- ACCOUNT VIEW CONTAINER -->
-<div class="text-xl w-full flex flex-col bg-[#030f2c] z-20 text-black h-screen overflow-y-visible">
+@if (this.router.url.endsWith('/account')) {
+  <div class="text-xl w-full flex flex-col bg-[#030f2c] z-20 text-black h-screen overflow-y-visible">
 
-  <!-- MAIN BUTTON CONTAINER -->
-  <div class='flex flex-col mx-auto mt-2 w-[90vw] rounded-xl mb-12'>
+    <!-- MAIN BUTTON CONTAINER -->
+    <div class='flex flex-col mx-auto mt-2 w-[90vw] rounded-xl mb-12'>
 
-    <!-- ACCOUNT INFO BUTTON -->
-    <button class="h-20 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 bg-blue-200 border-b-0 rounded-xl mb-12" routerLink=".account-info">
-      <div class="flex flex-row">
-        <div class="w-12 h-12 bg-slate-400 rounded-full mt-1 mr-3"></div>
-        <div>
-          <div>Account Info</div>
-          <div class="italic text-lg">Name, Email, Account</div>
+      <!-- ACCOUNT INFO BUTTON -->
+      <button class="h-20 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 bg-blue-200 border-b-0 rounded-xl mb-12" routerLink="account-info">
+        <div class="flex flex-row">
+          <!-- TODO: DYNAMICALLY ADD AVATAR, LIKELY WITH AVATAR SERVICE -->
+          <img class="w-12 h-12 bg-slate-400 rounded-full mt-1 mr-3" src="https://randomuser.me/api/portraits/men/30.jpg" alt="sample-profile-pic" />
+          <div>
+            <div>Account Info</div>
+            <div class="italic text-lg">Name, Email, Account</div>
+          </div>
         </div>
+      </button>
+
+      <!-- CHANGE DATA BUTTON CONTAINER -->
+      <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw] mb-12'>
+
+        <!-- EDIT USERNAME BUTTON -->
+        <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-t-xl" routerLink="change-username">Change Username</button>
+
+        <!-- EDIT NAME BUTTON -->
+        <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4" routerLink="change-name">Change Name</button>
+
+        <!-- EDIT EMAIL BUTTON -->
+        <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-b-xl" routerLink="change-email">Change Email</button>
       </div>
-    </button>
+      <!-- END CHANGE DATA BUTTON CONTAINER -->
 
-    <!-- EDIT DATA BUTTON CONTAINER -->
-    <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw] mb-12'>
+      <!-- DELETE ACCOUNT BUTTON -->
+      <button class="h-11 bg-red-600 hover:bg-red-700 focus:bg-red-700 text-red-100 text-left pl-4 rounded-xl" routerLink="delete-account">Delete Account</button>
 
-      <!-- EDIT USERNAME BUTTON -->
-      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-t-xl" routerLink="./change-username">Change Username</button>
-
-      <!-- EDIT NAME BUTTON -->
-      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4" routerLink="./change-name">Change Name</button>
-
-      <!-- EDIT EMAIL BUTTON -->
-      <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-b-xl" routerLink="./change-email">Change Email</button>
     </div>
-    <!-- END EDIT DATA BUTTON CONTAINER -->
-
-    <!-- DELETE ACCOUNT BUTTON -->
-    <button class="h-11 bg-red-600 hover:bg-red-700 focus:bg-red-700 text-red-100 text-left pl-4 rounded-xl" routerLink="./change-username">Delete Account</button>
+    <!-- END MAIN BUTTON CONTAINER -->
 
   </div>
-  <!-- END MAIN BUTTON CONTAINER -->
+  <!-- END MAIN CONTAINER -->
+}
 
-</div>
-<!-- END MAIN CONTAINER -->
+<!-- ROUTER OUTLET -->
+<router-outlet />

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
@@ -12,5 +12,5 @@ import { TitleComponent } from "../../../components/title/title.component";
   styleUrls: ['./account.view.css' ]
 })
 export class AccountView {
-
+  constructor(public router: Router) {}
 }

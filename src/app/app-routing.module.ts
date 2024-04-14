@@ -21,6 +21,11 @@ import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 // GUARD IMPORTS
 import { AuthGuard } from "./guards/auth/auth.guard";
 import { MainSettingsView } from "./views/settings/main-settings/main-settings.view";
+import { AccountInfoView } from "./views/settings/account/account-info/account-info.view";
+import { ChangeUsernameView } from "./views/settings/account/change-username/change-username.view";
+import { ChangeNameView } from "./views/settings/account/change-name/change-name.view";
+import { ChangeEmailView } from "./views/settings/account/change-email/change-email.view";
+import { DeleteAccountView } from "./views/settings/account/delete-account/delete-account.view";
 
 const routes: Routes = [
   {
@@ -65,7 +70,7 @@ const routes: Routes = [
       {
         path: 'settings',
         component: SettingsView,
-        canActivate: [AuthGuard],
+        canActivate: [ AuthGuard ],
         children: [
           {
             path: '',
@@ -75,27 +80,54 @@ const routes: Routes = [
           {
             path: 'main-settings',
             component: MainSettingsView,
-            canActivate: [AuthGuard],
+            canActivate: [ AuthGuard ],
           },
           {
             path: 'account',
             component: AccountView,
-            canActivate: [AuthGuard],
+            canActivate: [ AuthGuard ],
+            children: [
+              {
+                path: 'account-info',
+                component: AccountInfoView,
+                canActivate: [ AuthGuard ],
+              },
+                {
+                  path: 'change-username',
+                  component: ChangeUsernameView,
+                  canActivate: [AuthGuard],
+                },
+                {
+                  path: 'change-name',
+                  component: ChangeNameView,
+                  canActivate: [AuthGuard],
+                },
+                {
+                  path: 'change-email',
+                  component: ChangeEmailView,
+                  canActivate: [AuthGuard],
+                },
+                {
+                  path: 'delete-account',
+                  component: DeleteAccountView,
+                  canActivate: [AuthGuard],
+                }
+            ]
           },
           {
             path: 'avatar',
             component: AvatarView,
-            canActivate: [AuthGuard],
+            canActivate: [ AuthGuard ],
           },
           {
             path: 'display',
             component: DisplayView,
-            canActivate: [AuthGuard],
+            canActivate: [ AuthGuard ],
           },
           {
             path: 'language',
             component: LanguageView,
-            canActivate: [AuthGuard],
+            canActivate: [ AuthGuard ],
           }
         ]
       }
