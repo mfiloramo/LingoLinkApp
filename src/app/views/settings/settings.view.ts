@@ -10,8 +10,7 @@ import { TitleComponent } from "../../components/title/title.component";
   selector: 'app-settings',
   standalone: true,
   imports: [ CommonModule, MatIconModule, FormsModule, LanguageSelectorComponent, RouterLink, RouterOutlet, TitleComponent ],
-  templateUrl: './settings.view.html',
-  styleUrls: ['./settings.view.css']
+  templateUrl: './settings.view.html'
 })
 export class SettingsView {
   // PUBLIC METHODS
