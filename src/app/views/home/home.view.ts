@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, AfterViewInit, WritableSignal, signal } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { routerAnimationFade } from "../../../utils/routerAnimations";
 

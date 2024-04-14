@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
 import { NavigationService } from "../../services/navigation/navigation.service";
@@ -11,11 +11,7 @@ import { NavigationService } from "../../services/navigation/navigation.service"
   styleUrls: ['./title.component.css']
 })
 export class TitleComponent {
-  @Input() title!: string;
+  public title: WritableSignal<any> = this.navigationService.pageTitle;
 
-  constructor(private navigationService: NavigationService) {}
-
-  navigateBack(): void {
-    this.navigationService.navigateBack();
-  }
+  constructor(public navigationService: NavigationService) { }
 }

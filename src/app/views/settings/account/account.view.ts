@@ -9,7 +9,6 @@ import { TitleComponent } from "../../../components/title/title.component";
   standalone: true,
   imports: [ CommonModule, MatIconModule, RouterLink, TitleComponent, RouterOutlet ],
   templateUrl: './account.view.html',
-  styleUrls: ['./account.view.css' ]
 })
 export class AccountView {
   constructor(public router: Router) {}
