@@ -10,15 +10,33 @@ import { TranslationService } from "../../../../services/translation/translation
   imports: [ CommonModule, RouterLink, RouterOutlet ],
   templateUrl: './account-info.view.html',
 })
-export class AccountInfoView implements OnInit {
+export class AccountInfoView {
   public defaultLanguage: any = null;
+  public accountInfoSlices: any[] = [
+    {
+      name: this.userService.userState().username,
+      properName: 'User Name'
+    },
+    {
+      name: this.userService.userState().firstName,
+      properName: 'First Name'
+    },
+    {
+      name: this.userService.userState().lastName,
+      properName: 'Last Name'
+    },
+    {
+      name: this.userService.userState().email,
+      properName: 'Email'
+    },
+    {
+      name: this.translationService.getLanguageDetails(this.userService.userState().defaultLanguage),
+      properName: 'Default Language'
+    }
+  ]
+
   constructor(
     public userService: UserService,
     private translationService: TranslationService,
   ) {}
-
-  /** LIFECYCLE HOOKS */
-  public ngOnInit(): void {
-    this.defaultLanguage = this.translationService.getLanguageDetails(this.userService.userState().defaultLanguage);
-  }
 }
