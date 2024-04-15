@@ -30,7 +30,7 @@ import { DeleteAccountView } from "./views/settings/account/delete-account/delet
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login'
+    redirectTo: '/home/settings/account', // PROD: '/login'
     pathMatch: 'full'
   },
   {
