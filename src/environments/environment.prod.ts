@@ -2,6 +2,7 @@ export const environment: any = {
   production: true,
   redirectURI: 'https://orange-tree-0d3c88e0f.3.azurestaticapps.net',
   apiBaseUrl: 'https://lingolinkapi.azurewebsites.net/api',
+  appVersion: '2.24.5',
   websocketHost: 'wss://lingolinkapi.azurewebsites.net',
   azureTenantID: '${AZURE_TENANT_ID}',
   azureClientID: '${AZURE_CLIENT_ID}',

@@ -8,7 +8,7 @@
       <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw] mb-12'>
 
         <!-- USERNAME INFO BOX -->
-        <div class="pt-3 px-4 h-12 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left rounded-t-xl cursor-default">
+        <div class="pt-3 px-4 h-12 text-left rounded-t-xl cursor-default">
           <div class="flex flex-row justify-between">
             <div>Username</div>
             <div>{{ this.userService.userState().username }}</div>
@@ -16,7 +16,7 @@
         </div>
 
         <!-- FIRST NAME INFO BOX -->
-        <div class="pt-3 px-4 h-12 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left rounded-t-xl cursor-default">
+        <div class="pt-3 px-4 h-12 text-left rounded-t-xl cursor-default">
           <div class="flex flex-row justify-between">
             <div>First Name</div>
             <div>{{ this.userService.userState().firstName }}</div>
@@ -24,7 +24,7 @@
         </div>
 
         <!-- LAST NAME INFO BOX -->
-        <div class="pt-3 px-4 h-12 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left rounded-t-xl cursor-default">
+        <div class="pt-3 px-4 h-12 text-left rounded-t-xl cursor-default">
           <div class="flex flex-row justify-between">
             <div>Last Name</div>
             <div>{{ this.userService.userState().lastName }}</div>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- EMAIL INFO BOX -->
-        <div class="pt-3 px-4 h-12 rounded-b-xl hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left rounded-t-xl cursor-default">
+        <div class="pt-3 px-4 h-12 rounded-b-xl text-left rounded-t-xl cursor-default">
           <div class="flex flex-row justify-between">
             <div>Email</div>
             <div>{{ this.userService.userState().email }}</div>
@@ -43,7 +43,7 @@
       <!-- END CHANGE DATA BUTTON CONTAINER -->
 
       <!-- DEFAULT LANGUAGE BUTTON -->
-      <div class="pt-3 px-4 h-12 rounded-b-xl bg-blue-200 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left rounded-t-xl cursor-default">
+      <div class="pt-3 px-4 h-12 rounded-b-xl bg-blue-200 text-left rounded-t-xl cursor-default">
         <div class="flex flex-row justify-between">
           <div>Default Language</div>
           <div>{{ this.defaultLanguage }}</div>
