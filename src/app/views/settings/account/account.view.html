@@ -1,6 +1,6 @@
 <!-- ACCOUNT VIEW CONTAINER -->
 @if (this.router.url.endsWith('/account')) {
-  <div class="text-xl w-full flex flex-col bg-[#030f2c] z-20 text-black h-screen overflow-y-visible">
+  <div class="text-xl w-full flex flex-col bg-gradient-to-b from-cust_navy-900 to-cust_navy-800 z-20 text-black h-screen overflow-y-visible">
 
     <!-- MAIN BUTTON CONTAINER -->
     <div class='flex flex-col mx-auto mt-10 w-[90vw] rounded-xl mb-12'>
@@ -20,14 +20,10 @@
       <!-- CHANGE DATA BUTTON CONTAINER -->
       <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw] mb-12'>
 
-        <!-- EDIT USERNAME BUTTON -->
-        <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-t-xl" routerLink="change-username">Change Username</button>
-
-        <!-- EDIT NAME BUTTON -->
-        <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4" routerLink="change-name">Change Name</button>
-
-        <!-- EDIT EMAIL BUTTON -->
-        <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-b-xl" routerLink="change-email">Change Email</button>
+        <!-- CHANGE DATA BUTTONS -->
+        @for (button of changeDataButtons; track button ) {
+          <button class="h-11 first:rounded-t-xl last:rounded-b-xl hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4" routerLink="{{ button.route }}">{{ button.name }}</button>
+        }
       </div>
       <!-- END CHANGE DATA BUTTON CONTAINER -->
 
@@ -36,7 +32,6 @@
 
     </div>
     <!-- END MAIN BUTTON CONTAINER -->
-
   </div>
   <!-- END MAIN CONTAINER -->
 }
