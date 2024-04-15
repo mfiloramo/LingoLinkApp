@@ -60,7 +60,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     // SET CONVERSATION METADATA
     this.conversationStarterName = this.conversationService.conversationSelected().StarterUsername;
     this.conversationStarterPic = this.conversationService.conversationSelected().StarterUserPic;
-    console.log(this.conversationStarterPic)
 
     // LOAD MESSAGES BY CONVERSATION ID
     if (!this.conversationService.isNewConversation()) {
