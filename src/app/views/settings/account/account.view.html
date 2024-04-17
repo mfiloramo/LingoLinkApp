@@ -7,13 +7,19 @@
 
       <!-- ACCOUNT INFO BUTTON -->
       <button class="h-20 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 bg-blue-200 border-b-0 rounded-xl mb-12" routerLink="account-info">
-        <div class="flex flex-row">
+
+        <div class="flex flex-row pr-3 justify-between items-center">
+
           <!-- TODO: DYNAMICALLY ADD AVATAR, LIKELY WITH AVATAR SERVICE -->
-          <img class="w-12 h-12 bg-slate-400 rounded-full mt-1 mr-3" src="https://randomuser.me/api/portraits/men/30.jpg" alt="sample-profile-pic" />
-          <div>
-            <div>Account Info</div>
-            <div class="italic text-lg">Name, Email, Account</div>
+          <div class="flex flex-row">
+            <img class="w-12 h-12 bg-slate-400 rounded-full mt-1 mr-3" src="https://randomuser.me/api/portraits/men/30.jpg" alt="sample-profile-pic" />
+            <div>
+              <div>Account Info</div>
+              <div class="italic text-lg">Name, Email, Account</div>
+            </div>
           </div>
+          <mat-icon>chevron_right</mat-icon>
+
         </div>
       </button>
 
@@ -22,7 +28,10 @@
 
         <!-- CHANGE DATA BUTTONS -->
         @for (button of changeDataButtons; track button ) {
-          <button class="h-11 first:rounded-t-xl last:rounded-b-xl hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4" routerLink="{{ button.route }}">{{ button.name }}</button>
+          <button class="flex flex-row items-center h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] pl-4 text-left first:rounded-t-xl last:rounded-b-xl px-3 border-black justify-between border-b-0" routerLink="{{ button.route }}">
+            <div>{{ button.name }}</div>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
         }
       </div>
       <!-- END CHANGE DATA BUTTON CONTAINER -->
@@ -37,4 +46,6 @@
 <!-- END ACCOUNT VIEW CONTAINER -->
 
 <!-- ROUTER OUTLET -->
-<router-outlet />
+<main [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</main>
