@@ -29,7 +29,7 @@ Below are some preview screenshots of LingoLink's interface as of its pre-alpha 
 - User-friendly messaging interface
 - Easy-to-use language selection for sending and receiving messages
 - Automatic conversation saving
-- User account/profile creation with OAuth 2.0 authentication
+- User account/profile creation with Bcrypt and OAuth 2.0 (stretch feature)
 
 ## Getting Started
 
@@ -37,11 +37,11 @@ The application is currently in its pre-alpha stage. It's available as a [web ap
 
 1. Clone the repo
 2. Run `npm install` to install dependencies
-3. Set up a Microsoft Azure Cognitive Services Translator API key
+3. Set up a Microsoft Azure API key
 4. Create a `.env` file in the root directory of the project and add the following environment variables:
-- `API_KEY`: your Microsoft Azure Cognitive Services Translator API key
+- `API_KEY`: your API key
 - `API_REGION`: the region your API key is associated with
-  
+
 5. Run `npm start` to start the server
 
 ## Technologies Used
