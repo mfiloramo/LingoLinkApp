@@ -1,16 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: true,
+  darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
   ],
   theme: {
     extend: {
       colors: {
-        cust_navy: {
-          700: '#082157', // ACTIVE COLOR FOR CONVERSATION-ITEMS
-          800: '#061a46', // HOVER COLOR FOR CONVERSATION-ITEMS
-          900: '#041331', // BASE COLOR FOR CONVERSATION-ITEMS
+        custom_navy: {
+          700: '#082157',
+          800: '#061a46',
+          900: '#041331',
+          950: '#040f2d',
         }
       },
       keyframes: {

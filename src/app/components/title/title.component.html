@@ -1,5 +1,5 @@
-<!-- TITLE COMPONENT -->
-<div class="title-component-container">
+<!-- TITLE COMPONENT CONTAINER -->
+<div class="title-component-container bg-gradient-to-t from-custom_navy-950 to-custom_navy-800">
   <mat-icon class="back-arrow" (click)="navigationService.navigateBack()">arrow_back</mat-icon>
   <ng-content />
   @if (title() !== 'Chat') {
@@ -8,3 +8,4 @@
     </div>
   }
 </div>
+<!-- END TITLE COMPONENT CONTAINER -->
