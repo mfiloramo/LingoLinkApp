@@ -29,7 +29,7 @@ Below are some preview screenshots of LingoLink's interface as of its pre-alpha 
 - User-friendly messaging interface
 - Easy-to-use language selection for sending and receiving messages
 - Automatic conversation saving
-- User account/profile creation with OAuth 2.0 authentication
+- User account/profile creation with Bcrypt and OAuth 2.0 (stretch feature)
 
 ## Getting Started
 
