@@ -2,43 +2,27 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
-import { TitleComponent } from "../../../components/title/title.component";
+import { FormsModule } from "@angular/forms";
+import { DarkModeService } from "../../../services/darkMode/dark-mode.service";
 
 @Component({
   selector: 'app-display',
   standalone: true,
-  imports: [ CommonModule, MatIconModule, RouterLink, TitleComponent ],
+  imports: [CommonModule, MatIconModule, RouterLink, FormsModule],
   templateUrl: './display.view.html'
 })
 export class DisplayView {
-  private readonly darkModeKey: 'lingolink-user-dark-mode' = 'lingolink-user-dark-mode';
+  constructor(public darkMode: DarkModeService) {}
 
-  constructor() {
-    this.loadDarkMode();
+  ngOnInit(): void {
+    this.updateBodyClass();
   }
 
-  /** PUBLIC METHODS */
-  public toggleDarkMode(): void {
-    this.setDarkMode(!this.isDarkModeEnabled());
-  }
-
-  public isDarkModeEnabled(): boolean {
-    return document.body.classList.contains('dark');
-  }
-
-  /** PRIVATE METHODS */
-  private setDarkMode(enable: boolean): void {
-    if (enable) {
+  updateBodyClass(): void {
+    if (this.darkMode.isDarkModeEnabled()) {
       document.body.classList.add('dark');
-      localStorage.setItem(this.darkModeKey, 'true');
     } else {
       document.body.classList.remove('dark');
-      localStorage.removeItem(this.darkModeKey);
     }
-  }
-
-  private loadDarkMode(): void {
-    const darkMode: boolean = localStorage.getItem(this.darkModeKey) === 'true';
-    this.setDarkMode(darkMode);
   }
 }
