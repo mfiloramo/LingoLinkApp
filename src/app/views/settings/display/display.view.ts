@@ -5,20 +5,36 @@ import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { DarkModeService } from "../../../services/darkMode/dark-mode.service";
 
+interface DarkModeButton {
+  readonly modeLabel: string;
+  readonly modeValue: string;
+  readonly imgSource: string;
+}
+
 @Component({
   selector: 'app-display',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink, FormsModule],
+  imports: [ CommonModule, MatIconModule, RouterLink, FormsModule ],
   templateUrl: './display.view.html'
 })
 export class DisplayView {
-  constructor(public darkMode: DarkModeService) {}
-
-  ngOnInit(): void {
-    this.updateBodyClass();
+  public darkModeButtons: DarkModeButton[] = [
+    {
+      modeLabel: 'Light',
+      modeValue: 'light-mode',
+      imgSource: '/assets/images/light-mode-stub.png'
+    },
+    {
+      modeLabel: 'Dark',
+      modeValue: 'dark-mode',
+      imgSource: '/assets/images/dark-mode-stub.png'
+    }
+  ]
+  constructor(public darkMode: DarkModeService) {
   }
 
-  updateBodyClass(): void {
+  /** PUBLIC METHODS */
+  public updateBodyClass(): void {
     if (this.darkMode.isDarkModeEnabled()) {
       document.body.classList.add('dark');
     } else {

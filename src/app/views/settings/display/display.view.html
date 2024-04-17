@@ -1,25 +1,22 @@
 <!-- DISPLAY VIEW CONTAINER -->
-<div class="text-xl w-full flex flex-col bg-gradient-to-b from-custom_navy-900 to-custom_navy-800 z-20 text-black h-screen overflow-y-visible">
+<div class="text-xl w-full flex flex-col bg-gradient-to-b from-to-cyan-300 from-custom_navy-900 to-custom_navy-800 z-20 text-black h-screen overflow-y-visible">
 
   <!-- TOP BUTTON CONTAINER -->
   <div class='flex flex-col mx-auto justify-center mt-10 bg-blue-200 w-[90vw] h-72 rounded-xl mb-12'>
 
     <!-- DARK MODE TOGGLE SWITCH CONTAINER -->
     <div class="flex flex-row justify-around items-center hover:bg-[#abd0ff] focus:bg-[#abd0ff] px-7 h-full text-left border-b-0 rounded-xl mx-auto w-full">
-      <!-- LIGHT MODE SELECTION -->
-      <div class="flex flex-col items-center" (click)="darkMode.toggleDarkMode(); updateBodyClass()">
-        <img class="h-48 w-auto" src="/assets/images/light-mode-stub.png" alt="Mode Image" />
-        <div class="font-bold pt-1 pb-4">Light</div>
-        <input type="radio" name="options" [(ngModel)]="darkMode.selectedOption" value="light-mode" style="transform: scale(2);">
-      </div>
-      <!-- DARK MODE SELECTION -->
-      <div class="flex flex-col items-center" (click)="darkMode.toggleDarkMode(); updateBodyClass()">
-        <img class="h-48 w-auto" src='/assets/images/dark-mode-stub.png' alt="Mode Image" />
-        <div class="font-bold pt-1 pb-4">Dark</div>
-        <input type="radio" name="options" [(ngModel)]="darkMode.selectedOption" value="dark-mode" style="transform: scale(1.7);">
+
+      <!-- MODE SELECTION -->
+      @for (button of darkModeButtons; track button) {
+        <div class="flex flex-col items-center" (click)="darkMode.toggleDarkMode(); updateBodyClass()">
+          <img class="h-48 w-auto" src="{{ button.imgSource }}" alt="Mode Image" />
+          <div class="font-bold pt-1 pb-4">{{ button.modeLabel }}</div>
+          <input type="radio" name="options" [(ngModel)]="darkMode.selectedOption" value="{{ button.modeValue }}" style="transform: scale(1.7);">
+        </div>
+      }
       </div>
     </div>
-  </div>
   <!-- END TOP BUTTON CONTAINER -->
 </div>
 <!-- END DISPLAY VIEW CONTAINER -->

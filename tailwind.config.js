@@ -12,6 +12,10 @@ module.exports = {
           800: '#061a46',
           900: '#041331',
           950: '#040f2d',
+        },
+        menu_button: {
+          light: '#7b8ba8',
+          dark: '#abd0ff'
         }
       },
       keyframes: {
