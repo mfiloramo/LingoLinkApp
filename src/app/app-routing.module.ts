@@ -77,42 +77,50 @@ const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
-            redirectTo: 'main-settings'
+            redirectTo: 'main-settings',
+            data: { animation: 'registration' }
           },
           {
             path: 'main-settings',
             component: MainSettingsView,
             canActivate: [ AuthGuard ],
+            data: { animation: 'registration' }
           },
           {
             path: 'account',
             component: AccountView,
             canActivate: [ AuthGuard ],
+            data: { animation: 'registration' },
             children: [
               {
                 path: 'account-info',
                 component: AccountInfoView,
                 canActivate: [ AuthGuard ],
+                data: { animation: 'account-info' }
               },
                 {
                   path: 'change-username',
                   component: ChangeUsernameView,
                   canActivate: [AuthGuard],
+                  data: { animation: 'change-username' }
                 },
                 {
                   path: 'change-name',
                   component: ChangeNameView,
                   canActivate: [AuthGuard],
+                  data: { animation: 'change-name' }
                 },
                 {
                   path: 'change-email',
                   component: ChangeEmailView,
                   canActivate: [AuthGuard],
+                  data: { animation: 'change-email' }
                 },
                 {
                   path: 'delete-account',
                   component: DeleteAccountView,
                   canActivate: [AuthGuard],
+                  data: { animation: 'delete-account' }
                 }
             ]
           },
@@ -120,16 +128,19 @@ const routes: Routes = [
             path: 'avatar',
             component: AvatarView,
             canActivate: [ AuthGuard ],
+            data: { animation: 'avatar' }
           },
           {
             path: 'display',
             component: DisplayView,
             canActivate: [ AuthGuard ],
+            data: { animation: 'display' }
           },
           {
             path: 'language',
             component: LanguageView,
             canActivate: [ AuthGuard ],
+            data: { animation: 'language' }
           }
         ]
       }

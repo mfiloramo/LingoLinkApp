@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
 import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { TitleComponent } from "../../../components/title/title.component";
+import { routerAnimationFade } from "../../../../utils/routerAnimations";
 
 @Component({
   selector: 'app-account',
   standalone: true,
   imports: [ CommonModule, MatIconModule, RouterLink, TitleComponent, RouterOutlet ],
   templateUrl: './account.view.html',
+  animations: routerAnimationFade,
 })
 export class AccountView {
   public changeDataButtons: any[] = [
@@ -26,4 +28,8 @@ export class AccountView {
     },
   ];
   constructor(public router: Router) {}
+
+  public prepareRoute(outlet: any): any {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+  }
 }

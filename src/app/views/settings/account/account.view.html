@@ -46,4 +46,6 @@
 <!-- END ACCOUNT VIEW CONTAINER -->
 
 <!-- ROUTER OUTLET -->
-<router-outlet />
+<main [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</main>
