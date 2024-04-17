@@ -84,13 +84,13 @@ const routes: Routes = [
             path: 'main-settings',
             component: MainSettingsView,
             canActivate: [ AuthGuard ],
-            data: { animation: 'registration' }
+            data: { animation: 'main-settings' }
           },
           {
             path: 'account',
             component: AccountView,
             canActivate: [ AuthGuard ],
-            data: { animation: 'registration' },
+            data: { animation: 'account' },
             children: [
               {
                 path: 'account-info',
