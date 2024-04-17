@@ -1,15 +1,20 @@
 <!-- MAIN SETTINGS CONTAINER -->
-<div class="text-xl w-full flex flex-col bg-gradient-to-b from-cust_navy-900 to-cust_navy-800 z-20 text-black h-screen overflow-y-visible">
+<div class="text-xl w-full flex flex-col bg-gradient-to-b from-custom_navy-900 to-custom_navy-800 z-20 text-black h-screen overflow-y-visible">
 
-  <!-- TODO: ADD RIGHT-SIDE NAV ARROWS TO ALL NAV BUTTONS IN SETTINGS -->
   <!-- TOP BUTTON CONTAINER -->
   <div class='flex flex-col mx-auto mt-10 bg-blue-200 w-[90vw] rounded-xl mb-12'>
 
     <!-- ACCOUNT BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 border-black border-b-0 rounded-t-xl" routerLink="../account">Account</button>
+    <button class="flex flex-row items-center h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl" routerLink="../account">
+      <div>Account</div>
+      <mat-icon>chevron_right</mat-icon>
+    </button>
 
     <!-- AVATAR BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-b-xl" routerLink="../avatar">Avatar</button>
+    <button class="flex flex-row items-center h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl" routerLink="../avatar">
+      <div>Avatar</div>
+      <mat-icon>chevron_right</mat-icon>
+    </button>
   </div>
   <!-- END TOP BUTTON CONTAINER -->
 
@@ -17,17 +22,21 @@
   <div class='flex flex-col mx-auto bg-blue-200 rounded-xl w-[90vw]'>
 
     <!-- LANGUAGE BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-t-xl" routerLink="../language">Language</button>
+    <button class="flex flex-row items-center h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl" routerLink="../language">
+      <div>Language</div>
+      <mat-icon>chevron_right</mat-icon>
+    </button>
 
     <!-- DISPLAY BUTTON -->
-    <button class="h-11 hover:bg-[#abd0ff] focus:bg[#abd0ff] text-left pl-4 focus:bg-[#94c3ff]" routerLink="../display">Display</button>
+    <button class="flex flex-row items-center h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl" routerLink="../display">
+      <div>Display</div>
+      <mat-icon>chevron_right</mat-icon>
+    </button>
 
     <!-- INFO BUTTON (EXT. LINK) -->
-    <a class='mx-auto w-full' href='https://michael-filoramo.com/portfolio/lingolink' target='_blank'>
-      <button class='flex justify-start items-center h-11 w-full hover:bg-[#abd0ff] focus:bg-[#abd0ff] text-left pl-4 rounded-b-xl'>
-        <div class='pr-2'>Info</div>
-        <mat-icon>open_in_new</mat-icon>
-      </button>
+    <a class='mx-auto w-full flex flex-row items-center h-11 hover:bg-[#abd0ff] focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl' href='https://michael-filoramo.com/portfolio/lingolink' target='_blank'>
+      <div>Info</div>
+      <mat-icon>open_in_new</mat-icon>
     </a>
   </div>
   <!-- END BOTTOM BUTTON CONTAINER -->
