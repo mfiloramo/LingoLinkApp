@@ -1,11 +1,10 @@
 .title-component-container {
-  background-color: #030f2c;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
   padding-top: 2vh;
-  padding-bottom: 1vh;
+  padding-bottom: 2vh;
 }
 
 .title-component-container::after {

@@ -20,6 +20,8 @@ import { PageNotFoundView } from "./views/page-not-found/page-not-found.view";
 
 // GUARD IMPORTS
 import { AuthGuard } from "./guards/auth/auth.guard";
+
+// VIEW IMPORTS
 import { MainSettingsView } from "./views/settings/main-settings/main-settings.view";
 import { AccountInfoView } from "./views/settings/account/account-info/account-info.view";
 import { ChangeUsernameView } from "./views/settings/account/change-username/change-username.view";
@@ -30,7 +32,7 @@ import { DeleteAccountView } from "./views/settings/account/delete-account/delet
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login', // PROD: '/login'
+    redirectTo: '/home/settings/display', // PROD: '/login'
     pathMatch: 'full'
   },
   {

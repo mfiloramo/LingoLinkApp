@@ -6,7 +6,7 @@
 }
 
 <!-- CONVERSATIONS TOOLBAR -->
-<div class="flex justify-between bg-gradient-to-t from-cust_navy-900 to-cust_navy-800 h-12 fixed top-0 left-0 w-full z-10">
+<div class="flex justify-between bg-gradient-to-t from-custom_navy-900 to-custom_navy-800 h-12 fixed top-0 left-0 w-full z-10">
   <button class="ml-5 mt-1.5 text-lg !text-blue-200" mat-button>Edit</button>
   <button class="pb-1 mr-5 !text-blue-200" mat-icon-button (click)="onCreateNewConversation()">
     <mat-icon>create</mat-icon>
@@ -25,7 +25,7 @@
   @for (conversation of conversations; track conversation) {
     <div>
       @if (checkConversationVisibility(conversation)) {
-        <div class="bg-cust_navy-700 hover:bg-cust_navy-800 active:bg-cust_navy-900 flex flex-row justify-start items-center pl-7 pr-7 w-full h-20 max-h-20 text-blue-200 text-sm animate-fadeIn border-b border-cust_navy-900 cursor-pointer" (click)="onSelectConversation(conversation)">
+        <div class="bg-custom_navy-700 hover:bg-custom_navy-800 active:bg-custom_navy-900 flex flex-row justify-start items-center pl-7 pr-7 w-full h-20 max-h-20 text-blue-200 text-sm animate-fadeIn border-b border-custom_navy-900 cursor-pointer" (click)="onSelectConversation(conversation)">
           <div class="h-3/4 w-auto aspect-square rounded-full mr-5 bg-center bg-no-repeat bg-cover" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
           <div class="flex flex-col flex-grow">
             <div class="font-bold">{{ conversation.StarterUsername }}</div>

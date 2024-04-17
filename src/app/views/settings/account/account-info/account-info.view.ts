@@ -15,7 +15,7 @@ export class AccountInfoView {
   public accountInfoSlices: any[] = [
     {
       name: this.userService.userState().username,
-      properName: 'User Name'
+      properName: 'Username'
     },
     {
       name: this.userService.userState().firstName,

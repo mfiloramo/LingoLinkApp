@@ -11,5 +11,19 @@ import { TitleComponent } from "../../../components/title/title.component";
   templateUrl: './account.view.html',
 })
 export class AccountView {
+  public changeDataButtons: any[] = [
+    {
+      name: 'Change Username',
+      route: 'change-username'
+    },
+    {
+      name: 'Change Name',
+      route: 'change-name'
+    },
+    {
+      name: 'Change Email',
+      route: 'change-email'
+    },
+  ];
   constructor(public router: Router) {}
 }
