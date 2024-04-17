@@ -39,7 +39,7 @@ The application is currently in its pre-alpha stage. It's available as a [web ap
 2. Run `npm install` to install dependencies
 3. Set up a Microsoft Azure API key
 4. Create a `.env` file in the root directory of the project and add the following environment variables:
-- `API_KEY`: your RapidAPI key
+- `API_KEY`: your API key
 - `API_REGION`: the region your API key is associated with
 
 5. Run `npm start` to start the server
