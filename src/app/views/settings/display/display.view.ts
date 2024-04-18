@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import { DarkModeService } from "../../../services/darkMode/dark-mode.service";
+import { DisplayService } from "../../../services/display/display.service";
 
 interface DarkModeButton {
   readonly modeLabel: string;
@@ -30,12 +30,12 @@ export class DisplayView {
       imgSource: '/assets/images/dark-mode-stub.png'
     }
   ]
-  constructor(public darkMode: DarkModeService) {
+  constructor(public display: DisplayService) {
   }
 
   /** PUBLIC METHODS */
   public updateBodyClass(): void {
-    if (this.darkMode.isDarkModeEnabled()) {
+    if (this.display.isDarkModeEnabled()) {
       document.body.classList.add('dark');
     } else {
       document.body.classList.remove('dark');

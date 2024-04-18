@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { routerAnimationFade } from "../utils/routerAnimations";
-import { DarkModeService } from "./services/darkMode/dark-mode.service";
+import { DisplayService } from "./services/display/display.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
   animations: routerAnimationFade,
 })
 export class AppComponent implements OnInit {
   public title: string = 'LingoLinkApp';
 
-  constructor(private darkMode: DarkModeService) {}
+  constructor(private display: DisplayService) {}
 
   /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
-    this.darkMode.loadDarkMode();
+    this.display.loadDarkMode();
+    this.display.loadFontSize();
+    this.display.loadBoldText();
   }
 
   /** PUBLIC METHODS */
