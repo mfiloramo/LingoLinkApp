@@ -28,12 +28,17 @@
       <mat-icon>chevron_right</mat-icon>
     </button>
 
-    <!-- BOLD TEXT TOGGLE SWITCH -->
+    <!-- BOLD TEXT TOGGLE SWITCH CONTAINER -->
     <div class="flex flex-row items-center h-11 hover:bg-menu_button-dark focus:bg-menu_button-dark pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl">
       <div>Bold Text</div>
-      <!-- INSERT RADIO SWITCH HERE -->
-      <!-- ... -->
+
+      <!-- BOLD FONT RADIO TOGGLE SWITCH -->
+      <label class="relative inline-block w-14 h-8 rounded-2xl">
+        <input type="checkbox" class="opacity-0 w-0 h-0" [(ngModel)]="display.boldText" (change)="display.setBoldText(display.boldText)">
+        <span class="slider block absolute cursor-pointer bg-gray-300 rounded-full inset-0 transition duration-300 ease-in-out before:absolute before:rounded-full before:bg-white before:top-1 before:left-1 before:w-6 before:h-6 before:transition before:duration-300" [class.before:translate-x-6]="display.boldText" [class.bg-blue-900]="display" [class.bg-gray-300]="!display.boldText"></span>
+      </label>
     </div>
+    <!-- BOLD TEXT TOGGLE SWITCH CONTAINER -->
   </div>
   <!-- END BOTTOM BUTTON CONTAINER -->
 </div>

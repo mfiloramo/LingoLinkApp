@@ -5,28 +5,36 @@ import { Injectable } from '@angular/core';
 })
 export class DisplayService {
   public displayMode: 'light-mode' | 'dark-mode' = 'light-mode';
-  public fontSize!: string;
-  public boldText!: string;
-  private readonly darkModeKey: 'lingolink-dark-mode' = 'lingolink-dark-mode';
-  private readonly fontSizeKey: 'lingolink-font-size' = 'lingolink-font-size';
-  private readonly boldTextKey: 'lingolink-bold-text' = 'lingolink-bold-text';
+  public fontSize: string | null = null;
+  public boldText: boolean = false;
+  private readonly darkModeKey: string = 'lingolink-dark-mode';
+  private readonly fontSizeKey: string = 'lingolink-font-size';
+  private readonly boldTextKey: string = 'lingolink-bold-text';
 
-  constructor() {}
+  constructor() {
+    this.loadSettings();
+  }
 
   /** PUBLIC METHODS */
+  public loadSettings(): void {
+    this.loadDarkMode();
+    this.loadFontSize();
+    this.loadBoldText();
+  }
+
   public loadDarkMode(): void {
     const darkMode: boolean = localStorage.getItem(this.darkModeKey) === 'true';
     this.setDarkMode(darkMode);
   }
 
   public loadFontSize(): void {
-    const fontSize: boolean = localStorage.getItem(this.fontSizeKey) === 'true';
-    this.setFontSize(this.fontSize);
+    const fontSize: string | null = localStorage.getItem(this.fontSizeKey);
+    this.setFontSize(fontSize);
   }
 
   public loadBoldText(): void {
     const boldText: boolean = localStorage.getItem(this.boldTextKey) === 'true';
-    this.setBoldText(this.boldText);
+    this.setBoldText(boldText);
   }
 
   public toggleDarkMode(): void {
@@ -35,6 +43,11 @@ export class DisplayService {
 
   public isDarkModeEnabled(): boolean {
     return this.displayMode === 'dark-mode';
+  }
+
+  public setBoldText(isBold: boolean): void {
+    this.boldText = isBold;
+    localStorage.setItem(this.boldTextKey, isBold.toString());
   }
 
   /** PRIVATE METHODS */
@@ -48,13 +61,9 @@ export class DisplayService {
     }
   }
 
-  private setFontSize(fontSize: string): void {
+  private setFontSize(fontSize: string | null): void {
     this.fontSize = fontSize;
-    localStorage.setItem(this.fontSizeKey, this.fontSize)
+    localStorage.setItem(this.fontSizeKey, fontSize || '');
   }
 
-  private setBoldText(isBold: string): void {
-    this.boldText = isBold;
-    localStorage.setItem(this.boldTextKey, this.boldText)
-  }
 }

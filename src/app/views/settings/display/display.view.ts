@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import { DisplayService } from "../../../services/darkMode/display.service";
+import { DisplayService } from "../../../services/display/display.service";
 
 interface DarkModeButton {
   readonly modeLabel: string;

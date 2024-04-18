@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { routerAnimationFade } from "../utils/routerAnimations";
-import { DisplayService } from "./services/darkMode/./display.service";
+import { DisplayService } from "./services/display/display.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
   animations: routerAnimationFade,
 })
 export class AppComponent implements OnInit {
