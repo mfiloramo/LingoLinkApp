@@ -12,14 +12,10 @@ export class AppComponent implements OnInit {
 
   constructor(private display: DisplayService) {}
 
-  /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
-    this.display.loadDarkMode();
-    this.display.loadFontSize();
-    this.display.loadBoldText();
+    this.display.loadSettings();
   }
 
-  /** PUBLIC METHODS */
   public prepareRoute(outlet: any): any {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }

@@ -6,7 +6,7 @@
 
   <!-- CONTACTS LIST -->
   @for (contact of stubContacts; track contact) {
-    <button class="text-start pl-3 h-10 border-b border-0 border-black first:rounded-t-2xl last:rounded-b-2xl bg-blue-200" (click)="selectContactToChat($event)">
+    <button class="text-start pl-3 h-10 border-b border-0 border-black first:rounded-t-2xl last:rounded-b-2xl dark:bg-blue-200" (click)="selectContactToChat($event)">
       {{ contact }}
     </button>
   }

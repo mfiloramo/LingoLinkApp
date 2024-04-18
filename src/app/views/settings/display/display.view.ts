@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
@@ -14,31 +14,19 @@ interface DarkModeButton {
 @Component({
   selector: 'app-display',
   standalone: true,
-  imports: [ CommonModule, MatIconModule, RouterLink, FormsModule ],
+  imports: [CommonModule, MatIconModule, RouterLink, FormsModule],
   templateUrl: './display.view.html'
 })
-export class DisplayView {
+export class DisplayView implements OnInit {
   public darkModeButtons: DarkModeButton[] = [
-    {
-      modeLabel: 'Light',
-      modeValue: 'light-mode',
-      imgSource: '/assets/images/light-mode-stub.png'
-    },
-    {
-      modeLabel: 'Dark',
-      modeValue: 'dark-mode',
-      imgSource: '/assets/images/dark-mode-stub.png'
-    }
-  ]
-  constructor(public display: DisplayService) {
-  }
+    { modeLabel: 'Light', modeValue: 'light-mode', imgSource: '/assets/images/light-mode-stub.png' },
+    { modeLabel: 'Dark', modeValue: 'dark-mode', imgSource: '/assets/images/dark-mode-stub.png' }
+  ];
 
-  /** PUBLIC METHODS */
-  public updateBodyClass(): void {
-    if (this.display.isDarkModeEnabled()) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
+  constructor(public display: DisplayService) {}
+
+  /** LIFECYCLE HOOKS */
+  public ngOnInit(): void {
+    this.display.updateBodyClass();
   }
 }
