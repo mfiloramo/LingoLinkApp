@@ -1,6 +1,7 @@
-import { Component, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { routerAnimationFade } from "../../../utils/routerAnimations";
+import { DisplayService } from "../../services/display/display.service";
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,19 @@ import { routerAnimationFade } from "../../../utils/routerAnimations";
   animations: routerAnimationFade,
 
 })
-export class HomeView implements AfterViewInit {
+export class HomeView implements OnInit, AfterViewInit {
 
   constructor(
+    public display: DisplayService,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   /** LIFECYCLE HOOKS */
+  public ngOnInit(): void {
+    this.display.updateBodyClass();
+  }
+
   public ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();
   }

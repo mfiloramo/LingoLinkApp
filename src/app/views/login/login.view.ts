@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from "../../services/user/user.service";
+import { DisplayService } from "../../services/display/display.service";
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginView implements OnInit {
   public loginForm!: FormGroup;
 
   constructor(
+    public display: DisplayService,
     private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
@@ -24,6 +26,7 @@ export class LoginView implements OnInit {
 
   /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
+    this.display.updateBodyClass();
     this.buildLoginForm();
   }
 
