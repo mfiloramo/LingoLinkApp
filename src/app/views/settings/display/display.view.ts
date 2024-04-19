@@ -4,12 +4,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { DisplayService } from "../../../services/display/display.service";
+import { DarkModeButton } from "../../../../interfaces/DarkModeButton.interfaces";
 
-interface DarkModeButton {
-  readonly modeLabel: string;
-  readonly modeValue: string;
-  readonly imgSource: string;
-}
 
 @Component({
   selector: 'app-display',
