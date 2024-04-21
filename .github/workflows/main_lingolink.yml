@@ -45,8 +45,8 @@ jobs:
         working-directory: .
         run: npm run build:prod
 
-#      - name: Run Tests
-#        run: npm run test --if-present
+      - name: Run Tests
+        run: npm run test --if-present
 
       - name: Archive Production Artifact
         uses: actions/upload-artifact@v2
