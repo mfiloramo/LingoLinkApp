@@ -21,12 +21,33 @@ body::-webkit-scrollbar {
   width: 0 !important;
 }
 
-.menu-button-interface {
-  @apply
-    /* LIGHT MODE */
-    bg-blue-200 text-slate-950
 
-    /* DARK MODE */
-    dark:bg-slate-800 dark:text-blue-100 dark:focus:bg-[#1A2332FF]
+/* CUSTOM TAILWIND UTILITIES */
+.menu-background {
+  @apply
+  /* CLASS STYLES */
+  bg-gradient-to-b
+
+  /* LIGHT MODE */
+  from-blue-300 to-blue-500
+
+  /* DARK MODE */
+  dark:from-custom_navy-900 dark:to-custom_navy-800
 }
 
+.menu-button-interface {
+  @apply
+  /* LIGHT MODE */
+  bg-blue-200 focus:bg-[#AACFFE] text-slate-950
+
+  /* DARK MODE */
+  dark:bg-slate-700 dark:focus:bg-[#2C3849] dark:text-blue-100
+}
+
+.menu-text {
+  @apply
+  /* LIGHT MODE */
+  bg-blue-200 text-slate-950
+  /* DARK MODE */
+  dark:bg-gradient-to-b dark:from-custom_navy-800 dark:to-custom_navy-950 dark:text-slate-100;
+}

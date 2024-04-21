@@ -1,3 +1,20 @@
+/* MAT-ICON STYLE OVERRIDE */
+.back-arrow {
+  margin-top: -10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  cursor: pointer;
+  font-size: 30px;
+  color: rgb(2 6 23 / var(--tw-text-opacity));
+  --tw-text-opacity: 1;
+}
+
+/* MAT-ICON STYLE OVERRIDE (DARK MODE) */
+:is(.dark .dark\:text-blue-200) {
+  color: rgb(191 219 254 / var(--tw-text-opacity));
+  --tw-text-opacity: 1;
+}
+
 .title-component-container {
   display: flex;
   justify-content: space-between;
@@ -12,15 +29,6 @@
   width: 50px;
   height: 1px;
   display: block;
-}
-
-.back-arrow {
-  margin-top: -10px;
-  margin-left: 15px;
-  margin-right: 15px;
-  cursor: pointer;
-  color: #dae3ff;
-  font-size: 30px;
 }
 
 .view-title {

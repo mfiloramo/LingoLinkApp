@@ -1,5 +1,5 @@
 <!-- DISPLAY VIEW CONTAINER -->
-<div class="text-xl w-full flex flex-col bg-gradient-to-b dark:from-custom_navy-900 dark:to-custom_navy-800 z-20 text-black h-screen overflow-y-visible">
+<div class="text-xl w-full flex flex-col bg-gradient-to-b menu-background z-20 text-black h-screen overflow-y-visible">
 
   <!-- TOP BUTTON CONTAINER -->
   <div class='flex flex-col mx-auto justify-center mt-10 menu-button-interface w-[90vw] h-72 rounded-xl mb-8'>
@@ -35,7 +35,7 @@
       <!-- BOLD FONT RADIO TOGGLE SWITCH -->
       <label class="relative inline-block w-14 h-8 rounded-2xl">
         <input type="checkbox" class="opacity-0 w-0 h-0" [(ngModel)]="display.boldText" (change)="display.setBoldText(display.boldText)">
-        <span class="slider block absolute cursor-pointer bg-gray-300 rounded-full inset-0 transition duration-300 ease-in-out before:absolute before:rounded-full before:bg-white before:top-1 before:left-1 before:w-6 before:h-6 before:transition before:duration-300" [class.before:translate-x-6]="display.boldText" [class.bg-blue-900]="display.boldText" [class.bg-gray-300]="!display.boldText"></span>
+        <span class="slider block absolute cursor-pointer rounded-full inset-0 transition duration-300 ease-in-out before:absolute before:rounded-full before:bg-white before:dark:bg-slate-800 before:top-1 before:left-1 bg-blue-900 before:w-6 before:h-6 before:transition before:duration-300" [class.before:translate-x-6]="display.boldText" [class.dark:bg-blue-500]="display.boldText" [class.bg-gray-500]="!display.boldText"></span>
       </label>
     </div>
     <!-- BOLD TEXT TOGGLE SWITCH CONTAINER -->
