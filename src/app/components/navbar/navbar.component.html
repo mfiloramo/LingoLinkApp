@@ -1,26 +1,25 @@
 <!-- NAVBAR CONTAINER -->
-<mat-sidenav-container class="sidenav">
+<div class="flex items-center h-20 bg-blue-200 bottom-0 mb-0 w-screen shadow-xl dark:bg-gradient-to-t dark:from-[#000b21] dark:to-[#04112d] z-50 absolute">
 
-  <!-- PROFILE AVATAR -->
-  <mat-sidenav-content class="sidenav-item profile" style="background: #001b4f">
-    <mat-icon>perm_identity</mat-icon>
-  </mat-sidenav-content>
+  <!-- PROFILE ICON -->
+  <div class="flex items-center justify-center bg-blue-900 h-full w-20">
+    <button routerLink="{{ navButtons[0].routerLink }}" (click)="navButtons[0].method" class="h-full w-full flex bg-blue-300 dark:bg-blue-900 justify-center items-center">
+      <mat-icon class="text-slate-700 dark:text-blue-200">
+        {{ navButtons[0].icon }}
+      </mat-icon>
+    </button>
+  </div>
 
-  <!-- NAVBAR BUTTONS  -->
-  <mat-sidenav-content class="sidenav-item mt-24" routerLink="/" >
-    <mat-icon>person</mat-icon>
-  </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item" routerLink="/home/conversations">
-    <mat-icon>forum</mat-icon>
-  </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item" routerLink="/home/contacts">
-    <mat-icon>contacts</mat-icon>
-  </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item" routerLink="/home/settings">
-    <mat-icon>settings</mat-icon>
-  </mat-sidenav-content>
-  <mat-sidenav-content class="sidenav-item mb-24" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </mat-sidenav-content>
+  <!-- NAVIGATION BUTTONS -->
+  <div class="flex grow justify-center space-x-8 h-full">
+    @for (button of navButtons.slice(1); track button) {
+      <button routerLink="{{ button.routerLink }}" (click)="button.method()">
+        <mat-icon class="text-slate-700 dark:text-blue-200">
+          {{ button.icon }}
+        </mat-icon>
+      </button>
+    }
+  </div>
 
-</mat-sidenav-container>
+</div>
+<!-- END NAVBAR CONTAINER -->

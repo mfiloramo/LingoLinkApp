@@ -7,7 +7,6 @@
 
 <!-- MAIN CONTAINER -->
 <div class="home-section msg-box-container">
-
   <div class="msg-box-wrapper">
 
   <!-- INPUT CONTAINER -->
@@ -34,7 +33,7 @@
   </div>
 
   <!-- MESSAGE CONTAINER -->
-  <div class="msg-container">
+  <div class="msg-container h-screen">
 
     <!-- BACK ARROW BUTTON -->
     <div class="msg-box-top-bar">
@@ -52,7 +51,7 @@
       <!-- MESSAGE LIST -->
       <div class="msg-list" #chatContainer>
         @for (message of messagesContainer; track message) {
-          <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.userId == this.userService.userState().userId, 'msg-received transition-opacity duration-300 ease-in-out': message.userId != this.userService.userState().userId}">
+          <div class="pt-4 msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.userId == this.userService.userState().userId, 'msg-received transition-opacity duration-300 ease-in-out': message.userId != this.userService.userState().userId}">
             <div class="msg-text">{{ message.textInput }}</div>
           </div>
         }
