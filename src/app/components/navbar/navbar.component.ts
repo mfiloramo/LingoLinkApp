@@ -1,12 +1,27 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 
+export interface navButton {
+  readonly icon: string;
+  readonly routerLink: string;
+  readonly method?: any;
+}
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css', '../messages/messages.component.css']
 })
 export class NavbarComponent {
+  // COMPONENT STATE
+  public navButtons: navButton[] = [
+    { icon: 'perm_identity', routerLink: '/' },
+    { icon: 'person', routerLink: '/' },
+    { icon: 'forum', routerLink: '/home/conversations' },
+    { icon: 'contacts', routerLink: '/home/contacts' },
+    { icon: 'settings', routerLink: '/home/settings' },
+    { icon: 'logout', routerLink: '', method: () => this.logout() }
+  ]
+
   // COMPONENT INPUTS
   @Input() user: any;
 
@@ -17,12 +32,12 @@ export class NavbarComponent {
   @Output() showSettings: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() profileClick: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(
-    private authService: AuthService,
-  ) { }
+  constructor(private authService: AuthService) {
+  }
 
   /** PUBLIC METHODS */
   public logout(): void {
     this.authService.logout();
+    return;
   }
 }

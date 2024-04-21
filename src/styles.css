@@ -21,7 +21,6 @@ body::-webkit-scrollbar {
   width: 0 !important;
 }
 
-
 /* CUSTOM TAILWIND UTILITIES */
 .menu-background {
   @apply
@@ -44,7 +43,7 @@ body::-webkit-scrollbar {
   dark:bg-slate-700 dark:focus:bg-[#2C3849] dark:text-blue-100
 }
 
-.menu-text {
+.menu-title {
   @apply
   /* LIGHT MODE */
   bg-blue-200 text-slate-950

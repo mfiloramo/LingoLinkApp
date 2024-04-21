@@ -300,12 +300,3 @@ body::-webkit-scrollbar {
 .ping-slower {
   animation: custom-ping 0.8s infinite;
 }
-
-/* TODO: CREATE "REVERSE" MEDIA QUERY FOR DESKTOP VIEWS */
-/* MEDIA QUERIES */
-@media screen and (max-width: 2000px) {
-  .msg-sent .msg-text,
-  .msg-received .msg-text {
-    max-width: 220px;
-  }
-}
