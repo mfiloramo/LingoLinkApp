@@ -24,9 +24,9 @@ body::-webkit-scrollbar {
 .menu-button-interface {
   @apply
     /* LIGHT MODE */
-    bg-blue-200
+    bg-blue-200 text-slate-950
 
     /* DARK MODE */
-    dark:text-blue-100 dark:bg-slate-800 dark:focus:bg-[#1A2332FF]
+    dark:bg-slate-800 dark:text-blue-100 dark:focus:bg-[#1A2332FF]
 }
 
