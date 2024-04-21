@@ -10,7 +10,7 @@ import { DarkModeButton } from "../../../../interfaces/DarkModeButton.interfaces
 @Component({
   selector: 'app-display',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink, FormsModule],
+  imports: [ CommonModule, MatIconModule, RouterLink, FormsModule ],
   templateUrl: './display.view.html'
 })
 export class DisplayView implements OnInit {

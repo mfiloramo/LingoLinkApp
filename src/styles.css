@@ -20,3 +20,13 @@ body {
 body::-webkit-scrollbar {
   width: 0 !important;
 }
+
+.menu-button-interface {
+  @apply
+    /* LIGHT MODE */
+    bg-blue-200
+
+    /* DARK MODE */
+    dark:text-blue-100 dark:bg-slate-800 dark:focus:bg-[#1A2332FF]
+}
+

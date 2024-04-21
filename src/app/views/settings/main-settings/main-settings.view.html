@@ -1,17 +1,17 @@
 <!-- MAIN SETTINGS CONTAINER -->
-<div class="text-xl w-full flex flex-col bg-gradient-to-b dark:from-custom_navy-900 dark:to-custom_navy-800 z-20 text-black h-screen overflow-y-visible">
+<div class="text-xl w-full flex flex-col bg-gradient-to-b from-blue-100 to-blue-200 dark:from-custom_navy-900 dark:to-custom_navy-800 z-20 text-black h-screen overflow-y-visible">
 
   <!-- TOP BUTTON CONTAINER -->
-  <div class='flex flex-col mx-auto mt-10 dark:bg-blue-200 w-[90vw] rounded-xl mb-12'>
+  <div class='flex flex-col mx-auto mt-10 w-[90vw] rounded-xl mb-12'>
 
     <!-- ACCOUNT BUTTON -->
-    <button class="flex flex-row items-center h-11 dark:hover:bg-[#abd0ff] dark:focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl" routerLink="../account">
+    <button class="flex flex-row items-center h-11 pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl menu-button-interface" routerLink="../account">
       <div>Account</div>
       <mat-icon>chevron_right</mat-icon>
     </button>
 
     <!-- AVATAR BUTTON -->
-    <button class="flex flex-row items-center h-11 dark:hover:bg-menu_button-dark dark:focus:bg-menu_button-dark pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl" routerLink="../avatar">
+    <button class="flex flex-row items-center h-11 pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl menu-button-interface" routerLink="../avatar">
       <div>Avatar</div>
       <mat-icon>chevron_right</mat-icon>
     </button>
@@ -19,22 +19,22 @@
   <!-- END TOP BUTTON CONTAINER -->
 
   <!-- BOTTOM BUTTON CONTAINER -->
-  <div class='flex flex-col mx-auto dark:bg-blue-200 rounded-xl w-[90vw]'>
+  <div class='flex flex-col mx-auto rounded-xl w-[90vw]'>
 
     <!-- DISPLAY BUTTON -->
-    <button class="flex flex-row items-center h-11 dark:hover:bg-[#abd0ff] dark:focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl" routerLink="../display">
+    <button class="flex flex-row items-center h-11 pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl menu-button-interface" routerLink="../display">
       <div>Display</div>
       <mat-icon>chevron_right</mat-icon>
     </button>
 
     <!-- LANGUAGE BUTTON -->
-    <button class="flex flex-row items-center h-11 dark:hover:bg-[#abd0ff] dark:focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-t-xl" routerLink="../language">
+    <button class="flex flex-row items-center h-11 pl-4 text-left px-3 border-black justify-between border-b-0 menu-button-interface" routerLink="../language">
       <div>Language</div>
       <mat-icon>chevron_right</mat-icon>
     </button>
 
     <!-- INFO BUTTON (EXT. LINK) -->
-    <a class='mx-auto w-full flex flex-row items-center h-11 dark:hover:bg-[#abd0ff] dark:focus:bg-[#abd0ff] pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl' href='https://michael-filoramo.com/portfolio/lingolink' target='_blank'>
+    <a class='mx-auto w-full flex flex-row items-center h-11 pl-4 text-left px-3 border-black justify-between border-b-0 rounded-b-xl menu-button-interface' href='https://michael-filoramo.com/portfolio/lingolink' target='_blank'>
       <div>Info</div>
       <mat-icon>open_in_new</mat-icon>
     </a>
@@ -42,7 +42,7 @@
   <!-- END BOTTOM BUTTON CONTAINER -->
 
   <!-- APP VERSION INFO -->
-  <div class="pt-3 px-4 mx-auto mt-12 h-12 w-[90vw] rounded-b-xl dark:bg-sky-200 text-left rounded-t-xl cursor-default">
+  <div class="pt-3 px-4 mx-auto mt-12 h-12 w-[90vw] rounded-b-xl dark:bg-sky-950 dark:text-sky-200 text-left rounded-t-xl cursor-default">
     <div class="flex flex-row justify-between">
       <div>App Version</div>
       <div>{{ appVersion }}</div>
