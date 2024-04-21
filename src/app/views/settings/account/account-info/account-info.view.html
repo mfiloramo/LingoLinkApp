@@ -5,12 +5,12 @@
   <div class='flex flex-col mx-auto mt-10 w-[90vw] rounded-xl mb-12'>
 
     <!-- ACCOUNT INFO CONTAINER -->
-    <div class='flex flex-col mx-auto dark:bg-blue-200 rounded-xl w-[90vw] mb-12'>
+    <div class='flex flex-col mx-auto rounded-xl w-[90vw] mb-12 menu-button-interface'>
 
       <!-- ACCOUNT INFO BOXES -->
       @for (slice of accountInfoSlices; track slice ) {
         <div class="pt-3 px-4 h-12 text-left rounded-t-xl cursor-default">
-          <div class="flex flex-row justify-between">
+          <div class="flex flex-row justify-between menu-button-interface">
             <div>{{ slice.properName }}</div>
             <div>{{ slice.name }}</div>
           </div>
