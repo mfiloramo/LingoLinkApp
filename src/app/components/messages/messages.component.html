@@ -33,7 +33,7 @@
   </div>
 
   <!-- MESSAGE CONTAINER -->
-  <div class="msg-container h-screen">
+  <div class="msg-container h-screen pt-4">
 
     <!-- BACK ARROW BUTTON -->
     <div class="msg-box-top-bar">
@@ -51,7 +51,7 @@
       <!-- MESSAGE LIST -->
       <div class="msg-list" #chatContainer>
         @for (message of messagesContainer; track message) {
-          <div class="pt-4 msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.userId == this.userService.userState().userId, 'msg-received transition-opacity duration-300 ease-in-out': message.userId != this.userService.userState().userId}">
+          <div class="msg-container animate-fadeIn" [ngClass]="{'msg-sent transition-opacity duration-300 ease-in-out': message.userId == this.userService.userState().userId, 'msg-received transition-opacity duration-300 ease-in-out': message.userId != this.userService.userState().userId}">
             <div class="msg-text">{{ message.textInput }}</div>
           </div>
         }

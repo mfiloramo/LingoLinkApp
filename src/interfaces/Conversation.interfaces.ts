@@ -10,4 +10,6 @@ export interface Conversation {
   timestamp?: any;
   latestTimestamp?: string;
   profileImageSrc?: any;
+  firstName?: string;
+  lastName?: string;
 }

@@ -15,7 +15,6 @@ export class NavbarComponent {
   // COMPONENT STATE
   public navButtons: navButton[] = [
     { icon: 'perm_identity', routerLink: '/' },
-    { icon: 'person', routerLink: '/' },
     { icon: 'forum', routerLink: '/home/conversations' },
     { icon: 'contacts', routerLink: '/home/contacts' },
     { icon: 'settings', routerLink: '/home/settings' },
