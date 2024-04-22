@@ -11,7 +11,7 @@
   </div>
 
   <!-- NAVIGATION BUTTONS -->
-  <div class="flex grow justify-center space-x-8 h-full">
+  <div class="flex grow justify-center space-x-10 h-full">
     @for (button of navButtons.slice(1); track button) {
       <button routerLink="{{ button.routerLink }}" (click)="button.method()">
         <mat-icon class="text-slate-700 dark:text-blue-200">

@@ -33,7 +33,7 @@
           <div class="h-3/4 w-auto aspect-square rounded-full mr-5 bg-center bg-no-repeat bg-cover" [style.background-image]="'url(' + conversation.StarterUserPic + ')'"></div>
           <div class="flex flex-col flex-grow">
             <!-- CONVERSATION STARTER USERNAME -->
-            <div class="font-bold">{{ conversation.StarterUsername }}</div>
+            <div class="font-bold">{{ conversation.firstName }} {{ conversation.lastName}}</div>
             <!-- MOST RECENT CONVERSATION MESSAGE -->
             <div class="font-normal overflow-hidden truncate-2-lines">{{ truncateSentence(conversation.LatestMessage, 100) }}</div>
           </div>

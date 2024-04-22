@@ -39,7 +39,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   public isLoading: boolean = false;
   public conversationStarterName!: string;
   public conversationStarterPic!: string;
-  public languageSelectorStyling: object = { 'background-color': '#989aad', 'width': '100px', 'height': '35px', 'font-size': '16px', 'padding-left': '0px' };
+  public languageSelectorStyling: object = { 'background-color': '#989aad', 'width': '100px', 'height': '35px', 'font-size': '16px', 'padding-left': '0px', 'color': 'black' };
 
 
   constructor(
@@ -58,7 +58,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   /** LIFECYCLE HOOKS */
   public ngOnInit(): void {
     // SET CONVERSATION METADATA
-    this.conversationStarterName = this.conversationService.conversationSelected().StarterUsername;
+    this.conversationStarterName = this.conversationService.conversationSelected().firstName + ' ' + this.conversationService.conversationSelected().lastName;
     this.conversationStarterPic = this.conversationService.conversationSelected().StarterUserPic;
 
     // LOAD MESSAGES BY CONVERSATION ID
