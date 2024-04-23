@@ -1,7 +1,7 @@
 <!-- LOADING ANIMATION -->
 @if (isLoading) {
-  <div class="justify-center m-auto h-screen w-screen absolute z-30">
-    <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="h-12 w-12 ping-slower" />
+  <div class="justify-center m-auto h-12 w-12 absolute z-30">
+    <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower" />
   </div>
 }
 
@@ -17,20 +17,21 @@
     </app-title>
 
     <!-- MESSAGES (CONVERSATION) CONTAINER -->
-    <div class="flex flex-col justify-start pt-6 px-4 w-screen" #chatContainer>
+    <div class="flex flex-col justify-start pt-6 px-4 w-screen " #chatContainer>
 
+      <!-- TODO: FIRST CHILD IS AT TOP BY DEFAULT BECAUSE OF TITLE (SIBLING) FIXED POSITIONING --- IMPLEMENT SOLUTION -->
       <!-- MESSAGES -->
       @for (message of messagesContainer; track message) {
 
         <!-- USER'S OWN CHAT MESSAGE -->
         @if (message.userId == this.userService.userState().userId) {
-          <div class="my-2 px-4 py-2 bg-blue-500 dark:bg-[#284a86] right-0 text-right self-end text-white dark:text-sky-50 rounded-2xl text-md w-fit">
+          <div class="my-2 px-4 py-2 bg-blue-500 dark:bg-[#284a86] right-0 text-right self-end text-white dark:text-sky-50 rounded-2xl text-md w-fit first:mt-16">
             {{ message.textInput }}
           </div>
 
         <!-- OTHER PARTICIPANT'S CHAT MESSAGE -->
         } @else {
-          <div class="my-2 px-4 py-2 bg-slate-500 dark:bg-[#5e6179] text-left self-start text-white dark:text-gray-100 rounded-2xl text-md w-fit">
+          <div class="my-2 px-4 py-2 bg-slate-500 dark:bg-[#5e6179] text-left self-start text-white dark:text-gray-100 rounded-2xl text-md w-fit first:mt-16">
             {{ message.textInput }}
           </div>
         }
@@ -40,7 +41,7 @@
 
   <!-- TODO: REBUILD INPUT CONTAINER IN TAILWIND -->
   <!-- INPUT CONTAINER -->
-  <div class="flex mx-auto p-3 bottom-0 bg-gray-100 dark:bg-[#1f293f] h-[8vh] w-screen fixed animate-fadeIn">
+  <div class="flex mx-auto p-3 bottom-0 bg-blue-200 dark:bg-[#1f293f] h-[8vh] w-screen fixed animate-fadeIn">
     <!-- TODO: ADD COMPONENT FUNCTIONALITY (MODULARIZE?) -->
     <!-- ... -->
   </div>
