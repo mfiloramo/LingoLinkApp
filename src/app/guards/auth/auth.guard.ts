@@ -13,6 +13,7 @@ export class AuthGuard implements CanActivate {
 
   /** PUBLIC METHODS */
   public canActivate(): boolean {
+
     // DISABLE IN DEV FOR ROUTE DEBUGGING
     if (this.authService.isAuthenticated()) {
       return true;

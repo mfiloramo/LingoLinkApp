@@ -18,7 +18,6 @@ import { Conversation } from "../../../interfaces/Conversation.interfaces";
 
 // UTILITIES
 import languageArray from '../../../utils/languageMapper';
-import { NavigationService } from "../../services/navigation/navigation.service";
 
 
 @Component({
