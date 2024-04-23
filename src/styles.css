@@ -1,9 +1,12 @@
+/* FONT IMPORTS */
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
+/* TAILWIND DIRECTIVES */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* GLOBAL STYLES */
 html, body {
   height: 100%;
   margin: 0;
@@ -21,19 +24,23 @@ body::-webkit-scrollbar {
   width: 0 !important;
 }
 
+
 /* CUSTOM TAILWIND UTILITIES */
+
+/* UI BACKGROUND */
 .menu-background {
   @apply
-  /* CLASS STYLES */
+  /* STYLES */
   bg-gradient-to-b
 
   /* LIGHT MODE */
-  from-blue-300 to-blue-500
+  from-blue-300 to-blue-400
 
   /* DARK MODE */
   dark:from-custom_navy-900 dark:to-custom_navy-800
 }
 
+/* UI BUTTON */
 .menu-button-interface {
   @apply
   /* LIGHT MODE */
@@ -43,10 +50,12 @@ body::-webkit-scrollbar {
   dark:bg-slate-700 dark:focus:bg-[#2C3849] dark:text-blue-100
 }
 
+/* UI TITLE */
 .menu-title {
   @apply
   /* LIGHT MODE */
   bg-blue-200 text-slate-950
+
   /* DARK MODE */
   dark:bg-gradient-to-b dark:from-custom_navy-800 dark:to-custom_navy-950 dark:text-slate-100;
 }
