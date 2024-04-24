@@ -23,7 +23,7 @@ import languageArray from '../../../utils/languageMapper';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css', '../conversations/conversations.component.css', '../title/title.component.css'],
+  styleUrls: ['../conversations/conversations.component.css', '../title/title.component.css'],
 })
 export class MessagesComponent implements OnInit, AfterViewChecked {
   // COMPONENT CHILDREN

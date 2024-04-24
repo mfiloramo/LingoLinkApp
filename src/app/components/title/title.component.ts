@@ -6,9 +6,9 @@ import { NavigationService } from "../../services/navigation/navigation.service"
 @Component({
   selector: 'app-title',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [ CommonModule, MatIconModule ],
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.css']
+  styleUrls: [ './title.component.css' ]
 })
 export class TitleComponent {
   public title: WritableSignal<any> = this.navigationService.pageTitle;

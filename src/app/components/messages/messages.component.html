@@ -1,37 +1,36 @@
 <!-- LOADING ANIMATION -->
 @if (isLoading) {
-  <div class="justify-center m-auto h-12 w-12 absolute z-30">
+  <div class="text-lg justify-center m-auto h-12 w-12 absolute z-30">
     <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower" />
   </div>
 }
 
 <!-- MESSAGES COMPONENT CONTAINER -->
-<div class="text-xl w-screen flex flex-col menu-background z-20 text-black h-screen overflow-y-visible">
+<div class="text-xl w-screen flex flex-col menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
     <!-- TITLE COMPONENT -->
     <app-title (click)="onDeselectConversation()">
-      <div class="flex flex-row justify-center">
+      <div class="flex flex-row mx-auto">
         <img src="{{ conversationStarterPic }}" class="w-9 h-9 mr-3 rounded-full" alt="image"/>
-        <span class="mt-2">{{ conversationStarterName }}</span>
+        <span class="mt-1 text-slate-900 dark:text-blue-50">{{ conversationStarterName }}</span>
       </div>
     </app-title>
 
     <!-- MESSAGES (CONVERSATION) CONTAINER -->
     <div class="flex flex-col justify-start pt-6 px-4 w-screen " #chatContainer>
 
-      <!-- TODO: FIRST CHILD IS AT TOP BY DEFAULT BECAUSE OF TITLE (SIBLING) FIXED POSITIONING --- IMPLEMENT SOLUTION -->
       <!-- MESSAGES -->
       @for (message of messagesContainer; track message) {
 
         <!-- USER'S OWN CHAT MESSAGE -->
         @if (message.userId == this.userService.userState().userId) {
-          <div class="my-2 px-4 py-2 bg-blue-500 dark:bg-[#284a86] right-0 text-right self-end text-white dark:text-sky-50 rounded-2xl text-md w-fit first:mt-16">
+          <div class="my-2 px-4 py-2 bg-blue-500 dark:bg-[#284a86] right-0 text-right self-end text-white dark:text-sky-50 rounded-2xl text-md w-fit first:mt-16 max-w-[80vw]">
             {{ message.textInput }}
           </div>
 
         <!-- OTHER PARTICIPANT'S CHAT MESSAGE -->
         } @else {
-          <div class="my-2 px-4 py-2 bg-slate-500 dark:bg-[#5e6179] text-left self-start text-white dark:text-gray-100 rounded-2xl text-md w-fit first:mt-16">
+          <div class="my-2 px-4 py-2 bg-slate-500 dark:bg-[#5e6179] text-left self-start text-white dark:text-gray-100 rounded-2xl text-md w-fit first:mt-16 max-w-[80vw]">
             {{ message.textInput }}
           </div>
         }
@@ -39,12 +38,36 @@
     </div>
     <!-- END MESSAGES (CONVERSATION) CONTAINER -->
 
-  <!-- TODO: REBUILD INPUT CONTAINER IN TAILWIND -->
   <!-- INPUT CONTAINER -->
-  <div class="flex mx-auto p-3 bottom-0 bg-blue-200 dark:bg-[#1f293f] h-[8vh] w-screen fixed animate-fadeIn">
-    <!-- TODO: ADD COMPONENT FUNCTIONALITY (MODULARIZE?) -->
-    <!-- ... -->
+  <div class="flex mx-auto p-3 pt-4 bottom-0 bg-blue-200 dark:bg-[#1f293f] h-[8vh] w-screen fixed">
+    <!-- MAIN CONTAINER -->
+      <div class="absolute top-0 left-0 right-0 bottom-0">
+
+        <!-- INPUT CONTAINER -->
+        <div class="flex items-center p-[10px] bottom-0 z-30 bg-[#1f293f] h-[8vh] fixed w-full transition-opacity duration-300 ease-in-out">
+
+          <!-- LANGUAGE SELECTOR -->
+          <app-language-selector [customStyle]="languageSelectorStyling" />
+
+          <!-- TEXT INPUT -->
+          <input
+            #inputElement
+            class="bg-[#989aad] h-[35px] ml-1 w-full pr-12 pl-3 placeholder-slate-800 rounded-xl text-lg"
+            (keyup.enter)="checkIfExistingConversation()"
+            type="text"
+            [(ngModel)]="textInput"
+            placeholder="Type something to send..."
+          >
+
+          <!-- SEND MESSAGE BUTTON -->
+          <button class="hover:animate-pulse mt-1 ml-[10px] text-slate-300" (click)="checkIfExistingConversation()">
+            <mat-icon>send</mat-icon>
+          </button>
+
+        </div>
+      </div>
   </div>
+  <!-- END INPUT CONTAINER -->
 
 </div>
 <!-- END MESSAGES COMPONENT CONTAINER -->
