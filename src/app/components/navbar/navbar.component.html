@@ -4,7 +4,7 @@
   <!-- PROFILE ICON -->
   <div class="flex items-center justify-center bg-blue-900 h-full w-20">
     <button routerLink="{{ navButtons[0].routerLink }}" (click)="navButtons[0].method" class="h-full w-full flex bg-blue-300 dark:bg-blue-900 justify-center items-center">
-      <mat-icon class="text-slate-700 dark:text-blue-200">
+      <mat-icon class="text-slate-700 dark:text-blue-100">
         {{ navButtons[0].icon }}
       </mat-icon>
     </button>
@@ -14,7 +14,7 @@
   <div class="flex grow justify-center space-x-10 h-full">
     @for (button of navButtons.slice(1); track button) {
       <button routerLink="{{ button.routerLink }}" (click)="button.method()">
-        <mat-icon class="text-slate-700 dark:text-blue-200">
+        <mat-icon class="text-slate-700 dark:text-blue-100">
           {{ button.icon }}
         </mat-icon>
       </button>

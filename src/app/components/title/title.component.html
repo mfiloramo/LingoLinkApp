@@ -1,9 +1,10 @@
 <!-- TITLE COMPONENT CONTAINER -->
-<div class="title-component-container menu-title">
-  <mat-icon class="back-arrow text-slate-950 dark:text-blue-200" (click)="navigationService.navigateBack()">arrow_back</mat-icon>
-  <ng-content />
-  @if (title() !== 'Chat') {
-    <div class="-ml-4 text-2xl text-center">
+<div class="flex justify-between items-center w-full py-4 fixed top-0 menu-title z-50 min-h-[8vh]">
+  <mat-icon class="cursor-pointer absolute text text-3xl ml-4 text-slate-950 dark:text-blue-50 pb-8 z-30 mb-1" (click)="navigationService.navigateBack()">arrow_back</mat-icon>
+  @if (title() === 'Chat') {
+    <ng-content />
+  } @else {
+    <div class="absolute text-2xl inset-0 flex items-center justify-center">
       {{ title() }}
     </div>
   }

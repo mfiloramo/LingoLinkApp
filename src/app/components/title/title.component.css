@@ -10,12 +10,14 @@
 }
 
 /* MAT-ICON STYLE OVERRIDE (DARK MODE) */
-:is(.dark .dark\:text-blue-200) {
+:is(.dark .dark\:text-blue-100) {
   color: rgb(191 219 254 / var(--tw-text-opacity));
   --tw-text-opacity: 1;
 }
 
 .title-component-container {
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

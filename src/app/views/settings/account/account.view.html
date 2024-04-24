@@ -1,9 +1,9 @@
 <!-- ACCOUNT VIEW CONTAINER -->
 @if (this.router.url.endsWith('/account')) {
-  <div class="text-xl w-full flex flex-col menu-background z-20 text-black h-screen overflow-y-visible">
+  <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
     <!-- MAIN BUTTON CONTAINER -->
-    <div class='flex flex-col mx-auto mt-10 w-[90vw] rounded-xl mb-12'>
+    <div class='flex flex-col mx-auto w-full px-6 rounded-xl mb-12'>
 
       <!-- ACCOUNT INFO BUTTON -->
       <button class="h-20 text-left pl-4 border-b-0 rounded-xl mb-12 menu-button-interface" routerLink="account-info">
@@ -24,7 +24,7 @@
       </button>
 
       <!-- CHANGE DATA BUTTON CONTAINER -->
-      <div class='flex flex-col mx-auto rounded-xl w-[90vw] mb-12'>
+      <div class='flex flex-col mx-auto rounded-xl w-full mb-12'>
 
         <!-- CHANGE DATA BUTTONS -->
         @for (button of changeDataButtons; track button ) {
