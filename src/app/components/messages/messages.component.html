@@ -1,7 +1,7 @@
 <!-- LOADING ANIMATION -->
 @if (isLoading) {
-  <div class="text-lg justify-center m-auto h-12 w-12 absolute z-30">
-    <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="ping-slower" />
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex justify-center items-center">
+    <img src="../../../assets/animations/loading-globe.gif" alt="Loading Animation" class="h-12 w-12 ping-slower" />
   </div>
 }
 
@@ -11,7 +11,7 @@
     <!-- TITLE COMPONENT -->
     <app-title (click)="onDeselectConversation()">
       <div class="flex flex-row mx-auto">
-        <img src="{{ conversationStarterPic }}" class="w-9 h-9 mr-3 rounded-full" alt="image"/>
+        <img src="{{ conversationStarterPic }}" class="w-9 h-9 mr-3 rounded-full" alt="user-contact-photo"/>
         <span class="mt-1 text-slate-900 dark:text-blue-50">{{ conversationStarterName }}</span>
       </div>
     </app-title>
@@ -24,13 +24,13 @@
 
         <!-- USER'S OWN CHAT MESSAGE -->
         @if (message.userId == this.userService.userState().userId) {
-          <div class="my-2 px-4 py-2 bg-blue-500 dark:bg-[#284a86] right-0 text-right self-end text-white dark:text-sky-50 rounded-2xl text-md w-fit first:mt-16 max-w-[80vw]">
+          <div class="my-1 px-4 py-2 bg-blue-500 dark:bg-[#284a86] right-0 text-right self-end text-white dark:text-sky-50 rounded-2xl text-md w-fit first:mt-16 max-w-[80vw]">
             {{ message.textInput }}
           </div>
 
-        <!-- OTHER PARTICIPANT'S CHAT MESSAGE -->
+        <!-- OTHER PARTICIPANTS' CHAT MESSAGES -->
         } @else {
-          <div class="my-2 px-4 py-2 bg-slate-500 dark:bg-[#5e6179] text-left self-start text-white dark:text-gray-100 rounded-2xl text-md w-fit first:mt-16 max-w-[80vw]">
+          <div class="my-1 px-4 py-2 bg-slate-500 dark:bg-[#5e6179] text-left self-start text-white dark:text-gray-100 rounded-2xl text-md w-fit first:mt-16 max-w-[80vw]">
             {{ message.textInput }}
           </div>
         }
