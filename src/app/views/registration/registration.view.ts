@@ -8,7 +8,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.view.html',
-  styleUrls: ['./registration.view.css', '../login/login.view.css']
+  styleUrls: ['../login/login.view.css']
 })
 export class RegistrationView implements OnInit {
   public registrationForm!: FormGroup;
