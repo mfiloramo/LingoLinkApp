@@ -6,8 +6,7 @@ import { DisplayService } from "../../services/display/display.service";
 @Component({
   selector: 'app-home',
   templateUrl: './home.view.html',
-  styleUrls: [ './home.view.css' ],
-  animations: routerAnimationFade,
+  animations: routerAnimationFade
 
 })
 export class HomeView implements OnInit, AfterViewInit {

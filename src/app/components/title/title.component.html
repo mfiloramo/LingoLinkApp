@@ -1,6 +1,8 @@
 <!-- TITLE COMPONENT CONTAINER -->
 <div class="flex justify-between items-center w-full py-4 fixed top-0 menu-title z-50 min-h-[8vh]">
   <mat-icon class="cursor-pointer absolute text text-3xl ml-4 text-slate-950 dark:text-blue-50 pb-8 z-30 mb-1" (click)="navigationService.navigateBack()">arrow_back</mat-icon>
+
+  <!-- CHAT TITLE -->
   @if (title() === 'Chat') {
     <ng-content />
   } @else {
