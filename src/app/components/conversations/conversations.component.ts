@@ -13,7 +13,6 @@ import { User } from "../../../interfaces/User.interfaces";
 @Component({
   selector: 'app-conversations',
   templateUrl: './conversations.component.html',
-  styleUrls: ['./conversations.component.css'],
 })
 export class ConversationsComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('conversationList') conversationList!: ElementRef<any>;
