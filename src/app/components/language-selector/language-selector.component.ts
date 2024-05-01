@@ -9,7 +9,6 @@ import languageArray from "../../../utils/languageMapper";
   standalone: true,
   imports: [ CommonModule ],
   templateUrl: './language-selector.component.html',
-  styleUrl: './language-selector.component.css',
 })
 export class LanguageSelectorComponent {
   @Input() customStyle?: object;
