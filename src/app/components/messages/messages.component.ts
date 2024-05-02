@@ -13,8 +13,8 @@ import { ConversationService } from "../../services/conversation/conversation.se
 import { MessageService } from '../../services/message/message.service';
 
 // INTERFACES
-import { ChatMessage } from "../../../interfaces/Message.interfaces";
-import { Conversation } from "../../../interfaces/Conversation.interfaces";
+import { ChatMessage } from '../../../interfaces/Message.interfaces';
+import { Conversation } from '../../../interfaces/Conversation.interfaces';
 
 // UTILITIES
 import languageArray from '../../../utils/languageMapper';
