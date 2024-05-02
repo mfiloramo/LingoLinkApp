@@ -14,29 +14,3 @@
   color: rgb(191 219 254 / var(--tw-text-opacity));
   --tw-text-opacity: 1;
 }
-
-.title-component-container {
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100vw;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
-}
-
-.title-component-container::after {
-  content: '';
-  width: 50px;
-  height: 1px;
-  display: block;
-}
-
-.view-title {
-  color: white;
-  margin-left: -15px;
-  font-size: 25px;
-  padding-top: 1vh;
-  text-align: center;
-}

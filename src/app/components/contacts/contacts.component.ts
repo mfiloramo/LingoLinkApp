@@ -13,7 +13,6 @@ import { TitleComponent } from "../title/title.component";
   standalone: true,
   imports: [ CommonModule, MatIconModule, RouterLink, TitleComponent ],
   templateUrl: './contacts.component.html',
-  styleUrls: ['../../components/title/title.component.css']
 })
 export class ContactsComponent {
   public stubContacts: string[] = [ 'TestUser_1', 'TestUser_2', 'TestUser_3','Filoramo', 'show_user_1', 'show_user_2', 'show_user_3', 'show_user_4', 'show_user_5', 'show_user_6' ];
