@@ -9,7 +9,6 @@ import { TitleComponent } from "../../../components/title/title.component";
   standalone: true,
   imports: [ CommonModule, MatIconModule, RouterLink, TitleComponent ],
   templateUrl: './avatar.view.html',
-  styleUrls: ['./avatar.view.css' ]
 })
 export class AvatarView {
 
