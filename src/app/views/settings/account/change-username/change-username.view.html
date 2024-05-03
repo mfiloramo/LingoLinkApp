@@ -2,17 +2,7 @@
 <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
   <!-- MAIN INPUT CONTAINER -->
-  <div class="flex flex-col text-left menu-button-interface px-6 mx-6 rounded-xl mb-12 pt-3 pb-4">
-    <!-- INPUT TITLE -->
-    <div class="mb-1">USERNAME</div>
-    <!-- TEXT INPUT -->
-    <input
-      class="bg-slate-300 text-slate-950 placeholder-slate-800 rounded px-2 py-1"
-      placeholder="{{ this.currentUsername }}"
-      value="{{ this.currentUsername }}"
-    />
-  </div>
-  <!-- END MAIN INPUT CONTAINER -->
+  <app-input-container [dataTargets]="changeUsernameDataTargets" />
 
 </div>
 <!-- END VIEW CONTAINER -->

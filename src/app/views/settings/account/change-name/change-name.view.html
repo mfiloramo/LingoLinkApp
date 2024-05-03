@@ -2,27 +2,7 @@
 <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
   <!-- MAIN INPUT CONTAINER -->
-  <div class="flex flex-col text-left menu-button-interface px-6 mx-6 rounded-xl mb-12 pt-3 pb-4">
-    <!-- INPUT TITLE (FIRST NAME) -->
-    <div class="mb-1">FIRST NAME</div>
-    <!-- TEXT INPUT -->
-    <input
-      class="bg-slate-300 text-slate-950 placeholder-slate-800 rounded-md px-2 py-1 mb-3"
-      placeholder="{{ this.currentFirstName }}"
-      value="{{ this.currentFirstName }}"
-    />
-
-    <!-- INPUT TITLE -->
-    <div class="mb-1">LAST NAME</div>
-    <input
-      class="bg-slate-300 text-slate-950 placeholder-slate-800 rounded-md px-2 py-1 mb-3"
-      placeholder="{{ this.currentLastName }}"
-      value="{{ this.currentLastName }}"
-    />
-
-  </div>
-  <!-- END MAIN INPUT CONTAINER -->
+  <app-input-container [dataTargets]="changeNameDataTargets" />
 
 </div>
 <!-- END VIEW CONTAINER -->
-
