@@ -28,8 +28,4 @@ export class AccountView {
     },
   ];
   constructor(public router: Router) {}
-
-  public prepareRoute(outlet: any): any {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-  }
 }

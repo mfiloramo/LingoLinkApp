@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, AfterViewInit, OnInit } from '@angular/co
 import { Router } from "@angular/router";
 import { routerAnimationFade } from "../../../utils/routerAnimations";
 import { DisplayService } from "../../services/display/display.service";
+import { NavigationService } from "../../services/navigation/navigation.service";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeView implements OnInit, AfterViewInit {
 
   constructor(
     public display: DisplayService,
+    public navigationService: NavigationService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
@@ -27,10 +29,6 @@ export class HomeView implements OnInit, AfterViewInit {
   }
 
   /** PUBLIC METHODS */
-  public prepareRoute(outlet: any): any {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-  }
-
   public isChatRoute(): boolean {
     return this.router.url === '/home/chat';
   }
