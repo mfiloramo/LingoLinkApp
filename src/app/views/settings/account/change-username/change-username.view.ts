@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from "../../../../services/user/user.service";
 import { InputContainerComponent } from "../../../../components/input-container/input-container.component";
+import { ChangeData } from "../../../../../interfaces/ChangeData.interfaces";
 
 @Component({
   selector: 'app-change-username',
@@ -11,7 +12,7 @@ import { InputContainerComponent } from "../../../../components/input-container/
 })
 export class ChangeUsernameView {
   // TODO: IMPLEMENT INTERFACE FOR DATATARGET
-  public changeUsernameDataTargets: any = [
+  public changeUsernameDataTargets: ChangeData[] = [
     { 'type': 'username' , 'target': this.userService.userState().username }
   ];
 
