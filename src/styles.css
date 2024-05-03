@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
   bg-blue-200 focus:bg-[#AACFFE] text-slate-950
 
   /* DARK MODE */
-  dark:bg-slate-700 dark:focus:bg-[#2C3849] dark:text-blue-100
+  dark:bg-slate-700 dark:focus:bg-[#2C3849] dark:text-slate-100
 }
 
 /* UI TITLE */
