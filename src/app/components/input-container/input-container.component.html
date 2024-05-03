@@ -5,7 +5,7 @@
   @for (dataTarget of dataTargets; track dataTarget) {
 
     <!-- INPUT TITLE -->
-    <div class="mb-1">{{ dataTarget.type.toUpperCase() }}</div>
+    <div class="mb-1">{{ dataTarget.type.charAt(0).toUpperCase() + dataTarget.type.slice(1) }}</div>
 
     <!-- TEXT INPUT -->
     <input
