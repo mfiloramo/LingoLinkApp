@@ -16,8 +16,4 @@ import { routerAnimationFade } from "../../../utils/routerAnimations";
 
 })
 export class SettingsView {
-  // PUBLIC METHODS
-  public prepareRoute(outlet: any): any {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-  }
 }

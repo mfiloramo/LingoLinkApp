@@ -15,8 +15,4 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.display.loadSettings();
   }
-
-  public prepareRoute(outlet: any): any {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
-  }
 }
