@@ -1,0 +1,19 @@
+<!-- MAIN INPUT CONTAINER -->
+<div class="flex flex-col text-left menu-button-interface px-6 mx-6 rounded-xl mb-12 pt-3 pb-2">
+
+  <!-- INPUT CHANGE BOXES -->
+  @for (dataTarget of dataTargets; track dataTarget) {
+
+    <!-- INPUT TITLE -->
+    <div class="mb-1">{{ dataTarget.type.toUpperCase() }}</div>
+
+    <!-- TEXT INPUT -->
+    <input
+      class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"
+      placeholder="{{ dataTarget.target }}"
+      value="{{ dataTarget.target }}"
+    />
+  }
+</div>
+<!-- END MAIN INPUT CONTAINER -->
+
