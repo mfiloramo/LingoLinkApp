@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from "../../../../services/user/user.service";
 import { InputContainerComponent } from "../../../../components/input-container/input-container.component";
+import { ChangeData } from "../../../../../interfaces/ChangeData.interfaces";
 
 @Component({
   selector: 'app-change-email',
@@ -10,7 +11,7 @@ import { InputContainerComponent } from "../../../../components/input-container/
   templateUrl: './change-email.view.html',
 })
 export class ChangeEmailView {
-  public changeEmailDataTargets: any = [
+  public changeEmailDataTargets: ChangeData[] = [
     { 'type': 'email' , 'target': this.userService.userState().email }
   ];
 
