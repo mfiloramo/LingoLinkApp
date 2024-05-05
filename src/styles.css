@@ -24,6 +24,9 @@ body::-webkit-scrollbar {
   width: 0 !important;
 }
 
+.blur-backdrop {
+  backdrop-filter: blur(8px);
+}
 
 /* CUSTOM TAILWIND UTILITIES */
 /* UI BACKGROUND */

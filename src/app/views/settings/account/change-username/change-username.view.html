@@ -1,9 +1,18 @@
 <!-- VIEW CONTAINER -->
 <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
-  <!-- MAIN INPUT CONTAINER -->
-  <app-input-container [dataTargets]="changeUsernameDataTargets" />
+    <!-- INPUT CONTAINER -->
+    <app-input-container [dataTargets]="changeUsernameDataTargets" (value)="handleChangeUsername($event)" />
 
+    <!-- CONFIRM DATA CHANGE MODAL -->
+    @if (isModalOpen) {
+      <app-confirm-modal
+        [inputType]="'name'"
+        [inputValues]="[ temporaryUsername ]"
+        (confirmEvent)="confirmChangeUsername(true)"
+        (cancelEvent)="confirmChangeUsername(false)"
+      />
+    }
 </div>
 <!-- END VIEW CONTAINER -->
 

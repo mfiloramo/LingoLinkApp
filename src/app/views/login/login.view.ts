@@ -20,7 +20,7 @@ export class LoginView implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {
   }
 

@@ -2,7 +2,12 @@
 <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
   <!-- MAIN INPUT CONTAINER -->
-  <app-input-container [dataTargets]="changeEmailDataTargets" />
+  <app-input-container [dataTargets]="changeEmailDataTargets" (value)="handleEmailChange($event)" />
+
+  <!-- CONFIRM DATA CHANGE MODAL -->
+  @if (isModalOpen) {
+    <app-confirm-modal [inputType]="'email'" [inputValues]="[ temporaryEmail ]" (confirmEvent)="confirmChangeEmail(true)" (cancelEvent)="confirmChangeEmail(false)" />
+  }
 
 </div>
 <!-- END VIEW CONTAINER -->

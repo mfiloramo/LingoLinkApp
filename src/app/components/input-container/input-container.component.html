@@ -9,10 +9,13 @@
 
     <!-- TEXT INPUT -->
     <input
+      type="text"
+      [(ngModel)]=dataTarget.target
+      (blur)=emitValue()
+      value=dataTarget.target
       class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"
-      placeholder="{{ dataTarget.target }}"
-      value="{{ dataTarget.target }}"
     />
+
   }
 </div>
 <!-- END MAIN INPUT CONTAINER -->
