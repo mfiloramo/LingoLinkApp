@@ -6,7 +6,12 @@
 
   <!-- CONFIRM DATA CHANGE MODAL -->
   @if (isModalOpen) {
-    <app-confirm-modal [inputType]="'name'" [inputValues]="[ temporaryFirstName, temporaryLastName ]" (confirmEvent)="confirmChangeName(true)" (cancelEvent)="confirmChangeName(false)" />
+    <app-confirm-modal
+      [inputType]="'name'"
+      [inputValues]="[ temporaryFirstName, temporaryLastName ]"
+      (confirmEvent)="confirmChangeName(true)"
+      (cancelEvent)="confirmChangeName(false)"
+    />
   }
 </div>
 <!-- END VIEW CONTAINER -->
