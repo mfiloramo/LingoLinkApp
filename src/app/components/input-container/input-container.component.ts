@@ -16,8 +16,9 @@ export class InputContainerComponent {
   constructor(public userService: UserService) {}
 
   /** PUBLIC METHODS */
-  public emitValue(value: string): void {
-    this.value.emit(value);
+  public emitValue(): void {
+    // @ts-ignore
+    this.value.emit(this.dataTargets);
   }
 }
 

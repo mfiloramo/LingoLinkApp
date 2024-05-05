@@ -6,7 +6,8 @@
 
   <!-- CONFIRM DATA CHANGE MODAL -->
   @if (isModalOpen) {
-    <app-confirm-modal [inputType]="'username'" [inputValue]="temporaryEmail" (confirmEvent)="confirmChangeEmail(true)" (cancelEvent)="confirmChangeEmail(false)" />
+    <app-confirm-modal [inputType]="'email'" [inputValues]="[ temporaryEmail ]" (confirmEvent)="confirmChangeEmail(true)" (cancelEvent)="confirmChangeEmail(false)" />
   }
+
 </div>
 <!-- END VIEW CONTAINER -->

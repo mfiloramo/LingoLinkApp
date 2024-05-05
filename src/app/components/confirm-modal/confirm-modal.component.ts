@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import { animate, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'app-confirm-modal',
@@ -21,7 +21,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 })
 export class ConfirmModalComponent {
   @Input() inputType!: string;
-  @Input() inputValue!: string;
+  @Input() inputValues!: (string | undefined)[];
   @Output() confirmEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -33,4 +33,6 @@ export class ConfirmModalComponent {
   public emitCancel(value: boolean): void {
     this.cancelEvent.emit(value);
   }
+
+  protected readonly JSON = JSON;
 }

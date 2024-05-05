@@ -14,7 +14,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class ChangeUsernameView {
   public isModalOpen: boolean = false;
-  public temporaryUsername!: string;
+  public temporaryUsername!: any;
   public changeUsernameDataTargets: ChangeData[] = [
     { 'type': 'username', 'target': this.userService.userState().username }
   ];
@@ -25,11 +25,21 @@ export class ChangeUsernameView {
   ) {}
 
   /** PUBLIC METHODS */
-  public changeUsername(newUsername: string): void {
-    console.log('newUsername', newUsername);
+  public changeUsername(newUsername: any): void {
+    try {
+      // UPDATE USER RECORD IN DATABASE
+      this.userService.updateUsername(newUsername[0].target);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      // UPDATE LOCAL USER STATE
+      this.userService.updateUserState({ username: newUsername });
+    }
+
   }
 
-  public handleUsernameChange(newUsername: string): void {
+  public handleChangeUsername(newUsername: string): void {
+    // DISPLAY MODAL IF USERNAME IS EDITED
     if (newUsername && newUsername !== this.userService.userState().username) {
       this.temporaryUsername = newUsername;
       this.isModalOpen = true;
@@ -40,7 +50,7 @@ export class ChangeUsernameView {
     if (confirm) {
       this.changeUsername(this.temporaryUsername);
       this.isModalOpen = false;
-      this.snackBar.open(`Username successfully changed to ${ this.temporaryUsername }`, 'Dismiss', { duration: 5000 })
+      this.snackBar.open(`Username successfully changed to ${ this.temporaryUsername[0].target }`, 'Dismiss', { duration: 5000 })
     } else {
       this.snackBar.open('Username change canceled', 'Dismiss', { duration: 5000 })
       this.isModalOpen = false;

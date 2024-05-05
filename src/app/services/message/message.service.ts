@@ -11,7 +11,7 @@ export class MessageService {
   public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8080';
   public user: object = {};
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /** PUBLIC METHODS */
   public loadMessages(id: number): Observable<object> {
