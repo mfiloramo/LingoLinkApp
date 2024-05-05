@@ -11,5 +11,4 @@ import { TitleComponent } from "../../../components/title/title.component";
   templateUrl: './avatar.view.html',
 })
 export class AvatarView {
-
 }

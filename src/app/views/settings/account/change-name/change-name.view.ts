@@ -11,7 +11,6 @@ import { ChangeData } from "../../../../../interfaces/ChangeData.interfaces";
   templateUrl: './change-name.view.html',
 })
 export class ChangeNameView {
-  // TODO: IMPLEMENT INTERFACE FOR DATATARGET
   public changeNameDataTargets: ChangeData[] = [
     { 'type': 'First Name' , 'target': this.userService.userState().firstName },
     { 'type': 'Last Name' , 'target': this.userService.userState().lastName },
