@@ -20,6 +20,7 @@ import { animate, style, transition, trigger } from "@angular/animations";
   ]
 })
 export class ConfirmModalComponent {
+  // COMPONENT I/O
   @Input() inputType!: string;
   @Input() inputValues!: (string | undefined)[];
   @Output() confirmEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -27,12 +28,12 @@ export class ConfirmModalComponent {
 
   /** PUBLIC METHODS */
   public emitConfirm(value: boolean): void {
+    // EMIT CONFIRMATION EVENT
     this.confirmEvent.emit(value);
   }
 
   public emitCancel(value: boolean): void {
+    // EMIT CANCELLATION EVENT
     this.cancelEvent.emit(value);
   }
-
-  protected readonly JSON = JSON;
 }
