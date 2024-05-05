@@ -35,12 +35,11 @@ export class ChangeNameView {
     this.userService.updateUserState({ firstName: newFirstName, lastName: newLastName });
   }
 
-  public handleChangeName(newFirstName: string, newLastName?: string | undefined): void {
-    console.log('newFirstName', newFirstName, 'newLastName', newLastName);
+  public handleChangeName(newName: any): void {
     // DISPLAY MODAL IF EITHER FIRST AND/OR LAST NAMES ARE EDITED
-    if ((newFirstName && newFirstName !== this.userService.userState().firstName) || (newLastName && newLastName !== this.userService.userState().lastName)) {
-      this.temporaryFirstName = newFirstName;
-      this.temporaryLastName = newLastName;
+    if ((newName[0].target && newName[0].target !== this.userService.userState().firstName) || (newName[1].target && newName[1].target !== this.userService.userState().lastName)) {
+      this.temporaryFirstName = newName[0].target;
+      this.temporaryLastName = newName[1].target;
       this.isModalOpen = true;
     }
   }

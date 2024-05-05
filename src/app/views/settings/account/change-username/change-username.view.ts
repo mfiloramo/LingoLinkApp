@@ -38,9 +38,9 @@ export class ChangeUsernameView {
     }
   }
 
-  public handleChangeUsername(newUsername: string): void {
+  public handleChangeUsername(newUsername: any): void {
     // DISPLAY MODAL IF USERNAME IS EDITED
-    if (newUsername && newUsername !== this.userService.userState().username) {
+    if (newUsername[0].target && newUsername[0].target !== this.userService.userState().username) {
       this.temporaryUsername = newUsername;
       this.isModalOpen = true;
     }
