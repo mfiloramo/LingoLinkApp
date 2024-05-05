@@ -27,14 +27,6 @@ export class ChangeNameView {
   ) {}
 
   /** PUBLIC METHODS */
-  public changeName(newFirstName: string, newLastName: any): void {
-    // UPDATE USER RECORD IN DATABASE
-    this.userService.updateName(newFirstName, newLastName);
-
-    // UPDATE LOCAL USER STATE
-    this.userService.updateUserState({ firstName: newFirstName, lastName: newLastName });
-  }
-
   public handleChangeName(newName: any): void {
     // DISPLAY MODAL IF EITHER FIRST AND/OR LAST NAMES ARE EDITED
     if ((newName[0].target && newName[0].target !== this.userService.userState().firstName) || (newName[1].target && newName[1].target !== this.userService.userState().lastName)) {
@@ -54,4 +46,14 @@ export class ChangeNameView {
       this.isModalOpen = false;
     }
   }
+
+  /** PRIVATE METHODS */
+  private changeName(newFirstName: string, newLastName: any): void {
+    // UPDATE USER RECORD IN DATABASE
+    this.userService.updateName(newFirstName, newLastName);
+
+    // UPDATE LOCAL USER STATE
+    this.userService.updateUserState({ firstName: newFirstName, lastName: newLastName });
+  }
+
 }

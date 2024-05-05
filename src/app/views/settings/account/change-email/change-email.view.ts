@@ -25,10 +25,6 @@ export class ChangeEmailView {
   ) {}
 
   /** PUBLIC METHODS */
-  public changeEmail(newEmail: string): void {
-    console.log(newEmail);
-  }
-
   public handleEmailChange(newEmail: string): void {
     if (newEmail && newEmail !== this.userService.userState().email) {
       this.temporaryEmail = newEmail;
@@ -45,5 +41,10 @@ export class ChangeEmailView {
       this.snackBar.open('Email change canceled', 'Dismiss', { duration: 5000 })
       this.isModalOpen = false;
     }
+  }
+
+  /** PRIVATE METHODS */
+  private changeEmail(newEmail: string): void {
+    console.log(newEmail);
   }
 }
