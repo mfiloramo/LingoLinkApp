@@ -10,14 +10,13 @@ import { FormsModule } from "@angular/forms";
   templateUrl: './input-container.component.html'
 })
 export class InputContainerComponent {
-  @Input() dataTargets!: any[];
+  @Input() dataTargets!: any;
   @Output() value: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(public userService: UserService) {}
 
   /** PUBLIC METHODS */
   public emitValue(): void {
-    // @ts-ignore
     this.value.emit(this.dataTargets);
   }
 }

@@ -30,12 +30,12 @@ export class ChangeUsernameView {
       // UPDATE USER RECORD IN DATABASE
       this.userService.updateUsername(newUsername[0].target);
     } catch (error) {
+      // LOG ERROR TO CONSOLE
       console.error('Error:', error);
     } finally {
       // UPDATE LOCAL USER STATE
-      this.userService.updateUserState({ username: newUsername });
+      this.userService.updateUserState({ username: newUsername[0].target });
     }
-
   }
 
   public handleChangeUsername(newUsername: string): void {

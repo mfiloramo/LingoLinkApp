@@ -8,7 +8,7 @@
     @if (isModalOpen) {
       <app-confirm-modal
         [inputType]="'name'"
-        [inputValues]="[ temporaryUsername ]"
+        [inputValues]="[ temporaryUsername[0].target ]"
         (confirmEvent)="confirmChangeUsername(true)"
         (cancelEvent)="confirmChangeUsername(false)"
       />
