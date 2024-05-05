@@ -2,7 +2,10 @@
 <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
     <!-- INPUT CONTAINER -->
-    <app-input-container [dataTargets]="changeUsernameDataTargets" (value)="handleChangeUsername($event)" />
+    <app-input-container
+      [dataTargets]="changeUsernameDataTargets"
+      (value)="handleChangeUsername($event)"
+    />
 
     <!-- CONFIRM DATA CHANGE MODAL -->
     @if (isModalOpen) {
@@ -15,4 +18,3 @@
     }
 </div>
 <!-- END VIEW CONTAINER -->
-

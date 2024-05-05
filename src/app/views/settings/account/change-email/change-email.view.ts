@@ -25,9 +25,9 @@ export class ChangeEmailView {
   ) {}
 
   /** PUBLIC METHODS */
-  public handleEmailChange(newEmail: string): void {
-    if (newEmail && newEmail !== this.userService.userState().email) {
-      this.temporaryEmail = newEmail;
+  public handleEmailChange(newEmail: any): void {
+    if (newEmail[0].target && newEmail[0].target !== this.userService.userState().email) {
+      this.temporaryEmail = newEmail[0].target;
       this.isModalOpen = true;
     }
   }
@@ -44,7 +44,8 @@ export class ChangeEmailView {
   }
 
   /** PRIVATE METHODS */
-  private changeEmail(newEmail: string): void {
-    console.log(newEmail);
+  private changeEmail(newEmail: any): void {
+    // SEND CONFIRMATION EMAIL VIA USER SERVICE
+    this.userService.confirmChangeEmail(newEmail);
   }
 }

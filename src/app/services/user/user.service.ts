@@ -59,7 +59,15 @@ export class UserService {
     }
   }
 
-  public updateEmailRequest(newEmail: string): void {
-
+  public confirmChangeEmail(newEmail: string): any {
+    try {
+      return this.http.post<any>(`${ this.apiUrl }/users/email-update-confirm`, {
+        userId: this.userState().userId,
+        email: newEmail
+      })
+        .subscribe((response: any) => console.log(response));
+    } catch (error: any) {
+      console.error('Error:', error);
+    }
   }
 }
