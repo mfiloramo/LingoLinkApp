@@ -21,9 +21,7 @@ export class UserService {
   })
   private apiUrl: string = environment.apiBaseUrl;
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   /** PUBLIC METHODS */
   public updateUserState(newUserState: any): void {
@@ -59,7 +57,15 @@ export class UserService {
     }
   }
 
-  public updateEmailRequest(newEmail: string): void {
-
+  public confirmChangeEmail(newEmail: string): any {
+    try {
+      return this.http.post<any>(`${ this.apiUrl }/users/email-update-confirm`, {
+        userId: this.userState().userId,
+        email: newEmail
+      })
+        .subscribe((response: any) => console.log(response));
+    } catch (error: any) {
+      console.error('Error:', error);
+    }
   }
 }

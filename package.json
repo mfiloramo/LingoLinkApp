@@ -1,6 +1,6 @@
 {
   "name": "lingo-link-app",
-  "version": "2.27.0",
+  "version": "2.27.2",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
