@@ -21,9 +21,7 @@ export class UserService {
   })
   private apiUrl: string = environment.apiBaseUrl;
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   /** PUBLIC METHODS */
   public updateUserState(newUserState: any): void {

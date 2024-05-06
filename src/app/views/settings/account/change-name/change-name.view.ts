@@ -15,7 +15,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class ChangeNameView {
   public isModalOpen: boolean = false;
   public temporaryFirstName!: string;
-  public temporaryLastName!: string | undefined;
+  public temporaryLastName!: string;
   public changeNameDataTargets: ChangeData[] = [
     { 'type': 'First Name' , 'target': this.userService.userState().firstName },
     { 'type': 'Last Name' , 'target': this.userService.userState().lastName },
@@ -48,7 +48,7 @@ export class ChangeNameView {
   }
 
   /** PRIVATE METHODS */
-  private changeName(newFirstName: string, newLastName: any): void {
+  private changeName(newFirstName: string, newLastName: string): void {
     // UPDATE USER RECORD IN DATABASE
     this.userService.updateName(newFirstName, newLastName);
 
