@@ -16,8 +16,10 @@ export class ChangePasswordView {
   public isModalOpen: boolean = false;
   public temporaryPassword!: any;
   public changePasswordDataTargets: ChangeData[] = [
-    { 'type': 'password', 'target': this.userService.userState().password }
-  ];
+    { 'type': 'Current Password', 'target': '' },
+    { 'type': 'New Password', 'target': '' },
+    { 'type': 'Confirm New Password', 'target': '' },
+  ]
   private userId = this.userService.userState().userId;
 
   constructor(
@@ -45,11 +47,10 @@ export class ChangePasswordView {
     }
   }
 
-  /** PRIVATE METHODS */
-  private changePassword(newPassword: any): void {
+  public changePassword(newPassword: any): void {
     try {
       // UPDATE USER RECORD IN DATABASE
-      this.userService.updatePassword(this.userId, newPassword);
+      this.userService.(this.userId, newPassword);
     } catch (error) {
       // LOG ERROR TO CONSOLE
       console.error('Error:', error);
