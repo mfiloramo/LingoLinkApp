@@ -3,7 +3,13 @@
 
   <!-- CONFIRM MODAL INNER CONTENTS -->
   <p class="text-slate-900 dark:text-slate-50 text-2xl font-bold">Confirm {{ inputType }} change</p>
-  <p class="text-slate-800 dark:text-slate-200 text-lg ">Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?</p>
+  <p class="text-slate-800 dark:text-slate-200 text-lg">
+    Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?</p>
+  @if (inputType === 'email') {
+    <p class="text-slate-800 dark:text-slate-200 text-lg">
+      {{ inputType === 'email' ? 'A confirmation email will be sent to the address provided.' : '' }}
+    </p>
+  }
   <!-- BUTTON CONTAINER -->
   <div class="mt-4 flex flex-row gap-3 justify-end">
     <!-- CANCEL BUTTON -->
