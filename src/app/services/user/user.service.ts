@@ -2,7 +2,6 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { User } from "../../../interfaces/User.interfaces";
 import { HttpClient } from "@angular/common/http";
-import { Observable, Subscription } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +39,7 @@ export class UserService {
       })
         .subscribe((response: any): void => console.log(response));
     } catch (error: any) {
-      console.error('Error:', error);
+      console.error('Error updating username:', error);
     }
   }
 
@@ -53,7 +52,15 @@ export class UserService {
       })
         .subscribe((response: any): void => console.log(response));
     } catch (error: any) {
-      console.error('Error:', error);
+      console.error('Error updating name:', error);
+    }
+  }
+
+  public deleteUser(userId: number, password: string): void {
+    try {
+
+    } catch (error: any) {
+      console.error('Error deleting user:', error);
     }
   }
 
@@ -65,7 +72,7 @@ export class UserService {
       })
         .subscribe((response: any) => console.log(response));
     } catch (error: any) {
-      console.error('Error:', error);
+      console.error('Error changing email:', error);
     }
   }
 }
