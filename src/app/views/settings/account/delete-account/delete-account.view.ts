@@ -40,7 +40,9 @@ export class DeleteAccountView {
         this.authService.validateUser(email, password)
           .subscribe((response: any): void => {
             if (response.username) {
+              this.userService.deleteUser(this.userService.userState().userId, password)
               this.authService.logout();
+              this.snackBar.open(`Your account has been successfully deleted`, 'Dismiss', { duration: 5000 })
               return response;
             }
           });
