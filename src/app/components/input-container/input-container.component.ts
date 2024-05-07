@@ -12,12 +12,20 @@ import { FormsModule } from "@angular/forms";
 export class InputContainerComponent {
   @Input() dataTargets!: any;
   @Output() value: EventEmitter<string> = new EventEmitter<string>();
+  @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
+
+  public password: string = '';
+
 
   constructor(public userService: UserService) {}
 
   /** PUBLIC METHODS */
-  public emitValue(): void {
+  public emitDataTargets(): void {
     this.value.emit(this.dataTargets);
+  }
+
+  public emitValue(password: any): void {
+    this.passwordChange.emit(password);
   }
 }
 

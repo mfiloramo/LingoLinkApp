@@ -1,22 +1,31 @@
 <!-- MAIN INPUT CONTAINER -->
-<div class="flex flex-col text-left menu-button-interface px-6 mx-6 rounded-xl mb-12 pt-3 pb-2">
+<div class="flex flex-col text-left menu-button-interface px-6 rounded-xl pt-3 pb-2 h-fit shadow-xl">
 
   <!-- INPUT CHANGE BOXES -->
   @for (dataTarget of dataTargets; track dataTarget) {
-
     <!-- INPUT TITLE -->
-    <div class="mb-1">{{ dataTarget.type.charAt(0).toUpperCase() + dataTarget.type.slice(1) }}</div>
+    @if (dataTarget.type === 'delete-account') {
+      <p class="text-lg text-slate-50">Please enter your password to confirm you'd like to delete your account.</p>
+      <input
+        type='password'
+        [(ngModel)]="password"
+        (blur)="emitValue(password)"
+        class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"
+      />
+    } @else {
+      <!-- HEADING -->
+      <div class="mb-1">{{ dataTarget.type.charAt(0).toUpperCase() + dataTarget.type.slice(1) }}</div>
 
-    <!-- TEXT INPUT -->
-    <input
-      type="text"
-      [(ngModel)]=dataTarget.target
-      (blur)=emitValue()
-      value=dataTarget.target
-      class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"
-    />
-
+      <!-- TEXT INPUT -->
+      <input
+        type="text"
+        [(ngModel)]="dataTarget.target"
+        (blur)="emitDataTargets()"
+        class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"
+      />
+    }
   }
+  <!-- END INPUT CHANGE BOXES -->
+
 </div>
 <!-- END MAIN INPUT CONTAINER -->
-

@@ -1,4 +1,33 @@
 <!-- VIEW CONTAINER -->
-<div class="menu-background h-screen"></div>
+<div class="text-xl w-full flex flex-col pt-24 px-6 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
+
+  <!-- CONFIRM ACCOUNT DELETION MODAL (DISPLAYED ON PAGE INIT) -->
+  <app-confirm-modal
+    [inputType]="'delete-account'"
+    [inputValues]="[ userService.userState().email ]"
+    [displayAdditionalContent]="isFinalConfirmInputOpened"
+    (confirmEvent)="requestDeleteAccount(true)"
+    (cancelEvent)="requestDeleteAccount(false)"
+  >
+
+    <!-- ADDITIONAL CONTENT CONTAINER -->
+    <div class="my-4">
+      <app-input-container
+        [dataTargets]="deleteAccountDataTargets"
+        (passwordChange)="setPassword($event)"
+      />
+      <button
+        class="h-11 w-full bg-red-600 hover:bg-red-700 active:bg-red-800 transition-colors ease-in-out duration-150 text-red-100 text-left pl-4 mt-6 rounded-xl shadow-xl"
+        routerLink="/"
+        (click)="confirmDeleteAccount(userService.userState().email, password)"
+      >
+        Delete Account
+      </button>
+    </div>
+    <!-- END ADDITIONAL CONTENT CONTAINER -->
+
+  </app-confirm-modal>
+
+</div>
 <!-- END VIEW CONTAINER -->
 

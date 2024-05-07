@@ -3,10 +3,10 @@
   <div class="text-xl w-full flex flex-col pt-24 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
     <!-- MAIN BUTTON CONTAINER -->
-    <div class='flex flex-col mx-auto w-full px-6 rounded-xl mb-12'>
+    <div class='flex flex-col mx-auto w-full px-6 rounded-xl mb-12 shadow-xl'>
 
       <!-- ACCOUNT INFO BUTTON -->
-      <button class="h-20 text-left pl-4 border-b-0 rounded-xl mb-12 menu-button-interface" routerLink="account-info">
+      <button class="h-20 text-left pl-4 border-b-0 rounded-xl mb-12 menu-button-interface shadow-xl" routerLink="account-info">
 
         <div class="flex flex-row pr-3 justify-between items-center">
 
@@ -28,7 +28,7 @@
 
         <!-- CHANGE DATA BUTTONS -->
         @for (button of changeDataButtons; track button ) {
-          <button class="flex flex-row items-center menu-button-interface h-11 pl-4 text-left first:rounded-t-xl last:rounded-b-xl px-3 border-black justify-between border-b-0" routerLink="{{ button.route }}">
+          <button class="flex flex-row items-center menu-button-interface h-11 pl-4 text-left first:rounded-t-xl last:rounded-b-xl px-3 border-black justify-between border-b-0 shadow-xl" routerLink="{{ button.route }}">
             <div>{{ button.name }}</div>
             <mat-icon>chevron_right</mat-icon>
           </button>
@@ -37,7 +37,7 @@
       <!-- END CHANGE DATA BUTTON CONTAINER -->
 
       <!-- DELETE ACCOUNT BUTTON -->
-      <button class="h-11 bg-red-600 focus:bg-red-700 text-red-100 text-left pl-4 rounded-xl" routerLink="delete-account">Delete Account</button>
+      <button class="h-11 bg-red-600 hover:bg-red-700 active:bg-red-800 transition-colors ease-in-out duration-150 text-red-100 text-left pl-4 rounded-xl shadow-xl" routerLink="delete-account">Delete Account</button>
 
     </div>
     <!-- END MAIN BUTTON CONTAINER -->
