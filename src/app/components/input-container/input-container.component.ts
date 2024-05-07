@@ -10,10 +10,12 @@ import { FormsModule } from "@angular/forms";
   templateUrl: './input-container.component.html'
 })
 export class InputContainerComponent {
+  // COMPONENT I/O
   @Input() dataTargets!: any;
-  @Output() value: EventEmitter<string> = new EventEmitter<string>();
+  @Output() dataTarget: EventEmitter<string> = new EventEmitter<string>();
   @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
 
+  // COMPONENT STATE
   public password: string = '';
 
 
@@ -21,7 +23,7 @@ export class InputContainerComponent {
 
   /** PUBLIC METHODS */
   public emitDataTargets(): void {
-    this.value.emit(this.dataTargets);
+    this.dataTarget.emit(this.dataTargets);
   }
 
   public emitValue(password: any): void {

@@ -35,12 +35,20 @@ export class DeleteAccountView {
   }
 
   public confirmDeleteAccount(email: string, password: any): void {
-    try {
-      this.authService.validateUser(email, password)
-        .subscribe((response: any): void => response);
-
-    } catch (error: any) {
-      console.error('Error deleting user account:', error);
+    if (email && password) {
+      try {
+        this.authService.validateUser(email, password)
+          .subscribe((response: any): void => {
+            if (response.username) {
+              this.userService.deleteUser(this.userService.userState().userId, password)
+              this.authService.logout();
+              this.snackBar.open(`Your account has been successfully deleted`, 'Dismiss', { duration: 5000 })
+              return response;
+            }
+          });
+      } catch (error: any) {
+        console.error('Error deleting user account:', error);
+      }
     }
   }
 

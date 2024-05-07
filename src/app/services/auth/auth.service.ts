@@ -29,7 +29,7 @@ export class AuthService {
     return this.http.get<any>(`${ this.apiUrl }/auth`, { params: { email, password } })
       .pipe(
         tap((response: User) => this.handleLoginResponse(response)),
-        catchError((error: any): any => this.handleError(error)),
+        catchError((error: any): any => this.handleError(error, 'Please enter the correct password for your account')),
       );
   }
 
@@ -72,8 +72,10 @@ export class AuthService {
     return this.http.get<any>(`${this.apiUrl}/auth/notify`, { params: { userEmail } });
   }
 
-  private handleError(error: any): Observable<never> {
-    this.displaySnackBar('An error occurred');
+  private handleError(error: any, message?: string): Observable<never> {
+    // DEFAULT ERROR MESSAGE IF NONE IS INPUTTED
+    if (!message) message = 'An error occurred'
+    this.displaySnackBar(message);
     return throwError(error);
   }
 

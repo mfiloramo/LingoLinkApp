@@ -56,13 +56,15 @@ export class UserService {
     }
   }
 
-  public deleteUser(userId: number, password: string): void {
+  public deleteUser(userId: number, password: string): any {
     try {
-
+      return this.http.post<any>(`${ this.apiUrl }/users/delete-user`, { userId, password })
+        .subscribe((response: any) => console.log(response));
     } catch (error: any) {
-      console.error('Error deleting user:', error);
+      console.error('Error changing email:', error);
     }
   }
+
 
   public confirmChangeEmail(newEmail: string): any {
     try {
