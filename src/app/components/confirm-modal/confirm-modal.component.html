@@ -1,26 +1,48 @@
 <!-- CONFIRM MODAL MAIN CONTAINER -->
 <div [@fadeBlur] class="px-5 py-7 h-fit w-[80vw] mx-auto mt-10 bg-blue-200 text-slate-900 dark:text-slate-200 dark:bg-slate-500 flex flex-col rounded-2xl shadow-2xl z-50">
 
-  <!-- CONFIRM MODAL INNER CONTENTS -->
   <!-- TITLE -->
-  <p class="text-slate-900 dark:text-slate-50 text-2xl font-bold">Confirm {{ inputType }} change</p>
+  <p class="text-slate-900 dark:text-slate-50 text-2xl font-bold">
+    @if (inputType === 'delete-account') {
+      Confirm user account deletion
+    } @else {
+      <!-- DEFAULT CONFIRM MODAL TITLE -->
+      Confirm {{ inputType }} change
+    }
+  </p>
+
   <!-- BODY TEXT -->
   <p class="text-slate-800 dark:text-slate-200 text-lg">
-    Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?</p>
-  <!-- CONDITIONAL EMAIL MESSAGE -->
-  @if (inputType === 'email') {
-    <p class="text-slate-800 dark:text-slate-200 text-lg">
-      {{ inputType === 'email' ? 'A confirmation email will be sent to the address provided.' : '' }}
-    </p>
+    <!-- DEFAULT CONFIRM MODAL MESSAGE -->
+    @if (inputType !== 'delete-account') {
+      Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?
+    }
+    <!-- CONDITIONAL: EMAIL MESSAGE -->
+    @if (inputType === 'email') {
+      <p class="pt-4 text-slate-800 dark:text-slate-200 text-lg">
+        {{ inputType === 'email' ? 'A confirmation email will be sent to the address provided.' : '' }}
+      </p>
+    } @else if (inputType === 'delete-account') {
+      <!-- CONDITIONAL: USER ACCOUNT DELETION MESSAGE -->
+      Are you sure you'd like to delete your account with email {{ inputValues.join(' ') }}? This action cannot be undone.
+    }
+  </p>
+  <!-- END BODY TEXT -->
+
+  <!-- ADDITIONAL CONTENT DISPLAY -->
+  @if (this.displayAdditionalContent) {
+    <ng-content />
   }
+
   <!-- BUTTON CONTAINER -->
-  <div class="mt-4 flex flex-row gap-3 justify-end">
-    <!-- CANCEL BUTTON -->
-    <button class="bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-950 rounded-xl h-12 w-24 transition-colors duration-150 ease-in-out shadow-lg" (click)="emitCancel(true)">Cancel</button>
-    <!-- CONFIRM BUTTON -->
-    <button class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-blue-100 rounded-xl h-12 w-24 transition-colors duration-150 ease-in-out shadow-lg" (click)="emitConfirm(true)">Confirm</button>
-  </div>
-  <!-- END CONFIRM MODAL INNER CONTENTS -->
+  @if (!this.displayAdditionalContent) {
+    <div class="mt-4 flex flex-row gap-3 justify-end">
+      <!-- CANCEL BUTTON -->
+      <button class="bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-950 rounded-xl h-12 w-24 transition-colors duration-150 ease-in-out shadow-lg" (click)="emitCancel(true)">Cancel</button>
+      <!-- CONFIRM BUTTON -->
+      <button class=" {{ this.inputType === 'delete-account' ? 'bg-red-600 hover:bg-red-700 active:bg-red-800' : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-blue-100' }} rounded-xl h-12 w-24 transition-colors duration-150 ease-in-out shadow-lg" (click)="emitConfirm(true)">Confirm</button>
+    </div>
+  }
 
 </div>
 <!-- END CONFIRM MODAL MAIN CONTAINER -->

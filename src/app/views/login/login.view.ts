@@ -33,7 +33,7 @@ export class LoginView implements OnInit {
   /** PUBLIC METHODS */
   public onLoginFormSubmit(email: string, password: string): void {
     if (this.loginForm.valid) {
-      this.authService.login(email, password)
+      this.authService.validateUser(email, password)
         .subscribe({
           next: (response: any): void => {
             this.userService.updateUserState(response);

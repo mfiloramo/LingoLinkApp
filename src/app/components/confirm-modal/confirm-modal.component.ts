@@ -23,6 +23,7 @@ export class ConfirmModalComponent {
   // COMPONENT I/O
   @Input() inputType!: string;
   @Input() inputValues!: (string | undefined)[];
+  @Input() displayAdditionalContent: boolean = false;
   @Output() confirmEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 

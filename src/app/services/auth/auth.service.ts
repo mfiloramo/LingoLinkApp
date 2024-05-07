@@ -25,17 +25,12 @@ export class AuthService {
     return this.loggedIn();
   }
 
-  public login(email: string, password: string): Observable<any> {
+  public validateUser(email: string, password: string): Observable<any> {
     return this.http.get<any>(`${ this.apiUrl }/auth`, { params: { email, password } })
       .pipe(
         tap((response: User) => this.handleLoginResponse(response)),
         catchError((error: any): any => this.handleError(error)),
       );
-  }
-
-  public logout(): void {
-    this.loggedIn.set(false);
-    this.router.navigate(['/login']);
   }
 
   public register(user: User): Observable<any> {
@@ -47,6 +42,11 @@ export class AuthService {
         tap((response: any) => this.handleRegisterResponse(response, user)),
         catchError((error: any) => this.handleError(error))
       );
+  }
+
+  public logout(): void {
+    this.loggedIn.set(false);
+    this.router.navigate(['/login']);
   }
 
   /** PRIVATE METHODS */
