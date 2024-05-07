@@ -35,12 +35,18 @@ export class DeleteAccountView {
   }
 
   public confirmDeleteAccount(email: string, password: any): void {
-    try {
-      this.authService.validateUser(email, password)
-        .subscribe((response: any): void => response);
-
-    } catch (error: any) {
-      console.error('Error deleting user account:', error);
+    if (email && password) {
+      try {
+        this.authService.validateUser(email, password)
+          .subscribe((response: any): void => {
+            if (response.username) {
+              this.authService.logout();
+              return response;
+            }
+          });
+      } catch (error: any) {
+        console.error('Error deleting user account:', error);
+      }
     }
   }
 
