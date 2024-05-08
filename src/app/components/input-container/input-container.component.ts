@@ -14,6 +14,7 @@ export class InputContainerComponent {
   @Input() dataTargets!: any;
   @Output() dataTarget: EventEmitter<string> = new EventEmitter<string>();
   @Output() passwordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() outputEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   // COMPONENT STATE
   public password: string = '';
@@ -26,8 +27,13 @@ export class InputContainerComponent {
     this.dataTarget.emit(this.dataTargets);
   }
 
-  public emitValue(password: any): void {
+  public emitPassword(password: any): void {
     this.passwordChange.emit(password);
+  }
+
+  public emitPasswordConfirm(output: any): void {
+    this.passwordChange.emit(this.password);
+    this.outputEmitter.emit(output);
   }
 }
 

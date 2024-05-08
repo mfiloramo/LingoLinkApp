@@ -11,17 +11,23 @@
   >
 
     <!-- ADDITIONAL CONTENT CONTAINER -->
+
+    <!-- EMAIL CONFIRMATION INPUT CONTAINER -->
     <div class="my-4">
       <app-input-container
         [dataTargets]="deleteAccountDataTargets"
         (passwordChange)="setPassword($event)"
+        (outputEmitter)="confirmDeleteAccount(userService.userState().email, password)"
+
       />
+      <!-- DELETE ACCOUNT BUTTON -->
       <button
         class="h-11 w-full bg-red-600 hover:bg-red-700 active:bg-red-800 transition-colors ease-in-out duration-150 text-red-100 text-left pl-4 mt-6 rounded-xl shadow-xl"
         (click)="confirmDeleteAccount(userService.userState().email, password)"
       >
         Delete Account
       </button>
+
     </div>
     <!-- END ADDITIONAL CONTENT CONTAINER -->
 
@@ -29,5 +35,3 @@
 
 </div>
 <!-- END VIEW CONTAINER -->
-
-<!-- button gets routerLink="/" -->
