@@ -36,4 +36,3 @@ export class InputContainerComponent {
     this.outputEmitter.emit(output);
   }
 }
-
