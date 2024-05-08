@@ -5,15 +5,19 @@ import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { TitleComponent } from "../../../components/title/title.component";
 import { routerAnimationFade } from "../../../../utils/routerAnimations";
 
+export interface ChangeDataButton {
+  readonly name: string;
+  readonly route: string;
+}
 @Component({
   selector: 'app-account',
   standalone: true,
   imports: [ CommonModule, MatIconModule, RouterLink, TitleComponent, RouterOutlet ],
   templateUrl: './account.view.html',
-  animations: routerAnimationFade,
+  animations: routerAnimationFade
 })
 export class AccountView {
-  public changeDataButtons: any[] = [
+  public changeDataButtons: ChangeDataButton[] = [
     {
       name: 'Change Username',
       route: 'change-username'
@@ -26,6 +30,10 @@ export class AccountView {
       name: 'Change Email',
       route: 'change-email'
     },
+    {
+      name: 'Change Password',
+      route: 'change-password'
+    }
   ];
   constructor(public router: Router) {}
 }

@@ -1,12 +1,13 @@
 <!-- MAIN INPUT CONTAINER -->
 <div class="flex flex-col text-left menu-button-interface {{ dataTargets[0].type === 'delete-account' ? 'bg-slate-500 text-white' : 'bg-blue-200' }} dark:bg-slate-700 dark:text-slate-100 px-6 rounded-xl pt-3 pb-2 h-fit shadow-xl mb-8 animate-fadeIn">
 
-  <!-- TODO: FIX INPUT COMPONENT BACKGROUND COLOR IN LIGHT MODE -->
   <!-- INPUT CHANGE BOXES -->
   @for (dataTarget of dataTargets; track dataTarget) {
-    <!-- INPUT TITLE -->
-    @if (dataTarget.type === 'delete-account') {
+    <!-- DELETE ACCOUNT WARNING MESSAGE -->
+    @if (this.router.url.endsWith('/delete-account')) {
       <p class="text-lg">Please enter your password to confirm you'd like to delete your account.</p>
+
+      <!-- PASSWORD INPUT FOR DELETE ACCOUNT -->
       <input
         type='password'
         [(ngModel)]="password"
@@ -16,12 +17,12 @@
         autocomplete="off"
       />
     } @else {
-      <!-- HEADING -->
-      <div class="mb-1">{{ dataTarget.type.charAt(0).toUpperCase() + dataTarget.type.slice(1) }}</div>
+      <!-- INPUT HEADING -->
+      <div class="mb-1">{{ stringFormatter(dataTarget.type) }}</div>
 
-      <!-- TEXT INPUT -->
+      <!-- TEXT INPUT FOR OTHER MENUS + CHANGE PASSWORD TEXT HIDE -->
       <input
-        type="text"
+        type="{{ this.router.url.endsWith('/change-password') ? 'password' : 'text' }}"
         [(ngModel)]="dataTarget.target"
         (blur)="emitDataTargets()"
         class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"

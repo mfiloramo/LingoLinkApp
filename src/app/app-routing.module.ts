@@ -28,6 +28,7 @@ import { ChangeUsernameView } from "./views/settings/account/change-username/cha
 import { ChangeNameView } from "./views/settings/account/change-name/change-name.view";
 import { ChangeEmailView } from "./views/settings/account/change-email/change-email.view";
 import { DeleteAccountView } from "./views/settings/account/delete-account/delete-account.view";
+import { ChangePasswordView } from "./views/settings/account/change-password/change-password.view";
 
 const routes: Routes = [
   {
@@ -115,6 +116,12 @@ const routes: Routes = [
                   component: ChangeEmailView,
                   canActivate: [AuthGuard],
                   data: { animation: 'change-email' }
+                },
+                {
+                  path: 'change-password',
+                  component: ChangePasswordView,
+                  canActivate: [ AuthGuard ],
+                  data: { animation: 'change-password' }
                 },
                 {
                   path: 'delete-account',
