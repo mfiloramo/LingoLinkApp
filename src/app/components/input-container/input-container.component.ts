@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from "../../services/user/user.service";
 import { FormsModule } from "@angular/forms";
+import { Router } from "@angular/router";
+import { UserService } from "../../services/user/user.service";
+import { stringFormatter } from "../../../utils/stringFormatter";
 
 @Component({
   selector: 'app-input-container',
@@ -20,7 +22,11 @@ export class InputContainerComponent {
   public password: string = '';
 
 
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    public router: Router
+  ) {
+  }
 
   /** PUBLIC METHODS */
   public emitDataTargets(): void {
@@ -35,4 +41,6 @@ export class InputContainerComponent {
     this.passwordChange.emit(this.password);
     this.outputEmitter.emit(output);
   }
+
+  protected readonly stringFormatter = stringFormatter;
 }

@@ -5,6 +5,7 @@ import { InputContainerComponent } from "../../../../components/input-container/
 import { ChangeData } from "../../../../../interfaces/ChangeData.interfaces";
 import { ConfirmModalComponent } from "../../../../components/confirm-modal/confirm-modal.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { AuthService } from "../../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-change-Password',
@@ -16,14 +17,15 @@ export class ChangePasswordView {
   public isModalOpen: boolean = false;
   public temporaryPassword!: any;
   public changePasswordDataTargets: ChangeData[] = [
-    { 'type': 'Current Password', 'target': '' },
-    { 'type': 'New Password', 'target': '' },
-    { 'type': 'Confirm New Password', 'target': '' },
+    { 'type': 'current-password', 'target': '' },
+    { 'type': 'new-password', 'target': '' },
+    { 'type': 'confirm-new-password', 'target': '' },
   ]
   private userId = this.userService.userState().userId;
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -50,7 +52,7 @@ export class ChangePasswordView {
   public changePassword(newPassword: any): void {
     try {
       // UPDATE USER RECORD IN DATABASE
-      this.userService.(this.userId, newPassword);
+      this.authService.validateUser(this.userId, newPassword);
     } catch (error) {
       // LOG ERROR TO CONSOLE
       console.error('Error:', error);
