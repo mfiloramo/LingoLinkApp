@@ -36,7 +36,6 @@ export class ChangePasswordView {
     try {
       if (data.type) {
         this.temporaryPassword[data.type] = data.value;
-
         // // CHECK IF ALL FIELDS ARE FILLED
         if (this.temporaryPassword.currentPassword && this.temporaryPassword.newPassword && this.temporaryPassword.confirmNewPassword) {
           if (this.temporaryPassword.newPassword === this.temporaryPassword.confirmNewPassword) {
@@ -50,18 +49,22 @@ export class ChangePasswordView {
     } catch (error: any) {
       console.error('Error in password input:', error);
     }
-
   }
 
   public confirmChangePassword(confirm: boolean): void {
     if (confirm) {
+      // VALIDATE USER EMAIL/PASSWORD AGAINST DATABASE
       this.authService.validateUser(this.userService.userState().email, this.temporaryPassword.currentPassword)
         .subscribe((response: any): void => {
           if (response.username) {
+            // CHANGE PASSWORD IF VALID RESPONSE RECEIVED
             this.changePassword(this.temporaryPassword.newPassword);
             this.snackBar.open(`Password successfully changed`, 'Dismiss', { duration: 5000 });
+            return;
           } else {
+            // DISPLAY ERROR IF INVALID RESPONSE RECEIVED
             this.snackBar.open(`Current password is incorrect.`, 'Dismiss', { duration: 5000 });
+            return;
           }
         });
     } else {
@@ -71,6 +74,7 @@ export class ChangePasswordView {
   }
 
   public changePassword(newPassword: any): void {
+    console.log('changePassword pinged!');
     // UPDATE USER RECORD IN DATABASE
     // ...
     // LEVERAGE AUTH SERVICE
