@@ -1,4 +1,10 @@
-// FORMAT STRING WITH HYPHENS AND LOWERCASE TO CAPITALS FIRST LETTERS AND NO HYPHENS
-export function stringFormatter(str: string): string {
-  return str.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+// UTILITY FUNCTIONS FOR FORMATTING RENDERED STRINGS
+export function stringFormatterSnakeToNameCase(str: string): string {
+  return str.replace(/[-_]/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 }
+
+export function stringFormatterCamelToNameCase(str: string): string {
+  str = str.replace(/([A-Z])/g, ' $1').trim();
+  return str.replace(/\b\w/g, char => char.toUpperCase());
+}
+
