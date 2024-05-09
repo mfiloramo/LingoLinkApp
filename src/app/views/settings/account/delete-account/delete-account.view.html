@@ -1,7 +1,7 @@
 <!-- VIEW CONTAINER -->
 <div class="text-xl w-full flex flex-col pt-24 px-6 menu-background z-20 text-black h-screen overflow-y-visible animate-fadeIn">
 
-  <!-- CONFIRM ACCOUNT DELETION MODAL (DISPLAYED ON PAGE INIT) -->
+  <!-- CONFIRM ACCOUNT DELETION MODAL -->
   <app-confirm-modal
     [inputType]="'delete-account'"
     [inputValues]="[ userService.userState().email ]"
@@ -32,6 +32,7 @@
     <!-- END ADDITIONAL CONTENT CONTAINER -->
 
   </app-confirm-modal>
+  <!-- CONFIRM ACCOUNT DELETION MODAL -->
 
 </div>
 <!-- END VIEW CONTAINER -->

@@ -31,10 +31,13 @@ export class DeleteAccountView {
 
   /** PUBLIC METHODS */
   public setPassword(password: string): void {
+    // TODO: THIS IS NO LONGER SETTING PASSWORD; MUST FIX
+    console.log('setPassword pinged')
     this.password = password;
   }
 
   public confirmDeleteAccount(email: string, password: any): void {
+    console.log('email', email, 'password', password);
     if (email && password) {
       try {
         this.authService.validateUser(email, password)
