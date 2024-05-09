@@ -13,7 +13,7 @@
       <input
         type='password'
         [(ngModel)]="password"
-        (keyup.enter)="emitPasswordConfirm(password)"
+        (blur)="emitPasswordConfirm(password)"
         (change)="emitPassword(password)"
         class="bg-slate-50 text-slate-950 dark:placeholder-slate-700 rounded px-2 py-1 mb-4"
         autocomplete="off"
