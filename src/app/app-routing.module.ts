@@ -33,7 +33,7 @@ import { ChangePasswordView } from "./views/settings/account/change-password/cha
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home/settings/account/change-password', // PROD: '/login'
+    redirectTo: '/login', // PROD: '/login'
     pathMatch: 'full'
   },
   {

@@ -41,7 +41,7 @@ export class DeleteAccountView {
           .subscribe((response: any): void => {
             if (response.username) {
               this.userService.deleteUser(this.userService.userState().userId, password)
-              this.authService.logout();
+              this.authService.logoutUser();
               this.snackBar.open(`Your account has been successfully deleted`, 'Dismiss', { duration: 5000 })
               return response;
             }

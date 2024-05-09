@@ -25,6 +25,8 @@ export class ChangePasswordView {
     { 'type': 'newPassword', 'target': '' },
     { 'type': 'confirmNewPassword', 'target': '' },
   ]
+  protected readonly confirm = confirm;
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -58,7 +60,7 @@ export class ChangePasswordView {
         .subscribe((response: any): void => {
           if (response.username) {
             // CHANGE PASSWORD IF VALID RESPONSE RECEIVED
-            this.changePassword(this.temporaryPassword.newPassword);
+            this.changePassword();
             this.snackBar.open(`Password successfully changed`, 'Dismiss', { duration: 5000 });
             return;
           } else {
@@ -73,15 +75,8 @@ export class ChangePasswordView {
     this.isModalOpen = false;
   }
 
-  public changePassword(newPassword: any): void {
-    console.log('changePassword pinged!');
-    // UPDATE USER RECORD IN DATABASE
-    // ...
-    // LEVERAGE AUTH SERVICE
-    // ...
-    // LOG ERROR TO CONSOLE
-    // ...
+  /** PRIVATE METHODS */
+  private changePassword(): void {
+    this.authService.changePassword(this.userService.userState().email, this.temporaryPassword.newPassword)
   }
-
-  protected readonly confirm = confirm;
 }

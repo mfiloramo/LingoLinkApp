@@ -13,18 +13,21 @@
 
   <!-- BODY TEXT -->
   <p class="text-slate-800 dark:text-slate-200 text-lg">
-    <!-- DEFAULT CONFIRM MODAL MESSAGE -->
-    @if (inputType !== 'delete-account') {
-      Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?
-    }
-    <!-- CONDITIONAL: EMAIL MESSAGE -->
-    @if (inputType === 'email') {
+    <!-- CONDITIONAL: CHANGE PASSWORD MESSAGE -->
+    @if (inputType === 'password') {
+      Are you sure you'd like to change your {{ inputType }}?
+      <!-- CONDITIONAL: EMAIL MESSAGE -->
+    } @else if (inputType === 'email') {
       <p class="pt-4 text-slate-800 dark:text-slate-200 text-lg">
-        {{ inputType === 'email' ? 'A confirmation email will be sent to the address provided.' : '' }}
+        Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?</p>
+      <p>{{ inputType === 'email' ? 'A confirmation email will be sent to the address provided.' : '' }}
       </p>
     } @else if (inputType === 'delete-account') {
       <!-- CONDITIONAL: USER ACCOUNT DELETION MESSAGE -->
       Are you sure you'd like to delete your account with email {{ inputValues.join(' ') }}? This action cannot be undone.
+    } @else {
+      <!-- DEFAULT CONFIRM MODAL MESSAGE -->
+        Are you sure you'd like to change your {{ inputType }} to {{ inputValues.join(' ') }}?
     }
   </p>
   <!-- END BODY TEXT -->
