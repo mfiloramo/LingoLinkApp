@@ -36,7 +36,7 @@ export class NavbarComponent {
 
   /** PUBLIC METHODS */
   public logout(): void {
-    this.authService.logout();
+    this.authService.logoutUser();
     return;
   }
 }

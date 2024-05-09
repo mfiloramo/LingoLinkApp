@@ -28,7 +28,7 @@ export class RegistrationView implements OnInit {
   /** PUBLIC METHODS */
   public onRegistrationFormSubmit(): void {
     const user = this.registrationForm.value;
-    this.authService.register(user).subscribe({
+    this.authService.registerUser(user).subscribe({
       next: (): void => {
         this.router.navigate([ '/login' ]);
       },

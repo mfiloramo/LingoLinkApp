@@ -33,7 +33,7 @@ export class AuthService {
       );
   }
 
-  public register(user: User): Observable<any> {
+  public registerUser(user: User): Observable<any> {
     // STUB: GENERATE RANDOM PROFILE IMAGE AS STRING
     user.profileImg = `https://randomuser.me/api/portraits/${ Math.random() < 0.5 ? 'men' : 'women' }/${ Math.floor(Math.random() * 50) + 1 }.jpg`;
 
@@ -44,9 +44,19 @@ export class AuthService {
       );
   }
 
-  public logout(): void {
+  public logoutUser(): void {
     this.loggedIn.set(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'])
+      .then((response: any) => response);
+  }
+
+  public changePassword(email: string, newPassword: string): any {
+    if (newPassword) {
+      return this.http.post(`${ this.apiUrl }/auth/change-password`, { email, newPassword })
+        .subscribe((response: any) => console.log(response));
+    } else {
+      console.error('Error changing password');
+    }
   }
 
   /** PRIVATE METHODS */

@@ -8,20 +8,24 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "../../../../services/auth/auth.service";
 
 @Component({
-  selector: 'app-change-Password',
+  selector: 'app-change-password',
   standalone: true,
   imports: [ CommonModule, InputContainerComponent, ConfirmModalComponent ],
   templateUrl: './change-password.view.html'
 })
 export class ChangePasswordView {
   public isModalOpen: boolean = false;
-  public temporaryPassword!: any;
+  public temporaryPassword: any = {
+    'currentPassword': '',
+    'newPassword': '',
+    'confirmNewPassword': ''
+  };
   public changePasswordDataTargets: ChangeData[] = [
-    { 'type': 'current-password', 'target': '' },
-    { 'type': 'new-password', 'target': '' },
-    { 'type': 'confirm-new-password', 'target': '' },
+    { 'type': 'currentPassword', 'target': '' },
+    { 'type': 'newPassword', 'target': '' },
+    { 'type': 'confirmNewPassword', 'target': '' },
   ]
-  private userId = this.userService.userState().userId;
+  protected readonly confirm = confirm;
 
   constructor(
     private userService: UserService,
@@ -30,32 +34,49 @@ export class ChangePasswordView {
   ) {}
 
   /** PUBLIC METHODS */
-  public handleChangePassword(newPassword: any): void {
-    // DISPLAY MODAL IF Password IS EDITED
-    if (newPassword[0].target && newPassword[0].target !== this.userService.userState().Password) {
-      this.temporaryPassword = newPassword;
-      this.isModalOpen = true;
+  public handlePasswordInput(data: any): void {
+    try {
+      if (data.type) {
+        this.temporaryPassword[data.type] = data.value;
+        // // CHECK IF ALL FIELDS ARE FILLED
+        if (this.temporaryPassword.currentPassword && this.temporaryPassword.newPassword && this.temporaryPassword.confirmNewPassword) {
+          if (this.temporaryPassword.newPassword === this.temporaryPassword.confirmNewPassword) {
+            this.isModalOpen = true;
+          } else {
+            this.isModalOpen = false;
+            this.snackBar.open('New passwords do not match', 'Dismiss', { duration: 5000 });
+          }
+        }
+      }
+    } catch (error: any) {
+      console.error('Error in password input:', error);
     }
   }
 
   public confirmChangePassword(confirm: boolean): void {
     if (confirm) {
-      this.changePassword(this.temporaryPassword);
-      this.isModalOpen = false;
-      this.snackBar.open(`Password successfully changed to ${ this.temporaryPassword[0].target }`, 'Dismiss', { duration: 5000 })
+      // VALIDATE USER EMAIL/PASSWORD AGAINST DATABASE
+      this.authService.validateUser(this.userService.userState().email, this.temporaryPassword.currentPassword)
+        .subscribe((response: any): void => {
+          if (response.username) {
+            // CHANGE PASSWORD IF VALID RESPONSE RECEIVED
+            this.changePassword();
+            this.snackBar.open(`Password successfully changed`, 'Dismiss', { duration: 5000 });
+            return;
+          } else {
+            // DISPLAY ERROR IF INVALID RESPONSE RECEIVED
+            this.snackBar.open(`Current password is incorrect.`, 'Dismiss', { duration: 5000 });
+            return;
+          }
+        });
     } else {
-      this.snackBar.open('Password change canceled', 'Dismiss', { duration: 5000 })
-      this.isModalOpen = false;
+      this.snackBar.open('Password change canceled', 'Dismiss', { duration: 5000 });
     }
+    this.isModalOpen = false;
   }
 
-  public changePassword(newPassword: any): void {
-    try {
-      // UPDATE USER RECORD IN DATABASE
-      this.authService.validateUser(this.userId, newPassword);
-    } catch (error) {
-      // LOG ERROR TO CONSOLE
-      console.error('Error:', error);
-    }
+  /** PRIVATE METHODS */
+  private changePassword(): void {
+    this.authService.changePassword(this.userService.userState().email, this.temporaryPassword.newPassword)
   }
 }
