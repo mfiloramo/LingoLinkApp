@@ -31,8 +31,6 @@ export class DeleteAccountView {
 
   /** PUBLIC METHODS */
   public setPassword(password: string): void {
-    // TODO: THIS IS NO LONGER SETTING PASSWORD; MUST FIX
-    console.log('setPassword pinged')
     this.password = password;
   }
 
