@@ -35,7 +35,6 @@ export class DeleteAccountView {
   }
 
   public confirmDeleteAccount(email: string, password: any): void {
-    console.log('email', email, 'password', password);
     if (email && password) {
       try {
         this.authService.validateUser(email, password)

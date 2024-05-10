@@ -11,7 +11,7 @@ import { Language } from "../../../interfaces/Language.interfaces";
   providedIn: 'root',
 })
 export class TranslationService {
-  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8081/api';
+  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8080/api';
   public readonly languageArray: Language[] = languageArray;
 
   constructor(private http: HttpClient) {}

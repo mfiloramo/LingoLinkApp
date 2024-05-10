@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class MessageService {
-  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8081';
+  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8080';
   public user: object = {};
 
   constructor(private http: HttpClient) {}
