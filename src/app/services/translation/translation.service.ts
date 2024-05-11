@@ -11,7 +11,7 @@ import { Language } from "../../../interfaces/Language.interfaces";
   providedIn: 'root',
 })
 export class TranslationService {
-  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8080/api';
+  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:3000/api';
   public readonly languageArray: Language[] = languageArray;
 
   constructor(private http: HttpClient) {}
@@ -20,7 +20,7 @@ export class TranslationService {
   public getLiveTranslation(payload: TranslationPayload): Observable<any> {
     return this.http
       .post(`${ this.apiUrl }/translate`, payload)
-      .pipe(map((response: object) => response))
+      .pipe(map((response: object) => response));
   }
 
   public getStoredTranslation(translationKey: string): string | null {

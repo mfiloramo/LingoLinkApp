@@ -7,8 +7,8 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class MessageService {
-  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:8080';
+export class MessageService {3000
+  public apiUrl: string = environment.apiBaseUrl || 'http://localhost:';
   public user: object = {};
 
   constructor(private http: HttpClient) {}

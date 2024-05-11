@@ -18,6 +18,7 @@ export class LanguageSelectorComponent {
     this.languageArray.sort((a: Language, b: Language) => a.name!.localeCompare(b.name!));
   }
 
+  // TODO: REFINE AVAILABLE LANGUAGES, OR USE API CALL TO GET AVAILABLE LANGUAGES
   /** PUBLIC METHODS */
   public selectLanguage(selectedLanguageEvent: any): void {
     const selectedLanguageCode = selectedLanguageEvent.target.value;

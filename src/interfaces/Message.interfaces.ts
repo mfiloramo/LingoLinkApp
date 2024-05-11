@@ -8,7 +8,6 @@ export interface ChatMessage {
 }
 
 export interface TranslationPayload {
-  readonly user: number;
   readonly sourceLanguage: string;
   readonly targetLanguage: string;
   textInput: string;
