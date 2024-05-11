@@ -1,22 +1,22 @@
-// CORE MODULES
+// CORE MODULE IMPORTS
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { catchError, switchMap } from 'rxjs/operators';
 import { firstValueFrom, of } from 'rxjs';
 
-// CUSTOM SERVICES
+// CUSTOM SERVICE IMPORTS
 import { TranslationService } from '../../services/translation/translation.service';
 import { WebSocketService } from '../../services/web-socket/web-socket.service';
 import { UserService } from "../../services/user/user.service";
 import { ConversationService } from "../../services/conversation/conversation.service";
 import { MessageService } from '../../services/message/message.service';
 
-// INTERFACES
+// INTERFACE IMPORTS
 import { ChatMessage } from '../../../interfaces/Message.interfaces';
 import { Conversation } from '../../../interfaces/Conversation.interfaces';
 
-// UTILITIES
+// UTILITY IMPORTS
 import languageArray from '../../../utils/languageMapper';
 
 
@@ -210,7 +210,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   /** PRIVATE METHODS */
   private connectWebSocket(): void {
-    // CONNECT TO WEBSOCKET VIA NG SERVICE
+    // CONNECT TO WEBSOCKET VIA WEBSOCKET SERVICE
     this.webSocketService.connect();
 
     // LISTEN FOR INCOMING MESSAGES OVER WEBSOCKET CONNECTION
@@ -227,7 +227,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
           // TRANSLATE MESSAGE IF NEEDED
           if (sourceLanguage !== targetLanguage) {
             message.textInput = await this.translationService.getLiveTranslation({
-              user: this.userService.userState().userId,
               textInput: message.textInput,
               sourceLanguage: sourceLanguage,
               targetLanguage: targetLanguage
@@ -252,7 +251,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
       if (!storedTranslation) {
         storedTranslation = await firstValueFrom(this.translationService.getLiveTranslation({
-          user: this.userService.userState().userId,
           textInput: message.textInput,
           sourceLanguage: message.sourceLanguage,
           targetLanguage: this.userService.userState().defaultLanguage

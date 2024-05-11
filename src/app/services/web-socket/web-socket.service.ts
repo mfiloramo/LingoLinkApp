@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 })
 export class WebSocketService {
   @Output() updateChatbox: EventEmitter<void> = new EventEmitter<void>();
-  public webSocketUrl = environment.websocketHost || 'ws://localhost:8080'
+  public webSocketUrl = environment.websocketHost || 'ws://localhost:3000'
   private readonly RECONNECT_INTERVAL: number = 5000;
   private webSocket: any;
 
