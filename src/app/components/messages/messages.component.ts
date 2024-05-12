@@ -37,7 +37,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   public isLoading: boolean = false;
   public conversationStarterName!: string;
   public conversationStarterPic!: string;
-  public languageSelectorStyling: object = { 'background-color': '#989aad', 'width': '100px', 'height': '35px', 'font-size': '16px', 'padding-left': '0px', 'color': 'black' };
+  public languageSelectorStyling: object = { 'width': '100px', 'height': '35px', 'font-size': '16px', 'padding-left': '0px', 'color': 'black' };
 
 
   constructor(
@@ -244,6 +244,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
       });
   }
 
+  // TODO: DISABLE INITIAL LANGUAGE CHECK WHILE ITERATING THROUGH MESSAGES
   private async cacheCheckTranslation(message: ChatMessage): Promise<string> {
     try {
       const translateKey: string = `${ message.messageId }_${ this.userService.userState().defaultLanguage }`;
