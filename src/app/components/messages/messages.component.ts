@@ -40,6 +40,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   public languageSelectorStyling: object = { 'width': '100px', 'height': '35px', 'font-size': '16px', 'padding-left': '0px', 'color': 'black' };
 
 
+
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
@@ -47,7 +48,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     private webSocketService: WebSocketService,
     private conversationService: ConversationService,
     private messageService: MessageService,
-    public userService: UserService,
+    public userService: UserService
   ) {
     this.audio.src = '../../assets/sounds/clickSound.mp3';
     this.languageArray.sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name));
@@ -178,21 +179,21 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
     try {
       const response: any = await this.messageService.loadMessages(conversationId).toPromise();
-      const messages: ChatMessage[] = response;
+      // TODO: ADD USER CONTROLS FOR CONVERSATION AUTO-TRANSLATE (WITH WARNING)
+      // DISABLED (PERFORMANCE/LATENCY ISSUES): TRANSLATE MESSAGES ASYNCHRONOUSLY AND WAIT FOR ALL TO COMPLETE
+      // const messages: ChatMessage[] = response;
+      // const translationPromises: Promise<string>[] = messages.map((message: ChatMessage): Promise<string> =>
+      //   message.sourceLanguage !== this.userService.userState().defaultLanguage
+      //     ? this.cacheCheckTranslation(message)
+      //     : Promise.resolve(message.textInput)
+      // );
+      //
+      // const translatedTexts: any = await Promise.all(translationPromises);
+      //
+      // // ASSIGN TRANSLATED TEXTS BACK TO MESSAGES
+      // messages.forEach((message: ChatMessage, index: number) => message.textInput = translatedTexts[index]);
 
-      // TRANSLATE ALL MESSAGES ASYNCHRONOUSLY AND WAIT FOR ALL TO COMPLETE
-      const translationPromises: Promise<string>[] = messages.map((message: ChatMessage): Promise<string> =>
-        message.sourceLanguage !== this.userService.userState().defaultLanguage
-          ? this.cacheCheckTranslation(message)
-          : Promise.resolve(message.textInput)
-      );
-
-      const translatedTexts: any = await Promise.all(translationPromises);
-
-      // ASSIGN TRANSLATED TEXTS BACK TO MESSAGES
-      messages.forEach((message: ChatMessage, index: number) => message.textInput = translatedTexts[index]);
-
-      this.messagesContainer = messages;
+      this.messagesContainer = response;
     } catch (error) {
       console.error('Failed to load messages:', error);
     } finally {
