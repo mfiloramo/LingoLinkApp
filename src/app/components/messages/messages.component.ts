@@ -234,18 +234,17 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
             }).toPromise();
           }
 
-            // PUSH MESSAGE TO SELECTED CONVERSATION
-            if (message.conversationId === this.conversationService.conversationSelected().conversationId) {
-              this.messagesContainer.push(message);
-            }
+          // TODO: RE-ENABLE MESSAGE CACHING ONMESSAGE
 
+          // PUSH MESSAGE TO SELECTED CONVERSATION
+          if (message.conversationId === this.conversationService.conversationSelected().conversationId) {
+            this.messagesContainer.push(message);
+          }
         };
-
         reader.readAsText(event.data);
       });
   }
 
-  // TODO: DISABLE INITIAL LANGUAGE CHECK WHILE ITERATING THROUGH MESSAGES
   private async cacheCheckTranslation(message: ChatMessage): Promise<string> {
     try {
       const translateKey: string = `${ message.messageId }_${ this.userService.userState().defaultLanguage }`;
